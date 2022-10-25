@@ -1,0 +1,123 @@
+<h3 class="font-weight-bold">Tax Type</h3>
+<div>
+  <div class="m-3">
+    <p-table
+      [value]="taxtypes"
+      [paginator]="true" [rows]="4"
+      [resizableColumns]="true"
+      (onEditComplete)="performUpdate($event)"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pResizableColumn scope="col" translate>Org ID</th>
+          <th pResizableCoZlumn>Code</th>
+          <th pResizableColumn>Description</th>
+          <th pResizableColumn>Enable</th>
+          <th pResizableColumn scope="col">
+            <button
+              type="button"
+         
+              class="btn btn-primary"
+              (click)="clearForm()"
+              translate
+            >
+              Add New
+            </button>
+          </th>
+        </tr>
+
+        <tr *ngIf="IsAddFormVisible">
+          <td class="col-sm-9">
+            <select
+              class="form-control"
+              [(ngModel)]="taxtype.org_ID"
+              #getdef_VATBusPostingGroup="ngModel"
+              name="org_ID"      
+               placeholder="org_ID  "
+              id="org_ID"
+              required
+            >
+              <option disabled>select</option>
+              <option
+                *ngFor="let org of name_Ens"
+                [value]="org._code"
+              >
+                {{ org._name }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="taxtype.code"
+              class="form-control"
+              name="code"
+              placeholder="Code"
+              id="code"
+              required
+            />
+          </td>
+          <td class="p-2">
+            <input
+              type="text"
+              [(ngModel)]="taxtype.description"
+              class="form-control"
+              name="description"
+              placeholder="Description"
+              id="description"
+              required
+            />
+          </td>
+           <td class="p-2">
+            <input
+              type="checkbox"
+              [(ngModel)]="taxtype.enable"
+              class="form-control"
+              name="Enable"
+              placeholder="enable"
+              id="active"
+              required
+            />
+          </td>
+          <td scope="col" rowspan="2" style="text-align: center">
+            <button
+              type="button"
+           
+              class="btn btn-primary"
+              (click)="registertaxtype()"
+              translate
+            >
+              Save
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-taxtypes>
+          <tr>
+            <td>
+              {{ taxtypes.org_ID }}
+            </td>
+             <td>
+              {{ taxtypes.code }}
+            </td> 
+            <td>
+              {{ taxtypes.description }}
+            </td>
+             <td>
+              {{ taxtypes.enable }}
+            </td>
+          <td>
+            <button
+            type="button"
+            class="btn btn-primary"
+              (click)="deletetaxtypes(taxtypes)"
+            >
+              <i class="pi pi-trash"></i>
+              Delete
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

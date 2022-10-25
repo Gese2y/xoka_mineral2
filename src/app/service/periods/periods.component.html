@@ -1,0 +1,183 @@
+<h3 class="font-weight-bold">Period</h3>
+<div>
+  <div class="m-3">
+    <p-checkbox
+              type="checkbox"
+              class="p-field-checkbox"
+              translate
+              (click)="getisactive()"
+              
+            >
+            </p-checkbox><label [ngStyle]="{color:'var(--blue-100)'}" for="ny">Active</label><br><br>
+  
+    <p-table
+      [value]="periods"
+      [paginator]="true" [rows]="3"
+      [resizableColumns]="true"
+      (onEditComplete)="performUpdate($event)"
+    >
+      <ng-template pTemplate="header">
+        
+        <tr>
+          <th pResizableColumn scope="col" translate>Start Date</th>
+          <th pResizableColumn scope="col" translate>End Date</th>
+          <th pResizableCoZlumn>Name</th>
+          <!-- <th pResizableColumn>Date Locked</th> -->
+          <th pResizableColumn>New Fiscal Year</th> 
+          <th pResizableColumn>Year</th>
+          <th pResizableColumn>Inventory Period Closed</th>
+          <th pResizableColumn scope="col">
+          
+            <button
+              type="button"
+         
+              class="btn btn-primary"
+              (click)="clearForm()"
+              translate
+            >
+              Add New
+            </button>
+          </th>
+        </tr>
+        <tr *ngIf="IsAddFormVisible">
+        <td class="p-2">
+          <input
+            type="date"
+            [(ngModel)]="procAdPeriods.startDate"
+            class="form-control"
+            name="startDate"
+            placeholder="startDate"
+            id="startDate"
+            required
+          />
+        </td>
+         <td class="p-2">
+          <input
+            type="date"
+            [(ngModel)]="procAdPeriods.endDate"
+            class="form-control"
+            name="endDate"
+            placeholder="endDate"
+            id="endDate"
+            required
+          />
+        </td>
+          
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="procAdPeriods.name"
+              class="form-control"
+              name="name"
+              placeholder="name"
+              id="name"
+              required
+            />
+          </td>
+          <!-- <td class="p-2">
+            <input
+              type="checkbox"
+              [(ngModel)]="procAdPeriods.date_Locked"
+              class="form-control"
+              name="date_Locked"
+              placeholder="date_Locked"
+              id="date_Locked"
+              required
+            />
+          </td> -->
+           <td class="p-2">
+            <input
+              type="checkbox"
+              [(ngModel)]="procAdPeriods.new_Fiscal_Year"
+              class="form-control"
+              name="new_Fiscal_Year"
+              placeholder="new_Fiscal_Year"
+              id="new_Fiscal_Year"
+              required
+            />
+          </td>  
+         
+
+          <td class="col-sm-9">
+            <select
+              class="form-control"
+              [(ngModel)]="procAdPeriods.year"
+              name="year"      
+               placeholder="year"
+              id="year"
+              required
+            >
+              <option disabled>select</option>
+              <option
+                *ngFor="let years of year"
+                [value]="years.year"
+              >
+                {{ years.year }}
+              </option>
+            </select>
+          </td>
+           <td class="p-2">
+            <input
+              type="checkbox"
+              [(ngModel)]="procAdPeriods.inventory_Period_Closed"
+              class="form-control"
+              name="inventory_Period_Closed"
+              placeholder="inventory_Period_Closed"
+              id="inventory_Period_Closed"
+              required
+            />
+          </td>
+          <td scope="col" rowspan="2" style="text-align: center">
+            <button
+              type="button"
+           
+              class="btn btn-primary"
+              (click)="registerprocAdPeriods()"
+              translate
+            >
+              Save
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-procAdPeriods>
+        <tr>
+          <td>
+            {{ procAdPeriods.startDate }}
+          </td>
+           <td>
+            {{ procAdPeriods.endDate }}
+          </td> 
+          
+           <td>
+            {{ procAdPeriods.name }}
+          </td> 
+          <!-- <td>
+            {{ procAdPeriods.date_Locked }}
+          </td> -->
+           <td>
+            {{ procAdPeriods.new_Fiscal_Year }}
+          </td> 
+          
+           <td>
+            {{ procAdPeriods.year }}
+          </td> 
+          <td>
+            {{ procAdPeriods.inventory_Period_Closed }}
+          </td>
+        <td>
+          <button
+          type="button"
+          class="btn btn-primary"
+            (click)="deleteperiods(procAdPeriods)"
+          >
+            <i class="pi pi-trash"></i>
+            Delete
+          </button>
+        </td> 
+       
+      </tr>
+    </ng-template>
+    </p-table>
+  </div>
+</div>

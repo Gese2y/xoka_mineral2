@@ -1,0 +1,235 @@
+<h3 class="font-weight-bold">Mineral Use</h3>
+<div>
+  <div class="m-3">
+    
+  
+    <p-table
+      [value]="mineralUse"
+      [paginator]="true" [rows]="3"
+      [resizableColumns]="true"
+      (onEditComplete)="performUpdate($event)"
+    >
+      <ng-template pTemplate="header">
+        
+        <tr>
+          <th pResizableColumn scope="col" translate>Resouce ID</th>
+          <th pResizableColumn scope="col" translate>Plot ID</th>
+          <th pResizableColumn scope="col" translate>GIS Plot</th>
+          <th pResizableCoZlumn>Customer ID</th>
+          <th pResizableColumn>Is Active</th>
+          <th pResizableColumn>Remark</th> 
+          <th pResizableColumn scope="col">
+          
+            <button
+              type="button"
+         
+              class="btn btn-primary"
+              (click)="clearForm()"
+              translate
+            >
+              Add New
+            </button>
+          </th>
+        </tr>
+        <tr *ngIf="IsAddFormVisible">
+          <td class="col-sm-9">
+            <select
+              class="form-control"
+              [(ngModel)]="mineralUse.Resource_ID"
+              #getdef_VATBusPostingGroup="ngModel"
+              name="Resource_ID"      
+               placeholder="Resource_ID  "
+              id="Resource_ID"
+              required
+            >
+              <option disabled>select</option>
+              <option
+                *ngFor="let resources of ResourceID"
+                [value]="resources.Resource_ID"
+              >
+                {{ resources.Resource_ID }}
+              </option>
+            </select>
+          </td>
+          <td>  <input type="text" class="form-control form-control-sm" id="Plot_ID" placeholder="Plot_ID"  
+            (click)="isAccountVisible=true" 
+             [(ngModel)]="mineralUse.Plot_ID" name ="Plot_ID" readonly>          
+            <p-dialog
+              header="Plot ID" 
+              [(visible)]="isAccountVisible"
+              [modal]="true"
+              [responsive]="true"
+              [width]="500"
+              [minWidth]="200"
+              [minY]="70"
+              [maximizable]="true"
+              [baseZIndex]="10000"
+            >
+              <p-table [value]="accountNoo" [paginator]="true" [rows]="7"  [globalFilterFields]="['value','lable']" 
+              #ptable
+            >
+            <ng-template pTemplate="caption">
+              <div class="flex">
+                  <span class="p-input-icon-left ml-auto">
+                  <div style="width: 100%;">
+                    <i class="pi pi-search"></i>
+                    <input  class="form-control" (input)="ptable.filterGlobal($event.target.value, 'contains')" placeholder="Search Globally" />
+                  </div>  
+                 </span>
+             </div>  </ng-template>
+             <ng-template pTemplate="header">
+             <tr scope="col" translate>
+             <th>IS Active</th>
+            </tr>
+           </ng-template>
+                <ng-template pTemplate="body" let-account>
+                    <tr (click)="onAccountSelectionChange(account)">
+                      <td>{{account.value}}</td>
+                      <td>{{account.label}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                  <tr>
+                      <td>
+                          No records found
+                      </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </p-dialog>
+          </td>
+         <td class="p-2">
+          <input
+            type="text"
+            [(ngModel)]="mineralUse.GIS_Plot"
+            class="form-control"
+            name="GIS_Plot"
+            placeholder="GIS_Plot"
+            id="GIS_Plot"
+            required
+          />
+        </td>
+          <td>  <input type="text" class="form-control form-control-sm" id="Customer_ID" placeholder="Customer_ID"  
+            (click)="isAccountModalVisible=true" 
+             [(ngModel)]="mineralUse.Customer_ID" name ="Customer_ID" readonly>          
+            <p-dialog
+              header="Customer ID" 
+              [(visible)]="isAccountModalVisible"
+              [modal]="true"
+              [responsive]="true"
+              [width]="500"
+              [minWidth]="200"
+              [minY]="70"
+              [maximizable]="true"
+              [baseZIndex]="10000"
+            >
+              <p-table [value]="accountNoos" [paginator]="true" [rows]="7"  [globalFilterFields]="['value','lable']" 
+              #ptable
+            >
+            <ng-template pTemplate="caption">
+              <div class="flex">
+                  <span class="p-input-icon-left ml-auto">
+                  <div style="width: 100%;">
+                    <i class="pi pi-search"></i>
+                    <input  class="form-control" (input)="ptable.filterGlobal($event.target.value, 'contains')" placeholder="Search Globally" />
+                  </div>  
+                 </span>
+             </div>  </ng-template>
+             <ng-template pTemplate="header">
+             <tr scope="col" translate>
+             <th>ID</th>
+             <th>Name</th>
+             <th>IS Active</th></tr>
+           </ng-template>
+                <ng-template pTemplate="body" let-account>
+                    <tr (click)="onAccountSelectionChange(account)">
+                      <td>{{account.value}}</td>
+                      <td>{{account.label}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                  <tr>
+                      <td>
+                          No records found
+                      </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </p-dialog>
+          </td>
+          
+           <td class="p-2">
+            <input
+              type="checkbox"
+              [(ngModel)]="mineralUse.Is_Active"
+              class="form-control"
+              name="Is_Active"
+              placeholder="Is_Active"
+              id="Is_Active"
+              required
+            />
+          </td> 
+           <td class="p-2">
+            <input
+              type="text"
+              [(ngModel)]="mineralUse.Remark"
+              class="form-control"
+              name="Remark"
+              placeholder="Remark"
+              id="Remark"
+              required
+            />
+          </td>
+          <td scope="col" rowspan="2" style="text-align: center">
+            <button
+              type="button"
+           
+              class="btn btn-primary"
+              (click)="registerMineraluse()"
+              translate
+            >
+              Save
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-mineralUse>
+        <tr>
+          <td>
+            {{ mineralUse.Resourse_ID }}
+          </td>
+           <td>
+            {{ mineralUse.Plot_ID }}
+          </td> 
+          
+           <td>
+            {{ mineralUse.GIS_Plot_ID }}
+          </td> 
+          <td>
+            {{ mineralUse.Customer_ID }}
+          </td> 
+            <td>
+            {{ mineralUse.Is_Active }}
+          </td> 
+          
+           <td>
+            {{ mineralUse.Remarks }}
+          </td> 
+          
+        <td> 
+          <!-- <button
+          type="button"
+          class="btn btn-primary"
+            (click)="deletemineral(mineralUse)"
+          >
+            <i class="pi pi-trash"></i>
+            Delete
+          </button>  -->
+
+                </td> 
+       
+      </tr>
+    </ng-template>
+    </p-table>
+  </div>
+</div>

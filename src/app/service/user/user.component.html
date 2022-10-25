@@ -1,0 +1,68 @@
+
+  <div class="card-body table-responsive">
+      <table class="table table-bordered">
+          <thead class="thead-light">
+              <tr>
+                  <th scope="row" translate>Latitude</th>
+                  <th scope="row" translate>Longitude</th>
+              </tr>
+              <!-- <td class="p-2">
+                <input
+                  type="text"
+                  [(ngModel)]="site.Latitude"
+                  class="form-control"
+                  name="Latitude"
+                  placeholder="Latitude"
+                  id="Latitude"
+                  required
+                />
+              </td> -->
+               <!-- <td class="p-2">
+                <input
+                  type="text"
+                  [(ngModel)]="site.Longitude"
+                  class="form-control"
+                  name="Longitude"
+                  placeholder="Longitude"
+                  id="Longitude"
+                  required
+                />
+              </td>  -->
+          </thead> 
+          <tbody>
+              <!-- <tr *ngIf="isTaken=='yes'"><td colspan="5"><b style="font-size: 1.2em;"> -->
+                <!-- <small class="text-center text-danger">This User ID is already Taken....</small></b></tr> -->
+              <!-- <tr *ngIf="isTaken=='no'"><td colspan="5"><b style="font-size: 1.2em;"> -->
+                <!-- <small  class="text-center text-info">You can select it...Click Save</small></b></td></tr> -->
+             <!-- <tr tabindex="1"  *ngFor="let user of userList | paginate: config;" class="onhover"> -->
+                 <!-- <td (click)="setUserID(user.userId)">{{user.userId }}</td> -->
+                 <!-- <td (click)="setUserID(user.userId)">{{user.userName }}</td> -->
+                 <!-- <td (click)="setUserID(user.userId)">{{user.firstName_en }}</td>
+                 <td (click)="setUserID(user.userId)">{{user.lastName_en }}</td>
+                 <td (click)="setUserID(user.userId)">{{user.is_Employee }}</td> -->
+             <!-- </tr> -->
+          </tbody>
+      </table>
+      <div class=" float-right">
+
+          <button type="button"  class="btn btn-primary mr-2" (click)="submitForm()" translate>Save</button>
+          <button type="button" mat-button (click)="close()" translate>Close</button>
+        </div>
+        <div style="text-align: center">
+          <pagination-controls
+                       [maxSize]="maxSize"
+                       [directionLinks]="directionLinks"
+                       [autoHide]="autoHide"
+                       [responsive]="responsive"
+                       [previousLabel]="labels.previousLabel"
+                       [nextLabel]="labels.nextLabel"
+                       [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+                       [screenReaderPageLabel]="labels.screenReaderPageLabel"
+                       [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+                       (pageChange)="onPageChange($event)"></pagination-controls>
+                      </div>
+
+  </div>
+
+
+

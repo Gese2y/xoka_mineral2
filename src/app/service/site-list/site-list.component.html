@@ -1,0 +1,58 @@
+<tabset #tabset>
+  <tab heading="Add New Site">
+    <app-site></app-site>
+  </tab>
+
+  <tab heading="View Site ">
+    <div class="m-3 row"> 
+      <div class="col-md-3">
+      </div>
+
+      <div >
+        <p-table [value]="site" [paginator]="true" [rows]="5">
+          <ng-template pTemplate="header">
+            <tr>
+              <th scope="col" translate>Site_ID</th>
+              <th scope="col" translate>Site_Name</th>
+              <th scope="col" translate>Region</th>
+              <th scope="col" translate>Zone</th>
+              <th scope="col" translate>Woreda</th>
+              <th scope="col" translate>Kebele_Locality</th>
+              <th scope="col" translate>Date_Registered </th>
+              <th scope="col" translate>Coordinate </th>
+              <th scope="col" translate>Status </th>
+              <th scope="col" translate>Is_Active</th>
+              <th scope="col" translate>Remarks</th>
+            
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-site>
+            <tr>
+              <td>{{ site.Site_ID }}</td>
+              <td>{{ site.Site_Name }}</td>
+              <td>{{ site.Region }}</td>
+              <td>{{ site.Zone }}</td>
+              <td>{{ site.Woreda }}</td>
+              <td>{{ site.Kebele_Locality }}</td>
+              <td>{{ site.Date_Registered }}</td>
+              <td>{{ site.Coordinate }}</td>
+              <td>{{ site.Status }}</td>
+              <td>{{ site.Is_Active }}</td>
+              <td>{{ site.Remarks }}</td>
+              <td>
+                <!-- <button
+            type="button"
+            class="btn btn-primary"
+                  (click)="selectsite($event, site)"
+                  translate
+                >
+                  Edit
+                </button> -->
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+    </div>
+    </div>
+  </tab> 
+</tabset>

@@ -1,0 +1,335 @@
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-8">
+      <form>
+        <!-- <div class="col-md-12 row form-group">
+          <label
+            for="BankReconciliation"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >BankReconciliation</label
+          >
+          <div class="col-sm-9">
+            <p-autoComplete
+              *ngIf="!edit_form"
+              name="bankReconciliation_ID"
+              filter="true"
+              [(ngModel)]="bankReconciliation.bankReconciliation_ID"
+              [suggestions]="bankReconciliationsSearchResult"
+              (completeMethod)="searchBankReconciliations($event)"
+              field="bankReconciliation_ID"
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.bankReconciliation_ID
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.bankReconciliation_ID }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+
+            <input
+              *ngIf="edit_form"
+              type="text"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.bankReconciliation_ID"
+              #branch_ID="ngModel"
+              name="bankReconciliation_ID"
+              disabled
+            />
+          </div>
+        </div> -->
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="branch_ID"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Branch id</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.branch_ID"
+              #branch_ID="ngModel"
+              name="branch_ID"
+              placeholder=" "
+              id="branch_ID"
+              required
+              disabled
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="trans_ID"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Trans ID</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.trans_ID"
+              #trans_ID="ngModel"
+              name="trans_ID"
+              placeholder="click me "
+              id="trans_ID"
+              (click)="clickedtrans()"
+              readonly
+              required
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="transaction_Date"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Transaction date</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.transaction_Date"
+              #transaction_Date="ngModel"
+              name="transaction_Date"
+              placeholder=" "
+              id="transaction_Date"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label for="type_Bank_Reconcilliation" class="col-sm-3 col-form-label"
+            >Reconciliation Type</label
+          >
+          <div class="col-sm-9">
+            <p-dropdown
+              id="type_Bank_Reconcilliation"
+              [options]="reconciliationTypes"
+              [(ngModel)]="bankReconciliation.type_Bank_Reconcilliation"
+              name="type_Bank_Reconcilliation"
+              autofocus
+              filter="true"
+              placeholder="Select blood group"
+            >
+              <ng-template let-selectedItem pTemplate="selectedItem">
+                {{ selectedItem.value }}
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                {{ item.label }}
+              </ng-template>
+            </p-dropdown>
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="description"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Description</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.description"
+              #description="ngModel"
+              name="description"
+              placeholder=" "
+              id="description"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="statement_Amount"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Statement amount</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.statement_Amount"
+              #statement_Amount="ngModel"
+              name="statement_Amount"
+              placeholder=" "
+              id="statement_Amount"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="applied_Amount"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Applied amount</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.applied_Amount"
+              #applied_Amount="ngModel"
+              name="applied_Amount"
+              placeholder=" "
+              id="applied_Amount"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="difference"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Difference</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.difference"
+              #difference="ngModel"
+              name="difference"
+              placeholder=" "
+              id="difference"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button
+            type="button"
+            *ngIf="!edit_form"
+            (click)="registerBankReconciliation()"
+            value="Save bankReconciliation"
+            class="btn btn-primary"
+          >
+            Save bankReconciliation
+          </button>
+
+          <button
+            type="button"
+            *ngIf="edit_form"
+            (click)="updateBankReconciliation()"
+            value="Save bankReconciliation"
+            class="btn btn-primary"
+          >
+            Update bankReconciliation
+          </button>
+
+          <button
+            type="button"
+            *ngIf="edit_form"
+            (click)="deleteBankReconciliation()"
+            value="Save bankReconciliation"
+            class="btn btn-danger mx-3"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-4">
+      Details
+      <a href="/#/" class="row">BankReconciliation History</a>
+      <a href="/#/" class="row">BankReconciliation Beginning Balance</a>
+      <a href="#/" class="row">Sales Info</a>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  header="Trans id"
+  [(visible)]="isvisible"
+  [modal]="true"
+  [responsive]="true"
+  [width]="450"
+  [minY]="70"
+  [maximizable]="true"
+  [baseZIndex]="10000"
+>
+  <p-table [value]="filtertransid" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="caption">
+      <div style="text-align: right">
+        <div class="ui-inputgroup">
+          <input
+            (input)="filtertrans($event.target.value)"
+            type="text"
+            class="form-control"
+            pInputText
+            placeholder="search"
+          />
+          <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th>statement_Date</th>
+        <th>statement_No</th>
+       <th>balance_Last_Statement</th>
+       <th>statement_Ending_Balance</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-buyers let-columns="columns">
+      <tr>
+        <td>
+          {{ buyers.statement_Date }}
+        </td>
+        <td>
+          {{ buyers.statement_No }}
+        </td>
+        <td>
+          {{ buyers.balance_Last_Statement }}
+        </td>
+       <td>
+         {{buyers.statement_Ending_Balance}}
+       </td>
+        <td>
+          <button
+            type="button"
+            (click)="selecttrans(buyers)"
+            class="btn btn-primary"
+          >
+            Select
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>
