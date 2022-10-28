@@ -100,27 +100,30 @@
                   class="fa fa-map"></span></button>
             </div> -->
             <div class="col-sm-6 flex">
-                <input type="text" class="form-control form-control-sm" id="Coordinate" placeholder="Coordinate" [(ngModel)]="site.Coordinate" name ="Coordinate" (click)="SiteService.DisplayCoordinate=true" readonly>
+                <input type="text" class="form-control form-control-sm" id="Coordinate" placeholder="Coordinate" 
+                [(ngModel)]="serviceService.cordinat" name ="Coordinate" 
+                (click)="SiteService.DisplayCoordinate=true" (click)="OnClickMap($event)" readonly>
             </div>
         </div>
-        <p-dialog [(visible)]="SiteService.DisplayCoordinate" [modal]="true" [responsive]="true" [style]="{'minHeight':'10%','height':'800px','minWidth':'10%','width':'80%' }" [maximizable]="true"
+        <p-dialog [(visible)]="SiteService.DisplayCoordinate" [modal]="true" [responsive]="true"
+         [style]="{'minHeight':'10%','height':'700px','minWidth':'10%','width':'80%' }" [maximizable]="true"
         [baseZIndex]="10000">
-        
           <p-header>
             <h4 class="modal-title pull-left" translate>Site Coordinate</h4>
           </p-header>
           <div class="modal-body">
-            <div style="min-width: 1000px">
+            <div style="min-width: 800px">
               <app-site-map></app-site-map>
             </div>
           </div>
-          <p-footer>
-            
-            <button type="button" class="btn btn-primary" *ngIf="!toogleSpin" (click)="finishSelection()" translate>select
+          <!-- <p-footer> -->
+            <!-- <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" *ngIf="toogleSpin"></p-progressSpinner> -->
+            <!-- <button type="button" class="btn btn-primary" *ngIf="!toogleSpin" (click)="finishSelection()" translate>select
             </button>
         
-          </p-footer>
-          <p-toast></p-toast>
+          </p-footer> -->
+        
+          
         </p-dialog>
 
           <div class="col-md-6 row form-group">

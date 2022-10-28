@@ -11,9 +11,13 @@ export class SiteListComponent implements OnInit {
 public site: any;
 @ViewChild("tabset") tabset: TabsetComponent;
   @Input() workingUser;
+  selectedFile: any;
+  selectedprofromtree: any;
+  toMes: boolean;
+  @Input() LicenceData;
   goto(id) {
     this.tabset.tabs[id].active = true;
-  }
+  } 
   Site: site;
   public edit_form = false;
 constructor(private SiteService: SiteService) {
@@ -35,7 +39,22 @@ constructor(private SiteService: SiteService) {
       }
     );
   }
+
+  EnableFinspronew(resourcedeposit) {
+    // this.propertyregForm = false;
+    this.selectedFile = resourcedeposit;
+    // this.completed.emit();
+    console.log('next to measurement');
+    this.toMes = true;
+    this.selectedprofromtree;
+    this.selectedprofromtree = {
+      Site_ID: site.Site_ID
+    };
+    this.getsite();
+  }
+
 }
 export class site{
+  static Site_ID: any;
 
 }

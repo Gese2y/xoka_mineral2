@@ -3,6 +3,7 @@ import { Guid } from 'guid-typescript';
 import { SiteService } from './Site.service';
 import { NotificationsService } from 'angular2-notifications';
 import { ServiceService } from '../service.service';
+import * as L from 'leaflet';
 
 
 @Component({
@@ -11,11 +12,20 @@ import { ServiceService } from '../service.service';
   styleUrls: ['./site.component.css']
 })
 export class SiteComponent implements OnInit {
+  map : any;
+  public coordinate = {
+    lon: null,
+    lat: null,
+  };
+  drawnItems = new L.FeatureGroup();
+  // private mapViewEvents = new NativeEmitter();
+public clickCoordinate: any;
 public IsAddFormVisible: any;
 public sites: any;
 public site:site;
 toogleSpin=false;
 displayGIS = false;
+Coordinate:any;
 message: any;
 public StatusList:site;
  public  RegionList: any;
@@ -25,6 +35,7 @@ public StatusList:site;
  @Input() licenceData;
  @Input() workingUser;
  @Output() saveDataCompleted = new EventEmitter();
+  BasicFormnew: any;
 // public edit_form:any;
   constructor(
     private SiteService: SiteService,
@@ -71,7 +82,9 @@ public StatusList:site;
         );
       }
     );
+  
   }
+  
   // registersite() {
   //   this.SiteService.addsite(this.site)
   //     .subscribe(
@@ -108,8 +121,6 @@ public StatusList:site;
     );
   }
   
-  
-
   saveData() {
     console.log(this.workingUser);
     this.serviceService
@@ -135,6 +146,14 @@ public StatusList:site;
           );
         }
       );
+  }
+onClickEvent() {
+    console.log(this.BasicFormnew.controls['Latitude'].value);
+    
+    let x = this.BasicFormnew.controls['Latitude'].value;
+    let y = this.BasicFormnew.controls['Longitude'].value;
+    let coordinate='POINT ('+ x +' ,'+ y +')';   
+    this.BasicFormnew.controls['coordinate'].setValue(coordinate)
   }
 
   public getLicenceService(saveDataResponse) {
@@ -167,7 +186,7 @@ public StatusList:site;
   }
   finishSelection() {
   
-    this.message.add(
+    this.message.registersite(
       { severity: 'success', summary: 'Map Selection', detail: 'Map is selected successfully!' }
     );
     this.toogleSpin = true;
@@ -177,10 +196,34 @@ public StatusList:site;
     }, 1000);
   
   {
-    this.message.add(
+    this.message.registersite(
       { severity: 'warn', summary: 'Map Selection', detail: 'Please select a Map first!' }
     );
   }
+}
+
+public OnClickMap(event) {
+  // let convertedEvent = this.map.mouseEventToLatLng(event);
+  // this.clickCoordinate = convertedEvent;
+  // console.log("converted event :: ", convertedEvent);
+  // console.log(this.BasicFormnew.controls['Latitude'].value);
+    let lat = this.site.Coordinate.value;
+    let lng = this.site.Coordinate.value;
+    let cordinat='POINT ('+ lat +' ,'+ lng +')';   
+    this.site.Coordinate = event.value;
+    this.IsAddFormVisible = false
+} 
+gotoCoordinate() {
+  console.log("lon : ", this.coordinate.lon, "\nlat : ", this.coordinate.lat);
+  if (this.coordinate.lon !== null && this.coordinate.lat !== null) {
+    this.map.panTo([this.coordinate.lat, this.coordinate.lon]);
+  }
+  let coords = {
+    lat: this.coordinate.lat,
+    lng: this.coordinate.lon,
+  };
+
+  L.marker(coords).addTo(this.map);
 }
 
 

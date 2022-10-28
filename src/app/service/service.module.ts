@@ -30,6 +30,7 @@ import {
   TabMenuModule,
   TabView,
   TabViewModule,
+  ProgressSpinnerModule,
 } from "primeng/primeng";
 import { FormDisplayComponent } from "./form-display/form-display.component";
 import { MaintainInventoryItemComponent } from "../service/maintain-InventoryItem/maintain-InventoryItem.component";
@@ -88,7 +89,6 @@ import { SiteListComponent } from './site-list/site-list.component';
 import {GMapModule} from 'primeng/gmap';
 import { SiteMapComponent } from './site-map/site-map.component';
 // import { AgmCoreModule } from '@agm/core';
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -99,7 +99,8 @@ import { SiteMapComponent } from './site-map/site-map.component';
     ServiceRoutingModule,
     AngularFontAwesomeModule,
     TreeModule,
-    NgxPaginationModule,
+ProgressSpinnerModule,
+NgxPaginationModule,
     TableModule,
     TabsModule.forRoot(),
     // AgmCoreModule.forRoot({

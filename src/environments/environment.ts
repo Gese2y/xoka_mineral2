@@ -19,6 +19,8 @@ export const environment = {
   // username: 'fruit',
   // username: 'Boss',
   phisicalPath: "./assets/i18n/",
+  localGisServer: window['local_GIS_server'],
+  wfsGeoServer: window['wfs_geoserver'],
   Lang: "10D04E8B-3361-E111-95D5-00E04C05559B",
   certReportPath: window["certReportPath"],
   LetterReportPath: window["LetterReportPath"],

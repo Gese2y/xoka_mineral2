@@ -54,6 +54,7 @@ export class ServiceService {
   AppNO;
   AppCode;
   desplayuserid: boolean;
+  cordinat: any;
   constructor(private http: HttpClient) {
     
   }

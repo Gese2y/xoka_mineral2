@@ -9,6 +9,8 @@ export const environment = {
   // formPath: '/DesktopModules/MVC/XOKA_SW_DNNModuleMyTask/Views/Item/assets/',
   username: window["_UserName"],
   phisicalPath: window["phisicalPath"],
+  localGisServer: window['local_GIS_server'],
+  wfsGeoServer: window['wfs_geoserver'],
   Lang: "10D04E8B-3361-E111-95D5-00E04C05559B",
   certReportPath: window["certReportPath"],
   LetterReportPath: window["LetterReportPath"],
