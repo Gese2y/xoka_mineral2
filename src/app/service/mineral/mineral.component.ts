@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MineralService } from "./mineral.service";
 import { NotificationsService } from "angular2-notifications";
 import { Guid } from 'guid-typescript';
+import { ServiceService } from '../service.service';
 
 @Component({
   selector: 'app-mineral',
@@ -18,9 +19,14 @@ public IsAddFormVisible: any;
   public Mineral_UseList: any;
   Chemical_ClassificationList: any;
   TenacityList: any;
+  urlParams: any;
+  @Input() licenceData;
+  @Input() workingUser;
+  @Output() saveDataCompleted = new EventEmitter();
   constructor(
 private MineralService: MineralService,
-private notificationsService: NotificationsService
+private notificationsService: NotificationsService,
+public serviceService:ServiceService,
   ) { 
     this.minerals = new minerals;
   }
@@ -61,12 +67,12 @@ private notificationsService: NotificationsService
     );
   }
   addmineral() {
-    console.log(this.mineral);  
-    this.MineralService.addmineral(this.mineral).subscribe(
+    console.log(this.minerals);  
+    this.MineralService.addmineral(this.minerals).subscribe(
       (response) => {
         this.getmineral();
         const toast = this.notificationsService.success("Success", "Saved");
-        this.closeup();
+        // this.closeup();
         this.clearForm();
       },
       (error) => {
@@ -79,6 +85,49 @@ private notificationsService: NotificationsService
       }
     );
   }
+
+  saveData() {
+    console.log(this.workingUser);
+    this.serviceService
+      .saveForm(
+        this.licenceData ? this.licenceData.Licence_Service_ID : "00000000-0000-0000-0000-000000000000",
+        this.licenceData ? this.licenceData.Service_ID : this.urlParams.id,
+        "c30c953e-7001-485a-80cd-7dd9d45b86f1",
+        "1e60f3a1-7017-47bf-95f4-f0e47c793c72",
+        "{}",
+        this.urlParams.docid || "00000000-0000-0000-0000-000000000000",
+        this.urlParams.todoID || "00000000-0000-0000-0000-000000000000"
+      )
+      .subscribe(
+        (response) => {
+          console.log("trans-resp", response);
+          this.getLicenceService(response);
+        },
+        (error) => {
+          console.log("save-data-error", error);
+          const toast = this.notificationsService.error(
+            "Error",
+            "SomeThing Went Wrong"
+          );
+        }
+      );
+  }
+
+  public getLicenceService(saveDataResponse) {
+    this.serviceService.getAll(saveDataResponse[0]).subscribe(
+      (response) => {
+        console.log("all-response", response);
+        let licenceData = response["list"][0];
+        this.saveDataCompleted.emit(saveDataResponse);
+     this.addmineral();
+      },
+      (error) => {
+        console.log("all-error" + error);
+      }
+    );
+  }
+
+
   clearForm(){
     this.mineral = {};
     this.IsAddFormVisible = !this.IsAddFormVisible;

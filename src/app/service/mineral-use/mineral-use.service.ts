@@ -24,4 +24,7 @@ export class MineralUseService {
   getmineralUse() {
     return this.http.get(this.mineralUseUrl);
   }
+  registermineralUse(mineralUse) {
+    return this.http.post(this.mineralUseUrl, mineralUse);
+  }
 }

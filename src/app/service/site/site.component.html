@@ -95,16 +95,32 @@
           </div> 
           <div class="col-md-6 row form-group">
             <label for="Coordinate"  class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Coordinate</label>
+            <!-- <div class="col-sm-1 ml-0 pl-0">
+              <button type="button" class="btn btn-primary" [disabled]="disable" (click)="displayGIS=true"><span
+                  class="fa fa-map"></span></button>
+            </div> -->
             <div class="col-sm-6 flex">
                 <input type="text" class="form-control form-control-sm" id="Coordinate" placeholder="Coordinate" [(ngModel)]="site.Coordinate" name ="Coordinate" (click)="SiteService.DisplayCoordinate=true" readonly>
             </div>
         </div>
-        <p-dialog [(visible)]="SiteService.DisplayCoordinate" [modal]="true" [responsive]="true" width="700" height="700"   [maximizable]="true" [baseZIndex]="10000">
-  
+        <p-dialog [(visible)]="SiteService.DisplayCoordinate" [modal]="true" [responsive]="true" [style]="{'minHeight':'10%','height':'800px','minWidth':'10%','width':'80%' }" [maximizable]="true"
+        [baseZIndex]="10000">
+        
           <p-header>
             <h4 class="modal-title pull-left" translate>Site Coordinate</h4>
           </p-header>
-          <app-user></app-user>
+          <div class="modal-body">
+            <div style="min-width: 1000px">
+              <app-site-map></app-site-map>
+            </div>
+          </div>
+          <p-footer>
+            
+            <button type="button" class="btn btn-primary" *ngIf="!toogleSpin" (click)="finishSelection()" translate>select
+            </button>
+        
+          </p-footer>
+          <p-toast></p-toast>
         </p-dialog>
 
           <div class="col-md-6 row form-group">
@@ -229,7 +245,7 @@
             <button
             type="button"
             
-              (click)="registersite()"
+              (click)="saveData()"
               value="Save Item"
               class="btn btn-primary"
             >
@@ -244,7 +260,7 @@
                 >
                   Refresh 
                 </button> -->
-            <button
+            <!-- <button
             type="button"
               *ngIf="edit_form"
               (click)="updatesite ()"
@@ -261,10 +277,11 @@
               class="btn btn-danger mx-3"
             >
               Delete
-            </button>
+            </button> -->
           </div>
         </div> 
       </form>
     </div>
    </div>
 </div>
+

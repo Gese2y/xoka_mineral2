@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { refactorDropdownArray } from '../helpers/helpers';
 import { ResourceDepositService } from './Resource-Deposit.service';
 import { NotificationsService } from 'angular2-notifications';
+import { ServiceService } from '../service.service';
 @Component({
   selector: 'app-resource-deposit',
   templateUrl: './resource-deposit.component.html',
@@ -20,10 +21,15 @@ export class ResourceDepositComponent implements OnInit {
   UnitList: any;
   chartOfAccountResult: any;
   chartOfAccounts: any;
+  urlParams: any;
+  @Input() licenceData;
+  @Input() workingUser;
+  @Output() saveDataCompleted = new EventEmitter();
   
  constructor(
   private ResourceDepositService: ResourceDepositService,
-  private notificationsService:NotificationsService
+  private notificationsService:NotificationsService,
+    public serviceService:ServiceService,
  ) { 
   this.resoucedeposit = new resoucedeposit;
  }
@@ -37,9 +43,10 @@ export class ResourceDepositComponent implements OnInit {
       this.UnitList=this.UnitList;
     })
   }
-  AddJournalEntry(){
+  Addresourcedeposity(){
     this.IsAddFormVisible = !this.IsAddFormVisible;
   }
+  
   getresourceDeposit() {
     this.ResourceDepositService.getresourceDeposit().subscribe(
       (response) => {
@@ -55,10 +62,6 @@ export class ResourceDepositComponent implements OnInit {
     );
   }
   registerresourcedeposits() {
-    // if(this.procAdPeriods.year>3000 || this.procAdPeriods.year<1900){
-      // const toast = this.notificationsService.warn("Your entered year is incorrect! ");
-    //   return true
-    // }
     this.ResourceDepositService.addresourcedeposits(this.resoucedeposit)
       .subscribe(
         (response) => {
@@ -114,6 +117,55 @@ export class ResourceDepositComponent implements OnInit {
         c.unit.includes(event.query)
       );
     }
+
+
+    saveData() {
+      console.log(this.workingUser);
+      this.serviceService
+        .saveForm(
+          this.licenceData ? this.licenceData.Licence_Service_ID : "00000000-0000-0000-0000-000000000000",
+          this.licenceData ? this.licenceData.Service_ID : this.urlParams.id,
+          "c30c953e-7001-485a-80cd-7dd9d45b86f1",
+          "1e60f3a1-7017-47bf-95f4-f0e47c793c72",
+          "{}",
+          this.urlParams.docid || "00000000-0000-0000-0000-000000000000",
+          this.urlParams.todoID || "00000000-0000-0000-0000-000000000000"
+        )
+        .subscribe(
+          (response) => {
+            console.log("trans-resp", response);
+            this.getLicenceService(response);
+          },
+          (error) => {
+            console.log("save-data-error", error);
+            const toast = this.notificationsService.error(
+              "Error",
+              "SomeThing Went Wrong"
+            );
+          }
+        );
+    }
+  
+    public getLicenceService(saveDataResponse) {
+      this.serviceService.getAll(saveDataResponse[0]).subscribe(
+        (response) => {
+          console.log("all-response", response);
+          let licenceData = response["list"][0];
+         // this.Depreciation_Book['fixed_Assets_No'] = saveDataResponse[0];
+          // this.TransactionSale.application_No = licenceData.Application_No;
+          this.saveDataCompleted.emit(saveDataResponse);
+  
+          //if (this.editForm) this.updateTransactionSale();
+       this.registerresourcedeposits();
+        },
+        (error) => {
+          console.log("all-error" + error);
+        }
+      );
+    }
+  
+
+
 
   clearForm() {
     this.resoucedeposits = {};

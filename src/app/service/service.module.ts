@@ -22,6 +22,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { SidebarModule } from "ng-sidebar";
 import { BrowserModule } from "@angular/platform-browser";
 import { DialogModule } from "primeng/dialog";
+
 import {
   FileUploadModule,
   AutoCompleteModule,
@@ -83,7 +84,10 @@ import { ResourceDepositComponent } from './resource-deposit/resource-deposit.co
 import { SiteComponent } from './site/site.component';
 import { ListMineralComponent } from './list-mineral/list-mineral.component';
 import { SiteListComponent } from './site-list/site-list.component';
-
+// import { LeafletModule } from 'leaflet';
+import {GMapModule} from 'primeng/gmap';
+import { SiteMapComponent } from './site-map/site-map.component';
+// import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   imports: [
@@ -98,6 +102,10 @@ import { SiteListComponent } from './site-list/site-list.component';
     NgxPaginationModule,
     TableModule,
     TabsModule.forRoot(),
+    // AgmCoreModule.forRoot({
+      // apiKey: ''
+    // }),
+    // LeafletModule,
     CheckboxModule,
     ToastModule,
     BrowserAnimationsModule,
@@ -109,6 +117,9 @@ import { SiteListComponent } from './site-list/site-list.component';
     FileUploadModule,
     AutoCompleteModule,
     DropdownModule,
+    // LeafletModule
+    GMapModule 
+    
   ],
   declarations: [
     MaintainCustomerComponent,
@@ -163,6 +174,7 @@ import { SiteListComponent } from './site-list/site-list.component';
     SiteComponent,
     ListMineralComponent,
     SiteListComponent,
+    SiteMapComponent,
    
   ],
   providers: [

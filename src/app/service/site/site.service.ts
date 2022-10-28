@@ -34,4 +34,7 @@ export class SiteService {
   getsite() {
     return this.http.get(this.siteUrl);
   }
+  registersite(site) {
+    return this.http.post(this.siteUrl, site);
+  }
 }

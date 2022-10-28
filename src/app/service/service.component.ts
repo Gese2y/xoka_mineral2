@@ -173,7 +173,9 @@ export class ServiceComponent implements OnInit {
       } else if (params["formcode"] == "3a1f0b93-8b7b-4dcc-a0bf-05615b695fe1") {
         this.ID = 34; 
        } else if (params["formcode"] == "60ca1a18-ff1c-46da-babd-0159bd0124b1") {
-        this.ID = 35;
+        this.ID = 35; 
+      } else if (params["formcode"] == "6") {
+        this.ID = 36;
       } else {
         this.layoutService.getFormData(params["formcode"]).subscribe(
           (data) => {
