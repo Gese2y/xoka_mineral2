@@ -108,66 +108,66 @@ export class ServiceComponent implements OnInit {
       }
       if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe64") {
         this.ID = 2;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe63") {
-        this.ID = 3;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe65") {
-        this.ID = 4;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe79") {
-        this.ID = 5;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe12") {
-        this.ID = 6;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe71") {
-        this.ID = 7;
-      } else if (params["formcode"] == "abcd6841-66f4-4e2a-99ea-193bd51cbe72") {
-        this.ID = 8;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd56cbe72") {
-        this.ID = 9;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-693bd55cbe72") {
-        this.ID = 10;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe32") {
-        this.ID = 11;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd53cbebc") {
-        this.ID = 12;
-      } else if (params["formcode"] == "a24d6841-66f4-4e2a-99ea-193bd58cbebb") {
-        this.ID = 13;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-293bd55cbe72") {
-        this.ID = 14;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe52") {
-        this.ID = 15;
-      } else if (params["formcode"] == "11110a37-1214-425d-9336-cc132718af21") {
-        this.ID = 16;
-      } else if (params["formcode"] == "4bbb0aff-d741-46ba-b670-e6b16f608cc4" || params["formcode"] == "2a78288f-3b61-4190-9f54-82092408f671") {
-        this.ID = 17;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-493bd55cbe72") {
-        this.ID = 18;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-893bd55cbe72") {
-        this.ID = 19;
-      } else if (params["formcode"] == "a94d6221-66f4-4e2a-99ea-193bd55cbe66") {
-        this.ID = 20;
-      } else if (params["formcode"] == "ab310a57-1214-425d-9836-cc132718af11") {
-        this.ID = 21;
-      } else if (params["formcode"] == "696479e9-4f43-430b-8c1c-df2a9fff83f5") {
-        this.ID = 22;
-      } else if (params["formcode"] == "25f2c158-04fc-47b5-91b9-6a588f114211") {
-        this.ID = 23;
-      } else if (params["formcode"] == "33310a37-1214-425d-9336-cc132718af22") {
-        this.ID = 24;
-      } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe77") {
-        this.ID = 25;
-      } else if (params["formcode"] == "5b00b8f3-2b88-418b-82b4-45ac6973c30a") {
-        this.ID = 26;
-      } else if (params["formcode"] == "53310a57-1e14-4b5d-9836-cc13d718af58") {
-        this.ID = 27;
-      } else if (params["formcode"] == "22310a57-1214-425d-9836-cc132718af55") {
-        this.ID = 28; 
-       } else if (params["formcode"] == "10410a57-1e04-4b5d-9436-cc17d718af50") {
-        this.ID = 29;
-      } else if (params["formcode"] == "801a29b6-309a-44d5-b971-c2738ecda777") {
-        this.ID = 30; 
-      } else if (params["formcode"] == "f5c9c35f-0a39-4355-8bf3-8e4b01d9c0e1") {
-        this.ID = 31; 
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe63") {
+      //   this.ID = 3;
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe65") {
+      //   this.ID = 4;
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe79") {
+      //   this.ID = 5;
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe12") {
+      //   this.ID = 6;
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe71") {
+      //   this.ID = 7;
+      // } else if (params["formcode"] == "abcd6841-66f4-4e2a-99ea-193bd51cbe72") {
+      //   this.ID = 8;
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd56cbe72") {
+      //   this.ID = 9;
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-693bd55cbe72") {
+      //   this.ID = 10;
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe32") {
+      //   this.ID = 11;
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd53cbebc") {
+      //   this.ID = 12;
+      // } else if (params["formcode"] == "a24d6841-66f4-4e2a-99ea-193bd58cbebb") {
+      //   this.ID = 13;
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-293bd55cbe72") {
+      //   this.ID = 14;
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe52") {
+      //   this.ID = 15;
+      // } else if (params["formcode"] == "11110a37-1214-425d-9336-cc132718af21") {
+      //   this.ID = 16;
+      // } else if (params["formcode"] == "4bbb0aff-d741-46ba-b670-e6b16f608cc4" || params["formcode"] == "2a78288f-3b61-4190-9f54-82092408f671") {
+      //   this.ID = 17;
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-493bd55cbe72") {
+      //   this.ID = 18;
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-893bd55cbe72") {
+      //   this.ID = 19;
+      // } else if (params["formcode"] == "a94d6221-66f4-4e2a-99ea-193bd55cbe66") {
+      //   this.ID = 20;
+      // } else if (params["formcode"] == "ab310a57-1214-425d-9836-cc132718af11") {
+      //   this.ID = 21;
+      // } else if (params["formcode"] == "696479e9-4f43-430b-8c1c-df2a9fff83f5") {
+      //   this.ID = 22;
+      // } else if (params["formcode"] == "25f2c158-04fc-47b5-91b9-6a588f114211") {
+      //   this.ID = 23;
+      // } else if (params["formcode"] == "33310a37-1214-425d-9336-cc132718af22") {
+      //   this.ID = 24;
+      // } else if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe77") {
+      //   this.ID = 25;
+      // } else if (params["formcode"] == "5b00b8f3-2b88-418b-82b4-45ac6973c30a") {
+      //   this.ID = 26;
+      // } else if (params["formcode"] == "53310a57-1e14-4b5d-9836-cc13d718af58") {
+      //   this.ID = 27;
+      // } else if (params["formcode"] == "22310a57-1214-425d-9836-cc132718af55") {
+      //   this.ID = 28; 
+      //  } else if (params["formcode"] == "10410a57-1e04-4b5d-9436-cc17d718af50") {
+      //   this.ID = 29;
+      // } else if (params["formcode"] == "801a29b6-309a-44d5-b971-c2738ecda777") {
+      //   this.ID = 30; 
+      // } else if (params["formcode"] == "f5c9c35f-0a39-4355-8bf3-8e4b01d9c0e1") {
+      //   this.ID = 31; 
       } else if (params["formcode"] == "647cee76-5376-41ff-ac80-00975b7a2256") {
-        this.ID = 32; 
+        this.ID = 32;     
       } else if (params["formcode"] == "343a087e-8a4b-4904-8ef3-08f723b74d3d") {
         this.ID = 33; 
       } else if (params["formcode"] == "3a1f0b93-8b7b-4dcc-a0bf-05615b695fe1") {
@@ -175,7 +175,7 @@ export class ServiceComponent implements OnInit {
        } else if (params["formcode"] == "60ca1a18-ff1c-46da-babd-0159bd0124b1") {
         this.ID = 35; 
       } else if (params["formcode"] == "6") {
-        this.ID = 36;
+        this.ID = 36; 
       } else {
         this.layoutService.getFormData(params["formcode"]).subscribe(
           (data) => {
@@ -203,7 +203,7 @@ export class ServiceComponent implements OnInit {
     this.getUserWorkInfo();
     this.getLookups();
     this.getRequiredDocs();
-    this.getUserWorkInfo();
+    // this.getUserWorkInfo();
     console.log("selectedTask " + this.selectedTask);
   }
 

@@ -5,8 +5,7 @@ import { environment } from "src/environments/environment";
     providedIn: "root",
   })
   export class TaxTypeService {
-    public taxtypeUrl =
-    environment.rootApiPath + "finance/CTax";
+    public taxtypeUrl = environment.rootApiPath + "finance/CTax";
     public org_IDUrl =
     environment.rootApiPath + "finance/procADOrg";
 

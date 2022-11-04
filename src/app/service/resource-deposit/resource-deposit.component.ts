@@ -4,6 +4,7 @@ import { refactorDropdownArray } from '../helpers/helpers';
 import { ResourceDepositService } from './Resource-Deposit.service';
 import { NotificationsService } from 'angular2-notifications';
 import { ServiceService } from '../service.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-resource-deposit',
   templateUrl: './resource-deposit.component.html',
@@ -11,13 +12,13 @@ import { ServiceService } from '../service.service';
 })
 export class ResourceDepositComponent implements OnInit {
  public IsAddFormVisible = false;
- public resoucedeposits: any;
- public resoucedeposit: resoucedeposit;
+ public resoucedeposit: any;
+ public resoucedeposits: resoucedeposits;
  public isAccountVisible: any;
  public isAccountModalVisible: any;
   accountNoos: any;
   accountNoo: any;
-  Mineral_ID: any;
+  mineral_Id: any;
   UnitList: any;
   chartOfAccountResult: any;
   chartOfAccounts: any;
@@ -25,47 +26,122 @@ export class ResourceDepositComponent implements OnInit {
   @Input() licenceData;
   @Input() workingUser;
   @Output() saveDataCompleted = new EventEmitter();
-  
+  @Input() taskId;
+  site_Id: any;
+  clicksite_Id: any;
+  postData = {
+    orgId: null,
+    appCode: null,
+    appNo: null,
+    userId: null,
+    taskId: null
+  };
  constructor(
   private ResourceDepositService: ResourceDepositService,
   private notificationsService:NotificationsService,
     public serviceService:ServiceService,
+    private routerService: ActivatedRoute,
  ) { 
-  this.resoucedeposit = new resoucedeposit;
+  this.resoucedeposits = new resoucedeposits;
  }
 
   ngOnInit() {
     this.getmineralID();
-    this.getresourceDeposit();
+    this.getResourceD();
+    this.getsiteId();
 
     this.ResourceDepositService.getUnit().subscribe(data=>{
       this.UnitList=data;
       this.UnitList=this.UnitList;
     })
+
+    this.routerService.params.subscribe((params) => {
+      this.urlParams = params;
+      console.log("urlParams", this.urlParams);
+    });
+    if(this.workingUser){
+      if(this.workingUser['userId']){
+        this.postData.userId = this.workingUser['userId'];
+      }
+      if(this.workingUser['organization_code']){
+        this.postData.orgId = this.workingUser['organization_code'];
+      }
+    }
+    if(this.licenceData){
+      if(this.licenceData['Application_No']){
+        this.postData.appNo = this.licenceData['Application_No'];
+      }
+      if(this.licenceData['Licence_Service_ID']){
+        this.postData.appCode = this.licenceData['Licence_Service_ID'];
+      }
+    }
+    if(this.taskId){
+      this.postData.taskId = this.taskId;
+    }
+    console.log('licenceData', this.licenceData);
+    console.log('workingUser', this.workingUser);
+    console.log('taskId', this.taskId);
+    console.log('post data :: ', this.postData);
+
   }
+
+  
   Addresourcedeposity(){
     this.IsAddFormVisible = !this.IsAddFormVisible;
   }
-  
-  getresourceDeposit() {
-    this.ResourceDepositService.getresourceDeposit().subscribe(
-      (response) => {
-        console.log("Resource Deposit", response);
-        this.resoucedeposits = response["resourcedeposit"];
-      },
-      (error) => {
-        const toast = this.notificationsService.error(
-          "Error",
-          "SomeThing Went Wrong"
+  onAccountSelectionChanges(event) {
+    this.serviceService.site_Id=  event.value;
+     this.resoucedeposit.site_Id = event.value;
+     console.log('aaaa',event)
+      this.isAccountModalVisible = false;
+      
+      
+    }
+    getsiteId(){
+      this.ResourceDepositService.getsiteId().subscribe(
+          (response) => {
+            this.site_Id = response;
+            this.accountNoo = refactorDropdownArray(
+              this.site_Id,
+              "site_Name",
+              "site_Id"
+            );
+            console.log("get-site_Id", response);
+          },
+          (error) => {
+            console.log("error-site_Id", error);
+          }
         );
       }
-    );
-  }
+      refactorChartOfAccountObject(object) {
+        if (object.site_Id)
+          object.site_Id = object.site_Id.site_Id || object.site_Id;
+          
+          if (object.mineral_Id)
+          object.mineral_Id = object.mineral_Id.mineral_Id || object.mineral_Id;
+      
+        return object;
+      }
+
+      getResourceD() {
+        this.ResourceDepositService.getResourceD().subscribe(
+          (response) => {
+            console.log("resource", response);
+            this.resoucedeposit = response;
+          },
+          (error) => {
+            const toast = this.notificationsService.error(
+              "Error",
+              "SomeThing Went Wrong"
+            );
+          }
+        );
+      }
   registerresourcedeposits() {
     this.ResourceDepositService.addresourcedeposits(this.resoucedeposit)
       .subscribe(
         (response) => {
-          this.getresourceDeposit();
+          this.getResourceD();
           const toast = this.notificationsService.success("Success", "Saved");
           this.clearForm();
         },
@@ -77,15 +153,16 @@ export class ResourceDepositComponent implements OnInit {
         }
       );
   }
+  
 
   getmineralID(){
     this.ResourceDepositService.getmineralID().subscribe(
         (response) => {
-          this.Mineral_ID = response[""];
+          this.mineral_Id = response;
           this.accountNoos = refactorDropdownArray(
-            this.getmineralID,
+            this.mineral_Id,
             "name",
-            "getmineralID"
+            "mineral_Id"
           );
           console.log("get-getmineralID", response);
         },
@@ -94,23 +171,6 @@ export class ResourceDepositComponent implements OnInit {
         }
       );
     }
- getsiteID(){
-    this.ResourceDepositService.getsiteID().subscribe(
-        (response) => {
-          this.Mineral_ID = response[""];
-          this.accountNoo = refactorDropdownArray(
-            this.getsiteID,
-            "name",
-            "getsiteID"
-          );
-          console.log("get-site_ID", response);
-        },
-        (error) => {
-          console.log("error-site_ID", error);
-        }
-      );
-    }
-
 
     searchChartOfAccount(event): void {
       this.chartOfAccountResult = this.chartOfAccounts.filter((c) =>
@@ -124,7 +184,7 @@ export class ResourceDepositComponent implements OnInit {
       this.serviceService
         .saveForm(
           this.licenceData ? this.licenceData.Licence_Service_ID : "00000000-0000-0000-0000-000000000000",
-          this.licenceData ? this.licenceData.Service_ID : this.urlParams.id,
+          this.licenceData ? this.licenceData.Service_ID : "00000000-0000-0000-0000-000000000000",
           "c30c953e-7001-485a-80cd-7dd9d45b86f1",
           "1e60f3a1-7017-47bf-95f4-f0e47c793c72",
           "{}",
@@ -165,33 +225,60 @@ export class ResourceDepositComponent implements OnInit {
     }
   
 
+    deleteresoucedeposit(resoucedeposit) {
+  
+      if (confirm("Are you sure !!!"))
+        this.ResourceDepositService
+          .deleteresoucedeposit(resoucedeposit)
+          .subscribe(
+            (response) => {
+              this.getResourceD();
+              const toast = this.notificationsService.success("Success", "Saved");
+            },
+            (error) => {
+              console.log("reroes", error);
+              const toast = this.notificationsService.error(
+                "Error",
+                "SomeThing Went Wrong"
+              );
+            }
+          );
+    }
 
 
   clearForm() {
-    this.resoucedeposits = {};
+    this.resoucedeposit = {};
     this.IsAddFormVisible = !this.IsAddFormVisible;
-    this.resoucedeposits.Unit= Guid.create();
-    this.resoucedeposits.Resource_ID= Guid.create();
-  this.resoucedeposits.Unit = this.resoucedeposits.unit.value;
+    // this.resoucedeposits.unit= Guid.create();
+    this.resoucedeposits.resource_Id= Guid.create();
+  this.resoucedeposits.unit = this.resoucedeposits.unit.value;
   // this.resoucedeposits.updateBy=this.user
   }
   onAccountSelectionChange(event) {
-    this.resoucedeposits.Mineral_ID = event.value;
+    this.serviceService.mineral_Id=  event.value;
+    this.resoucedeposits.mineral_Id = event.value;
      this.isAccountVisible = false;
     //  this.isAccountModalVisible = false;
      
    }
 }
-class resoucedeposit{
-public Resource_ID: any;
-public Mineral_ID: any;
-public Site_ID:any;
-public Unit:any;
-public Quantity:any;
-public Explored_Date:any;
-public Exlored_By:any;
-public Lab_Approved_Date:any;
-public Lab_Approved_By:any;
-public Is_active:any;
-public Remark:any;
+class resoucedeposits{
+public resource_Id: any;
+public mineral_Id: any;
+public site_Id:any;
+public unit:any;
+public quantity:any;
+public explored_Date:any;
+public explored_By:any;
+public lab_Approved_Date:any;
+public lab_Approved_By:any;
+public is_Active:any;
+public remarks:any;
+public created_By:any;
+public updated_By:any;
+public deleted_By:any;
+public is_Deleted:any;
+public created_Date:any;
+public updated_Date:any;
+public deleted_Date:any;
 }

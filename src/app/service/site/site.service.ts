@@ -1,23 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { site } from '../site-list/site-list.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SiteService {
-  private Status =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Status';
+  private Site_Status =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Site_Status';
   private Region =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Region';
   private Zone =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Zone';
-  private Woreda =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Woreda_Lookup';
+  private Woreda =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Woreda';
+  private StatusList =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Site_Status';
 
-  private siteUrl =environment.rootPath + '';
+  private siteUrl =environment.rootApiPath + 'Site';
   DisplayCoordinate: boolean;
 
-
   constructor(private http: HttpClient) { }
-  getStatus(){
-    return this.http.get<any>(this.Status);
+  getSite_Status(){
+    return this.http.get<any>(this.Site_Status);
   } 
   getRegion(){
     return this.http.get<any>(this.Region);
@@ -36,5 +37,13 @@ export class SiteService {
   }
   registersite(site) {
     return this.http.post(this.siteUrl, site);
+  }
+  getStatusList(){
+    return this.http.get<any>(this.StatusList);
+  }
+  deletesites(site) {
+    return this.http.delete(
+      this.siteUrl + "/" + site.site_Id
+    );
   }
 }

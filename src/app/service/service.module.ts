@@ -33,51 +33,13 @@ import {
   ProgressSpinnerModule,
 } from "primeng/primeng";
 import { FormDisplayComponent } from "./form-display/form-display.component";
-import { MaintainInventoryItemComponent } from "../service/maintain-InventoryItem/maintain-InventoryItem.component";
-import { MaintainVendorComponent } from "../service/maintain-vendor/maintain-vendor.component";
-import { MaintainCustomerComponent } from "./maintain-customer/maintain-customer.component";
 import { SurveyComponent } from "./task-layout/layout.component";
-import { ListCustomerComponent } from "./list-customer/list-customer.component";
-import { ListVendorComponent } from "./list-vendor/list-vendor.component";
-import { ListInventoryComponent } from "./list-inventory/list-inventory.component";
-import { CustomerDefaultComponent } from "./customer-default/customer-default.component";
-import { DefaultInventoryComponent } from "./default-inventory/default-inventory.component";
-import { DefaultVendorComponent } from "./default-vendor/default-vendor.component";
 import { DemoComponent } from "./demo/demo.component";
-import { MaintainCustomerService } from "./maintain-customer/maintain-customer.service";
-import { MaintainVendorService } from "./maintain-vendor/maintain-vendor.service";
-import { MaintainInventoryitemService } from "./maintain-InventoryItem/maintain-inventoryitem.service";
-import { VendorPostingGroupComponent } from "../service/vendor-posting-group/vendor-posting-group.component";
-import { TaxProdPostingGroupComponent } from "../service/tax-prod-posting-group/tax-prod-posting-group.component";
-import { TaxBusPostingGroupComponent } from "../service/tax-bus-posting-group/tax-bus-posting-group.component";
-import { InventoryPostingGroupComponent } from "../service/inventory-posting-group/inventory-posting-group.component";
-import { GeneralProductPostingGroupComponent } from "../service/general-product-posting-group/general-product-posting-group.component";
-import { FixedAssetPostingGroupComponent } from "../service/fixed-asset-posting-group/fixed-asset-posting-group.component";
-import { WithholdingComponent } from "../service/withholding/withholding.component";
-import { GeneralPostingSetupComponent } from "./general-posting-setup/general-posting-setup.component";
-import { InventoryPostingSetupComponent } from "./inventory-posting-setup/inventory-posting-setup.component";
-import { TaxPostingSetUpComponent } from "./tax-posting-set-up/tax-posting-set-up.component";
-import { WithholdPostingSetupComponent } from "./withhold-posting-setup/withhold-posting-setup.component";
-import { MaintainEmployeeComponent } from "./maintain-employee/maintain-employee.component";
-import { ListEmployeeComponent } from '../service/list-employee/list-employee.component';
-import { BankReconciliationComponent } from './bank-reconciliation/bank-reconciliation.component';
-import { MaintianBankReconciliationComponent } from './maintian-bank-reconciliation/maintian-bank-reconciliation.component';
-import { CustomerPostingGroupComponent } from './customer-posting-group/customer-posting-group.component';
-import { GeneralBusinessPostingGroupComponent } from './general-business-posting-group/general-business-posting-group.component';
-import { InsuranceTypeComponent } from '../service/insurance-type/insurance-type.component';
-import { AccountTypeComponent } from '../service/account-type/account-type.component';
-import { AccountCategoryComponent } from '../service/account-category/account-category.component';
-import { TransactionSalesTypeComponent } from '../service/transaction-sales-type/transaction-sales-type.component';
-import { PayFrequencyTypeComponent } from './pay-frequency-type/pay-frequency-type.component';
-import { BankAccountPostingGroupComponent } from '../service/bank-account-posting-group/bank-account-posting-group.component';
 import { MatDialogModule } from "@angular/material/dialog";
-import { UserComponent } from "./user/user.component";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TaxTypeComponent } from './tax-type/tax-type.component';
-import { BusinessOrganizationTypeComponent } from './business-organization-type/business-organization-type.component';
 import { UnitOfMeasureComponent } from "./unit-of-measure/unit-of-measure.component";
 import { CurrencyComponent } from './currency/currency.component';
-import { InventoryCostingMethodsComponent } from './inventory-costing-methods/inventory-costing-methods.component';
 import { PeriodsComponent } from './periods/periods.component';
 import { MineralComponent } from './mineral/mineral.component';
 import { MineralUseComponent } from './mineral-use/mineral-use.component';
@@ -85,10 +47,9 @@ import { ResourceDepositComponent } from './resource-deposit/resource-deposit.co
 import { SiteComponent } from './site/site.component';
 import { ListMineralComponent } from './list-mineral/list-mineral.component';
 import { SiteListComponent } from './site-list/site-list.component';
-// import { LeafletModule } from 'leaflet';
 import {GMapModule} from 'primeng/gmap';
 import { SiteMapComponent } from './site-map/site-map.component';
-// import { AgmCoreModule } from '@agm/core';
+// import { ArchwizardModule } from 'angular-archwizard';
 @NgModule({
   imports: [
     BrowserModule,
@@ -99,6 +60,7 @@ import { SiteMapComponent } from './site-map/site-map.component';
     ServiceRoutingModule,
     AngularFontAwesomeModule,
     TreeModule,
+    // ArchwizardModule,
 ProgressSpinnerModule,
 NgxPaginationModule,
     TableModule,
@@ -123,51 +85,18 @@ NgxPaginationModule,
     
   ],
   declarations: [
-    MaintainCustomerComponent,
-    MaintainVendorComponent,
-    MaintainInventoryItemComponent,
+   
     ServiceComponent,
     LoadingComponent,
     FormDisplayComponent,
     SurveyComponent,
-    ListCustomerComponent,
-    ListVendorComponent,
-    ListInventoryComponent,
-    CustomerDefaultComponent,
-    DefaultInventoryComponent,
-    DefaultVendorComponent,
+    
     DemoComponent,
-    VendorPostingGroupComponent,
-    TaxProdPostingGroupComponent,
-    TaxBusPostingGroupComponent,
-    InventoryPostingGroupComponent,
-    GeneralProductPostingGroupComponent,
-    FixedAssetPostingGroupComponent,
-    WithholdingComponent,
-    MaintainEmployeeComponent,
-    BankReconciliationComponent,
-    MaintianBankReconciliationComponent,
-    UserComponent,
-
-    //From Abiy
-    GeneralPostingSetupComponent,
-    InventoryPostingSetupComponent,
-    TaxPostingSetUpComponent,
-    WithholdPostingSetupComponent,
-    ListEmployeeComponent,
-    CustomerPostingGroupComponent,
-    GeneralBusinessPostingGroupComponent,
-    InsuranceTypeComponent,
-    AccountTypeComponent,
-    AccountCategoryComponent,
-    TransactionSalesTypeComponent,
-    PayFrequencyTypeComponent,
-    BankAccountPostingGroupComponent,
     TaxTypeComponent,
-    BusinessOrganizationTypeComponent,
+    
     UnitOfMeasureComponent,
     CurrencyComponent,
-    InventoryCostingMethodsComponent,
+
     PeriodsComponent,
     MineralComponent,
     MineralUseComponent,
@@ -181,12 +110,12 @@ NgxPaginationModule,
   providers: [
     ServiceService,
     MessageService,
-    MaintainCustomerService,
-    MaintainVendorService,
-    MaintainInventoryitemService,
+    // MaintainCustomerService,
+    // MaintainVendorService,
+    // MaintainInventoryitemService,
   ],
   entryComponents : [
-    UserComponent,
+    // UserComponent,
   
   ]
 })

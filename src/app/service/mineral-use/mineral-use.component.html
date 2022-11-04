@@ -4,7 +4,7 @@
     
   
     <p-table
-      [value]="mineralUse"
+      [value]="mineralUses"
       [paginator]="true" [rows]="3"
       [resizableColumns]="true"
       (onEditComplete)="performUpdate($event)"
@@ -30,42 +30,44 @@
               Add New
             </button>
           </th>
+          <th></th>
         </tr>
         <tr *ngIf="IsAddFormVisible">
           <td class="col-sm-9">
             <select
               class="form-control"
-              [(ngModel)]="mineralUse.Resource_ID"
+              [(ngModel)]="mineralUse.resource_Id"
               #getdef_VATBusPostingGroup="ngModel"
-              name="Resource_ID"      
-               placeholder="Resource_ID  "
-              id="Resource_ID"
+              name="resource_Id"      
+               placeholder="resource_Id  "
+              id="resource_Id"
               required
             >
               <option disabled>select</option>
               <option
-                *ngFor="let resources of ResourceID"
-                [value]="resources.Resource_ID"
+                *ngFor="let mineralUse of name_Ens"
+                [value]="mineralUse.resource_Id"
               >
-                {{ resources.Resource_ID }}
+                {{ mineralUse.resource_Id }}
               </option>
             </select>
           </td>
-          <td>  <input type="text" class="form-control form-control-sm" id="Plot_ID" placeholder="Plot_ID"  
+
+          <td>  <input type="text" class="form-control form-control-sm" id="plot_Id" placeholder="plot_Id"  
             (click)="isAccountVisible=true" 
-             [(ngModel)]="mineralUse.Plot_ID" name ="Plot_ID" readonly>          
+             [(ngModel)]="mineralUse.plot_Id" name ="plot_Id" readonly>          
             <p-dialog
               header="Plot ID" 
               [(visible)]="isAccountVisible"
               [modal]="true"
               [responsive]="true"
               [width]="500"
-              [minWidth]="200"
+              [minWidth]="400"
               [minY]="70"
               [maximizable]="true"
               [baseZIndex]="10000"
             >
-              <p-table [value]="accountNoo" [paginator]="true" [rows]="7"  [globalFilterFields]="['value','lable']" 
+              <p-table [value]="accountNoo" [paginator]="true" [rows]="10"  [globalFilterFields]="['value','lable']" 
               #ptable
             >
             <ng-template pTemplate="caption">
@@ -79,7 +81,8 @@
              </div>  </ng-template>
              <ng-template pTemplate="header">
              <tr scope="col" translate>
-             <th>IS Active</th>
+             <th> Plot ID</th>
+             <th>IS Deleted?</th>
             </tr>
            </ng-template>
                 <ng-template pTemplate="body" let-account>
@@ -101,29 +104,29 @@
          <td class="p-2">
           <input
             type="text"
-            [(ngModel)]="mineralUse.GIS_Plot"
+            [(ngModel)]="mineralUse.gis_Plot_Id"
             class="form-control"
-            name="GIS_Plot"
-            placeholder="GIS_Plot"
-            id="GIS_Plot"
+            name="gis_Plot_Id"
+            placeholder="gis_Plot_Id"
+            id="gis_Plot_Id"
             required
           />
         </td>
           <td>  <input type="text" class="form-control form-control-sm" id="Customer_ID" placeholder="Customer_ID"  
             (click)="isAccountModalVisible=true" 
-             [(ngModel)]="mineralUse.Customer_ID" name ="Customer_ID" readonly>          
+             [(ngModel)]="mineralUse.customer_Id" name ="Customer_ID" readonly>          
             <p-dialog
               header="Customer ID" 
               [(visible)]="isAccountModalVisible"
               [modal]="true"
               [responsive]="true"
-              [width]="500"
-              [minWidth]="200"
+              [width]="700"
+              [minWidth]="600"
               [minY]="70"
               [maximizable]="true"
               [baseZIndex]="10000"
             >
-              <p-table [value]="accountNoos" [paginator]="true" [rows]="7"  [globalFilterFields]="['value','lable']" 
+              <p-table [value]="accountNoos" [paginator]="true" [rows]="10"  [globalFilterFields]="['value','lable']" 
               #ptable
             >
             <ng-template pTemplate="caption">
@@ -137,12 +140,12 @@
              </div>  </ng-template>
              <ng-template pTemplate="header">
              <tr scope="col" translate>
-             <th>ID</th>
-             <th>Name</th>
+             <th>Customer ID</th>
+             <!-- <th>Name</th> -->
              <th>IS Active</th></tr>
            </ng-template>
                 <ng-template pTemplate="body" let-account>
-                    <tr (click)="onAccountSelectionChange(account)">
+                    <tr (click)="onAccountSelectionChanges(account)">
                       <td>{{account.value}}</td>
                       <td>{{account.label}}</td>
                     </tr>
@@ -161,18 +164,18 @@
            <td class="p-2">
             <input
               type="checkbox"
-              [(ngModel)]="mineralUse.Is_Active"
+              [(ngModel)]="mineralUse.is_Active"
               class="form-control"
-              name="Is_Active"
-              placeholder="Is_Active"
-              id="Is_Active"
+              name="is_Active"
+              placeholder="is_Active"
+              id="is_Active"
               required
             />
           </td> 
            <td class="p-2">
             <input
               type="text"
-              [(ngModel)]="mineralUse.Remark"
+              [(ngModel)]="mineralUse.remarks"
               class="form-control"
               name="Remark"
               placeholder="Remark"
@@ -185,7 +188,7 @@
               type="button"
            
               class="btn btn-primary"
-              (click)="saveData()"
+              (click)="registermineraluse()"
               translate
             >
               Save
@@ -193,40 +196,40 @@
           </td>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-mineralUse>
+      <ng-template pTemplate="body" let-mineralUses>
         <tr>
           <td>
-            {{ mineralUse.Resourse_ID }}
+            {{ mineralUses.resource_Id }}
           </td>
            <td>
-            {{ mineralUse.Plot_ID }}
+            {{ mineralUses.plot_Id }}
           </td> 
           
            <td>
-            {{ mineralUse.GIS_Plot_ID }}
+            {{ mineralUses.gis_Plot_Id }}
           </td> 
           <td>
-            {{ mineralUse.Customer_ID }}
+            {{ mineralUses.customer_Id }}
           </td> 
             <td>
-            {{ mineralUse.Is_Active }}
+            {{ mineralUses.is_Active }}
           </td> 
           
            <td>
-            {{ mineralUse.Remarks }}
+            {{ mineralUses.remarks }}
           </td> 
           
         <td> 
-          <!-- <button
-          type="button"
-          class="btn btn-primary"
-            (click)="deletemineral(mineralUse)"
-          >
-            <i class="pi pi-trash"></i>
-            Delete
-          </button>  -->
-
-                </td> 
+          <td>
+            <button
+            type="button"
+            class="btn btn-primary"
+              (click)="deletemineralUse(mineralUses)"
+            >
+              <i class="pi pi-trash"></i>
+              Delete
+            </button>
+          </td> 
        
       </tr>
     </ng-template>

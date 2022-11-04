@@ -12,7 +12,7 @@ export const environment = {
   rootApiPath: window["rootApiPath"],
   // formPath: '',
   // username: 'BL_desk_mgr',
-  username: "Finance user",
+  username: "Mineral user",
   // username: 'BL_Data_Encoder',
   // username: 'BL_Tech_leader',
   // username: 'berukbb',

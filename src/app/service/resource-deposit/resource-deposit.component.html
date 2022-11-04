@@ -4,7 +4,7 @@
    
   
     <p-table
-      [value]="resoucedeposits"
+      [value]="resoucedeposit"
       [paginator]="true" [rows]="3"
       [resizableColumns]="true"
       (onEditComplete)="performUpdate($event)"
@@ -40,26 +40,26 @@
         <td class="p-2">
           <input
             type="text"
-            [(ngModel)]="resoucedeposits.Resource_ID"
+            [(ngModel)]="resoucedeposits.resource_Id"
             class="form-control"
-            name="Resource_ID"
-            placeholder="Resource_ID"
-            id="Resource_ID"
+            name="resource_Id"
+            placeholder="resource_Id"
+            id="resource_Id"
             required
             readonly
           />
         </td>
         <td>  
-          <input type="text" class="form-control form-control-sm" id="Mineral_ID" placeholder="Mineral_ID"  
+          <input type="text" class="form-control form-control-sm" id="mineral_Id" placeholder="Mineral_ID"  
           (click)="isAccountVisible=true" 
-           [(ngModel)]="resoucedeposits.Mineral_ID" name ="Mineral_ID" readonly>          
+           [(ngModel)]="resoucedeposits.mineral_Id" name ="mineral_Id" readonly>          
           <p-dialog
             header="Mineral ID" 
             [(visible)]="isAccountVisible"
             [modal]="true"
             [responsive]="true"
             [width]="500"
-            [minWidth]="200"
+            [minWidth]="500"
             [minY]="70"
             [maximizable]="true"
             [baseZIndex]="10000"
@@ -79,6 +79,7 @@
            <ng-template pTemplate="header">
            <tr scope="col" translate>
            <th>Mineral ID</th>
+           <th>Name</th>
           </tr>
          </ng-template>
               <ng-template pTemplate="body" let-account>
@@ -98,16 +99,17 @@
           </p-dialog>
         </td>
           
-        <td>  <input type="text" class="form-control form-control-sm" id="Site_ID" placeholder="Site_ID"  
+        <td> 
+           <input type="text" class="form-control form-control-sm" id="site_Id" placeholder="site_Id"  
           (click)="isAccountModalVisible=true" 
-           [(ngModel)]="resoucedeposits.Site_ID" name ="Site_ID" readonly>          
+           [(ngModel)]="serviceService.site_Id" name ="site_Id" readonly>          
           <p-dialog
             header="Site ID" 
             [(visible)]="isAccountModalVisible"
             [modal]="true"
             [responsive]="true"
             [width]="500"
-            [minWidth]="200"
+            [minWidth]="500"
             [minY]="70"
             [maximizable]="true"
             [baseZIndex]="10000"
@@ -123,14 +125,16 @@
                   <input  class="form-control" (input)="ptable.filterGlobal($event.target.value, 'contains')" placeholder="Search Globally" />
                 </div>  
                </span>
-           </div>  </ng-template>
+           </div>
+            </ng-template>
            <ng-template pTemplate="header">
            <tr scope="col" translate>
            <th>Site ID</th>
+           <th>Site Name</th>
           </tr>
          </ng-template>
               <ng-template pTemplate="body" let-account>
-                  <tr (click)="onAccountSelectionChange(account)">
+                  <tr (click)="onAccountSelectionChanges(account)">
                     <td>{{account.value}}</td>
                     <td>{{account.label}}</td>
                   </tr>
@@ -148,9 +152,9 @@
 
           <td>
             <select class="custom-select custom-select-sm"
-                 id="Unit_Type" 
-                name="Unit_Type"
-               [(ngModel)]="resoucedeposits.Unit">
+                 id="unit" 
+                name="unit"
+               [(ngModel)]="resoucedeposits.unit">
                 <ng-container *ngFor="let Unit of UnitList">
                 <option value="{{Unit.lkdetail_code}}">
                                {{Unit.english_description}}</option>
@@ -160,77 +164,77 @@
            <td class="p-2">
             <input
               type="number"
-              [(ngModel)]="resoucedeposits.Quantity"
+              [(ngModel)]="resoucedeposits.quantity"
               class="form-control"
-              name="Quantity"
-              placeholder="Quantity"
-              id="Quantity"
+              name="quantity"
+              placeholder="quantity"
+              id="quantity"
               required
             />
           </td>  
            <td class="p-2">
             <input
               type="date"
-              [(ngModel)]="resoucedeposits.Explored_Date"
+              [(ngModel)]="resoucedeposits.explored_Date"
               class="form-control"
-              name="Explored_Date"
-              placeholder="Explored_Date"
-              id="Explored_Date"
+              name="explored_Date"
+              placeholder="explored_Date"
+              id="explored_Date"
               required
             />
           </td> 
           <td class="p-2">
             <input
               type="text"
-              [(ngModel)]="resoucedeposits.Explored_By"
+              [(ngModel)]="resoucedeposits.explored_By"
               class="form-control"
-              name="Explored_By"
-              placeholder="Explored_By"
-              id="Explored_By"
+              name="explored_By"
+              placeholder="explored_By"
+              id="explored_By"
               required
             />
           </td> 
           <td class="p-2">
             <input
               type="date"
-              [(ngModel)]="resoucedeposits.Lab_Approved_Date"
+              [(ngModel)]="resoucedeposits.lab_Approved_Date"
               class="form-control"
-              name="Lab_Approved_Date"
-              placeholder="Lab_Approved_Date"
-              id="Lab_Approved_Date"
+              name="lab_Approved_Date"
+              placeholder="lab_Approved_Date"
+              id="lab_Approved_Date"
               required
             />
           </td> 
           <td class="p-2">
             <input
               type="date"
-              [(ngModel)]="resoucedeposits.Lab_Approved_By"
+              [(ngModel)]="resoucedeposits.lab_Approved_By"
               class="form-control"
-              name="Lab_Approved_By"
-              placeholder="Lab_Approved_By"
-              id="Lab_Approved_By"
+              name="lab_Approved_By"
+              placeholder="lab_Approved_By"
+              id="lab_Approved_By"
               required
             />
           </td>
           <td class="p-2">
             <input
               type="checkbox"
-              [(ngModel)]="resoucedeposits.Is_Active"
+              [(ngModel)]="resoucedeposits.is_Active"
               class="form-control"
-              name="Is_Active"
-              placeholder="Is_Active"
-              id="Is_Active"
+              name="is_Active"
+              placeholder="is_Active"
+              id="is_Active"
               required
             />
           </td> 
            <td class="p-2">
             <input
               type="text"
-              [(ngModel)]="resoucedeposits.Remark"
+              [(ngModel)]="resoucedeposits.remark"
               class="form-control"
-              name="Remark"
-              placeholder="Remark"
-              id="Remark"
+              name="remark"
+              placeholder="remark"
+              id="remark"
               required
             />
           </td>
@@ -247,52 +251,52 @@
           </td>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-resoucedeposits> 
+      <ng-template pTemplate="body" let-resoucedeposit> 
          <tr>
           <td>
-            {{ resoucedeposits.Resource_ID }}
+            {{ resoucedeposit.resource_Id }}
           </td>
            <td>
-            {{ resoucedeposits.Mineral_ID }}
+            {{ resoucedeposit.mineral_Id }}
           </td> 
           
            <td>
-            {{ resoucedeposits.Site_ID }}
+            {{ resoucedeposit.site_Id }}
           </td>
           <td>
-            {{ resoucedeposits.Unit }}
+            {{ resoucedeposit.unit }}
           </td> 
            <td>
-            {{ resoucedeposits.Quantity }}
+            {{ resoucedeposit.quantity }}
           </td> 
            <td>
-            {{ resoucedeposits.Explored_Date }}
+            {{ resoucedeposit.explored_Date }}
           </td> 
           
            <td>
-            {{ resoucedeposits.Exlored_By }}
+            {{ resoucedeposit.explored_By }}
           </td> 
              <td>
-            {{ resoucedeposits.Lab_Approved_Date }}
+            {{ resoucedeposit.lab_Approved_Date }}
           </td> 
           <td>
-            {{ resoucedeposits.Lab_Approved_By }}
+            {{ resoucedeposit.lab_Approved_By }}
           </td>
           <td>
-            {{ resoucedeposits.Is_active }}
+            {{ resoucedeposit.is_Active }}
           </td> 
           <td>
-            {{ resoucedeposits.Remark }}
+            {{ resoucedeposit.remarks }}
           </td> 
         <td>
-          <!-- <button
+          <button
           type="button"
           class="btn btn-primary"
-            (click)="deleteperiods(resoucedeposits)"
+            (click)="deleteresoucedeposit(resoucedeposit)"
           >
             <i class="pi pi-trash"></i>
             Delete
-          </button> -->
+          </button>
         </td> 
        
       </tr>

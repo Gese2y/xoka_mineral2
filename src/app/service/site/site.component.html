@@ -1,8 +1,8 @@
 
 
-<!-- <br>
-<h2>Site </h2>
-<br> -->
+<br>
+<h2>Mineral Site </h2>
+<br>
 <div class="m-3">
   <div class="row">
     <div class="col-md-12">
@@ -12,7 +12,7 @@
         <div class="row">
           <div class="col-md-6 row form-group">
             <label
-              for="Site_ID"
+              for="site_Id"
               class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate
               >Site ID</label
@@ -21,11 +21,11 @@
               <input
                 type="text"
                 class="form-control"
-                [(ngModel)]="site.Site_ID"
-                #Site_ID="ngModel"
-                name="Site_ID"
+                [(ngModel)]="site.site_Id"
+                #site_Id="ngModel"
+                name="site_Id"
                 placeholder="Site ID "
-                id="Site_ID"
+                id="site_Id"
                 readonly
                 required
               /> 
@@ -35,7 +35,7 @@
         <div class="row">
           <div class="col-md-6 row form-group">
             <label
-              for="Site_Name"
+              for="site_Name"
               class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate
               >Site Name</label
@@ -44,11 +44,11 @@
               <input
                 type="text"
                 class="form-control"
-                [(ngModel)]="site.Site_Name"
-                #Site_Name="ngModel"
-                name="Site_Name"
-                placeholder=" Site_Name"
-                id="Site_Name"
+                [(ngModel)]="site.site_Name"
+                #site_Name="ngModel"
+                name="site_Name"
+                placeholder=" Site Name"
+                id="site_Name"
                 required
               />
             </div>
@@ -56,7 +56,7 @@
              
           <div class="col-md-6 row form-group">
             <label
-              for="Date_Registered"
+              for="date_Registered"
               class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate
               >Registered Date</label
@@ -65,11 +65,11 @@
               <input
                 type="date"
                 class="form-control"
-                [(ngModel)]="site.Date_Registered"
+                [(ngModel)]="site.date_Registered"
                 #Date_Registered="ngModel"
-                name="Date_Registered"
-                placeholder="Date_Registered "
-                id="Date_Registered"
+                name="date_Registered"
+                placeholder="Date Registered "
+                id="date_Registered"
                 
                 required
               />
@@ -77,16 +77,16 @@
           </div>  
     <div class="col-md-6 row form-group">
             <label
-              for="Region"
+              for="region"
               class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate
               >Region</label
             >
             <div class="col-sm-6">
               <select class="custom-select custom-select-sm"
-              id="Region" 
-             name="Region"
-            [(ngModel)]="site.Region">
+              id="region" 
+             name="region"
+            [(ngModel)]="site.region">
              <ng-container *ngFor="let Region of RegionList">
              <option value="{{Region.lkdetail_code}}">{{Region.english_description}}</option>
               </ng-container>
@@ -128,16 +128,16 @@
 
           <div class="col-md-6 row form-group">
             <label
-              for="Zone"
+              for="zone"
               class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate
               >Zone</label
             > 
             <div class="col-sm-6">
               <select class="custom-select custom-select-sm"
-              id="Zone" 
-             name="Zone"
-            [(ngModel)]="site.Zone">
+              id="zone" 
+             name="zone"
+            [(ngModel)]="site.zone">
              <ng-container *ngFor="let Zone of ZoneList">
              <option value="{{Zone.lkdetail_code}}">{{Zone.english_description}}</option>
               </ng-container>
@@ -145,35 +145,36 @@
             </div>
           </div>
           <div class="col-md-6 row form-group">
-                <label
-                  for="Status"
-                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                  translate
-                  >Status</label
-                >
-                <div class="col-sm-6">
-                  <select class="custom-select custom-select-sm"
-                  id="Status" 
-                 name="Status"
-                [(ngModel)]="site.Status">
-                 <ng-container *ngFor="let Status of StatusList">
-                 <option value="{{Status.lkdetail_code}}">{{Status.english_description}}</option>
-                  </ng-container>
-                 </select>
-                </div>
-          </div>  
+            <label
+              for="status"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Site Status</label
+            >
+            <div class="col-sm-6">
+              <select class="custom-select custom-select-sm"
+              id="status" 
+             name="status"
+            [(ngModel)]="site.status">
+             <ng-container *ngFor="let Status of StatusList">
+             <option value="{{Status.lkdetail_code}}">
+                            {{Status.english_description}}</option>
+              </ng-container>
+             </select>
+            </div>
+          </div>
           <div class="col-md-6 row form-group">
             <label
-              for="Woreda"
+              for="woreda"
               class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate
               >Woreda</label
             >
             <div class="col-sm-6">
               <select class="custom-select custom-select-sm"
-              id="Woreda" 
-             name="Woreda"
-            [(ngModel)]="site.Woreda">
+              id="woreda" 
+             name="woreda"
+            [(ngModel)]="site.woreda">
              <ng-container *ngFor="let Woreda of WoredaList">
              <option value="{{Woreda.lkdetail_code}}">{{Woreda.english_description}}</option>
               </ng-container>
@@ -189,7 +190,7 @@
             >
             <div class="col-sm-6">
               <input
-                type="text"
+                type="checkbox"
                 class="form-control"
                 [(ngModel)]="site.Is_Active"
                 #Is_Active="ngModel"
@@ -202,21 +203,20 @@
             </div> 
           <div class="col-md-6 row form-group">
             <label
-              for="Kebele"
+              for="kebele"
               class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate
               >Kebele Locality</label
             >
-
             <div class="col-sm-6">
               <input
                 type="text"
                 class="form-control"
-                [(ngModel)]="site.Kebele"
-                #Kebele="ngModel"
-                name="Kebele"
+                [(ngModel)]="site.kebele"
+                #kebele="ngModel"
+                name="kebele"
                 placeholder="Kebele"
-                id="Kebele"
+                id="kebele"
                 
                 required
               />
@@ -224,7 +224,7 @@
           </div> 
             <div class="col-md-6 row form-group">
             <label
-              for="Remarks"
+              for="remarks"
               class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate
               >Remarks</label
@@ -233,11 +233,11 @@
               <input
                 type="text"
                 class="form-control"
-                [(ngModel)]="site.Remarks"
-                #Remark="ngModel"
-                name="Remarks"
+                [(ngModel)]="site.remarks"
+                #remarks="ngModel"
+                name="remarks"
                 placeholder=" Remarks"
-                id="Remarks"
+                id="remarks"
                 required
               />
             </div>
@@ -248,7 +248,7 @@
             <button
             type="button"
             
-              (click)="saveData()"
+              (click)="registersite()"
               value="Save Item"
               class="btn btn-primary"
             >
@@ -284,6 +284,65 @@
           </div>
         </div> 
       </form>
+      <br>
+      <div >
+        <p-table [value]="sites" [paginator]="true" [rows]="3" >
+          <ng-template pTemplate="header">
+            <tr>
+              <th scope="col" translate>Site_ID</th>
+              <th scope="col" translate>Site_Name</th>
+              <th scope="col" translate>Region</th>
+              <th scope="col" translate>Zone</th>
+              <th scope="col" translate>Woreda</th>
+              <th scope="col" translate>Kebele_Locality</th>
+              <th scope="col" translate>Date_Registered </th>
+              <th scope="col" translate>Coordinate </th>
+              <th scope="col" translate>Status </th>
+              <th scope="col" translate>Is_Active</th>
+              <th scope="col" translate>Remarks</th>
+              <th></th>
+          
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-sites>
+            <tr>
+              <td>{{ sites.site_Id }}</td>
+              <td>{{ sites.site_Name }}</td>
+              <td>{{ sites.region }}</td>
+              <td>{{ sites.zone }}</td>
+              <td>{{ sites.woreda }}</td>
+              <td>{{ sites.kebele_Locality }}</td>
+              <td>{{ sites.date_Registered }}</td>
+              <td>{{ sites.coordinate }}</td>
+              <td>{{ sites.status }}</td>
+              <td>{{ sites.is_Active }}</td>
+              <td>{{ sites.remarks }}</td>
+              <td>
+                <button
+            type="button"
+            class="btn btn-primary"
+                  (click)="selectsites(sites)"
+                  translate
+                >
+                  Edit
+                </button>
+               
+              </td>
+              <td> 
+               
+                <button
+                type="button"
+                class="btn btn-primary"
+                  (click)="deletesites(sites)"
+                >
+                  <i class="pi pi-trash"></i>
+                  Delete
+                </button>
+              </td> 
+            </tr>
+          </ng-template>
+        </p-table>
+    </div>
     </div>
    </div>
 </div>

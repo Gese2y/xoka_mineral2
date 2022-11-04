@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Guid } from 'guid-typescript';
+// import { Guid } from 'guid-typescript';
 import { SiteService } from './Site.service';
 import { NotificationsService } from 'angular2-notifications';
 import { ServiceService } from '../service.service';
 import * as L from 'leaflet';
+import { Guid } from 'guid-typescript';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -25,6 +27,7 @@ public sites: any;
 public site:site;
 toogleSpin=false;
 displayGIS = false;
+
 Coordinate:any;
 message: any;
 public StatusList:site;
@@ -35,27 +38,39 @@ public StatusList:site;
  @Input() licenceData;
  @Input() workingUser;
  @Output() saveDataCompleted = new EventEmitter();
+ @Input() taskId;
   BasicFormnew: any;
 // public edit_form:any;
+postData = {
+  orgId: null,
+  appCode: null,
+  appNo: null,
+  userId: null,
+  taskId: null
+};
+  edit_form: boolean;
   constructor(
     private SiteService: SiteService,
     private notificationsService: NotificationsService,
     public serviceService:ServiceService,
+    private routerService: ActivatedRoute,
   ) { 
     this.site= new site; 
    
   }
 
   ngOnInit() {
-
-    
-    this.site.Site_ID= Guid.create();
-   // this.site.Site_ID = this.sites.Site_ID.value;
-
-    this.SiteService.getStatus().subscribe(data=>{
-      this.StatusList=data;
-      this.StatusList=this.StatusList;
-    })
+    this.getsite();
+  //  this.site.site_Id= Guid.create();
+   this.site.site_Id= Guid.create();
+   this.site.site_Id = this.site.site_Id.value;
+   console.log('Site');
+      
+   this.SiteService.getStatusList().subscribe(data=>{
+    this.StatusList=data;
+    this.StatusList=this.StatusList;
+  })
+   
     this.SiteService.getRegion().subscribe(data=>{
       this.RegionList=data;
       this.RegionList=this.RegionList;
@@ -68,42 +83,63 @@ public StatusList:site;
       this.WoredaList=data;
       this.WoredaList=this.WoredaList;
     })
+
+
+    this.routerService.params.subscribe((params) => {
+      this.urlParams = params;
+      console.log("urlParams", this.urlParams);
+    });
+    if(this.workingUser){
+      if(this.workingUser['userId']){
+        this.postData.userId = this.workingUser['userId'];
+      }
+      if(this.workingUser['organization_code']){
+        this.postData.orgId = this.workingUser['organization_code'];
+      }
+    }
+    if(this.licenceData){
+      if(this.licenceData['Application_No']){
+        this.postData.appNo = this.licenceData['Application_No'];
+      }
+      if(this.licenceData['Licence_Service_ID']){
+        this.postData.appCode = this.licenceData['Licence_Service_ID'];
+      }
+    }
+    if(this.taskId){
+      this.postData.taskId = this.taskId;
+    }
+    console.log('licenceData', this.licenceData);
+    console.log('workingUser', this.workingUser);
+    console.log('taskId', this.taskId);
+    console.log('post data :: ', this.postData);
   }
+  // getsite() {
+  //   this.SiteService.getsite().subscribe(
+  //     (response) => {
+  //       console.log("site", response);
+  //       this.sites = response;
+  //     },
+  //     (error) => {
+  //       const toast = this.notificationsService.error(
+  //         "Error",
+  //         "SomeThing Went Wrong"
+  //       );
+  //     }
+  //   );
+  
+  // }
   getsite() {
     this.SiteService.getsite().subscribe(
       (response) => {
-        console.log("site", response);
-        this.sites = response["site"];
+        this.sites = response;
       },
       (error) => {
-        const toast = this.notificationsService.error(
-          "Error",
-          "SomeThing Went Wrong"
-        );
+        console.log("error");
       }
     );
-  
   }
-  
-  // registersite() {
-  //   this.SiteService.addsite(this.site)
-  //     .subscribe(
-  //       (response) => {
-  //         this.getsite();
-  //         const toast = this.notificationsService.success("Success", "Saved");
-  //         this.clearForm();
-  //       },
-  //       (error) => {
-  //         const toast = this.notificationsService.error(
-  //           "Error",
-  //           "SomeThing Went Wrong"
-  //         );
-  //       }
-  //     );
-  // }
   registersite() {   
     console.log(this.site);
-    
     this.SiteService.registersite(this.site).subscribe(
       (response) => {
         const toast = this.notificationsService.success("Success", "success");
@@ -126,7 +162,7 @@ public StatusList:site;
     this.serviceService
       .saveForm(
         this.licenceData ? this.licenceData.Licence_Service_ID : "00000000-0000-0000-0000-000000000000",
-        this.licenceData ? this.licenceData.Service_ID : this.urlParams.id,
+        this.licenceData ? this.licenceData.Service_ID : "00000000-0000-0000-0000-000000000000",
         "c30c953e-7001-485a-80cd-7dd9d45b86f1",
         "1e60f3a1-7017-47bf-95f4-f0e47c793c72",
         "{}",
@@ -177,12 +213,30 @@ onClickEvent() {
   	return new Map(id);
   }
 
+  deletesites(site) {
+  
+    if (confirm("Are you sure !!!"))
+      this.SiteService
+        .deletesites(site)
+        .subscribe(
+          (response) => {
+            this.getsite();
+            const toast = this.notificationsService.success("Success", "Saved");
+          },
+          (error) => {
+            console.log("reroes", error);
+            const toast = this.notificationsService.error(
+              "Error",
+              "SomeThing Went Wrong"
+            );
+          }
+        );
+  }
   clearForm(){
     this.sites = {};
     this.IsAddFormVisible = !this.IsAddFormVisible;
-    this.sites.Site_ID= Guid.create();
-    // this.sites.Site_ID= Guid.create();
-    this.sites.Site_ID = this.sites.Site_ID.value;
+    // this.site.site_Id= Guid.create();
+    // this.site.site_Id = this.site.site_Id.value;
   }
   finishSelection() {
   
@@ -207,10 +261,10 @@ public OnClickMap(event) {
   // this.clickCoordinate = convertedEvent;
   // console.log("converted event :: ", convertedEvent);
   // console.log(this.BasicFormnew.controls['Latitude'].value);
-    let lat = this.site.Coordinate.value;
-    let lng = this.site.Coordinate.value;
-    let cordinat='POINT ('+ lat +' ,'+ lng +')';   
-    this.site.Coordinate = event.value;
+    // let lat = this.site.Coordinate.value;
+    // let lng = this.site.Coordinate.value;
+    // let cordinat='POINT ('+ lat +' ,'+ lng +')';   
+    this.site.coordinate = event.value;
     this.IsAddFormVisible = false
 } 
 gotoCoordinate() {
@@ -224,29 +278,35 @@ gotoCoordinate() {
   };
 
   L.marker(coords).addTo(this.map);
-}
-
+} 
+selectsites(site) {
+  console.log(site)
+  this.edit_form = true;
+  this.site = site;
+  this.serviceService.site_Id=site.site_Id
+  console.log( this.serviceService.site_Id)
+} 
 
 }
 class site{
-  public Site_ID:any;
-  public Site_Name:any;
-  public Region:any;
-  public Zone:any;
-  public Woreda:any;
-  public Kebele_Locality:any;
-  public Date_Registered:any;
-  public Coordinate:any;
-  public Status:any;
-  public Is_Active:any;
-  public Remarks:any;
-  public Created_By:any;
-  public Updated_By:any;
-  public Deleted_By:any;
-  public Is_Deleted:any;
-  public Created_Date:any;
-  public Updated_Date:any;
-  public Deleted_Date:any;
-  public Licence_Service_ID:any;
-  public Application_No:any;
+  public site_Id:any;
+  public site_Name:any;
+  public region:any;
+  public zone:any;
+  public woreda:any;
+  public kebele_Locality:any;
+  public date_Registered:any;
+  public coordinate:any;
+  public status:any;
+  public is_Active:any;
+  public remarks:any;
+  public created_By:any
+  public updated_By:any;
+  public deleted_By:any;
+  public is_Deleted:any;
+  public created_Date:any;
+  public updated_Date:any;
+  public deleted_Date:any;
+  public licence_Service_Id:any;
+  public application_No:any;
 }

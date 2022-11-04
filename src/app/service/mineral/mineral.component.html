@@ -1,442 +1,270 @@
-
-<!-- <br>
+<br>
     <h2>mineral </h2>
-    <br> -->
-    <div class="m-3">
-      <div class="row">
-        <div class="col-md-12">
-          <form>
-            <div class="row">
-              <div class="col-md-6 row form-group">
-                <label
-                  for="Mineral_ID"
-                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                  translate
-                  >Mineral  ID</label
-                >
-                <div class="col-sm-9">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="minerals.Mineral_ID"
-                    #Mineral_ID="ngModel"
-                    name="Mineral_ID"
-                    placeholder="Mineral  ID "
-                    id="Mineral_ID"
-                    readonly
-                    required
-                  />
-                </div>
-              </div>
+    <br>
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-12">
+      <form>
+        <div class="row">
+          <div class="col-md-6 row form-group">
+            <label for="mineral_Id" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Mineral
+              ID</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="minerals.mineral_Id" #mineral_Id="ngModel"
+                name="mineral_Id" placeholder="Mineral  ID " id="mineral_Id" readonly required />
             </div>
-            <div class="row">
-              <div class="col-md-6 row form-group">
-                <label
-                  for="Code"
-                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                  translate
-                  >Code</label
-                >
-                <div class="col-sm-9">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="minerals.Code"
-                    #Code="ngModel"
-                    name="Code"
-                    placeholder=" Code"
-                    id="Code"
-                    required
-                  />
-                </div>
-              </div>
-            
-              <div class="col-md-6 row form-group">
-                <label
-                  for="Color"
-                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                  translate
-                  >Color</label
-                >
-                <div class="col-sm-9">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="minerals.Color"
-                    #Color="ngModel"
-                    name="Color"
-                    placeholder="Color"
-                    id="Color"  
-                    required
-                  />
-                </div>
-              </div> 
-                <div class="col-md-6 row form-group">
-                  <label
-                    for="Name"
-                    class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                    translate
-                    >Name </label
-                  > 
-                  <div class="col-sm-9">
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="minerals.Name"
-                      #Name="ngModel"
-                      name="Name"
-                      placeholder="Name"
-                      id="Name"
-                      required
-                    />
-                  </div>
-                </div> 
-    
-                
-              <div class="col-md-6 row form-group">
-                <label
-                  for="Streak"
-                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                  translate
-                  >Streak</label
-                >
-    
-                <div class="col-sm-9">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="minerals.Streak"
-                    #Streak="ngModel"
-                    name="Streak"
-                    placeholder="Streak"
-                    id="Streak"  
-                    required
-                  />
-                </div>
-              </div> 
-    
-                <div class="col-md-6 row form-group">
-                  <label
-                    for="Class"
-                    class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                    translate
-                    >Class</label
-                  >
-                  <div class="col-sm-9">
-                    <select class="custom-select custom-select-sm"
-                    id="Class" 
-                   name="Class"
-                  [(ngModel)]="minerals.Class">
-                   <ng-container *ngFor="let Class of ClassList">
-                   <option value="{{Class.lkdetail_code}}">{{Class.english_description}}</option>
-                    </ng-container>
-                   </select>
-                  </div>
-                </div> 
-                <div class="col-md-6 row form-group">
-                  <label
-                    for="Fracture"
-                    class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                    translate
-                    >Fracture</label
-                  >
-                  <div class="col-sm-9">
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="minerals.Fracture"
-                      #Fracture="ngModel"
-                      name="Fracture"
-                      placeholder=" Fracture"
-                      id="Fracture"
-                      required
-                    />
-                  </div>
-                  </div>  
-              
-              <div class="col-md-6 row form-group">
-                <label
-                  for="Mineral_Use"
-                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                  translate
-                  >Mineral Use</label
-                >
-                <div class="col-sm-9">
-                  <select class="custom-select custom-select-sm"
-                  id="Mineral_Use" 
-                 name="Mineral_Use"
-                [(ngModel)]="minerals.Mineral_Use">
-                 <ng-container *ngFor="let Mineral_Use of Mineral_UseList">
-                 <option value="{{Mineral_Use.lkdetail_code}}">{{Mineral_Use.english_description}}</option>
-                  </ng-container>
-                 </select>
-                </div>
-              </div>     
-              <div class="col-md-6 row form-group">
-                <label
-                  for="Parting"
-                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                  translate
-                  >Parting</label
-                >
-                <div class="col-sm-9">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="minerals.Parting"
-                    #Parting="ngModel"
-                    name="Parting"
-                    placeholder=" Parting"
-                    id="Parting"
-                    required
-                  />
-                </div>
-                </div>
-              <div class="col-md-6 row form-group">
-                <label
-                  for="Chemical_Classification"
-                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                  translate
-                  >Chemical Classification</label
-                >
-                <div class="col-sm-9">
-                  <select class="custom-select custom-select-sm"
-                  id="Class" 
-                 name="Class"
-                [(ngModel)]="minerals.Chemical_Classification">
-                 <ng-container *ngFor="let Chemical_Classification of Chemical_ClassificationList">
-                 <option value="{{Chemical_Classification.lkdetail_code}}">
-                                {{Chemical_Classification.english_description}}</option>
-                  </ng-container>
-                 </select>
-                </div>
-              </div>
-              <div class="col-md-6 row form-group">
-                <label
-                  for="Tenacity"
-                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                  translate
-                  >Tenacity</label
-                >
-                <div class="col-sm-9">
-                  <select class="custom-select custom-select-sm"
-                  id="Tenacity" 
-                 name="Tenacity"
-                [(ngModel)]="minerals.Tenacity">
-                 <ng-container *ngFor="let Tenacity of TenacityList">
-                 <option value="{{Tenacity.lkdetail_code}}">
-                                {{Tenacity.english_description}}</option>
-                  </ng-container>
-                 </select>
-                </div>
-              </div>
-              
-              <div class="col-md-6 row form-group">
-                <label
-                  for="Crystal_Structure"
-                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                  translate
-                  >Crystal Structure</label
-                >
-                <div class="col-sm-9">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="minerals.Crystal_Structure"
-                    #Crystal_Structure="ngModel"
-                    name="Crystal_Structure"
-                    placeholder="Crystal_Structure "
-                    id="Crystal_Structure"
-                    
-                    required
-                  />
-                </div>
-              </div>    
-              <div class="col-md-6 row form-group">
-                <label
-                  for="Specific_Gravity"
-                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                  translate
-                  >Specific Gravity</label
-                >
-                <div class="col-sm-9">
-                  <input
-                    type="number"
-                    class="form-control"
-                    [(ngModel)]="minerals.Specific_Gravity"
-                    #Specific_Gravity="ngModel"
-                    name="Specific_Gravity"
-                    placeholder=" Specific_Gravity"
-                    id="Specific_Gravity"
-                    required
-                  />
-                </div>
-                </div> 
-                <div class="col-md-6 row form-group">
-                  <label
-                    for="Hardness"
-                    class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                    translate
-                    >Hardness</label
-                  >
-                  <div class="col-sm-9">
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="minerals.Hardness"
-                      #Hardness="ngModel"
-                      name="Hardness"
-                      placeholder="Hardness "
-                      id="Hardness"
-                       
-                      required
-                    />
-                  </div>
-                </div>
-                <div class="col-md-6 row form-group">
-                  <label
-                    for="Other_Properties"
-                    class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                    translate
-                    >Other Properties</label
-                  >
-                  <div class="col-sm-9">
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="minerals.Other_Properties"
-                      #Other_Properties="ngModel"
-                      name="Other_Properties"
-                      placeholder=" Other_Properties"
-                      id="Other_Properties"
-                      required
-                    />
-                  </div>
-                  </div>
-                <div class="col-md-6 row form-group">
-                  <label
-                    for="Lustre"
-                    class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                    translate
-                    >Lustre</label
-                  >
-                  <div class="col-sm-9">
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="minerals.Lustre"
-                      #Lustre="ngModel"
-                      name="Lustre"
-                      placeholder="Lustre"
-                      id="Lustre"  
-                      
-                      required
-                    />
-                  </div>
-                </div>  
-                <div class="col-md-6 row form-group">
-                  <label
-                    for="Is_Active"
-                    class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                    translate
-                    >Is Active</label
-                  >
-                  <div class="col-sm-9">
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="minerals.Is_Active"
-                      #Is_active="ngModel"
-                      name="Is_Active"
-                      placeholder=" Is_Active"
-                      id="Is_Active"
-                      required
-                    /> 
-                  </div>
-                  </div>
-                <div class="col-md-6 row form-group">
-                  <label
-                    for="Diaphaneity"
-                    class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                    translate
-                    >Diaphaneity</label
-                  >
-      
-                  <div class="col-sm-9">
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="minerals.Diaphaneity"
-                      #Diaphaneity="ngModel"
-                      name="Diaphaneity"
-                      placeholder="Diaphaneity"
-                      id="Diaphaneity"  
-                       
-                      required
-                    />
-                  </div>
-                </div>
-                <div class="col-md-6 row form-group">
-                <label
-                  for="Remarks"
-                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-                  translate
-                  >Remarks</label
-                >
-                <div class="col-sm-9">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="minerals.Remarks"
-                    #remark="ngModel"
-                    name="Remarks"
-                    placeholder=" Remarks"
-                    id="Remarks"
-                    required
-                  />
-                </div>
-                </div>
-                
-                
-              <div class="text-center col-12"> 
-                <button
-                type="button"
-                
-                  (click)="saveData()"
-                  value="Save Item"
-                  class="btn btn-primary"
-                >
-                  Save 
-                </button> <br><br>
-                 <!-- <button
-                type="button"
-                (click)="clearForm()"
-                  value="Save Item"
-                  class="btn btn-primary"
-                >
-                  Retray 
-                </button> -->
-                <button
-                type="button"
-                  *ngIf="edit_form"
-                  (click)="updatesite ()"
-                  value="Save Item"
-                  class="btn btn-primary"
-                >
-                  Update Item
-                </button> 
-    
-              <button
-                type="button"
-                *ngIf="edit_form"
-                  (click)="deletesite ()"
-                  class="btn btn-danger mx-3"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          </form>
+          </div>
         </div>
-      </div>
+        <div class="row">
+          <div class="col-md-6 row form-group">
+            <label for="code" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Code</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="minerals.code" #code="ngModel" name="code"
+                placeholder=" code" id="code" required />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label for="color" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Color</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="minerals.color" #color="ngModel" name="color"
+                placeholder="color" id="color" required />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="name" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Name </label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="minerals.name" #name="ngModel" name="name"
+                placeholder="name" id="name" required />
+            </div>
+          </div>
+
+
+          <div class="col-md-6 row form-group">
+            <label for="streak" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Streak</label>
+
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="minerals.streak" #streak="ngModel" name="streak"
+                placeholder="streak" id="streak" required />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label for="class" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Class</label>
+            <div class="col-sm-9">
+              <select class="custom-select custom-select-sm" id="class" name="class" [(ngModel)]="minerals.class">
+                <ng-container *ngFor="let class of Mineral_ClassList">
+                  <option value="{{class.lkdetail_code}}">{{class.english_description}}</option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="fracture" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Fracture</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="minerals.fracture" #fracture="ngModel"
+                name="fracture" placeholder=" fracture" id="fracture" required />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label for="mineral_Use" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Mineral
+              Use</label>
+            <div class="col-sm-9">
+              <select class="custom-select custom-select-sm" id="mineral_Use" name="mineral_Use"
+                [(ngModel)]="minerals.mineral_Use">
+                <ng-container *ngFor="let Mineral_Use of Mineral_UseList">
+                  <option value="{{Mineral_Use.lkdetail_code}}">{{Mineral_Use.english_description}}</option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="parting" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Parting</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="minerals.parting" #parting="ngModel" name="parting"
+                placeholder=" parting" id="parting" required />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="chemical_Classification" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Chemical Classification</label>
+            <div class="col-sm-9">
+              <select class="custom-select custom-select-sm" id="chemical_Classification" name="chemical_Classification"
+                [(ngModel)]="minerals.chemical_Classification">
+                <ng-container *ngFor="let Chemical_Classification of Chemical_ClassificationList">
+                  <option value="{{Chemical_Classification.lkdetail_code}}">
+                    {{Chemical_Classification.english_description}}</option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="tenacity" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Tenacity</label>
+            <div class="col-sm-9">
+              <select class="custom-select custom-select-sm" id="tenacity" name="tenacity"
+                [(ngModel)]="minerals.tenacity">
+                <ng-container *ngFor="let Tenacity of TenacityList">
+                  <option value="{{Tenacity.lkdetail_code}}">
+                    {{Tenacity.english_description}}</option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label for="crystal_Structure" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Crystal Structure</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="minerals.crystal_Structure"
+                #crystal_Structure="ngModel" name="crystal_Structure" placeholder="crystal_Structure "
+                id="crystal_Structure" required />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="specific_Gravity" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Specific Gravity</label>
+            <div class="col-sm-9">
+              <input type="number" class="form-control" [(ngModel)]="minerals.specific_Gravity"
+                #specific_Gravity="ngModel" name="specific_Gravity" placeholder=" specific_Gravity"
+                id="specific_Gravity" required />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="hardness" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Hardness</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="minerals.hardness" #hardness="ngModel"
+                name="hardness" placeholder="hardness " id="hardness" required />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="other_Properties" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Other Properties</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="minerals.other_Properties"
+                #other_Properties="ngModel" name="other_Properties" placeholder=" other_Properties"
+                id="other_Properties" required />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="lustre" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Lustre</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="minerals.lustre" #lustre="ngModel" name="lustre"
+                placeholder="lustre" id="lustre" required />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="is_Active" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Is
+              Active</label>
+            <div class="col-sm-9">
+              <input type="checkbox" class="form-control" [(ngModel)]="minerals.is_Active" #is_Active="ngModel"
+                name="is_Active" placeholder=" is_Active" id="is_Active" required />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="diaphaneity" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Diaphaneity</label>
+
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="minerals.diaphaneity" #diaphaneity="ngModel"
+                name="diaphaneity" placeholder="diaphaneity" id="diaphaneity" required />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="remarks" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Remarks</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="minerals.remarks" #remark="ngModel" name="remarks"
+                placeholder=" remarks" id="remarks" required />
+            </div>
+          </div>
+          <div class="text-center col-12">
+            <button type="button" class="btn btn-primary" (click)="addminerals()" translate>
+              Save
+            </button><br><br>
+
+            <!-- <button type="button" *ngIf="edit_form" (click)="updatesite ()" value="Save Item" class="btn btn-primary">
+              Update Item
+            </button>
+
+            <button type="button" *ngIf="edit_form" (click)="deletesite ()" class="btn btn-danger mx-3">
+              Delete
+            </button> -->
+          </div>
+        </div>
+      </form>
+      <br>
+      <div >
+        <p-table [value]="mineral" [paginator]="true" [rows]="3">
+          <ng-template pTemplate="header">
+            <tr>
+              <th scope="col" translate>Mineral  ID</th>
+              <th scope="col" translate>Code</th>
+              <th scope="col" translate>Name</th>
+              <th scope="col" translate>Class</th>
+              <th scope="col" translate>Mineral Use</th>
+              <th scope="col" translate>Chemical Classification</th>
+              <th scope="col" translate>Crystal Structure </th>
+              <th scope="col" translate>Hardness </th>
+              <th scope="col" translate>Lustre </th>
+              <th scope="col" translate>Diaphaneity</th>
+              <th scope="col" translate>Color</th>
+              <!-- <th scope="col" translate>Streak</th>
+              <th scope="col" translate>Fracture</th>
+              <th scope="col" translate>Parting</th>
+              <th scope="col" translate>Tenacity</th>
+              <th scope="col" translate>Specific Gravity</th>
+              <th scope="col" translate>Other Properties</th> -->
+              <th scope="col" translate>Is Active</th>
+              <!-- <th scope="col" translate>Remarks</th>  -->
+              <th></th>
+            </tr>
+           
+          </ng-template>
+          <ng-template pTemplate="body" let-mineral>
+            <tr>
+              <td>{{ mineral.mineral_Id }}</td>
+              <td>{{ mineral.code }}</td>
+              <td>{{ mineral.name }}</td>
+              <td>{{ mineral.class }}</td>
+              <td>{{ mineral.mineral_Use }}</td>
+              <td>{{ mineral.chemical_Classification }}</td>
+              <td>{{ mineral.crystal_Structure }}</td>
+              <td>{{ mineral.hardness }}</td>
+              <td>{{ mineral.lustre }}</td>
+              <td>{{ mineral.diaphaneity }}</td>
+              <td>{{ mineral.color }}</td>
+              <td>{{ mineral.is_Active }}</td>
+              <!-- <td>
+                <button
+            type="button"
+            class="btn btn-primary"
+                  (click)="selectmineral(mineral)"
+                  translate
+                >
+                  Edit
+                </button>
+              </td> -->
+              <td> 
+               
+                  <button
+                  type="button"
+                  class="btn btn-primary"
+                    (click)="deletemineral(mineral)"
+                  >
+                    <i class="pi pi-trash"></i>
+                    Delete
+                  </button>
+                </td> 
+            </tr>
+          </ng-template>
+        </p-table>
     </div>
+  </div>
+</div>

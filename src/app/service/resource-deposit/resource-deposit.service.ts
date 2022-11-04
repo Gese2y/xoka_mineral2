@@ -7,17 +7,21 @@ import { environment } from 'src/environments/environment';
 })
 export class ResourceDepositService {
   private Unit =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Unit';
-  private addresourcedepositsUrl =environment.rootPath + '';
-
-  public mineralIDUrl = environment.rootPath2 + "";
-  public siteIDUrl = environment.rootPath2 + "";
+  private addresourcedepositsUrl =environment.rootApiPath + 'ResourceDeposit';
+  public ResourceDUrl = environment.rootApiPath + "ResourceDeposit";
+  public mineralIDUrl = environment.rootApiPath + "Mineral";
+  public siteIDUrl = environment.rootApiPath + "Site";
   
   constructor(private http: HttpClient) { }
+  getResourceD() {
+    return this.http.get(this.ResourceDUrl);
+  }
+
 
   getmineralID() {
     return this.http.get(this.mineralIDUrl);
   }
-  getsiteID() {
+  getsiteId() {
     return this.http.get(this.siteIDUrl);
   }
   getUnit(){
@@ -28,5 +32,10 @@ export class ResourceDepositService {
   }
   getresourceDeposit() {
     return this.http.get(this.addresourcedepositsUrl);
+  }
+  deleteresoucedeposit(resoucedeposits) {
+    return this.http.delete(
+      this.ResourceDUrl + "/" + resoucedeposits.resource_Id
+    );
   }
 }

@@ -1,15 +1,20 @@
 <tabset #tabset>
-  <tab heading="Add New Site">
+  <tab heading="Mineral Site">
     <app-site></app-site>
   </tab>
-
-  <tab heading="View Site ">
+  <tab heading="Resource Deposit">
+    <app-resource-deposit></app-resource-deposit>
+    <div class=" float-right">
+    <button type="button"  class="btn btn-primary btn-sm" (click)="selectTab(1)">Next</button>
+  </div>
+</tab>
+  <!-- <tab heading="Site Data ">
     <div class="m-3 row"> 
       <div class="col-md-3">
       </div>
 
       <div >
-        <p-table [value]="site" [paginator]="true" [rows]="3" >
+        <p-table [value]="sites" [paginator]="true" [rows]="3" >
           <ng-template pTemplate="header">
             <tr>
               <th scope="col" translate>Site_ID</th>
@@ -23,38 +28,43 @@
               <th scope="col" translate>Status </th>
               <th scope="col" translate>Is_Active</th>
               <th scope="col" translate>Remarks</th>
-            
+              <th></th>
+          
             </tr>
           </ng-template>
-          
           <ng-template pTemplate="body" let-site>
             <tr>
-              <td>{{ site.Site_ID }}</td>
-              <td>{{ site.Site_Name }}</td>
-              <td>{{ site.Region }}</td>
-              <td>{{ site.Zone }}</td>
-              <td>{{ site.Woreda }}</td>
-              <td>{{ site.Kebele_Locality }}</td>
-              <td>{{ site.Date_Registered }}</td>
-              <td>{{ site.Coordinate }}</td>
-              <td>{{ site.Status }}</td>
-              <td>{{ site.Is_Active }}</td>
-              <td>{{ site.Remarks }}</td>
+              <td>{{ site.site_Id }}</td>
+              <td>{{ site.site_Name }}</td>
+              <td>{{ site.region }}</td>
+              <td>{{ site.zone }}</td>
+              <td>{{ site.woreda }}</td>
+              <td>{{ site.kebele_Locality }}</td>
+              <td>{{ site.date_Registered }}</td>
+              <td>{{ site.coordinate }}</td>
+              <td>{{ site.status }}</td>
+              <td>{{ site.is_Active }}</td>
+              <td>{{ site.remarks }}</td>
               <td>
-                <!-- <button
+                <button
             type="button"
             class="btn btn-primary"
                   (click)="selectsite($event, site)"
                   translate
                 >
                   Edit
-                </button> -->
+                </button>
                
               </td>
             </tr>
           </ng-template>
-        </p-table>
+        </p-table> -->
         <br>
+        <!-- <tab heading="Resource Deposits">
+          <app-resource-deposit></app-resource-deposit>
+          <div class=" float-right">
+            <button type="button"  class="btn btn-primary btn-sm" (click)="selectTab(1)">Next</button></div>
+        </tab> -->
         <!-- <div class="m-3" *ngIf="isnew"> -->
         <!-- <aw-wizard-step [stepTitle]="'Resource Deposit' | translate"
             [navigationSymbol]="{ symbol: '&#xf05a;', fontFamily: 'FontAwesome'  }">
@@ -63,19 +73,29 @@
               [disable]="disable" [LicenceData]="LicenceData" [isnew]="true">
             </app-resource-deposit> -->
           <!-- </div> -->
-
-        <div class="pull-left">
+          <!-- <aw-wizard>
+          <aw-wizard-step> -->
+            
+              <!-- <app-resource-deposit></app-resource-deposit> -->
+<!--            
+        <div class="pull-right">
           <button type="button" class="btn btn-primary mr-1" awNextStep translate>Next
+            <div class="mt-3">
+              <app-resource-deposit>
+              </app-resource-deposit>
+            </div> 
           </button> 
         </div>
+      </aw-wizard-step></aw-wizard> -->
         <!-- </aw-wizard-step> -->
      
         <!-- </div> -->
-        <br>
+        <!-- <br>
     </div>
-    </div>
-  </tab> 
+    </div> -->
+  <!-- </tab>  -->
 
+  
 </tabset>
 
 <!-- <div> -->

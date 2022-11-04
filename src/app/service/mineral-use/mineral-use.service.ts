@@ -6,25 +6,32 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class MineralUseService {
-  public mineralUseUrl = environment.rootPath2 + "";
-  public Customer_IDUrl = environment.rootPath2 + "";
-  public ResourceIDUrl = environment.rootPath2 + "";
-  public siteIDUrl = environment.rootPath2 + "";
-
+  //public mineralUseUrl = environment.rootPath2 + "MineralUse";
+  public mineralUseUrl = environment.rootApiPath + "MineralUse"; 
+  public Customer_IDUrl = environment.rootApiPath + "Customer";
+  public ResourceIDUrl = environment.rootApiPath + "ResourceDeposit";
+  public plotIDUrl = environment.rootApiPath + "PlotRegistration";
+ 
   constructor(private http: HttpClient) { }
   getCustomer_ID() {
     return this.http.get(this.Customer_IDUrl);
   }
-  getResourceID() {
+  getresourceId() {
     return this.http.get(this.ResourceIDUrl);
   }
   getplotID() {
-    return this.http.get(this.siteIDUrl);
+    return this.http.get(this.plotIDUrl);
   }
   getmineralUse() {
     return this.http.get(this.mineralUseUrl);
   }
   registermineralUse(mineralUse) {
     return this.http.post(this.mineralUseUrl, mineralUse);
+  }
+  deletemineralUse(mineralUse) {
+    return this.http.delete(
+      this.mineralUseUrl + "/" + mineralUse.resource_Id +"/" + mineralUse.plot_Id +"/" + mineralUse.customer_Id
+
+    );
   }
 }

@@ -29,13 +29,20 @@ constructor(private MineralService: MineralService) {
   getminerals() {
     this.MineralService.getminerals().subscribe(
       (response) => {
-        this.minerals = response["minerals"];
+        this.minerals = response;
       },
       (error) => {
         console.log("error");
       }
     );
   }
+  selectminerals($event, minerals) {
+    console.log(minerals)
+    $event.preventDefault();
+    this.edit_form = true;
+    this.minerals = minerals;
+    this.goto(0);
+  } 
 }
 export class mineral{
 

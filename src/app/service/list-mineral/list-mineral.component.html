@@ -1,17 +1,17 @@
 <tabset #tabset>
-  <tab heading="Add New Mineral">
+  <tab heading="Mineral">
     <app-mineral
      
     ></app-mineral>
   </tab>
 
-  <tab heading="View Mineral ">
+  <!-- <tab heading="Mineral Data">
     <div class="m-3 row"> 
       <div class="col-md-3">
       </div>
 
       <div >
-        <p-table [value]="minerals" [paginator]="true" [rows]="5">
+        <p-table [value]="minerals" [paginator]="true" [rows]="3">
           <ng-template pTemplate="header">
             <tr>
               <th scope="col" translate>Mineral  ID</th>
@@ -24,47 +24,47 @@
               <th scope="col" translate>Hardness </th>
               <th scope="col" translate>Lustre </th>
               <th scope="col" translate>Diaphaneity</th>
-              <th scope="col" translate>Color</th>
+              <th scope="col" translate>Color</th> -->
               <!-- <th scope="col" translate>Streak</th>
               <th scope="col" translate>Fracture</th>
               <th scope="col" translate>Parting</th>
               <th scope="col" translate>Tenacity</th>
               <th scope="col" translate>Specific Gravity</th>
               <th scope="col" translate>Other Properties</th> -->
-              <th scope="col" translate>Is Active</th>
+              <!-- <th scope="col" translate>Is Active</th> -->
               <!-- <th scope="col" translate>Remarks</th>  -->
+              <!-- <th></th>
             </tr>
+           
           </ng-template>
           <ng-template pTemplate="body" let-minerals>
             <tr>
-              <td>{{ minerals.Mineral_ID }}</td>
-              <td>{{ minerals.Code }}</td>
-              <td>{{ minerals.Name }}</td>
-              <td>{{ minerals.item_Class }}</td>
-              <td>{{ minerals.Class }}</td>
-              <td>{{ minerals.Mineral_Use }}</td>
-              <td>{{ minerals.Chemical_Classification }}</td>
-              <td>{{ minerals.Crystal_Structure }}</td>
-              <td>{{ minerals.Hardness }}</td>
-              <td>{{ minerals.Lustre }}</td>
-              <td>{{ minerals.Diaphaneity }}</td>
-              <td>{{ minerals.Diaphaneity }}</td>
-              <td>{{ minerals.Color }}</td>
-              <td>{{ minerals.Is_Active }}</td>
+              <td>{{ minerals.mineral_Id }}</td>
+              <td>{{ minerals.code }}</td>
+              <td>{{ minerals.name }}</td>
+              <td>{{ minerals.class }}</td>
+              <td>{{ minerals.mineral_Use }}</td>
+              <td>{{ minerals.chemical_Classification }}</td>
+              <td>{{ minerals.crystal_Structure }}</td>
+              <td>{{ minerals.hardness }}</td>
+              <td>{{ minerals.lustre }}</td>
+              <td>{{ minerals.diaphaneity }}</td>
+              <td>{{ minerals.color }}</td>
+              <td>{{ minerals.is_Active }}</td>
               <td>
-                <!-- <button
+                <button
             type="button"
             class="btn btn-primary"
                   (click)="selectminerals($event, minerals)"
                   translate
                 >
                   Edit
-                </button> -->
+                </button>
               </td>
             </tr>
           </ng-template>
         </p-table>
     </div>
     </div>
-  </tab> 
+  </tab>  -->
 </tabset>

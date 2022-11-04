@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MineralService } from "./mineral.service";
 import { NotificationsService } from "angular2-notifications";
 import { Guid } from 'guid-typescript';
 import { ServiceService } from '../service.service';
+import { ActivatedRoute } from '@angular/router';
+import { TabsetComponent } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-mineral',
@@ -11,36 +13,55 @@ import { ServiceService } from '../service.service';
 })
 export class MineralComponent implements OnInit {
 public mineral: any;
-public minerals:minerals
+ minerals:Minerals;
 // public edit_form:any;
 @Output() onclose = new EventEmitter();
 public IsAddFormVisible: any;
-  ClassList: any;
-  public Mineral_UseList: any;
+Mineral_Class: any;
+  public Mineral_Use: any;
   Chemical_ClassificationList: any;
   TenacityList: any;
   urlParams: any;
   @Input() licenceData;
+  @Input() taskId;
   @Input() workingUser;
   @Output() saveDataCompleted = new EventEmitter();
+  Mineral_ClassList: any;
+  Mineral_UseList: any;
+  postData = {
+    orgId: null,
+    appCode: null,
+    appNo: null,
+    userId: null,
+    taskId: null
+  };
+  @ViewChild("tabset") tabset: TabsetComponent;
+  goto(id) {
+    this.tabset.tabs[id].active = true;
+  }
+  edit_form: boolean;
   constructor(
 private MineralService: MineralService,
 private notificationsService: NotificationsService,
 public serviceService:ServiceService,
+private routerService: ActivatedRoute,
   ) { 
-    this.minerals = new minerals;
+    this.minerals = new Minerals();
   }
 
   ngOnInit() {
-    this. addmineral();
-
-    this.minerals.Mineral_ID= Guid.create();
-    this.minerals.Chemical_Classification= Guid.create();
-    this.minerals.Mineral_Use= Guid.create();
+    // this. addminerals();
+    this.getminerals();
+    // this.goto(1);
+    // this.minerals.mineral_Id= Guid.create();
+    this.minerals.mineral_Id= Guid.create();
+    this.minerals.mineral_Id=this.minerals.mineral_Id.value
+    console.log('mineral');
+    
 
     this.MineralService.getClass().subscribe(data=>{
-      this.ClassList=data;
-      this.ClassList=this.ClassList;
+      this.Mineral_ClassList=data;
+      this.Mineral_ClassList=this.Mineral_ClassList;
     })
      this.MineralService.getMineral_Use().subscribe(data=>{
       this.Mineral_UseList=data;
@@ -54,23 +75,50 @@ public serviceService:ServiceService,
       this.TenacityList=data;
       this.TenacityList=this.TenacityList;
     })
-
+    this.routerService.params.subscribe((params) => {
+      this.urlParams = params;
+      console.log("urlParams", this.urlParams);
+    });
+    if(this.workingUser){
+      if(this.workingUser['userId']){
+        this.postData.userId = this.workingUser['userId'];
+      }
+      if(this.workingUser['organization_code']){
+        this.postData.orgId = this.workingUser['organization_code'];
+      }
+    }
+    if(this.licenceData){
+      if(this.licenceData['Application_No']){
+        this.postData.appNo = this.licenceData['Application_No'];
+      }
+      if(this.licenceData['Licence_Service_ID']){
+        this.postData.appCode = this.licenceData['Licence_Service_ID'];
+      }
+    }
+    if(this.taskId){
+      this.postData.taskId = this.taskId;
+    }
+    console.log('licenceData', this.licenceData);
+    console.log('workingUser', this.workingUser);
+    console.log('taskId', this.taskId);
+    console.log('post data :: ', this.postData);
+  
   }
-  getmineral() {
-    this.MineralService.getmineral().subscribe(
+  getminerals() {
+    this.MineralService.getminerals().subscribe(
       (response) => {
-        this.mineral = response["mineral"];
+        this.mineral = response;
       },
       (error) => {
         console.log("error");
       }
     );
   }
-  addmineral() {
+  addminerals() {
     console.log(this.minerals);  
-    this.MineralService.addmineral(this.minerals).subscribe(
+    this.MineralService.addminerals(this.minerals).subscribe(
       (response) => {
-        this.getmineral();
+        this.getminerals();
         const toast = this.notificationsService.success("Success", "Saved");
         // this.closeup();
         this.clearForm();
@@ -80,7 +128,7 @@ public serviceService:ServiceService,
 
         const toast = this.notificationsService.error(
           "Error",
-          "SomeThing Went Wrong"
+          "Some Thing Went Wrong"
         );
       }
     );
@@ -91,7 +139,7 @@ public serviceService:ServiceService,
     this.serviceService
       .saveForm(
         this.licenceData ? this.licenceData.Licence_Service_ID : "00000000-0000-0000-0000-000000000000",
-        this.licenceData ? this.licenceData.Service_ID : this.urlParams.id,
+        this.licenceData ? this.licenceData.Service_ID : "00000000-0000-0000-0000-000000000000",
         "c30c953e-7001-485a-80cd-7dd9d45b86f1",
         "1e60f3a1-7017-47bf-95f4-f0e47c793c72",
         "{}",
@@ -119,55 +167,71 @@ public serviceService:ServiceService,
         console.log("all-response", response);
         let licenceData = response["list"][0];
         this.saveDataCompleted.emit(saveDataResponse);
-     this.addmineral();
+     this.addminerals();
       },
       (error) => {
         console.log("all-error" + error);
       }
     );
   }
-
-
+  deletemineral(mineral) {
+  
+    if (confirm("Are you sure !!!"))
+      this.MineralService
+        .deletemineral(mineral)
+        .subscribe(
+          (response) => {
+            this.getminerals();
+            const toast = this.notificationsService.success("Success", "Saved");
+          },
+          (error) => {
+            console.log("reroes", error);
+            const toast = this.notificationsService.error(
+              "Error",
+              "SomeThing Went Wrong"
+            );
+          }
+        );
+  }
+  selectmineral( mineral) {
+    console.log(mineral)
+    this.edit_form = true;
+    this.minerals = mineral;
+    
+  } 
   clearForm(){
     this.mineral = {};
     this.IsAddFormVisible = !this.IsAddFormVisible;
-    this.minerals.Mineral_ID= Guid.create();
-    this.minerals.Chemical_Classification= Guid.create();
-    this.minerals.Mineral_Use= Guid.create();
-    // this.sites.Site_ID= Guid.create();
-    this.minerals.Mineral_ID = this.minerals.Mineral_ID.value;
-    this.minerals.Mineral_Use = this.minerals.Mineral_Use.value;
-    this.minerals.Chemical_Classification = this.minerals.Chemical_Classification.value;
   }
   closeup() {
     this.onclose.emit();
   }
 }
-class minerals{
-  public Mineral_ID:any;
-  public Code:any;
-  public Name:any;
-  public Class:any;
-  public Mineral_Use:any;
-  public Chemical_Classification:any;
-  public Crystal_Structure:any;
-  public Hardness:any;
-  public Lustre:any;
-  public Diaphaneity:any;
-  public Color:any;
-  public Streak:any;
-  public Fracture:any;
-  public Parting:any;
-  public Tenacity:any;
-  public Specific_Gravity:any;
-  public Other_Properties:any;
-  public Is_Active:any;
-  public Remarks:any;
-  public Created_By:any;
-  public Updated_By:any;
-  public Deleted_By:any;
-  public Is_Deleted:any;
-  public Created_Date:any;
-  public Updated_Date:any;
-  public Deleted_Date:any;
+class Minerals {
+  public mineral_Id: any
+  public code: any
+  public name: any
+  public class: any
+  public mineral_Use: any
+  public chemical_Classification: any
+  public crystal_Structure: any
+  public hardness: any
+  public lustre: any
+  public diaphaneity: any
+  public color: any
+  public  streak: any
+  public fracture: any
+  public parting: any
+  public tenacity: any
+  public specific_Gravity: any
+  public other_Properties: any
+  public is_Active: any
+  public remarks: any
+  public created_By: any
+  public updated_By: any
+  public deleted_By: any
+  public is_Deleted: any
+  public created_Date: any
+  public updated_Date: any
+  public deleted_Date: any
 }

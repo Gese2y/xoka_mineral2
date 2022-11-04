@@ -8,7 +8,7 @@ import * as L from "leaflet";
 import { EventEmitter as NativeEmitter } from "events";
 // import * as L from "leaflet";
 // import * as Uniqolor from "uniqolor";
-import * as FastXml from "fast-xml-parser";
+// import * as FastXml from "fast-xml-parser";
 import { SiteMapService } from "./site-map.service";
 import { PopupService } from "src/app/pro-service/popup.service";
 import { ServiceService } from '../service.service';
@@ -217,7 +217,7 @@ configFeature(selectedfeature, featureName) {
     L.popup(popupOptions)
       .setLatLng(this.clickCoordinate)
       .setContent(
-        ` <p">An area with <br> Plot ID : ${
+        ` <p">An area with <br> Site ID : ${
           data.properties.OBJECTID
             ? data.properties.OBJECTID
             : data.properties.ID_3 || data.properties.ID_0
