@@ -1,292 +1,156 @@
-
-
 <br>
 <h2>Mineral Site </h2>
 <br>
 <div class="m-3">
   <div class="row">
     <div class="col-md-12">
-      
+
       <form>
         <!-- <div class="grid p-fluid"> -->
         <div class="row">
           <div class="col-md-6 row form-group">
-            <label
-              for="site_Id"
-              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate
-              >Site ID</label
-            >
+            <label for="site_Id" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Site
+              ID</label>
             <div class="col-sm-6">
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="site.site_Id"
-                #site_Id="ngModel"
-                name="site_Id"
-                placeholder="Site ID "
-                id="site_Id"
-                readonly
-                required
-              /> 
+              <input type="text" class="form-control" [(ngModel)]="site.site_Id" #site_Id="ngModel" name="site_Id"
+                placeholder="Site ID " id="site_Id" readonly required />
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6 row form-group">
-            <label
-              for="site_Name"
-              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate
-              >Site Name</label
-            >
+            <label for="site_Name" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Site
+              Name</label>
             <div class="col-sm-6">
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="site.site_Name"
-                #site_Name="ngModel"
-                name="site_Name"
-                placeholder=" Site Name"
-                id="site_Name"
-                required
-              />
+              <input type="text" class="form-control" [(ngModel)]="site.site_Name" #site_Name="ngModel" name="site_Name"
+                placeholder=" Site Name" id="site_Name" required />
             </div>
           </div>
-             
+
           <div class="col-md-6 row form-group">
-            <label
-              for="date_Registered"
-              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate
-              >Registered Date</label
-            >
+            <label for="date_Registered" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Registered Date</label>
             <div class="col-sm-6">
-              <input
-                type="date"
-                class="form-control"
-                [(ngModel)]="site.date_Registered"
-                #Date_Registered="ngModel"
-                name="date_Registered"
-                placeholder="Date Registered "
-                id="date_Registered"
-                
-                required
-              />
+              <input type="date" class="form-control" [(ngModel)]="site.date_Registered" #Date_Registered="ngModel"
+                name="date_Registered" placeholder="Date Registered " id="date_Registered" required />
             </div>
-          </div>  
-    <div class="col-md-6 row form-group">
-            <label
-              for="region"
-              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate
-              >Region</label
-            >
-            <div class="col-sm-6">
-              <select class="custom-select custom-select-sm"
-              id="region" 
-             name="region"
-            [(ngModel)]="site.region">
-             <ng-container *ngFor="let Region of RegionList">
-             <option value="{{Region.lkdetail_code}}">{{Region.english_description}}</option>
-              </ng-container>
-             </select>
-            </div>
-          </div> 
+          </div>
           <div class="col-md-6 row form-group">
-            <label for="Coordinate"  class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Coordinate</label>
+            <label for="region" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Region</label>
+            <div class="col-sm-6">
+              <select class="custom-select custom-select-sm" id="region" name="region" [(ngModel)]="site.region">
+                <ng-container *ngFor="let Region of RegionList">
+                  <option value="{{Region.lkdetail_code}}">{{Region.english_description}}</option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="Coordinate" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Coordinate</label>
             <!-- <div class="col-sm-1 ml-0 pl-0">
               <button type="button" class="btn btn-primary" [disabled]="disable" (click)="displayGIS=true"><span
                   class="fa fa-map"></span></button>
             </div> -->
             <div class="col-sm-6 flex">
-                <input type="text" class="form-control form-control-sm" id="Coordinate" placeholder="Coordinate" 
-                [(ngModel)]="serviceService.cordinat" name ="Coordinate" 
-                (click)="SiteService.DisplayCoordinate=true" (click)="OnClickMap($event)" readonly>
-            </div>
-        </div>
-        <p-dialog [(visible)]="SiteService.DisplayCoordinate" [modal]="true" [responsive]="true"
-         [style]="{'minHeight':'10%','height':'700px','minWidth':'10%','width':'80%' }" [maximizable]="true"
-        [baseZIndex]="10000">
-          <p-header>
-            <h4 class="modal-title pull-left" translate>Site Coordinate</h4>
-          </p-header>
-          <div class="modal-body">
-            <div style="min-width: 800px">
-              <app-site-map></app-site-map>
+              <input type="text" class="form-control form-control-sm" id="Coordinate" placeholder="Coordinate"
+                [(ngModel)]="serviceService.cordinat" name="Coordinate" (click)="SiteService.DisplayCoordinate=true"
+                (click)="OnClickMap($event)" readonly>
             </div>
           </div>
-          <!-- <p-footer> -->
+          <p-dialog [(visible)]="SiteService.DisplayCoordinate" [modal]="true" [responsive]="true"
+            [style]="{'minHeight':'10%','height':'700px','minWidth':'10%','width':'80%' }" [maximizable]="true"
+            [baseZIndex]="10000">
+            <p-header>
+              <h4 class="modal-title pull-left" translate>Site Coordinate</h4>
+            </p-header>
+            <div class="modal-body">
+              <div style="min-width: 800px">
+                <app-site-map></app-site-map>
+              </div>
+            </div>
+            <!-- <p-footer> -->
             <!-- <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" *ngIf="toogleSpin"></p-progressSpinner> -->
             <!-- <button type="button" class="btn btn-primary" *ngIf="!toogleSpin" (click)="finishSelection()" translate>select
             </button>
         
           </p-footer> -->
-        
-          
-        </p-dialog>
+
+
+          </p-dialog>
 
           <div class="col-md-6 row form-group">
-            <label
-              for="zone"
-              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate
-              >Zone</label
-            > 
+            <label for="zone" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Zone</label>
             <div class="col-sm-6">
-              <select class="custom-select custom-select-sm"
-              id="zone" 
-             name="zone"
-            [(ngModel)]="site.zone">
-             <ng-container *ngFor="let Zone of ZoneList">
-             <option value="{{Zone.lkdetail_code}}">{{Zone.english_description}}</option>
-              </ng-container>
-             </select>
+              <select class="custom-select custom-select-sm" id="zone" name="zone" [(ngModel)]="site.zone">
+                <ng-container *ngFor="let Zone of ZoneList">
+                  <option value="{{Zone.lkdetail_code}}">{{Zone.english_description}}</option>
+                </ng-container>
+              </select>
             </div>
           </div>
           <div class="col-md-6 row form-group">
-            <label
-              for="status"
-              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate
-              >Site Status</label
-            >
+            <label for="status" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Site
+              Status</label>
             <div class="col-sm-6">
-              <select class="custom-select custom-select-sm"
-              id="status" 
-             name="status"
-            [(ngModel)]="site.status">
-             <ng-container *ngFor="let Status of StatusList">
-             <option value="{{Status.lkdetail_code}}">
-                            {{Status.english_description}}</option>
-              </ng-container>
-             </select>
+              <select class="custom-select custom-select-sm" id="status" name="status" [(ngModel)]="site.status">
+                <ng-container *ngFor="let Status of StatusList">
+                  <option value="{{Status.lkdetail_code}}">
+                    {{Status.english_description}}</option>
+                </ng-container>
+              </select>
             </div>
           </div>
           <div class="col-md-6 row form-group">
-            <label
-              for="woreda"
-              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate
-              >Woreda</label
-            >
+            <label for="woreda" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Woreda</label>
             <div class="col-sm-6">
-              <select class="custom-select custom-select-sm"
-              id="woreda" 
-             name="woreda"
-            [(ngModel)]="site.woreda">
-             <ng-container *ngFor="let Woreda of WoredaList">
-             <option value="{{Woreda.lkdetail_code}}">{{Woreda.english_description}}</option>
-              </ng-container>
-             </select>
+              <select class="custom-select custom-select-sm" id="woreda" name="woreda" [(ngModel)]="site.woreda">
+                <ng-container *ngFor="let Woreda of WoredaList">
+                  <option value="{{Woreda.lkdetail_code}}">{{Woreda.english_description}}</option>
+                </ng-container>
+              </select>
             </div>
           </div>
           <div class="col-md-6 row form-group">
-            <label
-              for="Is_Active"
-              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate
-              >Is_Active</label
-            >
+            <label for="Is_Active" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Is_Active</label>
             <div class="col-sm-6">
-              <input
-                type="checkbox"
-                class="form-control"
-                [(ngModel)]="site.Is_Active"
-                #Is_Active="ngModel"
-                name="Is_Active"
-                placeholder=" Is_Active"
-                id="Is_Active"
-                required
-              />
+              <input type="checkbox" class="form-control" [(ngModel)]="site.Is_Active" #Is_Active="ngModel"
+                name="Is_Active" placeholder=" Is_Active" id="Is_Active" required />
             </div>
-            </div> 
+          </div>
           <div class="col-md-6 row form-group">
-            <label
-              for="kebele"
-              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate
-              >Kebele Locality</label
-            >
+            <label for="kebele" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Kebele
+              Locality</label>
             <div class="col-sm-6">
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="site.kebele"
-                #kebele="ngModel"
-                name="kebele"
-                placeholder="Kebele"
-                id="kebele"
-                
-                required
-              />
+              <input type="text" class="form-control" [(ngModel)]="site.kebele" #kebele="ngModel" name="kebele"
+                placeholder="Kebele" id="kebele" required />
             </div>
-          </div> 
-            <div class="col-md-6 row form-group">
-            <label
-              for="remarks"
-              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate
-              >Remarks</label
-            >
+          </div>
+          <div class="col-md-6 row form-group">
+            <label for="remarks" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate>Remarks</label>
             <div class="col-sm-6">
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="site.remarks"
-                #remarks="ngModel"
-                name="remarks"
-                placeholder=" Remarks"
-                id="remarks"
-                required
-              />
+              <input type="text" class="form-control" [(ngModel)]="site.remarks" #remarks="ngModel" name="remarks"
+                placeholder=" Remarks" id="remarks" required />
             </div>
-            </div>
-         
+          </div>
 
-          <div class="text-center col-12"> 
-            <button
-            type="button"
+
+          <div class="text-center col-12">
             
-              (click)="registersite()"
-              value="Save Item"
-              class="btn btn-primary"
-            >
-              Save 
+            <button type="button" (click)="registersite()" value="Save Item" class="btn btn-primary">
+              Save
             </button>
-            
-                 <!-- <button
-                type="button"
-                (click)="clearForm()"
-                  value="Save Item"
-                  class="btn btn-primary"
-                >
-                  Refresh 
-                </button> -->
-            <!-- <button
-            type="button"
-              *ngIf="edit_form"
-              (click)="updatesite ()"
-              value="Save Item"
-              class="btn btn-primary"
-            >
-              Update Item
-            </button> 
-
-          <button
-            type="button"
-            *ngIf="edit_form"
-              (click)="deletesite ()"
-              class="btn btn-danger mx-3"
-            >
-              Delete
-            </button> -->
+          
           </div>
-        </div> 
+        </div>
       </form>
       <br>
-      <div >
-        <p-table [value]="sites" [paginator]="true" [rows]="3" >
+      <div>
+        <p-table [value]="sites" [paginator]="true" [rows]="3">
           <ng-template pTemplate="header">
             <tr>
               <th scope="col" translate>Site_ID</th>
@@ -301,7 +165,8 @@
               <th scope="col" translate>Is_Active</th>
               <th scope="col" translate>Remarks</th>
               <th></th>
-          
+              <th></th>
+
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-sites>
@@ -318,32 +183,22 @@
               <td>{{ sites.is_Active }}</td>
               <td>{{ sites.remarks }}</td>
               <td>
-                <button
-            type="button"
-            class="btn btn-primary"
-                  (click)="selectsites(sites)"
-                  translate
-                >
-                  Edit
+                <button type="button" class="btn btn-primary" (click)="selectsites(sites)" translate>
+                  Select
                 </button>
-               
+
               </td>
-              <td> 
-               
-                <button
-                type="button"
-                class="btn btn-primary"
-                  (click)="deletesites(sites)"
-                >
+              <td>
+
+                <button type="button" class="btn btn-primary" (click)="deletesites(sites)">
                   <i class="pi pi-trash"></i>
                   Delete
                 </button>
-              </td> 
+              </td>
             </tr>
           </ng-template>
         </p-table>
+      </div>
     </div>
-    </div>
-   </div>
+  </div>
 </div>
-

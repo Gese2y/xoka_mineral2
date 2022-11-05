@@ -30,7 +30,7 @@ export class MineralUseService {
   }
   deletemineralUse(mineralUse) {
     return this.http.delete(
-      this.mineralUseUrl + "/" + mineralUse.resource_Id +"/" + mineralUse.plot_Id +"/" + mineralUse.customer_Id
+      this.mineralUseUrl + "/" + mineralUse.resource_Id
 
     );
   }

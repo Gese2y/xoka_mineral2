@@ -113,21 +113,6 @@ postData = {
     console.log('taskId', this.taskId);
     console.log('post data :: ', this.postData);
   }
-  // getsite() {
-  //   this.SiteService.getsite().subscribe(
-  //     (response) => {
-  //       console.log("site", response);
-  //       this.sites = response;
-  //     },
-  //     (error) => {
-  //       const toast = this.notificationsService.error(
-  //         "Error",
-  //         "SomeThing Went Wrong"
-  //       );
-  //     }
-  //   );
-  
-  // }
   getsite() {
     this.SiteService.getsite().subscribe(
       (response) => {
@@ -231,6 +216,22 @@ onClickEvent() {
             );
           }
         );
+  }
+  update(site) {
+    this.SiteService
+      .updatesite(site)
+      .subscribe(
+        (response) => {
+          const toast = this.notificationsService.success("Success", "Updated");
+        },
+        (error) => {
+          console.log("reroes", error);
+          const toast = this.notificationsService.error(
+            "Error",
+            "SomeThing Went Wrong"
+          );
+        }
+      );
   }
   clearForm(){
     this.sites = {};

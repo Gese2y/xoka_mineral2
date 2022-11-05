@@ -46,4 +46,8 @@ export class SiteService {
       this.siteUrl + "/" + site.site_Id
     );
   }
+  updatesite(site) {
+    return this.http.put(this.siteUrl, site);
+  }
+
 }
