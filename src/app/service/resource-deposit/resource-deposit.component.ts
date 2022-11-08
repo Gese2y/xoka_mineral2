@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ResourceDepositComponent implements OnInit {
  public IsAddFormVisible = false;
  public resoucedeposit: any;
- public resoucedeposits: resoucedeposits;
+ public resourcedeposits: resourcedeposits;
  public isAccountVisible: any;
  public isAccountModalVisible: any;
   accountNoos: any;
@@ -42,7 +42,7 @@ export class ResourceDepositComponent implements OnInit {
     public serviceService:ServiceService,
     private routerService: ActivatedRoute,
  ) { 
-  this.resoucedeposits = new resoucedeposits;
+  this.resourcedeposits = new resourcedeposits;
  }
 
   ngOnInit() {
@@ -90,8 +90,8 @@ export class ResourceDepositComponent implements OnInit {
     this.IsAddFormVisible = !this.IsAddFormVisible;
   }
   onAccountSelectionChanges(event) {
-    this.serviceService.site_Id=  event.value;
-     this.resoucedeposit.site_Id = event.value;
+    this.resourcedeposits.site_Id=  event.value;
+     this.resourcedeposits.site_Id = event.value;
      console.log('aaaa',event)
       this.isAccountModalVisible = false;
       
@@ -137,8 +137,8 @@ export class ResourceDepositComponent implements OnInit {
           }
         );
       }
-  registerresourcedeposits() {
-    this.ResourceDepositService.addresourcedeposits(this.resoucedeposit)
+      addresourcedeposits() {
+    this.ResourceDepositService.addresourcedeposits(this.resourcedeposits)
       .subscribe(
         (response) => {
           this.getResourceD();
@@ -216,7 +216,7 @@ export class ResourceDepositComponent implements OnInit {
           this.saveDataCompleted.emit(saveDataResponse);
   
           //if (this.editForm) this.updateTransactionSale();
-       this.registerresourcedeposits();
+       this.addresourcedeposits();
         },
         (error) => {
           console.log("all-error" + error);
@@ -242,27 +242,62 @@ export class ResourceDepositComponent implements OnInit {
                 "SomeThing Went Wrong"
               );
             }
-          );
+          ); 
     }
-
+ 
 
   clearForm() {
     this.resoucedeposit = {};
     this.IsAddFormVisible = !this.IsAddFormVisible;
     // this.resoucedeposits.unit= Guid.create();
-    this.resoucedeposits.resource_Id= Guid.create();
-  this.resoucedeposits.unit = this.resoucedeposits.unit.value;
+    this.resourcedeposits.resource_Id= Guid.create();
+  this.resourcedeposits.resource_Id = this.resourcedeposits.resource_Id.value;
   // this.resoucedeposits.updateBy=this.user
   }
   onAccountSelectionChange(event) {
-    this.serviceService.mineral_Id=  event.value;
-    this.resoucedeposits.mineral_Id = event.value;
+    // this.resoucedeposits.mineral_Id=  event.value;
+    this.resourcedeposits.mineral_Id = event.value;
      this.isAccountVisible = false;
     //  this.isAccountModalVisible = false;
      
    }
+   postresourcedeposit(){
+    if(this.licenceData==undefined){
+      this.ResourceDepositService.postresourcedeposit(
+        this.postData.orgId= this.resourcedeposits.resource_Id,
+        this.postData.appCode="00000000-0000-0000-0000-000000000000",
+        this.postData.appNo= "00000000-0000-0000-0000-000000000000",
+        this.postData.userId=this.workingUser.userId,
+        this.postData.taskId).subscribe(
+          next => {
+            this.notificationsService.success('Success', 'Succefully posted!');
+            console.log('post  Journal  :: ', next);
+          },
+          _error => {
+            this.notificationsService.error('Error', 'Unable to post');
+            console.error("Unable to");
+          }
+        );}
+      else{
+        this.ResourceDepositService.postresourcedeposit(
+          this.postData.orgId= this.resourcedeposits.resource_Id,
+          this.postData.appCode=this.licenceData.Service_ID ,
+          this.postData.appNo=this.licenceData.Application_No,
+          this.postData.userId=this.workingUser.userId,
+          this.postData.taskId).subscribe(
+            next => {
+              this.notificationsService.success('Success', 'Succefully posted  !');
+              console.log('post  Journal  :: ', next);
+            },
+            _error => {
+              this.notificationsService.error('Error', 'Unable to post');
+              console.error("Unable to ");
+            }
+          );
+      }
+    }
 }
-class resoucedeposits{
+class resourcedeposits{
 public resource_Id: any;
 public mineral_Id: any;
 public site_Id:any;
@@ -274,11 +309,11 @@ public lab_Approved_Date:any;
 public lab_Approved_By:any;
 public is_Active:any;
 public remarks:any;
-public created_By:any;
-public updated_By:any;
-public deleted_By:any;
-public is_Deleted:any;
-public created_Date:any;
-public updated_Date:any;
-public deleted_Date:any;
+// public created_By:any;
+// public updated_By:any;
+// public deleted_By:any;
+// public is_Deleted:any;
+// public created_Date:any;
+// public updated_Date:any;
+// public deleted_Date:any;
 }

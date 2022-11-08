@@ -16,10 +16,12 @@ public mineralUses: any;
 public mineralUse: mineralUse;
 public isAccountModalVisible = false;
 public isAccountVisible = false;
+public isAccountVisiblee= false;
 public accountNoos: any;
 public Customer_ID: any;
 public resource_Id: any;
 public accountNoo: any;
+public accountNo: any;
 public Plot_ID: any;
 urlParams: any;
 public name_Ens: any;
@@ -29,6 +31,7 @@ public name_Ens: any;
   plot_ID: Object;
   plot_Id: Object;
   customer_Id: Object;
+  gis_plot_Id: Object;
   resoucedeposits: any;
   postData = {
     orgId: null,
@@ -38,6 +41,7 @@ public name_Ens: any;
     taskId: null
   };
   @Input() taskId;
+  // gis_plot_Id: any;
   constructor(
     private MineralUseService: MineralUseService,
     private NotificationsService: NotificationsService,
@@ -52,6 +56,7 @@ this.mineralUse = new mineralUse;
     this.getmineralUse();
     this.getresourceId();
     this.getplotID();
+    this.getgisplotID();
     // this.mineralUse.created_By="00000000-0000-0000-0000-000000000000"
     // this.mineralUse.updated_By="00000000-0000-0000-0000-000000000000"
     // this.mineralUse.deleted_By="00000000-0000-0000-0000-000000000000"
@@ -146,6 +151,22 @@ this.mineralUse = new mineralUse;
           console.log("error-plot_Id", error);
         }
       );
+    } 
+    getgisplotID(){
+    this.MineralUseService.getgisplotID().subscribe(
+        (response) => {
+          this.gis_plot_Id = response;
+          this.accountNo = refactorDropdownArray(
+            this.gis_plot_Id,
+            "is_Deleted",
+            "plot_Id" 
+          );
+          console.log("get-gis_plot_Id", response);
+        },
+        (error) => {
+          console.log("error-gis_plot_Id", error);
+        }
+      );
     }
     refactorChartOfAccountObject(object) {
       if (object.plot_Id)
@@ -153,6 +174,9 @@ this.mineralUse = new mineralUse;
   
       if (object.customer_Id)
       object.customer_Id = object.customer_Id.customer_Id || object.customer_Id;
+      
+      if (object.gis_Plot_Id)
+      object.gis_Plot_Id = object.gis_Plot_Id.gis_Plot_Id || object.gis_Plot_Id;
       
 
     return object;
@@ -162,6 +186,12 @@ this.mineralUse = new mineralUse;
      this.isAccountModalVisible = false;
      this.isAccountVisible = false;
      
+   }
+   onAccountSelectionChangee(event) {
+    this.mineralUse.gis_Plot_Id = event.value;
+    console.log('gis',event)
+     this.isAccountModalVisible = false;
+     this.isAccountVisible = false;
    } 
 
     registermineraluse() {   

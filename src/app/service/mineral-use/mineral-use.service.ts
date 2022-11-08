@@ -21,6 +21,9 @@ export class MineralUseService {
   }
   getplotID() {
     return this.http.get(this.plotIDUrl);
+  } 
+  getgisplotID() {
+    return this.http.get(this.plotIDUrl);
   }
   getmineralUse() {
     return this.http.get(this.mineralUseUrl);

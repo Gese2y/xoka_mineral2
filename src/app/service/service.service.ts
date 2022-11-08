@@ -55,7 +55,7 @@ export class ServiceService {
   AppNO;
   AppCode;
   desplayuserid: boolean;
-  cordinat: any;
+  coordinate: any;
   site_Id:any;
   mineral_Id: any;
   plot_Id: any;
@@ -101,7 +101,26 @@ export class ServiceService {
       docid
     });
   }
-
+  
+  Submit(AppCode, docID, todoID, ruleid) {
+    return this.http.post(this.nextTaskCompleteURL + '?ApplicationNo=' + AppCode + '&docid=' + docID
+      + '&todoid=' + todoID + '&userName=' + environment.username + '&status=C&Taskruleid=' + ruleid + '&ispending=false', null);
+  }
+  
+  SubmitAR(AppCode, docID, todoID, ruleid) {
+    return this.http.post(this.nextTaskAcceptOrRejectURl + '?ApplicationNo=' + AppCode + '&docid=' + docID
+      + '&eid=00000000-0000-0000-0000-000000000000&isPending=false&todoid=' + todoID +
+      '&userName=' + environment.username + '&status=C&taskruleid=' + ruleid, null);
+  }
+  
+  saveForm(ApplicationCode, serviceId, taskid, orgid, json, docid,todoID) {
+   // orgid = "1e60f3a1-7017-47bf-95f4-f0e47c793c72";
+    return this.http.post(this.SaveDataURL + '?ApplicationCode=' + ApplicationCode + '&serviceId=' +
+      serviceId + '&taskid=' + taskid + '&orgid=' + orgid + '&UserName=' + environment.username + '&json=' + json + '&docid=' +
+      docid + "&todoID=" +
+      todoID, null);
+  }
+  
 
   isvalidated(todoid, taskid, Plotid, ProperyID, DocID) {
     return this.http.get(
@@ -420,40 +439,56 @@ export class ServiceService {
     User_ID = this.removeSlash(User_ID);
     return this.http.get<any>(this.UserWorkInfoURl + '/' + User_ID);
   }
-  Submit(AppCode, docID, todoID, ruleid) {
-    return this.http.post(
-      this.nextTaskCompleteURL +
-        "?ApplicationNo=" +
-        AppCode +
-        "&docid=" +
-        docID +
-        "&todoid=" +
-        todoID +
-        "&userName=" +
-        environment.username +
-        "&status=C&Taskruleid=" +
-        ruleid +
-        "&ispending=false",
-      null
-    );
+  Submits(AppCode, docID, todoID, ruleid) {
+    return this.http.post(this.nextTaskCompleteURL + '?ApplicationNo=' + AppCode + '&docid=' + docID
+      + '&todoid=' + todoID + '&userName=' + environment.username + '&status=C&Taskruleid=' + ruleid + '&ispending=false', null);
   }
 
-  SubmitAR(AppCode, docID, todoID, ruleid) {
-    return this.http.post(
-      this.nextTaskAcceptOrRejectURl +
-        "?ApplicationNo=" +
-        AppCode +
-        "&docid=" +
-        docID +
-        "&eid=00000000-0000-0000-0000-000000000000&isPending=false&todoid=" +
-        todoID +
-        "&userName=" +
-        environment.username +
-        "&status=C&taskruleid=" +
-        ruleid,
-      null
-    );
+  SubmitARs(AppCode, docID, todoID, ruleid) {
+    return this.http.post(this.nextTaskAcceptOrRejectURl + '?ApplicationNo=' + AppCode + '&docid=' + docID
+      + '&eid=00000000-0000-0000-0000-000000000000&isPending=false&todoid=' + todoID +
+      '&userName=' + environment.username + '&status=C&taskruleid=' + ruleid, null);
   }
+
+  saveForms(ApplicationCode, serviceId, taskid, orgid, json, docid) {
+    return this.http.post(this.SaveDataURL + '?ApplicationCode=' + ApplicationCode + '&serviceId=' +
+      serviceId + '&taskid=' + taskid + '&orgid=' + orgid + '&UserName=' + environment.username + '&json=' + json + '&docid=' +
+      docid, null);
+  }
+  // Submit(AppCode, docID, todoID, ruleid) {
+  //   return this.http.post(
+  //     this.nextTaskCompleteURL +
+  //       "?ApplicationNo=" +
+  //       AppCode +
+  //       "&docid=" +
+  //       docID +
+  //       "&todoid=" +
+  //       todoID +
+  //       "&userName=" +
+  //       environment.username +
+  //       "&status=C&Taskruleid=" +
+  //       ruleid +
+  //       "&ispending=false",
+  //     null
+  //   );
+  // }
+
+  // SubmitAR(AppCode, docID, todoID, ruleid) {
+  //   return this.http.post(
+  //     this.nextTaskAcceptOrRejectURl +
+  //       "?ApplicationNo=" +
+  //       AppCode +
+  //       "&docid=" +
+  //       docID +
+  //       "&eid=00000000-0000-0000-0000-000000000000&isPending=false&todoid=" +
+  //       todoID +
+  //       "&userName=" +
+  //       environment.username +
+  //       "&status=C&taskruleid=" +
+  //       ruleid,
+  //     null
+  //   );
+  // }
   
   // saveForm(ApplicationCode, serviceId, taskid, orgid, json, docid,todoID) {
   //  // orgid = "1e60f3a1-7017-47bf-95f4-f0e47c793c72";
@@ -463,20 +498,20 @@ export class ServiceService {
   //     todoID, null);
   // }
 
-  saveForm(ApplicationCode, serviceId, taskid, orgid, json, docid,todoID) {
-    // orgid = "1e60f3a1-7017-47bf-95f4-f0e47c793c72";
-     return this.http.post(this.SaveDataURL + '?ApplicationCode=' + ApplicationCode + '&serviceId=' +
-       serviceId + '&taskid=' + taskid + '&orgid=' + orgid + '&UserName=' + environment.username + '&json=' + json + '&docid=' +
-       docid + "&todoID=" +
-       todoID, null);
-   }
+  // saveForm(ApplicationCode, serviceId, taskid, orgid, json, docid,todoID) {
+  //   // orgid = "1e60f3a1-7017-47bf-95f4-f0e47c793c72";
+  //    return this.http.post(this.SaveDataURL + '?ApplicationCode=' + ApplicationCode + '&serviceId=' +
+  //      serviceId + '&taskid=' + taskid + '&orgid=' + orgid + '&UserName=' + environment.username + '&json=' + json + '&docid=' +
+  //      docid + "&todoID=" +
+  //      todoID, null);
+  //  }
 
 
-  saveForms(ApplicationCode, serviceId, taskid, orgid, json, docid) {
-    return this.http.post(this.SaveDataURL + '?ApplicationCode=' + ApplicationCode + '&serviceId=' +
-      serviceId + '&taskid=' + taskid + '&orgid=' + orgid + '&UserName=' + environment.username + '&json=' + json + '&docid=' +
-      docid, null);
-  }
+  // saveForms(ApplicationCode, serviceId, taskid, orgid, json, docid) {
+  //   return this.http.post(this.SaveDataURL + '?ApplicationCode=' + ApplicationCode + '&serviceId=' +
+  //     serviceId + '&taskid=' + taskid + '&orgid=' + orgid + '&UserName=' + environment.username + '&json=' + json + '&docid=' +
+  //     docid, null);
+  // }
 
   GetForm(docid) {
     return this.http.get(this.GetDataURL + "?docid=" + docid);

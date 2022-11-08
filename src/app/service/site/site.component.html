@@ -4,9 +4,7 @@
 <div class="m-3">
   <div class="row">
     <div class="col-md-12">
-
       <form>
-        <!-- <div class="grid p-fluid"> -->
         <div class="row">
           <div class="col-md-6 row form-group">
             <label for="site_Id" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Site
@@ -55,13 +53,13 @@
             </div> -->
             <div class="col-sm-6 flex">
               <input type="text" class="form-control form-control-sm" id="Coordinate" placeholder="Coordinate"
-                [(ngModel)]="serviceService.cordinat" name="Coordinate" (click)="SiteService.DisplayCoordinate=true"
+                [(ngModel)]="serviceService.coordinate" name="Coordinate" (click)="SiteService.DisplayCoordinate=true"
                 (click)="OnClickMap($event)" readonly>
             </div>
           </div>
           <p-dialog [(visible)]="SiteService.DisplayCoordinate" [modal]="true" [responsive]="true"
-            [style]="{'minHeight':'10%','height':'700px','minWidth':'10%','width':'80%' }" [maximizable]="true"
-            [baseZIndex]="10000">
+            [style]="{'minHeight':'10%','height':'500px','minWidth':'10%','width':'80%' }" [maximizable]="true"
+            [baseZIndex]="800">
             <p-header>
               <h4 class="modal-title pull-left" translate>Site Coordinate</h4>
             </p-header>
@@ -112,20 +110,20 @@
                 </ng-container>
               </select>
             </div>
-          </div>
+          </div>  
           <div class="col-md-6 row form-group">
             <label for="Is_Active" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate>Is_Active</label>
             <div class="col-sm-6">
-              <input type="checkbox" class="form-control" [(ngModel)]="site.Is_Active" #Is_Active="ngModel"
+              <input type="checkbox" class="form-control" [(ngModel)]="site.is_Active" #Is_Active="ngModel"
                 name="Is_Active" placeholder=" Is_Active" id="Is_Active" required />
             </div>
-          </div>
+          </div> 
           <div class="col-md-6 row form-group">
             <label for="kebele" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Kebele
               Locality</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" [(ngModel)]="site.kebele" #kebele="ngModel" name="kebele"
+              <input type="text" class="form-control" [(ngModel)]="site.kebele_Locality" #kebele="ngModel" name="kebele"
                 placeholder="Kebele" id="kebele" required />
             </div>
           </div>
@@ -141,7 +139,7 @@
 
           <div class="text-center col-12">
             
-            <button type="button" (click)="registersite()" value="Save Item" class="btn btn-primary">
+            <button type="button" (click)="saveData()" value="Save Item" class="btn btn-primary">
               Save
             </button>
           

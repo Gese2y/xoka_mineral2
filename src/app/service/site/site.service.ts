@@ -29,8 +29,8 @@ export class SiteService {
   getWoreda(){
     return this.http.get<any>(this.Woreda);
   }
-  addsite(sites) {
-    return this.http.post(this.siteUrl, sites);
+  addsite(site) {
+    return this.http.post(this.siteUrl, site);
   }
   getsite() {
     return this.http.get(this.siteUrl);

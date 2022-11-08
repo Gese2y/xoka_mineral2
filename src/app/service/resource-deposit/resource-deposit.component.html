@@ -1,28 +1,26 @@
 <h3 class="font-weight-bold">Resource Deposit</h3>
 <div>
   <div class="m-3">
-   
-  
     <p-table
       [value]="resoucedeposit"
       [paginator]="true" [rows]="3"
       [resizableColumns]="true"
-      (onEditComplete)="performUpdate($event)"
+      
     >
-      <ng-template pTemplate="header">
+      <ng-template pTemplate="header"> 
         
         <tr>
           <th pResizableColumn scope="col" translate>Resource ID</th>
           <th pResizableColumn scope="col" translate>Mineral ID</th>
-          <th pResizableCoZlumn>Site ID</th>
-          <th pResizableColumn>Unit</th>
-          <th pResizableColumn>Quantity</th> 
-          <th pResizableColumn>Explored Date</th>
-          <th pResizableColumn>Explored By</th>
-          <th pResizableColumn>Lab Approved Date</th>
-          <th pResizableColumn>Lab Approved By</th>
-          <th pResizableColumn>Is Active</th>
-          <th pResizableColumn>Remark</th>
+          <th pResizableColumn scope="col" translate>Site ID</th>
+          <th pResizableColumn scope="col" translate>Unit</th>
+          <th pResizableColumn scope="col" translate>Quantity</th> 
+          <th pResizableColumn scope="col" translate>Explored Date</th>
+          <th pResizableColumn scope="col" translate>Explored By</th>
+          <th pResizableColumn scope="col" translate>Lab Approved Date</th>
+          <th pResizableColumn scope="col" translate>Lab Approved By</th>
+          <th pResizableColumn scope="col" translate>Is Active</th>
+          <th pResizableColumn scope="col" translate>Remark</th>
           <th pResizableColumn scope="col">
            
             <button
@@ -40,7 +38,7 @@
         <td class="p-2">
           <input
             type="text"
-            [(ngModel)]="resoucedeposits.resource_Id"
+            [(ngModel)]="resourcedeposits.resource_Id"
             class="form-control"
             name="resource_Id"
             placeholder="resource_Id"
@@ -50,9 +48,9 @@
           />
         </td>
         <td>  
-          <input type="text" class="form-control form-control-sm" id="mineral_Id" placeholder="Mineral_ID"  
+          <input type="text" class="form-control form-control-sm" id="mineral_Id" placeholder="Mineral ID"  
           (click)="isAccountVisible=true" 
-           [(ngModel)]="resoucedeposits.mineral_Id" name ="mineral_Id" readonly>          
+           [(ngModel)]="resourcedeposits.mineral_Id" name ="mineral_Id" readonly>          
           <p-dialog
             header="Mineral ID" 
             [(visible)]="isAccountVisible"
@@ -102,7 +100,7 @@
         <td> 
            <input type="text" class="form-control form-control-sm" id="site_Id" placeholder="site_Id"  
           (click)="isAccountModalVisible=true" 
-           [(ngModel)]="serviceService.site_Id" name ="site_Id" readonly>          
+           [(ngModel)]="resourcedeposits.site_Id" name ="site_Id" readonly>          
           <p-dialog
             header="Site ID" 
             [(visible)]="isAccountModalVisible"
@@ -154,7 +152,7 @@
             <select class="custom-select custom-select-sm"
                  id="unit" 
                 name="unit"
-               [(ngModel)]="resoucedeposits.unit">
+               [(ngModel)]="resourcedeposits.unit">
                 <ng-container *ngFor="let Unit of UnitList">
                 <option value="{{Unit.lkdetail_code}}">
                                {{Unit.english_description}}</option>
@@ -164,7 +162,7 @@
            <td class="p-2">
             <input
               type="number"
-              [(ngModel)]="resoucedeposits.quantity"
+              [(ngModel)]="resourcedeposits.quantity"
               class="form-control"
               name="quantity"
               placeholder="quantity"
@@ -175,7 +173,7 @@
            <td class="p-2">
             <input
               type="date"
-              [(ngModel)]="resoucedeposits.explored_Date"
+              [(ngModel)]="resourcedeposits.explored_Date"
               class="form-control"
               name="explored_Date"
               placeholder="explored_Date"
@@ -186,7 +184,7 @@
           <td class="p-2">
             <input
               type="text"
-              [(ngModel)]="resoucedeposits.explored_By"
+              [(ngModel)]="resourcedeposits.explored_By"
               class="form-control"
               name="explored_By"
               placeholder="explored_By"
@@ -197,7 +195,7 @@
           <td class="p-2">
             <input
               type="date"
-              [(ngModel)]="resoucedeposits.lab_Approved_Date"
+              [(ngModel)]="resourcedeposits.lab_Approved_Date"
               class="form-control"
               name="lab_Approved_Date"
               placeholder="lab_Approved_Date"
@@ -207,8 +205,8 @@
           </td> 
           <td class="p-2">
             <input
-              type="date"
-              [(ngModel)]="resoucedeposits.lab_Approved_By"
+              type="text"
+              [(ngModel)]="resourcedeposits.lab_Approved_By"
               class="form-control"
               name="lab_Approved_By"
               placeholder="lab_Approved_By"
@@ -219,7 +217,7 @@
           <td class="p-2">
             <input
               type="checkbox"
-              [(ngModel)]="resoucedeposits.is_Active"
+              [(ngModel)]="resourcedeposits.is_Active"
               class="form-control"
               name="is_Active"
               placeholder="is_Active"
@@ -230,7 +228,7 @@
            <td class="p-2">
             <input
               type="text"
-              [(ngModel)]="resoucedeposits.remark"
+              [(ngModel)]="resourcedeposits.remark"
               class="form-control"
               name="remark"
               placeholder="remark"

@@ -50,10 +50,8 @@ private routerService: ActivatedRoute,
   }
 
   ngOnInit() {
-    // this. addminerals();
     this.getminerals();
-    // this.goto(1);
-    // this.minerals.mineral_Id= Guid.create();
+  
     this.minerals.mineral_Id= Guid.create();
     this.minerals.mineral_Id=this.minerals.mineral_Id.value
     console.log('mineral');

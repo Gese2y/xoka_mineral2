@@ -69,7 +69,7 @@ selectPlotId(event) {
 public getCoordOnClick(event) {
   let convertedEvent = this.map.mouseEventToLatLng(event);
   this.clickCoordinate = convertedEvent;
-  this.serviceService.cordinat=  this.clickCoordinate
+  this.serviceService.coordinate=  this.clickCoordinate
   console.log("converted event :: ", convertedEvent);
 
   // let markerOption = {

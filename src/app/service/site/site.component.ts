@@ -14,74 +14,74 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./site.component.css']
 })
 export class SiteComponent implements OnInit {
-  map : any;
+  map: any;
   public coordinate = {
     lon: null,
     lat: null,
   };
   drawnItems = new L.FeatureGroup();
   // private mapViewEvents = new NativeEmitter();
-public clickCoordinate: any;
-public IsAddFormVisible: any;
-public sites: any;
-public site:site;
-toogleSpin=false;
-displayGIS = false;
+  public clickCoordinate: any;
+  public IsAddFormVisible: any;
+  public sites: any;
+  public site: site;
+  toogleSpin = false;
+  displayGIS = false;
 
-Coordinate:any;
-message: any;
-public StatusList:site;
- public  RegionList: any;
- public  ZoneList: any;
- public  WoredaList: any;
- urlParams: any;
- @Input() licenceData;
- @Input() workingUser;
- @Output() saveDataCompleted = new EventEmitter();
- @Input() taskId;
+  Coordinate: any;
+  message: any;
+  public StatusList: any;
+  public RegionList: any;
+  public ZoneList: any;
+  public WoredaList: any;
+  urlParams: any;
+  @Input() licenceData;
+  @Input() workingUser;
+  @Output() saveDataCompleted = new EventEmitter();
+  @Input() taskId;
   BasicFormnew: any;
-// public edit_form:any;
-postData = {
-  orgId: null,
-  appCode: null,
-  appNo: null,
-  userId: null,
-  taskId: null
-};
+  // public edit_form:any;
+  postData = {
+    orgId: null,
+    appCode: null,
+    appNo: null,
+    userId: null,
+    taskId: null
+  };
   edit_form: boolean;
   constructor(
     private SiteService: SiteService,
     private notificationsService: NotificationsService,
-    public serviceService:ServiceService,
+    public serviceService: ServiceService,
     private routerService: ActivatedRoute,
-  ) { 
-    this.site= new site; 
-   
+  ) {
+    this.site = new site;
+
   }
 
   ngOnInit() {
     this.getsite();
-  //  this.site.site_Id= Guid.create();
-   this.site.site_Id= Guid.create();
-   this.site.site_Id = this.site.site_Id.value;
-   console.log('Site');
-      
-   this.SiteService.getStatusList().subscribe(data=>{
-    this.StatusList=data;
-    this.StatusList=this.StatusList;
-  })
-   
-    this.SiteService.getRegion().subscribe(data=>{
-      this.RegionList=data;
-      this.RegionList=this.RegionList;
+    //  this.site.site_Id= Guid.create();
+    this.site.site_Id = Guid.create();
+    this.site.site_Id = this.site.site_Id.value;
+    console.log('Site');
+
+    this.SiteService.getStatusList().subscribe(data => {
+      this.StatusList = data;
+      this.StatusList = this.StatusList;
     })
-    this.SiteService.getZone().subscribe(data=>{
-      this.ZoneList=data;
-      this.ZoneList=this.ZoneList;
+
+    this.SiteService.getRegion().subscribe(data => {
+      this.RegionList = data;
+      this.RegionList = this.RegionList;
     })
-     this.SiteService.getWoreda().subscribe(data=>{
-      this.WoredaList=data;
-      this.WoredaList=this.WoredaList;
+    this.SiteService.getZone().subscribe(data => {
+      this.ZoneList = data;
+      this.ZoneList = this.ZoneList;
+    })
+    this.SiteService.getWoreda().subscribe(data => {
+      this.WoredaList = data;
+      this.WoredaList = this.WoredaList;
     })
 
 
@@ -89,23 +89,23 @@ postData = {
       this.urlParams = params;
       console.log("urlParams", this.urlParams);
     });
-    if(this.workingUser){
-      if(this.workingUser['userId']){
+    if (this.workingUser) {
+      if (this.workingUser['userId']) {
         this.postData.userId = this.workingUser['userId'];
       }
-      if(this.workingUser['organization_code']){
+      if (this.workingUser['organization_code']) {
         this.postData.orgId = this.workingUser['organization_code'];
       }
     }
-    if(this.licenceData){
-      if(this.licenceData['Application_No']){
+    if (this.licenceData) {
+      if (this.licenceData['Application_No']) {
         this.postData.appNo = this.licenceData['Application_No'];
       }
-      if(this.licenceData['Licence_Service_ID']){
+      if (this.licenceData['Licence_Service_ID']) {
         this.postData.appCode = this.licenceData['Licence_Service_ID'];
       }
     }
-    if(this.taskId){
+    if (this.taskId) {
       this.postData.taskId = this.taskId;
     }
     console.log('licenceData', this.licenceData);
@@ -123,15 +123,20 @@ postData = {
       }
     );
   }
-  registersite() {   
+  registersite() {
+    let Longitude =this.serviceService.coordinate.lng
+    let Latitude =this.serviceService.coordinate.lat
+    this.site.coordinate = "lat:"+Latitude+" " + "lng:"+Longitude
+    this.site.licence_Service_Id="00978db9-fcac-4a21-9399-001ba30aa8ec"
+    console.log("coordinate");
     console.log(this.site);
-    this.SiteService.registersite(this.site).subscribe(
+    this.SiteService.addsite(this.site).subscribe(
       (response) => {
         const toast = this.notificationsService.success("Success", "success");
         this.getsite();
         //this.completed.emit('{}');
         this.clearForm();
-      },
+      }, 
       (error) => {
         console.log("register-error", error);
         const toast = this.notificationsService.error(
@@ -141,7 +146,7 @@ postData = {
       }
     );
   }
-  
+
   saveData() {
     console.log(this.workingUser);
     this.serviceService
@@ -168,12 +173,12 @@ postData = {
         }
       );
   }
-onClickEvent() {
+  onClickEvent() {
     console.log(this.BasicFormnew.controls['Latitude'].value);
-    
+
     let x = this.BasicFormnew.controls['Latitude'].value;
     let y = this.BasicFormnew.controls['Longitude'].value;
-    let coordinate='POINT ('+ x +' ,'+ y +')';   
+    let coordinate = 'POINT (' + x + ' ,' + y + ')';
     this.BasicFormnew.controls['coordinate'].setValue(coordinate)
   }
 
@@ -182,12 +187,8 @@ onClickEvent() {
       (response) => {
         console.log("all-response", response);
         let licenceData = response["list"][0];
-       // this.Depreciation_Book['fixed_Assets_No'] = saveDataResponse[0];
-        // this.TransactionSale.application_No = licenceData.Application_No;
-        this.saveDataCompleted.emit(saveDataResponse);
-
-        //if (this.editForm) this.updateTransactionSale();
-     this.registersite();
+       this.saveDataCompleted.emit(saveDataResponse);
+        this.registersite();
       },
       (error) => {
         console.log("all-error" + error);
@@ -195,11 +196,11 @@ onClickEvent() {
     );
   }
   createMap(id) {
-  	return new Map(id);
+    return new Map(id);
   }
 
   deletesites(site) {
-  
+
     if (confirm("Are you sure !!!"))
       this.SiteService
         .deletesites(site)
@@ -233,14 +234,14 @@ onClickEvent() {
         }
       );
   }
-  clearForm(){
+  clearForm() {
     this.sites = {};
     this.IsAddFormVisible = !this.IsAddFormVisible;
     // this.site.site_Id= Guid.create();
     // this.site.site_Id = this.site.site_Id.value;
   }
   finishSelection() {
-  
+
     this.message.registersite(
       { severity: 'success', summary: 'Map Selection', detail: 'Map is selected successfully!' }
     );
@@ -249,65 +250,58 @@ onClickEvent() {
       this.displayGIS = false;
       this.toogleSpin = false;
     }, 1000);
-  
-  {
-    this.message.registersite(
-      { severity: 'warn', summary: 'Map Selection', detail: 'Please select a Map first!' }
-    );
-  }
-}
 
-public OnClickMap(event) {
-  // let convertedEvent = this.map.mouseEventToLatLng(event);
-  // this.clickCoordinate = convertedEvent;
-  // console.log("converted event :: ", convertedEvent);
-  // console.log(this.BasicFormnew.controls['Latitude'].value);
-    // let lat = this.site.Coordinate.value;
-    // let lng = this.site.Coordinate.value;
-    // let cordinat='POINT ('+ lat +' ,'+ lng +')';   
+    {
+      this.message.addsite(
+        { severity: 'warn', summary: 'Map Selection', detail: 'Please select a Map first!' }
+      );
+    }
+  }
+
+  public OnClickMap(event) {   
     this.site.coordinate = event.value;
     this.IsAddFormVisible = false
-} 
-gotoCoordinate() {
-  console.log("lon : ", this.coordinate.lon, "\nlat : ", this.coordinate.lat);
-  if (this.coordinate.lon !== null && this.coordinate.lat !== null) {
-    this.map.panTo([this.coordinate.lat, this.coordinate.lon]);
   }
-  let coords = {
-    lat: this.coordinate.lat,
-    lng: this.coordinate.lon,
-  };
+  gotoCoordinate() {
+    console.log("lon : ", this.coordinate.lon, "\nlat : ", this.coordinate.lat);
+    if (this.coordinate.lon !== null && this.coordinate.lat !== null) {
+      this.map.panTo([this.coordinate.lat, this.coordinate.lon]);
+    }
+    let coords = {
+      lat: this.coordinate.lat,
+      lng: this.coordinate.lon,
+    };
 
-  L.marker(coords).addTo(this.map);
-} 
-selectsites(site) {
-  console.log(site)
-  this.edit_form = true;
-  this.site = site;
-  this.serviceService.site_Id=site.site_Id
-  console.log( this.serviceService.site_Id)
-} 
+    L.marker(coords).addTo(this.map);
+  }
+  selectsites(site) {
+    console.log(site)
+    this.edit_form = true;
+    this.site = site;
+    this.serviceService.site_Id = site.site_Id
+    console.log(this.serviceService.site_Id)
+  }
 
 }
 class site{
-  public site_Id:any;
-  public site_Name:any;
-  public region:any;
-  public zone:any;
-  public woreda:any;
-  public kebele_Locality:any;
-  public date_Registered:any;
-  public coordinate:any;
-  public status:any;
-  public is_Active:any;
-  public remarks:any;
-  public created_By:any
-  public updated_By:any;
-  public deleted_By:any;
-  public is_Deleted:any;
-  public created_Date:any;
-  public updated_Date:any;
-  public deleted_Date:any;
-  public licence_Service_Id:any;
-  public application_No:any;
+  public site_Id: any;
+  public site_Name: any;
+  public region: any;
+  public zone: any;
+  public woreda: any;
+  public kebele_Locality: any;
+  public date_Registered: any;
+  public coordinate: any;
+  public status: any;
+  public is_Active: any;
+  public remarks: any;
+  // public created_By: any;
+  // public updated_By: any;
+  // public deleted_By: any;
+  // public is_Deleted: any;
+  // public created_Date: any;
+  // public updated_Date: any;
+  // public deleted_Date: any;
+  public licence_Service_Id: any;
+  public application_No: any;
 }
