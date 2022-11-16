@@ -22,7 +22,7 @@ const routes: Routes = [{
       redirectTo: 'task',
       pathMatch: 'prefix'
     },
-    {path: '**', redirectTo: '/task/MyTask', pathMatch: 'prefix'}
+    {path: '*', redirectTo: '/task/MyTask', pathMatch: 'prefix'}
   ]
 },
 ];

@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./site.component.css']
 })
 export class SiteComponent implements OnInit {
+  DisplayCoordinate: boolean;
   map: any;
   public coordinate = {
     lon: null,
@@ -49,8 +50,9 @@ export class SiteComponent implements OnInit {
     taskId: null
   };
   edit_form: boolean;
+  ismapVisiblees: boolean;
   constructor(
-    private SiteService: SiteService,
+    public SiteService: SiteService,
     private notificationsService: NotificationsService,
     public serviceService: ServiceService,
     private routerService: ActivatedRoute,
@@ -261,6 +263,7 @@ export class SiteComponent implements OnInit {
   public OnClickMap(event) {   
     this.site.coordinate = event.value;
     this.IsAddFormVisible = false
+    this.ismapVisiblees = false 
   }
   gotoCoordinate() {
     console.log("lon : ", this.coordinate.lon, "\nlat : ", this.coordinate.lat);

@@ -11,6 +11,7 @@ export class ResourceDepositService {
   public ResourceDUrl = environment.rootApiPath + "ResourceDeposit";
   public mineralIDUrl = environment.rootApiPath + "Mineral";
   public siteIDUrl = environment.rootApiPath + "Site";
+  resourcedeposits:any;
   // postresourcedeposit: any;
   constructor(private http: HttpClient) { }
   getResourceD() {
@@ -35,9 +36,9 @@ export class ResourceDepositService {
   // getresourceDeposit() {
   //   return this.http.get(this.ResourceDUrl);
   // }
-  deleteresoucedeposit(resourcedeposits) {
+  deleteresoucedeposit(resoucedeposits) {
     return this.http.delete(
-      this.ResourceDUrl + "/" + resourcedeposits.resource_Id
+      this.ResourceDUrl + "/" + resoucedeposits.resource_Id
     );
   }
 }

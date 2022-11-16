@@ -40,6 +40,7 @@ public outputFormats = {
 };
 private mapViewEvents = new NativeEmitter();
 private clickCoordinate: any;
+  ismapVisiblees: boolean;
 
 constructor(private SiteMapService: SiteMapService,
   public serviceService:ServiceService,
@@ -69,9 +70,9 @@ selectPlotId(event) {
 public getCoordOnClick(event) {
   let convertedEvent = this.map.mouseEventToLatLng(event);
   this.clickCoordinate = convertedEvent;
-  this.serviceService.coordinate=  this.clickCoordinate
+  this.serviceService.coordinate =  this.clickCoordinate
   console.log("converted event :: ", convertedEvent);
-
+  this.ismapVisiblees = false
   // let markerOption = {
   //   icon: L.Icon.Default,
   //   title: `lat: ${convertedEvent.lat}, lng: ${convertedEvent.lng}`

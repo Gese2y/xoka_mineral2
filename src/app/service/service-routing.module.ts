@@ -4,10 +4,10 @@ import { ServiceComponent } from './service.component';
 import { FormDisplayComponent } from './form-display/form-display.component';
 
 const routes: Routes = [
-  {
-    path: 'service',
-    component: FormDisplayComponent
-  },
+  // {
+  //   path: 'service',
+  //   component: FormDisplayComponent
+  // },
   
   {
     path: 'service/:formcode',
@@ -25,11 +25,11 @@ const routes: Routes = [
     component: ServiceComponent,
     pathMatch: 'prefix'
   },
-  {
-    path: ':id/:tskID/:formcode',
-    component: ServiceComponent,
-    pathMatch: 'prefix'
-  }
+  // {
+  //   path: ':id/:tskID/:formcode',
+  //   component: ServiceComponent,
+  //   pathMatch: 'prefix'
+  // }
 ];
 
 @NgModule({

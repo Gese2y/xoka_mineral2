@@ -13,16 +13,16 @@ export class SupervisorTaskComponent implements OnInit {
   constructor(private myTaskService: MyTaskService) { }
 
   ngOnInit() {
-    // this.getSupervisedTask();
+    this.getSupervisedTask();
 
   }
 
-  // getSupervisedTask() {
-  //   this.myTaskService.getSupervisertasks().subscribe(tasks => {
-  //     this.tasks = tasks;
-  //     this.tasks = (Object.assign([], this.tasks.Table1));
-  //     console.log('tasks', tasks);
-  //     console.log('this.taskList', this.tasks);
-  //   });
-  // }
+  getSupervisedTask() {
+    this.myTaskService.getSupervisertasks().subscribe(tasks => {
+      this.tasks = tasks;
+      this.tasks = (Object.assign([], this.tasks.Table1));
+      console.log('tasks', tasks);
+      console.log('this.taskList', this.tasks);
+    });
+  }
 }

@@ -3,7 +3,7 @@
   <div class="m-3">
     <p-table
       [value]="resoucedeposit"
-      [paginator]="true" [rows]="3"
+      [paginator]="true" [rows]="2"
       [resizableColumns]="true"
       
     >
@@ -100,7 +100,7 @@
         <td> 
            <input type="text" class="form-control form-control-sm" id="site_Id" placeholder="site_Id"  
           (click)="isAccountModalVisible=true" 
-           [(ngModel)]="resourcedeposits.site_Id" name ="site_Id" readonly>          
+           [(ngModel)]="serviceService.site_Id" name ="site_Id" readonly>          
           <p-dialog
             header="Site ID" 
             [(visible)]="isAccountModalVisible"
@@ -235,7 +235,7 @@
               id="remark"
               required
             />
-          </td>
+          </td> 
           <td scope="col" rowspan="2" style="text-align: center">
             <button
               type="button"

@@ -41,7 +41,7 @@ export class ServiceService {
   private GetDataURL = environment.rootPath + "BPEL/GetData"; // URL to web api
   private BaseTable = environment.rootPath + "BaseTable"; // URL to web api
   private DocmentArcive = environment.rootPath + "DocmentArcive"; // URL to web api
-  private UserWorkInfoURl = environment.rootApiPath + "view/ViewAspNetUsersWorkInfoDetail"; // URL to web api
+  private UserWorkInfoURl = environment.rootApiPath + "View_AspNetUsers_Work_InfoDetail"; // URL to web api
   private select=environment.rootApiPath +"finance/procJBankReconTransaction";
   private BackURL = environment.rootPath + 'BPEL/TaskBack';  // URL to web api
   private GetNoteURL = environment.rootPath + 'BPEL/Get_postit_notes';

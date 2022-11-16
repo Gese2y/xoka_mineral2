@@ -16,7 +16,7 @@ public mineralUses: any;
 public mineralUse: mineralUse;
 public isAccountModalVisible = false;
 public isAccountVisible = false;
-public isAccountVisiblee= false;
+public isAccountVisiblees= false;
 public accountNoos: any;
 public Customer_ID: any;
 public resource_Id: any;
@@ -191,7 +191,7 @@ this.mineralUse = new mineralUse;
     this.mineralUse.gis_Plot_Id = event.value;
     console.log('gis',event)
      this.isAccountModalVisible = false;
-     this.isAccountVisible = false;
+     this.isAccountVisiblees = false;
    } 
 
     registermineraluse() {   

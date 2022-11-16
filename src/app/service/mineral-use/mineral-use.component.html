@@ -101,12 +101,13 @@
               </p-table>
             </p-dialog>
           </td>
-          <td>  <input type="text" class="form-control form-control-sm" id="gis_Plot_Id" placeholder="gis_Plot_Id"  
-            (click)="isAccountVisiblee=true" 
+          <td>  
+            <input type="text" class="form-control form-control-sm" id="gis_Plot_Id" placeholder="gis_Plot_Id"  
+            (click)="isAccountVisiblees=true" 
              [(ngModel)]="mineralUse.gis_Plot_Id" name ="gis_Plot_Id" readonly>          
             <p-dialog
               header="GIS Plot Id" 
-              [(visible)]="isAccountVisiblee"
+              [(visible)]="isAccountVisiblees"
               [modal]="true"
               [responsive]="true"
               [width]="500"

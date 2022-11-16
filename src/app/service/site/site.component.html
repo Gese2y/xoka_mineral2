@@ -54,12 +54,12 @@
             <div class="col-sm-6 flex">
               <input type="text" class="form-control form-control-sm" id="Coordinate" placeholder="Coordinate"
                 [(ngModel)]="serviceService.coordinate" name="Coordinate" (click)="SiteService.DisplayCoordinate=true"
-                (click)="OnClickMap($event)" readonly>
+                 (click)="OnClickMap($event)" readonly>
             </div>
           </div>
-          <p-dialog [(visible)]="SiteService.DisplayCoordinate" [modal]="true" [responsive]="true"
+          <p-dialog  [(visible)]="SiteService.DisplayCoordinate" [modal]="true"  [responsive]="true"
             [style]="{'minHeight':'10%','height':'500px','minWidth':'10%','width':'80%' }" [maximizable]="true"
-            [baseZIndex]="800">
+            [baseZIndex]="800" (click)="ismapVisiblees=true">
             <p-header>
               <h4 class="modal-title pull-left" translate>Site Coordinate</h4>
             </p-header>

@@ -37,7 +37,7 @@ export class ResourceDepositComponent implements OnInit {
     taskId: null
   };
  constructor(
-  private ResourceDepositService: ResourceDepositService,
+  public ResourceDepositService: ResourceDepositService,
   private notificationsService:NotificationsService,
     public serviceService:ServiceService,
     private routerService: ActivatedRoute,
@@ -90,8 +90,8 @@ export class ResourceDepositComponent implements OnInit {
     this.IsAddFormVisible = !this.IsAddFormVisible;
   }
   onAccountSelectionChanges(event) {
-    this.resourcedeposits.site_Id=  event.value;
-     this.resourcedeposits.site_Id = event.value;
+    this.serviceService.site_Id=  event.value;
+     this.serviceService.site_Id = event.value;
      console.log('aaaa',event)
       this.isAccountModalVisible = false;
       
@@ -138,6 +138,7 @@ export class ResourceDepositComponent implements OnInit {
         );
       }
       addresourcedeposits() {
+        this.serviceService.site_Id = this.serviceService.site_Id;
     this.ResourceDepositService.addresourcedeposits(this.resourcedeposits)
       .subscribe(
         (response) => {
