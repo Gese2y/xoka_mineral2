@@ -51,6 +51,7 @@ export class ServiceService {
   private DeleteNoteURL = environment.rootPath + 'BPEL/Delete_postit_notes';  // URL to web api
   private SaveNoteURL = environment.rootPath + 'BPEL/Edit_postit_notes';  
   private getAllDocumentURL = environment.rootPath + 'BPEL/getAllDocument';  // URL to web api
+ 
   userid: string;
   AppNO;
   AppCode;

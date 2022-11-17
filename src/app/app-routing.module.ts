@@ -8,7 +8,7 @@ const routes: Routes = [
     redirectTo: "/task/MyTask",
     pathMatch: "prefix",
   },
-  { path: "*", redirectTo: "/task/MyTask", pathMatch: "prefix" },
+  { path: "**", redirectTo: "/task/MyTask", pathMatch: "prefix" },
 ];
 
 @NgModule({
