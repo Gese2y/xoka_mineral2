@@ -41,6 +41,7 @@ public name_Ens: any;
     taskId: null
   };
   @Input() taskId;
+  user: any;
   // gis_plot_Id: any;
   constructor(
     private MineralUseService: MineralUseService,
@@ -61,11 +62,23 @@ this.mineralUse = new mineralUse;
     // this.mineralUse.updated_By="00000000-0000-0000-0000-000000000000"
     // this.mineralUse.deleted_By="00000000-0000-0000-0000-000000000000"
   
+    this.serviceService.getUserWorkInfo().subscribe(
+      (response)=>{
+   
+          // this.user = response[0].userId;
+          // this.mineralUse.updateBy=this.user
+          // this.Depreciation_Book.fixed_Assets_No=this.user;
+          // console.log('userss',response[0])
+      },
+      (error)=>{
+      console.log("user error");
+      }
+          );
     this.routerService.params.subscribe((params) => {
       this.urlParams = params;
       console.log("urlParams", this.urlParams);
     });
-    if(this.workingUser){
+     if(this.workingUser){
       if(this.workingUser['userId']){
         this.postData.userId = this.workingUser['userId'];
       }
@@ -84,6 +97,7 @@ this.mineralUse = new mineralUse;
     if(this.taskId){
       this.postData.taskId = this.taskId;
     }
+   
     console.log('licenceData', this.licenceData);
     console.log('workingUser', this.workingUser);
     console.log('taskId', this.taskId);
@@ -214,12 +228,53 @@ this.mineralUse = new mineralUse;
       );
     }
 
+    // saveData() {
+    //   console.log(this.workingUser);
+    //   this.serviceService
+    //     .saveForm(
+    //       this.licenceData ? this.licenceData.Licence_Service_ID : "00000000-0000-0000-0000-000000000000",
+    //       this.licenceData ? this.licenceData.Service_ID : "00000000-0000-0000-0000-000000000000",
+    //       "c30c953e-7001-485a-80cd-7dd9d45b86f1",
+    //       "1e60f3a1-7017-47bf-95f4-f0e47c793c72",
+    //       "{}",
+    //       this.urlParams.docid || "00000000-0000-0000-0000-000000000000",
+    //       this.urlParams.todoID || "00000000-0000-0000-0000-000000000000"
+    //     )
+    //     .subscribe(
+    //       (response) => {
+    //         console.log("trans-resp", response);
+    //         this.getLicenceService(response);
+    //       },
+    //       (error) => {
+    //         console.log("save-data-error", error);
+    //         const toast = this.notificationsService.error(
+    //           "Error",
+    //           "SomeThing Went Wrong"
+    //         );
+    //       }
+    //     );
+    // }
+  
+    // public getLicenceService(saveDataResponse) {
+    //   this.serviceService.getAll(saveDataResponse[0]).subscribe(
+    //     (response) => {
+    //       console.log("all-response", response);
+    //       let licenceData = response["list"][0];
+    //       this.saveDataCompleted.emit(saveDataResponse);
+    //    this.registermineraluse();
+    //     },
+    //     (error) => {
+    //       console.log("all-error" + error);
+    //     }
+    //   );
+    // }
+   
     saveData() {
       console.log(this.workingUser);
       this.serviceService
         .saveForm(
           this.licenceData ? this.licenceData.Licence_Service_ID : "00000000-0000-0000-0000-000000000000",
-          this.licenceData ? this.licenceData.Service_ID : "00000000-0000-0000-0000-000000000000",
+          this.licenceData ? this.licenceData.Service_ID : this.urlParams.id,
           "c30c953e-7001-485a-80cd-7dd9d45b86f1",
           "1e60f3a1-7017-47bf-95f4-f0e47c793c72",
           "{}",
@@ -246,7 +301,11 @@ this.mineralUse = new mineralUse;
         (response) => {
           console.log("all-response", response);
           let licenceData = response["list"][0];
+         // this.Depreciation_Book['fixed_Assets_No'] = saveDataResponse[0];
+          // this.TransactionSale.application_No = licenceData.Application_No;
           this.saveDataCompleted.emit(saveDataResponse);
+  
+          //if (this.editForm) this.updateTransactionSale();
        this.registermineraluse();
         },
         (error) => {
@@ -254,7 +313,6 @@ this.mineralUse = new mineralUse;
         }
       );
     }
-   
     deletemineralUse(mineralUses) {
       if (confirm("Are you sure you want to delete?  !!!"))
         this.MineralUseService.deletemineralUse(mineralUses)
@@ -286,11 +344,12 @@ class mineralUse{
   public customer_Id:any;
   public is_Active:any;
   public remarks:any;
-  public created_By:any;
-  public updated_By:any;
-  public deleted_By:any;
-  public is_Deleted:any;
-  public created_Date:any;
-  public updated_Date:any;
-  public deleted_Date:any;
+  // public created_By:any;
+  // public updated_By:any;
+  // public deleted_By:any;
+  // public is_Deleted:any;
+  // public created_Date:any;
+  // public updated_Date:any;
+  // public deleted_Date:any;
+  // updateBy: any;
 }

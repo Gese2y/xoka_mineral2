@@ -137,7 +137,7 @@ private routerService: ActivatedRoute,
     this.serviceService
       .saveForm(
         this.licenceData ? this.licenceData.Licence_Service_ID : "00000000-0000-0000-0000-000000000000",
-        this.licenceData ? this.licenceData.Service_ID : "00000000-0000-0000-0000-000000000000",
+        this.licenceData ? this.licenceData.Service_ID : this.urlParams.id,
         "c30c953e-7001-485a-80cd-7dd9d45b86f1",
         "1e60f3a1-7017-47bf-95f4-f0e47c793c72",
         "{}",
@@ -225,11 +225,11 @@ class Minerals {
   public other_Properties: any
   public is_Active: any
   public remarks: any
-  public created_By: any
-  public updated_By: any
-  public deleted_By: any
-  public is_Deleted: any
-  public created_Date: any
-  public updated_Date: any
-  public deleted_Date: any
+  // public created_By: any
+  // public updated_By: any
+  // public deleted_By: any
+  // public is_Deleted: any
+  // public created_Date: any
+  // public updated_Date: any
+  // public deleted_Date: any
 }
