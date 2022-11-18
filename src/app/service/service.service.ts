@@ -12,7 +12,7 @@ export class ServiceService {
   private PropertyListUrl = environment.rootPath + "Property_Registration"; // URL to web api
   private CertificateVersionUrl = environment.rootPath + "Certificate_Version"; // URL to web api
   private DeedUrl = environment.rootPath + "Deed_Registration"; // URL to web api
-  private License_ServiceURL = environment.rootPath + "License_Service"; // URL to web api
+  private License_ServiceURL = environment.rootPath + 'License_Service'; // URL to web api
   private saveFileLookUP = environment.rootPath + "BPEL/SaveDocumentMaster"; // URL to web api
 
   private CustomerTypeLookUP = environment.rootPath + "Customer_Type_Lookup"; // URL to web api
@@ -151,27 +151,43 @@ export class ServiceService {
   GetNote(ApplicationNo) {
     return this.http.post(this.GetNoteURL + '?Application_number=' + ApplicationNo, null);
   }
-  saveFile(
-    DocData,
-    FileType,
-    ApplicationNo,
-    RequrementID,
-    TaskType,
-    Requrement
-  ) {
+  // saveFile(
+  //   DocData,
+  //   FileType,
+  //   ApplicationNo,
+  //   RequrementID,
+  //   TaskType,
+  //   Requrement
+  // ) {
     // console.log('File', File);
     /*return this.http.post(this.saveFileLookUP + '?' + 'TaskType=' + TaskType + '&ApplicationNo=' + ApplicationNo + '&DocData=' + File + '&uid=00000000-0000-0000-0000-000000000000' + '&FileType=' + Type + '&RequrementID=' + ReqId + '&Requrement=' + Requrement, null);*/
+
+    // return this.http.post(this.saveFileLookUP, {
+    //   TaskType,
+    //   ApplicationNo,
+    //   DocData,
+    //   uid: "00000000-0000-0000-0000-000000000000",
+    //   FileType,
+    //   RequrementID,
+    //   Requrement,
+    // });
+  // }
+  saveFile(DocData, FileType, ApplicationNo, RequrementID, TaskType, Requrement) {
+    // console.log('File', File);
+    /*return this.http.post(this.saveFileLookUP + '?' + 'TaskType=' + TaskType + '&ApplicationNo=' + ApplicationNo + '&DocData=' + File + '&uid=00000000-0000-0000-0000-000000000000' + '&FileType=' + Type + '&RequrementID=' + ReqId + '&Requrement=' + Requrement, null);*/
+
 
     return this.http.post(this.saveFileLookUP, {
       TaskType,
       ApplicationNo,
       DocData,
-      uid: "00000000-0000-0000-0000-000000000000",
+      uid: '00000000-0000-0000-0000-000000000000',
       FileType,
       RequrementID,
-      Requrement,
+      Requrement
     });
   }
+
   removeSlash(string){
     if(string == null) return;
     return string.replace(/\//g, "%2F");
@@ -261,13 +277,8 @@ export class ServiceService {
   }
 
   getAll(AppNo) {
-    return this.http.get<any[]>(
-      this.License_ServiceURL +
-        "?" +
-        "sortOrder=test&currentFilter=" +
-        AppNo +
-        "&searchString&pageIndex&pageSize"
-    );
+    return (this.http.get<any[]>(this.License_ServiceURL + '?' + 'sortOrder=test&currentFilter=' +
+      AppNo + '&searchString&pageIndex&pageSize'));
   }
 
   getPriveys(certefcatcode) {

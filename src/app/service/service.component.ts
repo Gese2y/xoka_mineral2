@@ -203,7 +203,7 @@ export class ServiceComponent implements OnInit {
     this.getUserWorkInfo();
     this.getLookups();
     this.getRequiredDocs();
-    // this.getUserWorkInfo();
+    
     console.log("selectedTask " + this.selectedTask);
   }
 
@@ -951,4 +951,3 @@ if (this.RequerdDocs != null){
     );
   }
 }
- 
