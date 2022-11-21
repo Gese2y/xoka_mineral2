@@ -90,8 +90,8 @@ export class ResourceDepositComponent implements OnInit {
     this.IsAddFormVisible = !this.IsAddFormVisible;
   }
   onAccountSelectionChanges(event) {
-    this.resourcedeposits.site_Id=  event.value;
-     this.resourcedeposits.site_Id = event.value;
+    this.serviceService.site_Id=  event.value;
+     this.serviceService.site_Id = event.value;
      console.log('aaaa',event)
       this.isAccountModalVisible = false;
       
@@ -186,7 +186,7 @@ export class ResourceDepositComponent implements OnInit {
         .saveForm(
           this.licenceData ? this.licenceData.Licence_Service_ID : "00000000-0000-0000-0000-000000000000",
           this.licenceData ? this.licenceData.Service_ID : this.urlParams.id,
-          "00000000-0000-0000-0000-000000000000",
+          "bf23c7b0-576c-44ca-8475-34642e3df21a",
           this.workingUser.organization_code,
           "{}",
           this.urlParams.docid || "00000000-0000-0000-0000-000000000000",

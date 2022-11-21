@@ -155,7 +155,7 @@ export class SiteComponent implements OnInit {
       .saveForm(
         this.licenceData ? this.licenceData.Licence_Service_ID : "00000000-0000-0000-0000-000000000000",
         this.licenceData ? this.licenceData.Service_ID : this.urlParams.id,
-        "00000000-0000-0000-0000-000000000000",
+        "bf23c7b0-576c-44ca-8475-34642e3df21a",
         this.workingUser.organization_code,
         "{}",
         this.urlParams.docid || "00000000-0000-0000-0000-000000000000",
@@ -281,8 +281,8 @@ export class SiteComponent implements OnInit {
   }
   selectsites(site) {
     console.log(site)
-    this.edit_form = true;
-    this.site = site;
+    // this.edit_form = true;
+    // this.site = site;
     this.serviceService.site_Id = site.site_Id
     console.log(this.serviceService.site_Id)
   }

@@ -1,7 +1,10 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { SiteService } from '../Site/Site.service';
+import { ServiceService } from '../service.service';
+import { NotificationsService } from 'angular2-notifications';
+
 // import { StepModel } from 'step.model';
 
 @Component({
@@ -12,22 +15,36 @@ import { SiteService } from '../Site/Site.service';
 export class SiteListComponent implements OnInit {
 // public site: any;
 public sites: any;
+completed:any;
 site: site;
 @ViewChild("tabset") tabset: TabsetComponent;
-
-
-  @Input() workingUser;
+@Input() licenceData;  
+@Input() workingUser;
+@Output() saveDataCompleted = new EventEmitter();
+@Input() taskId;
   selectedFile: any;
     selectedprofromtree: any;
   toMes;
-  @Input() LicenceData;
   staticTabs: any;
   StatusList: any;
+  routerService: any;
+  urlParams: any;
+  // postData: any;
   goto(id) {
     this.tabset.tabs[id].active = true;
   } 
   public edit_form = false;
-constructor(private SiteService: SiteService) {
+  postData = {
+    orgId: null,
+    appCode: null,
+    appNo: null,
+    userId: null,
+    taskId: null
+  };
+constructor(private SiteService: SiteService,
+  public serviceService:ServiceService,
+  private notificationsService:NotificationsService,
+  ) {
   this.site = new site();
   
 }
@@ -39,6 +56,33 @@ selectTab(tabId: number) {
   ngOnInit() {
     this.goto(1);
     this.getsite();
+    this.routerService.params.subscribe((params) => {
+      this.urlParams = params;
+      console.log("urlParams", this.urlParams);
+    });
+    if(this.workingUser){
+      if(this.workingUser['userId']){
+        this.postData.userId = this.workingUser['userId'];
+      }
+      if(this.workingUser['organization_code']){
+        this.postData.orgId = this.workingUser['organization_code'];
+      }
+    }
+    if(this.licenceData){
+      if(this.licenceData['Application_No']){
+        this.postData.appNo = this.licenceData['Application_No'];
+      }
+      if(this.licenceData['Licence_Service_ID']){
+        this.postData.appCode = this.licenceData['Licence_Service_ID'];
+      }
+    }
+    if(this.taskId){
+      this.postData.taskId = this.taskId;
+    }
+    console.log('licenceData', this.licenceData);
+    console.log('workingUser', this.workingUser);
+    console.log('taskId', this.taskId);
+    console.log('post data :: ', this.postData);
   }
   
  
@@ -63,6 +107,50 @@ selectTab(tabId: number) {
     this.site = new site();
     this.edit_form = false;
     this.goto(0);
+  }
+  saveData() {
+    console.log(this.workingUser);
+    this.serviceService
+      .saveForm(
+        this.licenceData ? this.licenceData.Licence_Service_ID : "00000000-0000-0000-0000-000000000000",
+        this.licenceData ? this.licenceData.Service_ID : this.urlParams.id,
+        "00000000-0000-0000-0000-000000000000",
+        this.workingUser.organization_code,
+        "{}",
+        this.urlParams.docid || "00000000-0000-0000-0000-000000000000",
+        this.urlParams.todoID || "00000000-0000-0000-0000-000000000000"
+      )
+      .subscribe(
+        (response) => {
+          console.log("trans-resp", response);
+          this.getLicenceService(response);
+        },
+        (error) => {
+          console.log("save-data-error", error);
+          const toast = this.notificationsService.error(
+            "Error",
+            "SomeThing Went Wrong"
+          );
+        }
+      );
+  }
+
+  public getLicenceService(saveDataResponse) {
+    this.serviceService.getAll(saveDataResponse[0]).subscribe(
+      (response) => {
+        console.log("all-response", response);
+        let licenceData = response["list"][0];
+        // if(this.resourcedeposits['document_No']==null){
+        //   this.resourcedeposits['document_No']=licenceData.Application_No}
+        this.saveDataCompleted.emit(saveDataResponse);
+
+        //if (this.editForm) this.updateTransactionSale();
+    //  this.addresourcedeposits();
+      },
+      (error) => {
+        console.log("all-error" + error);
+      }
+    );
   }
   // EnableFinspronew(resourcedeposit) {
   //   // this.propertyregForm = false;

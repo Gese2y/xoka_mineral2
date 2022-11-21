@@ -133,17 +133,17 @@
         [(licenceData)]="licenceData" [workingUser]="workingUser"
         (saveDataCompleted)="saveDataCompleted($event)"></app-mineral-use>
       </div>
-      <div *ngSwitchCase="34">
+      <!-- <div *ngSwitchCase="34">
         <app-resource-deposit (completed)="saveForm($event)" [taskId]="tskID" 
         [(licenceData)]="licenceData" [workingUser]="workingUser"
         (saveDataCompleted)="saveDataCompleted($event)"></app-resource-deposit>
-      </div>
-      <div *ngSwitchCase="35">
-        <app-site (completed)="saveForm($event)" [taskId]="tskID" 
+      </div> -->
+      <div *ngSwitchCase="34">
+        <app-site-list (completed)="saveForm($event)" [taskId]="tskID" 
         [(licenceData)]="licenceData" [workingUser]="workingUser"
-        (saveDataCompleted)="saveDataCompleted($event)" ></app-site>
+        (saveDataCompleted)="saveDataCompleted($event)"></app-site-list>
       </div> 
-      <div *ngSwitchCase="36">
+      <div *ngSwitchCase="35">
         <app-site-map></app-site-map>
       </div>
       <h3 class="not-fond-panel" *ngSwitchDefault>Form not found</h3>
