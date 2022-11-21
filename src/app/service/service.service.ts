@@ -12,7 +12,7 @@ export class ServiceService {
   private PropertyListUrl = environment.rootPath + "Property_Registration"; // URL to web api
   private CertificateVersionUrl = environment.rootPath + "Certificate_Version"; // URL to web api
   private DeedUrl = environment.rootPath + "Deed_Registration"; // URL to web api
-  private License_ServiceURL = environment.rootPath + "License_Service"; // URL to web api
+  private License_ServiceURL = environment.rootPath + 'License_Service'; // URL to web api
   private saveFileLookUP = environment.rootPath + "BPEL/SaveDocumentMaster"; // URL to web api
 
   private CustomerTypeLookUP = environment.rootPath + "Customer_Type_Lookup"; // URL to web api
@@ -65,24 +65,6 @@ export class ServiceService {
     
   }
   
-  // saveFormData(formData) {
-  //   const ApplicationCode = '00000000-0000-0000-0000-000000000000';
-  //   const serviceId = '000000-0000-0000-0000-000000000000';
-  //   const taskid = 'c8c52994-57e4-4b3a-a7be-1d00ea0db37f';
-  //   const orgid = '930d1c20-9e0e-4a50-9eb2-e542fafbad68';
-  //   const userid = environment.username;
-  //   const json = formData;
-  //   const docid = '00000000-0000-0000-0000-000000000000';
-  //   return this.http.put<any>(this.saveFormDataURL, {
-  //     ApplicationCode,
-  //     serviceId,
-  //     taskid,
-  //     orgid,
-  //     userid,
-  //     json,
-  //     docid
-  //   });
-  // }
 
   saveFormData(formData) {
     const ApplicationCode = '00000000-0000-0000-0000-000000000000';
@@ -114,14 +96,14 @@ export class ServiceService {
       '&userName=' + environment.username + '&status=C&taskruleid=' + ruleid, null);
   }
   
-  saveForm(ApplicationCode, serviceId, taskid, orgid, json, docid,todoID) {
-   // orgid = "1e60f3a1-7017-47bf-95f4-f0e47c793c72";
-    return this.http.post(this.SaveDataURL + '?ApplicationCode=' + ApplicationCode + '&serviceId=' +
-      serviceId + '&taskid=' + taskid + '&orgid=' + orgid + '&UserName=' + environment.username + '&json=' + json + '&docid=' +
-      docid + "&todoID=" +
-      todoID, null);
-  }
   
+  saveForm(ApplicationCode, serviceId, taskid, orgid, json, docid,todoID) {
+    // orgid = "1e60f3a1-7017-47bf-95f4-f0e47c793c72";
+     return this.http.post(this.SaveDataURL + '?ApplicationCode=' + ApplicationCode + '&serviceId=' +
+       serviceId + '&taskid=' + taskid + '&orgid=' + orgid + '&UserName=' + environment.username + '&json=' + json + '&docid=' +
+       docid + "&todoID=" +
+       todoID, null);
+   }
 
   isvalidated(todoid, taskid, Plotid, ProperyID, DocID) {
     return this.http.get(
@@ -169,27 +151,43 @@ export class ServiceService {
   GetNote(ApplicationNo) {
     return this.http.post(this.GetNoteURL + '?Application_number=' + ApplicationNo, null);
   }
-  saveFile(
-    DocData,
-    FileType,
-    ApplicationNo,
-    RequrementID,
-    TaskType,
-    Requrement
-  ) {
+  // saveFile(
+  //   DocData,
+  //   FileType,
+  //   ApplicationNo,
+  //   RequrementID,
+  //   TaskType,
+  //   Requrement
+  // ) {
     // console.log('File', File);
     /*return this.http.post(this.saveFileLookUP + '?' + 'TaskType=' + TaskType + '&ApplicationNo=' + ApplicationNo + '&DocData=' + File + '&uid=00000000-0000-0000-0000-000000000000' + '&FileType=' + Type + '&RequrementID=' + ReqId + '&Requrement=' + Requrement, null);*/
+
+    // return this.http.post(this.saveFileLookUP, {
+    //   TaskType,
+    //   ApplicationNo,
+    //   DocData,
+    //   uid: "00000000-0000-0000-0000-000000000000",
+    //   FileType,
+    //   RequrementID,
+    //   Requrement,
+    // });
+  // }
+  saveFile(DocData, FileType, ApplicationNo, RequrementID, TaskType, Requrement) {
+    // console.log('File', File);
+    /*return this.http.post(this.saveFileLookUP + '?' + 'TaskType=' + TaskType + '&ApplicationNo=' + ApplicationNo + '&DocData=' + File + '&uid=00000000-0000-0000-0000-000000000000' + '&FileType=' + Type + '&RequrementID=' + ReqId + '&Requrement=' + Requrement, null);*/
+
 
     return this.http.post(this.saveFileLookUP, {
       TaskType,
       ApplicationNo,
       DocData,
-      uid: "00000000-0000-0000-0000-000000000000",
+      uid: '00000000-0000-0000-0000-000000000000',
       FileType,
       RequrementID,
-      Requrement,
+      Requrement
     });
   }
+
   removeSlash(string){
     if(string == null) return;
     return string.replace(/\//g, "%2F");
@@ -279,13 +277,8 @@ export class ServiceService {
   }
 
   getAll(AppNo) {
-    return this.http.get<any[]>(
-      this.License_ServiceURL +
-        "?" +
-        "sortOrder=test&currentFilter=" +
-        AppNo +
-        "&searchString&pageIndex&pageSize"
-    );
+    return (this.http.get<any[]>(this.License_ServiceURL + '?' + 'sortOrder=test&currentFilter=' +
+      AppNo + '&searchString&pageIndex&pageSize'));
   }
 
   getPriveys(certefcatcode) {
@@ -456,68 +449,11 @@ export class ServiceService {
       serviceId + '&taskid=' + taskid + '&orgid=' + orgid + '&UserName=' + environment.username + '&json=' + json + '&docid=' +
       docid, null);
   }
-  // Submit(AppCode, docID, todoID, ruleid) {
-  //   return this.http.post(
-  //     this.nextTaskCompleteURL +
-  //       "?ApplicationNo=" +
-  //       AppCode +
-  //       "&docid=" +
-  //       docID +
-  //       "&todoid=" +
-  //       todoID +
-  //       "&userName=" +
-  //       environment.username +
-  //       "&status=C&Taskruleid=" +
-  //       ruleid +
-  //       "&ispending=false",
-  //     null
-  //   );
-  // }
-
-  // SubmitAR(AppCode, docID, todoID, ruleid) {
-  //   return this.http.post(
-  //     this.nextTaskAcceptOrRejectURl +
-  //       "?ApplicationNo=" +
-  //       AppCode +
-  //       "&docid=" +
-  //       docID +
-  //       "&eid=00000000-0000-0000-0000-000000000000&isPending=false&todoid=" +
-  //       todoID +
-  //       "&userName=" +
-  //       environment.username +
-  //       "&status=C&taskruleid=" +
-  //       ruleid,
-  //     null
-  //   );
-  // }
-  
-  // saveForm(ApplicationCode, serviceId, taskid, orgid, json, docid,todoID) {
-  //  // orgid = "1e60f3a1-7017-47bf-95f4-f0e47c793c72";
-  //   return this.http.post(this.SaveDataURL + '?ApplicationCode=' + ApplicationCode + '&serviceId=' +
-  //     serviceId + '&taskid=' + taskid + '&orgid=' + orgid + '&UserName=' + environment.username + '&json=' + json + '&docid=' +
-  //     docid + "&todoID=" +
-  //     todoID, null);
-  // }
-
-  // saveForm(ApplicationCode, serviceId, taskid, orgid, json, docid,todoID) {
-  //   // orgid = "1e60f3a1-7017-47bf-95f4-f0e47c793c72";
-  //    return this.http.post(this.SaveDataURL + '?ApplicationCode=' + ApplicationCode + '&serviceId=' +
-  //      serviceId + '&taskid=' + taskid + '&orgid=' + orgid + '&UserName=' + environment.username + '&json=' + json + '&docid=' +
-  //      docid + "&todoID=" +
-  //      todoID, null);
-  //  }
-
-
-  // saveForms(ApplicationCode, serviceId, taskid, orgid, json, docid) {
-  //   return this.http.post(this.SaveDataURL + '?ApplicationCode=' + ApplicationCode + '&serviceId=' +
-  //     serviceId + '&taskid=' + taskid + '&orgid=' + orgid + '&UserName=' + environment.username + '&json=' + json + '&docid=' +
-  //     docid, null);
-  // }
+ 
 
   GetForm(docid) {
-    return this.http.get(this.GetDataURL + "?docid=" + docid);
+    return this.http.get(this.GetDataURL + '?docid=' + docid);
   }
-
   getUserWorkInfo () {
     return this.http.get(this.UserWorkInfoURl + "/" + environment.username)
   }

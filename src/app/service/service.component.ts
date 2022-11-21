@@ -166,16 +166,16 @@ export class ServiceComponent implements OnInit {
       //   this.ID = 30; 
       // } else if (params["formcode"] == "f5c9c35f-0a39-4355-8bf3-8e4b01d9c0e1") {
       //   this.ID = 31; 
-      } else if (params["formcode"] == "647cee76-5376-41ff-ac80-00975b7a2256") {
+      } else if (params["formcode"] == "60ca1a18-ff1c-46da-babd-0159bd0124b0") {
         this.ID = 32;     
       } else if (params["formcode"] == "343a087e-8a4b-4904-8ef3-08f723b74d3d") {
         this.ID = 33; 
-      } else if (params["formcode"] == "3a1f0b93-8b7b-4dcc-a0bf-05615b695fe1") {
-        this.ID = 34; 
+      // } else if (params["formcode"] == "3a1f0b93-8b7b-4dcc-a0bf-05615b695fe1") {
+      //   this.ID = 34; 
        } else if (params["formcode"] == "60ca1a18-ff1c-46da-babd-0159bd0124b1") {
-        this.ID = 35; 
+        this.ID = 34; 
       } else if (params["formcode"] == "6") {
-        this.ID = 36; 
+        this.ID = 35; 
       } else {
         this.layoutService.getFormData(params["formcode"]).subscribe(
           (data) => {
@@ -203,7 +203,7 @@ export class ServiceComponent implements OnInit {
     this.getUserWorkInfo();
     this.getLookups();
     this.getRequiredDocs();
-    // this.getUserWorkInfo();
+    
     console.log("selectedTask " + this.selectedTask);
   }
 
@@ -951,4 +951,3 @@ if (this.RequerdDocs != null){
     );
   }
 }
- 

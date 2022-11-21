@@ -124,18 +124,26 @@
         ></app-servy>
       </div>
       <div *ngSwitchCase="32">
-        <app-list-mineral></app-list-mineral>
+        <app-mineral (completed)="saveForm($event)" [taskId]="tskID" 
+        [(licenceData)]="licenceData" [workingUser]="workingUser"
+        (saveDataCompleted)="saveDataCompleted($event)" ></app-mineral>
       </div>
       <div *ngSwitchCase="33">
-        <app-mineral-use></app-mineral-use>
+        <app-mineral-use (completed)="saveForm($event)" [taskId]="tskID" 
+        [(licenceData)]="licenceData" [workingUser]="workingUser"
+        (saveDataCompleted)="saveDataCompleted($event)"></app-mineral-use>
       </div>
+      <!-- <div *ngSwitchCase="34">
+        <app-resource-deposit (completed)="saveForm($event)" [taskId]="tskID" 
+        [(licenceData)]="licenceData" [workingUser]="workingUser"
+        (saveDataCompleted)="saveDataCompleted($event)"></app-resource-deposit>
+      </div> -->
       <div *ngSwitchCase="34">
-        <app-resource-deposit></app-resource-deposit>
-      </div>
-      <div *ngSwitchCase="35">
-        <app-site-list></app-site-list>
+        <app-site-list (completed)="saveForm($event)" [taskId]="tskID" 
+        [(licenceData)]="licenceData" [workingUser]="workingUser"
+        (saveDataCompleted)="saveDataCompleted($event)"></app-site-list>
       </div> 
-      <div *ngSwitchCase="36">
+      <div *ngSwitchCase="35">
         <app-site-map></app-site-map>
       </div>
       <h3 class="not-fond-panel" *ngSwitchDefault>Form not found</h3>

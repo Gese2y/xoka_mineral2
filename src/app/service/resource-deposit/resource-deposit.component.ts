@@ -138,7 +138,7 @@ export class ResourceDepositComponent implements OnInit {
         );
       }
       addresourcedeposits() {
-        this.serviceService.site_Id = this.serviceService.site_Id;
+        // this.serviceService.site_Id = this.serviceService.site_Id;
     this.ResourceDepositService.addresourcedeposits(this.resourcedeposits)
       .subscribe(
         (response) => {
@@ -185,9 +185,9 @@ export class ResourceDepositComponent implements OnInit {
       this.serviceService
         .saveForm(
           this.licenceData ? this.licenceData.Licence_Service_ID : "00000000-0000-0000-0000-000000000000",
-          this.licenceData ? this.licenceData.Service_ID : "00000000-0000-0000-0000-000000000000",
-          "c30c953e-7001-485a-80cd-7dd9d45b86f1",
-          "1e60f3a1-7017-47bf-95f4-f0e47c793c72",
+          this.licenceData ? this.licenceData.Service_ID : this.urlParams.id,
+          "bf23c7b0-576c-44ca-8475-34642e3df21a",
+          this.workingUser.organization_code,
           "{}",
           this.urlParams.docid || "00000000-0000-0000-0000-000000000000",
           this.urlParams.todoID || "00000000-0000-0000-0000-000000000000"
@@ -212,8 +212,8 @@ export class ResourceDepositComponent implements OnInit {
         (response) => {
           console.log("all-response", response);
           let licenceData = response["list"][0];
-         // this.Depreciation_Book['fixed_Assets_No'] = saveDataResponse[0];
-          // this.TransactionSale.application_No = licenceData.Application_No;
+          // if(this.resourcedeposits['document_No']==null){
+          //   this.resourcedeposits['document_No']=licenceData.Application_No}
           this.saveDataCompleted.emit(saveDataResponse);
   
           //if (this.editForm) this.updateTransactionSale();

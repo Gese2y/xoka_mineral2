@@ -13,22 +13,23 @@ import { TabsetComponent } from 'ngx-bootstrap';
 })
 export class MineralComponent implements OnInit {
 public mineral: any;
- minerals:Minerals;
+public minerals:Minerals;
 // public edit_form:any;
 @Output() onclose = new EventEmitter();
 public IsAddFormVisible: any;
-Mineral_Class: any;
+public Mineral_Class: any;
   public Mineral_Use: any;
-  Chemical_ClassificationList: any;
-  TenacityList: any;
-  urlParams: any;
+  public Chemical_ClassificationList: any;
+  public TenacityList: any;
+  public urlParams: any;
   @Input() licenceData;
   @Input() taskId;
   @Input() workingUser;
+  // @Output() saveDataCompleted = new EventEmitter();
   @Output() saveDataCompleted = new EventEmitter();
-  Mineral_ClassList: any;
-  Mineral_UseList: any;
-  postData = {
+  public  Mineral_ClassList: any;
+  public Mineral_UseList: any;
+   postData = {
     orgId: null,
     appCode: null,
     appNo: null,
@@ -137,9 +138,9 @@ private routerService: ActivatedRoute,
     this.serviceService
       .saveForm(
         this.licenceData ? this.licenceData.Licence_Service_ID : "00000000-0000-0000-0000-000000000000",
-        this.licenceData ? this.licenceData.Service_ID : "00000000-0000-0000-0000-000000000000",
-        "c30c953e-7001-485a-80cd-7dd9d45b86f1",
-        "1e60f3a1-7017-47bf-95f4-f0e47c793c72",
+        this.licenceData ? this.licenceData.Service_ID : this.urlParams.id,
+        "bf23c7b0-576c-44ca-8475-34642e3df21a",
+        this.workingUser.organization_code,
         "{}",
         this.urlParams.docid || "00000000-0000-0000-0000-000000000000",
         this.urlParams.todoID || "00000000-0000-0000-0000-000000000000"
@@ -164,6 +165,8 @@ private routerService: ActivatedRoute,
       (response) => {
         console.log("all-response", response);
         let licenceData = response["list"][0];
+        // if(this.minerals['document_No']==null){
+        //   this.minerals['document_No']=licenceData.Application_No}
         this.saveDataCompleted.emit(saveDataResponse);
      this.addminerals();
       },
@@ -225,11 +228,11 @@ class Minerals {
   public other_Properties: any
   public is_Active: any
   public remarks: any
-  public created_By: any
-  public updated_By: any
-  public deleted_By: any
-  public is_Deleted: any
-  public created_Date: any
-  public updated_Date: any
-  public deleted_Date: any
+  // public created_By: any
+  // public updated_By: any
+  // public deleted_By: any
+  // public is_Deleted: any
+  // public created_Date: any
+  // public updated_Date: any
+  // public deleted_Date: any
 }
