@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~ngx-smart-modal/ngx-smart-modal.css";
-
+.ui-listbox {
+  width: 100% !important;
+}
 tr.active td {
   background-color: #123456 !important;
   color: white;
@@ -23,7 +25,6 @@ tr.red td {
 
 .tooltip222 {
   position: relative;
-
 }
 
 /* Tooltip text */
@@ -44,20 +45,20 @@ tr.red td {
 }
 
 .tooltip222 .tooltiptext2221 {
-   visibility: hidden;
-   width: 500px;
-   background-color: black;
-   color: #fff;
-   text-align: center;
-   padding: 5px 0;
-   border-radius: 6px;
+  visibility: hidden;
+  width: 500px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
 
-   /* Position the tooltip text - see examples below! */
-   position: absolute;
-   top: 100%;
-   right: 25%;
-   z-index: 1;
- }
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  top: 100%;
+  right: 25%;
+  z-index: 1;
+}
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip222:hover .tooltiptext222 {
@@ -69,43 +70,15 @@ tr.red td {
   visibility: visible;
 }
 
-
-
 .holds-the-iframe {
-  background:url(/src/assets/images/loader.gif) center center no-repeat;
- }
- 
-.ui-dropdown  {
+  background: url(/src/assets/images/loader.gif) center center no-repeat;
+}
+
+.ui-dropdown {
   width: 100% !important;
 }
 
-.ui-autocomplete, .ui-autocomplete input  {
-  width: 100% !important;
-}
 
-td {
-  overflow: visible !important;
-}
-.ui-table-resizable > .ui-table-wrapper {
-  overflow-x: visible !important;
-}
-.ui-table-wrapper{
-  height: 400px;
-}
-.fixed-asset-table{
-  width: 95vw;
-  overflow: auto;
-  height: 400px;
-}
-.fixed-asset-table > div{
-  width: 6000px;
-}
-.tax-posting-setup-table{
-  width: 95% !important;
-  margin: auto;
-  overflow: auto;
-  height: 400px;
-}
-.fixed-asset-table > div{
-  width: 6000px;
+.ng-invalid {
+  border-color: red;
 }
