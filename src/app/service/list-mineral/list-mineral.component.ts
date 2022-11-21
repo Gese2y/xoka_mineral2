@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap';
-import { MineralService } from '../Mineral/Mineral.service';
+import { MineralService } from '../mineral/mineral.service';
 
 
 @Component({

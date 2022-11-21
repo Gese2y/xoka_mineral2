@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { refactorDropdownArray } from '../helpers/helpers';
-import { MineralUseService } from './Mineral-Use.service';
+import { MineralUseService } from './mineral-use.service';
 import { NotificationsService } from 'angular2-notifications';
 import { ServiceService } from '../service.service';
 import { ActivatedRoute } from '@angular/router';

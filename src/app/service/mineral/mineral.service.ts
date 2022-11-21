@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-
+// import { MineralService } from 'mineral/mineral.service.ts'
 @Injectable({
   providedIn: 'root'
 })

@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { TabsetComponent } from 'ngx-bootstrap';
-import { SiteService } from '../Site/Site.service';
+import { SiteService } from '../site/site.service';
 import { ServiceService } from '../service.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular2-notifications'; 
 
 // import { StepModel } from 'step.model';
 

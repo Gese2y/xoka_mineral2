@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { refactorDropdownArray } from '../helpers/helpers';
-import { ResourceDepositService } from './Resource-Deposit.service';
+import { ResourceDepositService } from './resource-deposit.service';
 import { NotificationsService } from 'angular2-notifications';
 import { ServiceService } from '../service.service';
 import { ActivatedRoute } from '@angular/router';

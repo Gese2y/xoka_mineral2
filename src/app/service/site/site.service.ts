@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { site } from '../site-list/site-list.component';
+// import { SiteService } from '../site/site.service';
+// import { site } from '../site-list/site-list.component';
 
 @Injectable({
   providedIn: 'root'

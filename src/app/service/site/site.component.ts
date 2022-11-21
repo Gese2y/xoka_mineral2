@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 // import { Guid } from 'guid-typescript';
-import { SiteService } from './Site.service';
+import { SiteService } from './site.service';
 import { NotificationsService } from 'angular2-notifications';
 import { ServiceService } from '../service.service';
 import * as L from 'leaflet';
