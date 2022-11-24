@@ -61,6 +61,8 @@ export class ServiceService {
   mineral_Id: any;
   plot_Id: any;
   sitid: any;
+  resource_deposit:boolean=true;
+  Addminerals: any;
   constructor(private http: HttpClient) {
     
   }

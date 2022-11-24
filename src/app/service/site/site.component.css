@@ -1,0 +1,30 @@
+
+.aa{
+    display: flex;
+    align-content: center;
+    align-items: right;
+    margin: 0 600px;
+    padding-right: 10;
+    margin-right: 10;
+} 
+.body:hover{
+    background-color: rgb(126, 178, 221);
+    color: green;
+    font-weight: bold;
+    border-color: rgb(126, 178, 221);
+  border: 0ch;
+    height: 30px;
+} 
+.body:focus{
+  background-color: rgb(126, 178, 221);
+  color: white;
+  font-weight: bold;
+  border-color: rgb(126, 178, 221);
+border: 0ch;
+  height: 30px;
+}
+.ActiveLink{
+  color:green;
+  background-color:white;
+  width: 100%;
+}

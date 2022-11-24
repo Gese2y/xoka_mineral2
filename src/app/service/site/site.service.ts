@@ -9,9 +9,9 @@ import { environment } from 'src/environments/environment';
 })
 export class SiteService {
   private Site_Status =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Site_Status';
-  private Region =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Region';
-  private Zone =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Zone';
-  private Woreda =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Woreda';
+  private Region =environment.rootApiPath + 'Regions';
+  private Zone =environment.rootApiPath + 'Zones';
+  private Woreda =environment.rootApiPath + 'Woredas';
   private StatusList =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Site_Status';
 
   private siteUrl =environment.rootApiPath + 'Site';
@@ -22,13 +22,13 @@ export class SiteService {
     return this.http.get<any>(this.Site_Status);
   } 
   getRegion(){
-    return this.http.get<any>(this.Region);
+    return this.http.get(this.Region);
   }
   getZone(){
-    return this.http.get<any>(this.Zone);
+    return this.http.get(this.Zone);
   } 
   getWoreda(){
-    return this.http.get<any>(this.Woreda);
+    return this.http.get(this.Woreda);
   }
   addsite(site) {
     return this.http.post(this.siteUrl, site);
@@ -47,8 +47,11 @@ export class SiteService {
       this.siteUrl + "/" + site.site_Id
     );
   }
+  // updatemsite(site) {
+  //   return this.http.put(this.siteUrl, site);
+  // }
   updatesite(site) {
-    return this.http.put(this.siteUrl, site);
+    return this.http.put(this.siteUrl+"/"+ site.site_Id,site) ;
   }
 
 }

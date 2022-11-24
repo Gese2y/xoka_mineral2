@@ -6,6 +6,8 @@ import { ServiceService } from '../service.service';
 import * as L from 'leaflet';
 import { Guid } from 'guid-typescript';
 import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
+
 
 
 @Component({
@@ -14,6 +16,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./site.component.css']
 })
 export class SiteComponent implements OnInit {
+  today: number = Date.now();
+  
+  todayNumber: number = Date.now();
+  todayDate : Date = new Date();
+  todayString : string = new Date().toDateString();
+  todayISOString : string = new Date().toISOString();
   DisplayCoordinate: boolean;
   map: any;
   public coordinate = {
@@ -24,8 +32,9 @@ export class SiteComponent implements OnInit {
   // private mapViewEvents = new NativeEmitter();
   public clickCoordinate: any;
   public IsAddFormVisible: any;
+  site: site={} as site;
   public sites: any;
-  public site: site;
+  // public site: site;
   toogleSpin = false;
   displayGIS = false;
 
@@ -36,6 +45,7 @@ export class SiteComponent implements OnInit {
   public ZoneList: any;
   public WoredaList: any;
   urlParams: any;
+  @Output() saved = new EventEmitter;
   @Input() licenceData;
   @Input() workingUser;
   @Output() saveDataCompleted = new EventEmitter();
@@ -51,11 +61,21 @@ export class SiteComponent implements OnInit {
   };
   edit_form: boolean;
   ismapVisiblees: boolean;
+  public name_En: any;
+  public name_Ens: any;
+  public name_E: any;
+  editable: boolean;
+  hide_data: boolean;
+  row_clicked: any;
+  @Output() addingNew = new EventEmitter;
+  addsite: any;
+  add_new_site: any;
   constructor(
     public SiteService: SiteService,
     private notificationsService: NotificationsService,
     public serviceService: ServiceService,
     private routerService: ActivatedRoute,
+    private _toast: MessageService,
   ) {
     this.site = new site;
 
@@ -63,29 +83,20 @@ export class SiteComponent implements OnInit {
 
   ngOnInit() {
     this.getsite();
+    this.getRegion();
+    this.getZone();
+    this.getWoreda();
     //  this.site.site_Id= Guid.create();
     this.site.site_Id = Guid.create();
     this.site.site_Id = this.site.site_Id.value;
     console.log('Site');
+    // this.clearForm();
+    this.site.date_Registered = new Date().toISOString().slice(0,10); 
 
     this.SiteService.getStatusList().subscribe(data => {
       this.StatusList = data;
       this.StatusList = this.StatusList;
     })
-
-    this.SiteService.getRegion().subscribe(data => {
-      this.RegionList = data;
-      this.RegionList = this.RegionList;
-    })
-    this.SiteService.getZone().subscribe(data => {
-      this.ZoneList = data;
-      this.ZoneList = this.ZoneList;
-    })
-    this.SiteService.getWoreda().subscribe(data => {
-      this.WoredaList = data;
-      this.WoredaList = this.WoredaList;
-    })
-
 
     this.routerService.params.subscribe((params) => {
       this.urlParams = params;
@@ -222,25 +233,31 @@ export class SiteComponent implements OnInit {
           }
         );
   }
-  update(site) {
-    this.SiteService
-      .updatesite(site)
-      .subscribe(
-        (response) => {
-          const toast = this.notificationsService.success("Success", "Updated");
-        },
-        (error) => {
-          console.log("reroes", error);
-          const toast = this.notificationsService.error(
-            "Error",
-            "SomeThing Went Wrong"
-          );
-        }
-      );
+  updatesite() {
+    this.SiteService.updatesite(this.site).subscribe(
+      data => { 
+        const toast = this.notificationsService.success("Success", "Update");
+      },
+      error => {
+        const toast = this.notificationsService.error('error', 'error', `unable update ! ${error['status'] == 0 ? error['message'] : JSON.stringify(error['error'])}`);
+        console.error('update site error', error);
+      }
+    );
   }
+  showToast(type: string, title: string, message: string) {
+    let messageConfig = {
+      severity: type,
+      summary: title,
+      detail: message
+    }
+
+    this._toast.add(messageConfig);
+  }
+  
   clearForm() {
     this.sites = {};
     this.IsAddFormVisible = !this.IsAddFormVisible;
+   
     // this.site.site_Id= Guid.create();
     // this.site.site_Id = this.site.site_Id.value;
   }
@@ -281,11 +298,51 @@ export class SiteComponent implements OnInit {
   }
   selectsites(site) {
     console.log(site)
-    // this.edit_form = true;
-    // this.site = site;
+    this.edit_form = true;
+    this.site = site;
     this.serviceService.site_Id = site.site_Id
     console.log(this.serviceService.site_Id)
+    this.serviceService.resource_deposit=false;
   }
+  getRegion() {
+    this.SiteService.getRegion().subscribe(
+      (response) => {
+        this.name_En = response;
+      },
+      (error) => {
+        console.log("error");
+      }
+    );
+  }  
+  getZone() {
+    this.SiteService.getZone().subscribe(
+      (response) => {
+        this.name_Ens = response;
+      },
+      (error) => {
+        console.log("error");
+      }
+    );
+  } 
+   getWoreda() {
+    this.SiteService.getWoreda().subscribe(
+      (response) => {
+        this.name_E = response;
+      },
+      (error) => {
+        console.log("error");
+      }
+    );
+  }
+  addnewsite() {
+    this.editable=false
+    //this.noRecord=false
+    this.add_new_site = !this.add_new_site;
+    this.hide_data = !this.hide_data;
+    this.row_clicked = false;
+    this.addingNew.emit();
+  }
+
 
 }
 class site{

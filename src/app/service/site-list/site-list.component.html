@@ -4,12 +4,10 @@
     [(licenceData)]="licenceData" [workingUser]="workingUser"
     (saveDataCompleted)="saveDataCompleted" ></app-site>
   </tab>
-  <tab heading="Resource Deposit">
+  <tab heading="Resource Deposit" [disabled]="serviceService.resource_deposit">
     <app-resource-deposit (completed)="completed" [taskId]="taskId"  
     [(licenceData)]="licenceData" [workingUser]="workingUser"
     (saveDataCompleted)="saveDataCompleted" ></app-resource-deposit>
-    <div class=" float-right">
-    <button type="button"  class="btn btn-primary btn-sm" (click)="selectTab(1)">Next</button>
-  </div>
+    
 </tab>  
 </tabset>

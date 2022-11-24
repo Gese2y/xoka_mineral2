@@ -54,7 +54,7 @@ selectTab(tabId: number) {
 
 
   ngOnInit() {
-    this.goto(1);
+    this.goto(0);
     this.getsite();
     this.routerService.params.subscribe((params) => {
       this.urlParams = params;
@@ -165,7 +165,7 @@ selectTab(tabId: number) {
   //   this.getsite();
   // }
   closeup() {
-    this.goto(1);
+    this.goto(0);
     this.site = new site();
     this.getsite();
   }

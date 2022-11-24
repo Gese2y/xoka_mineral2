@@ -1,14 +1,191 @@
 <h3 class="font-weight-bold">Resource Deposit</h3>
-<div>
+<div *ngIf="add_new_resource">
   <div class="m-3">
-    <p-table [value]="resoucedeposit" [paginator]="true" [rows]="2" [resizableColumns]="true">
+    <div class="row">
+      <div class="col-md-12">
+        <form>
+          <div class="row">
+            <div class="col-md-6 row form-group">
+              <label for="resource_Id" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Resource
+                ID</label>
+              <div class="col-sm-9">
+                <input type="text" [(ngModel)]="resourcedeposits.resource_Id" class="form-control" name="resource_Id"
+                placeholder="resource_Id" id="resource_Id"  readonly />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 row form-group">
+              <label for="mineral_Id" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Mineral Id</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" [(ngModel)]="resourcedeposits.mineral_Id" #mneral_Id="ngModel" name="mineral_Id"
+                  placeholder=" mineral_Id" id="mineral_Id" (click)="isAccountVisible=true" required readonly/>
+                  <p-dialog header="Mineral ID" [(visible)]="isAccountVisible" [modal]="true" [responsive]="true"
+                  [width]="1000" [minWidth]="1000" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+                  <p-table [value]="accountNoos" [paginator]="true" [rows]="7" 
+                  [globalFilterFields]="[
+                  'name',
+                  'crystal_Structure', 
+                  'hardness', 
+                  'lustre', 
+                  'diaphaneity']"
+                    #ptable>
+                    <ng-template pTemplate="caption">
+                      <div class="flex">
+                        <span class="p-input-icon-left ml-auto">
+                          <div style="width: 100%;">
+                            <i class="pi pi-search"></i>
+                            <input class="form-control" (input)="ptable.filterGlobal($event.target.value, 'contains')"
+                              placeholder="Search like by name, crystal_Structure, hardness, lustre, diaphaneity" />
+                          </div>
+                        </span>
+                      </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+            <tr scope="col" translate>
+              <th>Name</th>
+              <th>Crystal Structure	</th>
+              <th>Hardness</th>
+              <th>Lustre</th>
+              <th>Diaphaneity</th>
+              <th>Is Active</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-account>
+            <tr (click)="onAccountSelectionChange(account.mineral_Id)">
+              <td>{{account.name}}</td>
+              <td>{{account.crystal_Structure}}</td>
+              <td>{{account.hardness}}</td>
+              <td>{{account.lustre}}</td>
+              <td>{{account.diaphaneity}}</td>
+              <td>{{account.is_Active}}</td>  
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+              <td>
+                No records found
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+        </p-dialog>
+              </div>
+            </div>
+
+            
+            <div class="col-md-6 row form-group">
+              <label for="quantity" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+                translate>Quantity</label>
+  
+              <div class="col-sm-9">
+                <input type="number" [(ngModel)]="resourcedeposits.quantity" class="form-control" name="quantity"
+        placeholder="quantity" id="quantity"  />
+              </div>
+            </div>
+            <div class="col-md-6 row form-group">
+              <label for="site_Id" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Site ID</label>
+              <div class="col-sm-9">
+                <input type="text" [(ngModel)]="serviceService.site_Id" class="form-control" name="site_Id"
+        placeholder="site_Id" id="site_Id" readonly  />
+              </div>
+            </div>
+            <div class="col-md-6 row form-group">
+              <label for="explored_Date" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Explored Date</label>
+              <div class="col-sm-9">
+                 <input type="datetime" [(ngModel)]="resourcedeposits.explored_Date" class="form-control" name="explored_Date"
+        placeholder="explored_Date" id="explored_Date" readonly />
+              </div>
+            </div>
+            <div class="col-md-6 row form-group">
+              <label for="unit" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Unit </label>
+              <div class="col-sm-9">
+                <select class="custom-select custom-select-sm" id="unit" name="unit" [(ngModel)]="resourcedeposits.unit">
+                  <ng-container *ngFor="let Unit of UnitList">
+                    <option value="{{Unit.lkdetail_code}}">
+                      {{Unit.english_description}}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6 row form-group">
+              <label for="lab_Approved_Date" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Lab Approved Date</label>
+              <div class="col-sm-9">
+                <input type="datetime" [(ngModel)]="resourcedeposits.lab_Approved_Date" class="form-control" name="lab_Approved_Date"
+                placeholder="lab_Approved_Date" id="lab_Approved_Date"  readonly/>
+              </div>
+            </div>
+            <div class="col-md-6 row form-group">
+              <label for="explored_By" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+                translate>Explored By</label>
+              <div class="col-sm-9">
+                <input type="text" [(ngModel)]="resourcedeposits.explored_By" class="form-control" name="explored_By"
+                placeholder="explored_By" id="explored_By"  />
+              </div>
+            </div>
+            <div class="col-md-6 row form-group">
+              <label for="remark" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+                translate>Remark</label>
+              <div class="col-sm-9">
+                <input type="text" [(ngModel)]="resourcedeposits.remark" class="form-control" name="remark" placeholder="remark"
+                id="remark"  />
+              </div>
+            </div>
+            <div class="col-md-6 row form-group">
+              <label for="is_Active" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+                translate>Is Active</label>
+              <div class="col-sm-9">
+                 <input type="checkbox" [(ngModel)]="resourcedeposits.is_Active" class="form-control" name="is_Active"
+        placeholder="is_Active" id="is_Active"  />
+              </div>
+            </div> 
+            <div class="text-center col-12">
+              <button type="button" class="btn btn-primary" (click)="saveData()" translate>
+                Save
+              </button>
+              <button style="margin-left: 10px;" mat-raised-button type="button" (click)="Updateresource($event, resourcedeposits)" color="primary" class="btn btn-primary">    
+                Update
+            </button>
+              <button style="margin-left: 10px;" mat-raised-button type="button" (click)="addnewresource()" color="primary" class="btn btn-primary">    
+                Cancel
+            </button>   
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="responsive-table">
+    <p-table [value]="resoucedeposit" [paginator]="true" [rows]="2" [resizableColumns]="true"
+    selectionMode="single"   [metaKeySelection]="true"
+  [rows]="3" 
+  [globalFilterFields]="[
+  'unit']" responsiveLayout="scroll"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+#Item_table
+  >
+  <ng-template pTemplate="caption">
+    <div class="flex">
+        <span class="p-input-icon-left ml-auto">
+        <div style="width: 20%;">
+          
+          <label style="font-weight: bold;">Search</label>
+         
+          <input  class="form-control" (input)="Item_table.filterGlobal($event.target.value, 'contains')" placeholder="Search by unit" />
+  
+        </div>
+        </span>
+    </div>
+  </ng-template>>
       <ng-template pTemplate="header">
 
         <tr>
-          <th pResizableColumn scope="col" translate>Resource ID</th>
-          <th pResizableColumn scope="col" translate>Mineral ID</th>
-          <th pResizableColumn scope="col" translate>Site ID</th>
-          <th pResizableColumn scope="col" translate>Unit</th>
+          <!-- <th pResizableColumn scope="col" translate>Resource ID</th> -->
+          <!-- <th pResizableColumn scope="col" translate>Mineral ID</th> -->
+          <!-- <th pResizableColumn scope="col" translate>Site ID</th> -->
+          <!-- <th pResizableColumn scope="col" translate>Unit</th> -->
           <th pResizableColumn scope="col" translate>Quantity</th>
           <th pResizableColumn scope="col" translate>Explored Date</th>
           <th pResizableColumn scope="col" translate>Explored By</th>
@@ -16,192 +193,36 @@
           <th pResizableColumn scope="col" translate>Lab Approved By</th>
           <th pResizableColumn scope="col" translate>Is Active</th>
           <th pResizableColumn scope="col" translate>Remark</th>
-          <th pResizableColumn scope="col">
-
-            <button type="button" class="btn btn-primary" (click)="clearForm()" translate>
-              Add New
-            </button>
-          </th>
-        </tr>
-        <tr *ngIf="IsAddFormVisible">
-          <td class="p-2">
-            <input type="text" [(ngModel)]="resourcedeposits.resource_Id" class="form-control" name="resource_Id"
-              placeholder="resource_Id" id="resource_Id"  readonly />
-          </td>
-          <td>
-            <input type="text" class="form-control form-control-sm" id="mineral_Id" placeholder="Mineral ID"
-              (click)="isAccountVisible=true" [(ngModel)]="resourcedeposits.mineral_Id" name="mineral_Id" readonly>
-            <p-dialog header="Mineral ID" [(visible)]="isAccountVisible" [modal]="true" [responsive]="true"
-              [width]="500" [minWidth]="500" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
-              <p-table [value]="accountNoos" [paginator]="true" [rows]="7" [globalFilterFields]="['value','lable']"
-                #ptable>
-                <ng-template pTemplate="caption">
-                  <div class="flex">
-                    <span class="p-input-icon-left ml-auto">
-                      <div style="width: 100%;">
-                        <i class="pi pi-search"></i>
-                        <input class="form-control" (input)="ptable.filterGlobal($event.target.value, 'contains')"
-                          placeholder="Search Globally" />
-                      </div>
-                    </span>
-                  </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-        <tr scope="col" translate>
-          <th>Mineral ID</th>
-          <th>Name</th>
+          <th class='set_sticky_position' *ngIf="!add_new_resource" scope="col">
+            <button mat-raised-button (click)="addnewresource()" color="primary" type="button" class="btn btn-primary">Add New</button></th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-account>
-        <tr (click)="onAccountSelectionChange(account)">
-          <td>{{account.value}}</td>
-          <td>{{account.label}}</td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="emptymessage" let-columns>
-        <tr>
-          <td>
-            No records found
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-    </p-dialog>
-    </td>
-
-    <!-- <td> 
-           <input type="text" class="form-control form-control-sm" id="site_Id" placeholder="site_Id"  
-          (click)="isAccountModalVisible=true" 
-           [(ngModel)]="resourcedeposits.site_Id" name ="site_Id" readonly>          
-          <p-dialog
-            header="Site ID" 
-            [(visible)]="isAccountModalVisible"
-            [modal]="true"
-            [responsive]="true"
-            [width]="500"
-            [minWidth]="500"
-            [minY]="70"
-            [maximizable]="true"
-            [baseZIndex]="10000"
-          >
-            <p-table [value]="accountNoo" [paginator]="true" [rows]="7"  [globalFilterFields]="['value','lable']" 
-            #ptable
-          >
-          <ng-template pTemplate="caption">
-            <div class="flex">
-                <span class="p-input-icon-left ml-auto">
-                <div style="width: 100%;">
-                  <i class="pi pi-search"></i>
-                  <input  class="form-control" (input)="ptable.filterGlobal($event.target.value, 'contains')" placeholder="Search Globally" />
-                </div>  
-               </span>
-           </div>
-            </ng-template>
-           <ng-template pTemplate="header">
-           <tr scope="col" translate>
-           <th>Site ID</th>
-           <th>Site Name</th>
-          </tr>
-         </ng-template>
-              <ng-template pTemplate="body" let-account>
-                  <tr (click)="onAccountSelectionChanges(account)">
-                    <td>{{account.value}}</td>
-                    <td>{{account.label}}</td>
-                  </tr>
-              </ng-template>
-              <ng-template pTemplate="emptymessage" let-columns>
-                <tr>
-                    <td>
-                        No records found
-                    </td>
-                </tr>
-              </ng-template>
-            </p-table>
-          </p-dialog>
-        </td> -->
-    <td class="p-2">
-      <input type="text" [(ngModel)]="serviceService.site_Id" class="form-control" name="site_Id"
-        placeholder="site_Id" id="site_Id" readonly  />
-    </td>
-
-    <td>
-      <select class="custom-select custom-select-sm" id="unit" name="unit" [(ngModel)]="resourcedeposits.unit">
-        <ng-container *ngFor="let Unit of UnitList">
-          <option value="{{Unit.lkdetail_code}}">
-            {{Unit.english_description}}</option>
-        </ng-container>
-      </select>
-    </td>
-    <td class="p-2">
-      <input type="number" [(ngModel)]="resourcedeposits.quantity" class="form-control" name="quantity"
-        placeholder="quantity" id="quantity"  />
-    </td>
-    <td class="p-2">
-      <input type="date" [(ngModel)]="resourcedeposits.explored_Date" class="form-control" name="explored_Date"
-        placeholder="explored_Date" id="explored_Date"  />
-    </td>
-    <td class="p-2">
-      <input type="text" [(ngModel)]="resourcedeposits.explored_By" class="form-control" name="explored_By"
-        placeholder="explored_By" id="explored_By"  />
-    </td>
-    <td class="p-2">
-      <input type="date" [(ngModel)]="resourcedeposits.lab_Approved_Date" class="form-control" name="lab_Approved_Date"
-        placeholder="lab_Approved_Date" id="lab_Approved_Date"  />
-    </td>
-    <td class="p-2">
-      <input type="text" [(ngModel)]="resourcedeposits.lab_Approved_By" class="form-control" name="lab_Approved_By"
-        placeholder="lab_Approved_By" id="lab_Approved_By"  />
-    </td>
-    <td class="p-2">
-      <input type="checkbox" [(ngModel)]="resourcedeposits.is_Active" class="form-control" name="is_Active"
-        placeholder="is_Active" id="is_Active"  />
-    </td>
-    <td class="p-2">
-      <input type="text" [(ngModel)]="resourcedeposits.remark" class="form-control" name="remark" placeholder="remark"
-        id="remark"  />
-    </td>
-    <td scope="col" rowspan="2" style="text-align: center">
-      <button type="button" class="btn btn-primary" (click)="saveData()" translate>
-        Save
-      </button>
-    </td>
-    </tr>
-    </ng-template>
     <ng-template pTemplate="body" let-resoucedeposit>
-      <tr>
-        <td>
-          {{ resoucedeposit.resource_Id }}
-        </td>
-        <td>
-          {{ resoucedeposit.mineral_Id }}
-        </td>
+      <tr [pSelectableRow]="resoucedeposit">
 
-        <td>
-          {{ resoucedeposit.site_Id }}
-        </td>
-        <td>
+        <!-- <td (click)="selectsites(resoucedeposit)">
           {{ resoucedeposit.unit }}
-        </td>
-        <td>
+        </td> -->
+        <td (click)="selectsites(resoucedeposit)">
           {{ resoucedeposit.quantity }}
         </td>
-        <td>
+        <td (click)="selectsites(resoucedeposit)">
           {{ resoucedeposit.explored_Date }}
         </td>
 
-        <td>
+        <td (click)="selectsites(resoucedeposit)">
           {{ resoucedeposit.explored_By }}
         </td>
-        <td>
+        <td (click)="selectsites(resoucedeposit)">
           {{ resoucedeposit.lab_Approved_Date }}
         </td>
-        <td>
+        <td (click)="selectsites(resoucedeposit)">
           {{ resoucedeposit.lab_Approved_By }}
         </td>
-        <td>
+        <td (click)="selectsites(resoucedeposit)">
           {{ resoucedeposit.is_Active }}
         </td>
-        <td>
+        <td (click)="selectsites(resoucedeposit)">
           {{ resoucedeposit.remarks }}
         </td>
         <td>
@@ -215,4 +236,4 @@
     </ng-template> -->
     </p-table>
   </div>
-</div>
+<!-- </div> -->

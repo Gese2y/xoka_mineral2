@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class MineralService {
+  
+ 
   private Class = environment.rootPath + 'BPEL/GetLookUp?DropGownName=Mineral_Class';
   private Mineral_Use =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Use_Of_Mineral';
   private Chemical_Classification =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Chemical_Classification';
@@ -13,7 +15,6 @@ export class MineralService {
   
   public mineralUrl = environment.rootApiPath + "Mineral"; 
   public rootApiPath = environment.rootApiPath;
-
   constructor(private http: HttpClient) { }
   
   addminerals(minerals) {
@@ -41,5 +42,8 @@ export class MineralService {
     return this.http.delete(
       this.mineralUrl + "/" + mineral.mineral_Id
     );
+  }
+  Updatemineral(minerals) {
+    return this.http.put(this.mineralUrl+'/id', minerals) ;
   }
 }

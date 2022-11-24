@@ -5,12 +5,20 @@ import { ResourceDepositService } from './resource-deposit.service';
 import { NotificationsService } from 'angular2-notifications';
 import { ServiceService } from '../service.service';
 import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-resource-deposit',
   templateUrl: './resource-deposit.component.html',
   styleUrls: ['./resource-deposit.component.css']
 })
 export class ResourceDepositComponent implements OnInit {
+  today: number = Date.now();
+  
+  todayNumber: number = Date.now();
+  todayDate : Date = new Date();
+  todayString : string = new Date().toDateString();
+  todayISOString : string = new Date().toISOString();
+
  public IsAddFormVisible = false;
  public resoucedeposit: any;
  public resourcedeposits: resourcedeposits;
@@ -36,11 +44,21 @@ export class ResourceDepositComponent implements OnInit {
     userId: null,
     taskId: null
   };
+  editable: boolean;
+  add_new_resource: any;
+  hide_data: boolean;
+  row_clicked: any;
+  @Output() addingNew = new EventEmitter;
+  edit_form: boolean;
+  filteredunitList: any;
+ unitlist: any;
+  types: any;
  constructor(
   public ResourceDepositService: ResourceDepositService,
   private notificationsService:NotificationsService,
     public serviceService:ServiceService,
     private routerService: ActivatedRoute,
+    private _toast: MessageService,
  ) { 
   this.resourcedeposits = new resourcedeposits;
  }
@@ -49,6 +67,12 @@ export class ResourceDepositComponent implements OnInit {
     this.getmineralID();
     this.getResourceD();
     this.getsiteId();
+
+    this.resourcedeposits.resource_Id= Guid.create();
+    this.resourcedeposits.resource_Id = this.resourcedeposits.resource_Id.value;  
+
+    this.resourcedeposits.explored_Date = new Date().toISOString().slice(0,10); 
+    this.resourcedeposits.lab_Approved_Date = new Date().toISOString().slice(0,10);
 
     this.ResourceDepositService.getUnit().subscribe(data=>{
       this.UnitList=data;
@@ -114,11 +138,25 @@ export class ResourceDepositComponent implements OnInit {
         );
       }
       refactorChartOfAccountObject(object) {
-        if (object.site_Id)
-          object.site_Id = object.site_Id.site_Id || object.site_Id;
+        if (object.mineral_Id)
+        object.mineral_Id = object.mineral_Id.mineral_Id || object.mineral_Id; 
+
+          if (object.crystal_Structure)
+        object.crystal_Structure = object.crystal_Structure.crystal_Structure || object.crystal_Structure;
+        
+        if (object.hardness)
+        object.hardness = object.hardness.hardness || object.hardness;
+
+        if (object.lustre)
+          object.lustre = object.lustre.lustre || object.lustre;
           
-          if (object.mineral_Id)
-          object.mineral_Id = object.mineral_Id.mineral_Id || object.mineral_Id;
+          if (object.diaphaneity)
+          object.diaphaneity = object.diaphaneity.diaphaneity || object.diaphaneity;
+           
+          if (object.is_Active)
+          object.is_Active = object.is_Active.is_Active || object.is_Active;
+          
+        
       
         return object;
       }
@@ -128,6 +166,29 @@ export class ResourceDepositComponent implements OnInit {
           (response) => {
             console.log("resource", response);
             this.resoucedeposit = response;
+
+            // this.filteredunitList =this.unitlist.filter(
+            //   filteredunitList => {
+            //     if(filteredunitList.unit == this.resoucedeposit.unit) {
+              
+            //       this.ResourceDepositService.getUnit().subscribe(
+            //         response => {
+            //           this.types = response;
+            //           console.log("response-lookup", response,filteredunitList.unit);
+                     
+            //       const Unit = this.types.find(element => element.lkdetail_code == filteredunitList.unit)
+            //       console.log("Uinit", Unit)
+            //       console.log("Uinit", Unit.english_description)
+            //       this.filteredunitList.unit=Unit.english_description
+            //         return Unit.english_description
+            //          })
+            //       return true;
+            //     }
+            //    else{
+            //     return false;
+            //   }
+            // }
+            //   );
           },
           (error) => {
             const toast = this.notificationsService.error(
@@ -136,7 +197,10 @@ export class ResourceDepositComponent implements OnInit {
             );
           }
         );
+
+       
       }
+
       addresourcedeposits() {
         // this.serviceService.site_Id = this.serviceService.site_Id;
     this.ResourceDepositService.addresourcedeposits(this.resourcedeposits)
@@ -157,14 +221,11 @@ export class ResourceDepositComponent implements OnInit {
   
 
   getmineralID(){
+    console.log('mineral id');
     this.ResourceDepositService.getmineralID().subscribe(
-        (response) => {
-          this.mineral_Id = response;
-          this.accountNoos = refactorDropdownArray(
-            this.mineral_Id,
-            "name",
-            "mineral_Id"
-          );
+        (response:any) => {
+          this.accountNoos = response;
+          console.log('crystal structure',this.accountNoos );       
           console.log("get-getmineralID", response);
         },
         (error) => {
@@ -178,7 +239,13 @@ export class ResourceDepositComponent implements OnInit {
         c.unit.includes(event.query)
       );
     }
-
+    selectsites(resourcedeposits) {
+      if (resourcedeposits) {
+        console.log(resourcedeposits)
+          this.edit_form = true;
+          this.resourcedeposits = resourcedeposits;
+      }
+    }
 
     saveData() {
       console.log(this.workingUser);
@@ -225,7 +292,26 @@ export class ResourceDepositComponent implements OnInit {
       );
     }
   
-
+    Updateresource() {
+      this.ResourceDepositService.Updateresource(this.resourcedeposits).subscribe(
+        data => { 
+          const toast = this.notificationsService.success("Success", "Update");
+        },
+        error => {
+          const toast = this.notificationsService.error('error', 'error', `unable update ! ${error['status'] == 0 ? error['message'] : JSON.stringify(error['error'])}`);
+          console.error('update site error', error);
+        }
+      );
+    }
+    showToast(type: string, title: string, message: string) {
+      let messageConfig = {
+        severity: type,
+        summary: title,
+        detail: message
+      }
+  
+      this._toast.add(messageConfig);
+    }
     deleteresoucedeposit(resoucedeposit) {
   
       if (confirm("Are you sure !!!"))
@@ -253,15 +339,24 @@ export class ResourceDepositComponent implements OnInit {
     // this.resoucedeposits.unit= Guid.create();
     this.resourcedeposits.resource_Id= Guid.create();
   this.resourcedeposits.resource_Id = this.resourcedeposits.resource_Id.value;
+ 
   // this.resoucedeposits.updateBy=this.user
   }
-  onAccountSelectionChange(event) {
+  onAccountSelectionChange(id) {
     // this.resoucedeposits.mineral_Id=  event.value;
-    this.resourcedeposits.mineral_Id = event.value;
+    this.resourcedeposits.mineral_Id = id
      this.isAccountVisible = false;
     //  this.isAccountModalVisible = false;
      
    }
+   addnewresource() {
+    this.editable=false
+    //this.noRecord=false
+    this.add_new_resource = !this.add_new_resource;
+    this.hide_data = !this.hide_data;
+    this.row_clicked = false;
+    this.addingNew.emit();
+  }
    postresourcedeposit(){
     if(this.licenceData==undefined){
       this.ResourceDepositService.postresourcedeposit(

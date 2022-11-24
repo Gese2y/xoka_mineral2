@@ -2,6 +2,7 @@
 <br>
     <h2>Mineral </h2>
     <br>
+    <div *ngIf="add_new_mineral">
 <div class="m-3">
   <div class="row">
     <div class="col-md-12">
@@ -12,7 +13,7 @@
               ID</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" [(ngModel)]="minerals.mineral_Id" #mineral_Id="ngModel"
-                name="mineral_Id" placeholder="Mineral  ID " id="mineral_Id" readonly  />
+                name="mineral_Id" placeholder="Mineral  ID " id="mineral_Id" readonly  required/>
             </div>
           </div>
         </div>
@@ -21,7 +22,7 @@
             <label for="code" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Code</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" [(ngModel)]="minerals.code" #code="ngModel" name="code"
-                placeholder=" code" id="code" />
+                placeholder=" code" id="code" required/>
             </div>
           </div>
 
@@ -36,7 +37,7 @@
             <label for="name" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Name </label>
             <div class="col-sm-9">
               <input type="text" class="form-control" [(ngModel)]="minerals.name" #name="ngModel" name="name"
-                placeholder="name" id="name"  />
+                placeholder="name" id="name"  required/>
             </div>
           </div>
 
@@ -54,7 +55,7 @@
           <div class="col-md-6 row form-group">
             <label for="class" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Class</label>
             <div class="col-sm-9">
-              <select class="custom-select custom-select-sm" id="class" name="class" [(ngModel)]="minerals.class">
+              <select class="custom-select custom-select-sm" id="class" name="class" required [(ngModel)]="minerals.class">
                 <ng-container *ngFor="let class of Mineral_ClassList">
                   <option value="{{class.lkdetail_code}}">{{class.english_description}}</option>
                 </ng-container>
@@ -74,7 +75,7 @@
             <label for="mineral_Use" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Mineral
               Use</label>
             <div class="col-sm-9">
-              <select class="custom-select custom-select-sm" id="mineral_Use" name="mineral_Use"
+              <select class="custom-select custom-select-sm" id="mineral_Use" name="mineral_Use" required
                 [(ngModel)]="minerals.mineral_Use">
                 <ng-container *ngFor="let Mineral_Use of Mineral_UseList">
                   <option value="{{Mineral_Use.lkdetail_code}}">{{Mineral_Use.english_description}}</option>
@@ -94,7 +95,7 @@
             <label for="chemical_Classification" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate>Chemical Classification</label>
             <div class="col-sm-9">
-              <select class="custom-select custom-select-sm" id="chemical_Classification" name="chemical_Classification"
+              <select class="custom-select custom-select-sm" id="chemical_Classification" name="chemical_Classification" required
                 [(ngModel)]="minerals.chemical_Classification">
                 <ng-container *ngFor="let Chemical_Classification of Chemical_ClassificationList">
                   <option value="{{Chemical_Classification.lkdetail_code}}">
@@ -107,7 +108,7 @@
             <label for="tenacity" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate>Tenacity</label>
             <div class="col-sm-9">
-              <select class="custom-select custom-select-sm" id="tenacity" name="tenacity"
+              <select class="custom-select custom-select-sm" id="tenacity" name="tenacity" required
                 [(ngModel)]="minerals.tenacity">
                 <ng-container *ngFor="let Tenacity of TenacityList">
                   <option value="{{Tenacity.lkdetail_code}}">
@@ -188,7 +189,14 @@
           <div class="text-center col-12">
             <button type="button" class="btn btn-primary" (click)="saveData()" translate>
               Save
-            </button><br><br>
+            </button>
+            <button style="margin-left: 10px;" mat-raised-button type="button" (click)="Updatemineral($event, minerals)" color="primary" class="btn btn-primary">    
+              Update
+          </button>
+            <button style="margin-left: 10px;" mat-raised-button type="button" (click)="addnewmineral()" color="primary" class="btn btn-primary">    
+              Cancel
+          </button>   
+          
 
             <!-- <button type="button" *ngIf="edit_form" (click)="updatesite ()" value="Save Item" class="btn btn-primary">
               Update Item
@@ -200,17 +208,43 @@
           </div>
         </div>
       </form>
-      <br>
-      <div >
-        <p-table [value]="mineral" [paginator]="true" [rows]="2">
+    </div>
+  </div>
+</div>
+</div>
+
+    
+<div class="responsive-table">
+  <p-table [value]="mineral" [resizableColumns]="true"   [paginator]="true" 
+  selectionMode="single"   [metaKeySelection]="true"
+  [rows]="3" 
+  [globalFilterFields]="[
+  'code',
+  'name']" responsiveLayout="scroll"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+#Item_table
+  >
+  <ng-template pTemplate="caption">
+    <div class="flex">
+        <span class="p-input-icon-left ml-auto">
+        <div style="width: 20%;">
+          
+          <label style="font-weight: bold;">Search</label>
+         
+          <input  class="form-control" (input)="Item_table.filterGlobal($event.target.value, 'contains')" placeholder="Search by code and name" />
+  
+        </div>
+        </span>
+    </div>
+  </ng-template>
           <ng-template pTemplate="header">
             <tr>
-              <th scope="col" translate>Mineral  ID</th>
+              <!-- <th scope="col" translate>Mineral  ID</th> -->
               <th scope="col" translate>Code</th>
               <th scope="col" translate>Name</th>
-              <th scope="col" translate>Class</th>
-              <th scope="col" translate>Mineral Use</th>
-              <th scope="col" translate>Chemical Classification</th>
+              <!-- <th scope="col" translate>Class</th> -->
+              <!-- <th scope="col" translate>Mineral Use</th> -->
+              <!-- <th scope="col" translate>Chemical Classification</th> -->
               <th scope="col" translate>Crystal Structure </th>
               <th scope="col" translate>Hardness </th>
               <th scope="col" translate>Lustre </th>
@@ -224,24 +258,33 @@
               <th scope="col" translate>Other Properties</th> -->
               <th scope="col" translate>Is Active</th>
               <!-- <th scope="col" translate>Remarks</th>  -->
-              <th></th>
+              <th class='set_sticky_position' *ngIf="!add_new_mineral" scope="col">
+                <button mat-raised-button (click)="addnewmineral()" color="primary" type="button" class="btn btn-primary">Add New</button></th>
+              
             </tr>
            
           </ng-template>
-          <ng-template pTemplate="body" let-mineral>
-            <tr>
-              <td>{{ mineral.mineral_Id }}</td>
-              <td>{{ mineral.code }}</td>
-              <td>{{ mineral.name }}</td>
-              <td>{{ mineral.class }}</td>
-              <td>{{ mineral.mineral_Use }}</td>
-              <td>{{ mineral.chemical_Classification }}</td>
-              <td>{{ mineral.crystal_Structure }}</td>
-              <td>{{ mineral.hardness }}</td>
-              <td>{{ mineral.lustre }}</td>
-              <td>{{ mineral.diaphaneity }}</td>
-              <td>{{ mineral.color }}</td>
-              <td>{{ mineral.is_Active }}</td>
+          <ng-template pTemplate="body" let-mineral >
+            <tr [pSelectableRow]="mineral" >
+              <!-- [class.active]="minerals == selectedminerals" -->
+              <!-- <td (click)="selectsites(mineral)">{{ mineral.mineral_Id }}</td> -->
+              <td  (click)="selectsites(mineral)">{{ mineral.code }}</td>
+              <td  (click)="selectsites(mineral)">{{ mineral.name }}</td>
+              <!-- <td>{{ mineral.class }}</td> -->
+              <!-- <td>{{ mineral.mineral_Use }}</td> -->
+              <!-- <td>{{ mineral.chemical_Classification }}</td> -->
+              <td (click)="selectsites(mineral)">{{ mineral.crystal_Structure }}</td>
+              <td (click)="selectsites(mineral)">{{ mineral.hardness }}</td>
+              <td (click)="selectsites(mineral)">{{ mineral.lustre }}</td>
+              <td (click)="selectsites(mineral)">{{ mineral.diaphaneity }}</td>
+              <td (click)="selectsites(mineral)">{{ mineral.color }}</td>
+              <td (click)="selectsites(mineral)">{{ mineral.is_Active }}</td>
+              <!-- <td>
+                <button type="button" class="btn btn-primary" (click)="selectsites(mineral)" translate>
+                  Select
+                </button> -->
+      
+              <!-- </td> -->
               <!-- <td>
                 <button
             type="button"
@@ -267,5 +310,3 @@
           </ng-template>
         </p-table>
     </div>
-  </div>
-</div>

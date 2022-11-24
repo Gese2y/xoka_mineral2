@@ -309,7 +309,8 @@ wfsCapabilities() {
         };
       }
     );
-  });
+  });  
+  this.loadFromGeoJson()
   // (this.gisService as any).getCapabilities().subscribe(
   //   (capabilities: any) => {
   //     console.log("capabilities :: ", capabilities);

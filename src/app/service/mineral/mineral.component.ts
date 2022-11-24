@@ -5,6 +5,7 @@ import { Guid } from 'guid-typescript';
 import { ServiceService } from '../service.service';
 import { ActivatedRoute } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-mineral',
@@ -12,12 +13,14 @@ import { TabsetComponent } from 'ngx-bootstrap';
   styleUrls: ['./mineral.component.css']
 })
 export class MineralComponent implements OnInit {
+  
 public mineral: any;
 public minerals:Minerals;
 // public edit_form:any;
 @Output() onclose = new EventEmitter();
 public IsAddFormVisible: any;
 public Mineral_Class: any;
+// public selectsites: any;
   public Mineral_Use: any;
   public Chemical_ClassificationList: any;
   public TenacityList: any;
@@ -37,15 +40,22 @@ public Mineral_Class: any;
     taskId: null
   };
   @ViewChild("tabset") tabset: TabsetComponent;
+  editable: boolean;
+  add_new_mineral: any;
+  hide_data: boolean;
+  row_clicked: any;
+  @Output() addingNew = new EventEmitter;
+  // Minerals: typeof Minerals;
   goto(id) {
     this.tabset.tabs[id].active = true;
   }
-  edit_form: boolean;
+  public edit_form: boolean;
   constructor(
 private MineralService: MineralService,
 private notificationsService: NotificationsService,
 public serviceService:ServiceService,
 private routerService: ActivatedRoute,
+private _toast: MessageService,
   ) { 
     this.minerals = new Minerals();
   }
@@ -103,6 +113,9 @@ private routerService: ActivatedRoute,
     console.log('post data :: ', this.postData);
   
   }
+//   onRowUnselect(event) {
+//     this.MineralService.add({severity:'info', summary:'mineral Unselected',  detail: event.data.name});
+// }
   getminerals() {
     this.MineralService.getminerals().subscribe(
       (response) => {
@@ -206,6 +219,45 @@ private routerService: ActivatedRoute,
   }
   closeup() {
     this.onclose.emit();
+  }
+
+  selectsites(minerals) {
+    if (minerals) {
+      // this.selectsites = minerals;
+      console.log(minerals)
+        this.edit_form = true;
+        this.minerals = minerals;
+    }
+  }
+
+
+  addnewmineral() {
+    this.editable=false
+    //this.noRecord=false
+    this.add_new_mineral = !this.add_new_mineral;
+    this.hide_data = !this.hide_data;
+    this.row_clicked = false;
+    this.addingNew.emit();
+  }
+  Updatemineral() {
+    this.MineralService.Updatemineral(this.minerals).subscribe(
+      data => { 
+        const toast = this.notificationsService.success("Success", "Update");
+      },
+      error => {
+        const toast = this.notificationsService.error('error', 'error', `unable update ! ${error['status'] == 0 ? error['message'] : JSON.stringify(error['error'])}`);
+        console.error('update site error', error);
+      }
+    );
+  }
+  showToast(type: string, title: string, message: string) {
+    let messageConfig = {
+      severity: type,
+      summary: title,
+      detail: message
+    }
+
+    this._toast.add(messageConfig);
   }
 }
 class Minerals {

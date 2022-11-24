@@ -1,6 +1,9 @@
 <br>
 <h2>Mineral Site </h2>
 <br>
+
+
+<div *ngIf="add_new_site">
 <div class="m-3">
   <div class="row">
     <div class="col-md-12">
@@ -11,7 +14,7 @@
               ID</label>
             <div class="col-sm-6">
               <input type="text" class="form-control" [(ngModel)]="site.site_Id" #site_Id="ngModel" name="site_Id"
-                placeholder="Site ID " id="site_Id" readonly  />
+                placeholder="Site ID " id="site_Id" readonly required />
             </div>
           </div>
         </div>
@@ -21,7 +24,7 @@
               Name</label>
             <div class="col-sm-6">
               <input type="text" class="form-control" [(ngModel)]="site.site_Name" #site_Name="ngModel" name="site_Name"
-                placeholder=" Site Name" id="site_Name"  />
+                placeholder=" Site Name" id="site_Name" required />
             </div>
           </div>
 
@@ -29,19 +32,32 @@
             <label for="date_Registered" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate>Registered Date</label>
             <div class="col-sm-6">
-              <input type="date" class="form-control" [(ngModel)]="site.date_Registered" #Date_Registered="ngModel"
-                name="date_Registered" placeholder="Date Registered " id="date_Registered"  />
+              <input type="datetime" class="form-control" [(ngModel)]="site.date_Registered" #Date_Registered="ngModel"
+                name="date_Registered" placeholder="Date Registered " id="date_Registered" readonly />
             </div>
           </div>
           <div class="col-md-6 row form-group">
             <label for="region" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate>Region</label>
             <div class="col-sm-6">
-              <select class="custom-select custom-select-sm" id="region" name="region" [(ngModel)]="site.region">
-                <ng-container *ngFor="let Region of RegionList">
-                  <option value="{{Region.lkdetail_code}}">{{Region.english_description}}</option>
-                </ng-container>
-              </select>
+              <select
+              class="form-control"
+              [(ngModel)]="site.region"
+              #region="ngModel"
+              name="region"      
+               placeholder="region  "
+              id="region"
+              required
+              
+            >
+              <option disabled>select</option>
+              <option
+                *ngFor="let Region of name_En"
+                [value]="Region.region_Code"
+              >
+                {{ Region.description }}
+              </option>
+            </select>
             </div>
           </div>
           <div class="col-md-6 row form-group">
@@ -54,17 +70,17 @@
             <div class="col-sm-6 flex">
               <input type="text" class="form-control form-control-sm" id="Coordinate" placeholder="Coordinate"
                 [(ngModel)]="serviceService.coordinate" name="Coordinate" (click)="SiteService.DisplayCoordinate=true"
-                 (click)="OnClickMap($event)" readonly>
+                 (click)="OnClickMap($event)" readonly >
             </div>
           </div>
           <p-dialog  [(visible)]="SiteService.DisplayCoordinate" [modal]="true"  [responsive]="true"
-            [style]="{'minHeight':'10%','height':'500px','minWidth':'10%','width':'80%' }" [maximizable]="true"
-            [baseZIndex]="800" (click)="ismapVisiblees=true">
+            [style]="{'minHeight':'10%','height':'200px','minWidth':'10%','width':'80%' }" [maximizable]="true"
+            [baseZIndex]="400" (click)="ismapVisiblees=true">
             <p-header>
               <h4 class="modal-title pull-left" translate>Site Coordinate</h4>
             </p-header>
             <div class="modal-body">
-              <div style="min-width: 800px">
+              <div style="min-width: 600px">
                 <app-site-map></app-site-map>
               </div>
             </div>
@@ -81,18 +97,31 @@
           <div class="col-md-6 row form-group">
             <label for="zone" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Zone</label>
             <div class="col-sm-6">
-              <select class="custom-select custom-select-sm" id="zone" name="zone" [(ngModel)]="site.zone">
-                <ng-container *ngFor="let Zone of ZoneList">
-                  <option value="{{Zone.lkdetail_code}}">{{Zone.english_description}}</option>
-                </ng-container>
-              </select>
+              <select
+              class="form-control"
+              [(ngModel)]="site.zone"
+              #zone="ngModel"
+              name="zone"      
+               placeholder="zone  "
+              id="zone"
+              required
+              
+            >
+              <option disabled>select</option>
+              <option
+                *ngFor="let Zone of name_Ens"
+                [value]="Zone.zone_code"
+              >
+                {{ Zone.description }}
+              </option>
+            </select>
             </div>
           </div>
           <div class="col-md-6 row form-group">
             <label for="status" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Site
               Status</label>
             <div class="col-sm-6">
-              <select class="custom-select custom-select-sm" id="status" name="status" [(ngModel)]="site.status">
+              <select class="custom-select custom-select-sm" id="status" name="status" required [(ngModel)]="site.status">
                 <ng-container *ngFor="let Status of StatusList">
                   <option value="{{Status.lkdetail_code}}">
                     {{Status.english_description}}</option>
@@ -104,11 +133,24 @@
             <label for="woreda" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
               translate>Woreda</label>
             <div class="col-sm-6">
-              <select class="custom-select custom-select-sm" id="woreda" name="woreda" [(ngModel)]="site.woreda">
-                <ng-container *ngFor="let Woreda of WoredaList">
-                  <option value="{{Woreda.lkdetail_code}}">{{Woreda.english_description}}</option>
-                </ng-container>
-              </select>
+              <select
+              class="form-control"
+              [(ngModel)]="site.woreda"
+              #woreda="ngModel"
+              name="woreda"      
+               placeholder="woreda  "
+              id="woreda"
+              required
+              
+            >
+              <option disabled>select</option>
+              <option
+                *ngFor="let Woreda of name_E"
+                [value]="Woreda.woreda_code"
+              >
+                {{ Woreda.description }}
+              </option>
+            </select>
             </div>
           </div>  
           <div class="col-md-6 row form-group">
@@ -136,67 +178,104 @@
             </div>
           </div>
 
-
           <div class="text-center col-12">
             
             <button type="button" (click)="saveData()" value="Save Item" class="btn btn-primary">
               Save
             </button>
-          
+            <button style="margin-left: 10px;" mat-raised-button type="button" (click)="updatesite($event, site)" color="primary" class="btn btn-primary">    
+              Update
+          </button>
+              <button style="margin-left: 10px;" mat-raised-button type="button" (click)="addnewsite()" color="primary" class="btn btn-primary">    
+                Cancel
+            </button>  
+     
           </div>
         </div>
       </form>
-      <br>
-      <div>
-        <p-table [value]="sites" [paginator]="true" [rows]="3">
-          <ng-template pTemplate="header">
-            <tr>
-              <th scope="col" translate>Site_ID</th>
-              <th scope="col" translate>Site_Name</th>
-              <th scope="col" translate>Region</th>
-              <th scope="col" translate>Zone</th>
-              <th scope="col" translate>Woreda</th>
-              <th scope="col" translate>Kebele_Locality</th>
-              <th scope="col" translate>Date_Registered </th>
-              <th scope="col" translate>Coordinate </th>
-              <th scope="col" translate>Status </th>
-              <th scope="col" translate>Is_Active</th>
-              <th scope="col" translate>Remarks</th>
-              <th></th>
-              <th></th>
-
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-sites>
-            <tr>
-              <td>{{ sites.site_Id }}</td>
-              <td>{{ sites.site_Name }}</td>
-              <td>{{ sites.region }}</td>
-              <td>{{ sites.zone }}</td>
-              <td>{{ sites.woreda }}</td>
-              <td>{{ sites.kebele_Locality }}</td>
-              <td>{{ sites.date_Registered }}</td>
-              <td>{{ sites.coordinate }}</td>
-              <td>{{ sites.status }}</td>
-              <td>{{ sites.is_Active }}</td>
-              <td>{{ sites.remarks }}</td>
-              <td>
-                <button type="button" class="btn btn-primary" (click)="selectsites(sites)" translate>
-                  Select
-                </button>
-
-              </td>
-              <td>
-
-                <button type="button" class="btn btn-primary" (click)="deletesites(sites)">
-                  <i class="pi pi-trash"></i>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
     </div>
   </div>
 </div>
+</div>
+ 
+
+
+
+<div class="responsive-table">
+  <p-table [value]="sites" [resizableColumns]="true"   [paginator]="true" selectionMode="single"   [metaKeySelection]="true"
+  [rows]="2"  
+  
+  [globalFilterFields]="['site_Name']" responsiveLayout="scroll"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+#Item_table >
+  <ng-template pTemplate="caption">
+    <div class="flex">
+        <span class="p-input-icon-left ml-auto">
+        <div style="width: 20%;">
+          <label style="font-weight: bold;">Search</label>
+          <input  class="form-control" (input)="Item_table.filterGlobal($event.target.value, 'contains')" placeholder="Search by site name" />
+  
+        </div>
+        </span>
+    </div>
+  </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <!-- <th scope="col" translate>Site_ID</th> -->
+        <th scope="col" translate>Site  Name</th>
+        <!-- <th scope="col" translate>Region</th> -->
+        <!-- <th scope="col" translate>Zone</th> -->
+        <!-- <th scope="col" translate>Woreda</th> -->
+        <th scope="col" translate>Kebele Locality</th>
+        <th scope="col" translate>Date Registered </th>
+        <th scope="col" translate>Is Active</th>
+        <th class='set_sticky_position' *ngIf="!add_new_site" scope="col">
+          <button mat-raised-button (click)="addnewsite()" color="primary" type="button" class="btn btn-primary">Add New</button></th>
+        <!-- <th class="table-header-button-cell" scope="col" *ngIf="addnewsite">
+          <button mat-raised-button type="button" (click)="addnewsite()" color="primary" type="button" class="btn btn-primary">    
+              Cancel
+          </button>
+      </th> -->
+        
+        <!-- <th></th> -->
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-sites>
+      <tr [pSelectableRow]="sites" >
+        <!-- <td (click)="selectsites(sites)">{{ sites.site_Id }}</td> -->
+        <td (click)="selectsites(sites)">{{ sites.site_Name }}</td>
+        <!-- <td (click)="selectsites(sites)">{{ sites.region }}</td> -->
+        <!-- <td (click)="selectsites(sites)">{{ sites.zone }}</td> -->
+        <!-- <td (click)="selectsites(sites)">{{ sites.woreda }}</td> -->
+        <td (click)="selectsites(sites)">{{ sites.kebele_Locality }}</td>
+        <td (click)="selectsites(sites)">{{ sites.date_Registered }}</td>
+        <!-- <td>{{ sites.coordinate }}</td>/ -->
+        <!-- <td>{{ sites.status }}</td> -->
+        <td (click)="selectsites(sites)">{{ sites.is_Active }}</td>
+        <!-- <td>{{ sites.remarks }}</td> -->
+        <!-- <td>
+          <button type="button" class="btn btn-primary" (click)="selectsites(sites)" translate>
+            Select
+          </button>
+
+        </td> -->
+        <td>
+
+          <button type="button" class="btn btn-primary" (click)="deletesites(sites)">
+            <i class="pi pi-trash"></i>
+            Delete
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+ 
+</div> 
+<!-- <br>
+<div class="text-center col-12">
+  <button style="margin-left: 1000px;" mat-raised-button type="button" (click)="selectsites()" color="primary" class="btn btn-primary">    
+    Next
+</button>
+</div>
+<br> -->
