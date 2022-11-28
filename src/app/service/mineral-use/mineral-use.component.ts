@@ -229,7 +229,6 @@ this.mineralUse = new mineralUse;
         (response) => {
           const toast = this.notificationsService.success("Success", "success");
           this.getmineralUse();
-          // this.completed.emit('{}');
           this.clearForm();
         },
         (error) => {
