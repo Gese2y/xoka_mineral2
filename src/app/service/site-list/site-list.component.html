@@ -2,12 +2,31 @@
   <tab heading="Mineral Site">
     <app-site (completed)="completed" [taskId]="taskId" 
     [(licenceData)]="licenceData" [workingUser]="workingUser"
-    (saveDataCompleted)="saveDataCompleted" ></app-site>
+    (saveDataCompleted)="saveDataCompleted" ></app-site> <br><br>
+    <div class=" float-right">
+      <button type="button"  class="btn btn-primary btn-sm" [disabled]="serviceService.resource_deposit" (click)="selectTab(1)">Next</button></div>
+      <br><br>
   </tab>
-  <tab heading="Resource Deposit" [disabled]="serviceService.resource_deposit">
+  <tab heading="Resource Deposit" >
     <app-resource-deposit (completed)="completed" [taskId]="taskId"  
     [(licenceData)]="licenceData" [workingUser]="workingUser"
     (saveDataCompleted)="saveDataCompleted" ></app-resource-deposit>
-    
+    <br><br>
+    <div class=" float-right">
+      <button type="button"  class="btn btn-primary btn-sm" [disabled]="serviceService.mineral_Use" (click)="selectTab(2)">Next</button></div>
+  <div class=" float-left">
+      <button type="button"  class="btn btn-primary btn-sm" (click)="selectTab(0)">Previous</button></div>
+      <br><br>
+    </tab>  
+<tab heading="Mineral Use" >
+    <app-mineral-use (completed)="completed" [taskId]="taskId"  
+    [(licenceData)]="licenceData" [workingUser]="workingUser"
+    (saveDataCompleted)="saveDataCompleted" ></app-mineral-use>
+    <br><br>
+    <div class=" float-left">
+
+      <button type="button"  class="btn btn-primary btn-sm" (click)="selectTab(1)">Previous</button>
+  </div>
+  <br><br>
 </tab>  
 </tabset>

@@ -13,6 +13,7 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./site-list.component.css']
 })
 export class SiteListComponent implements OnInit {
+  // @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
 // public site: any;
 public sites: any;
 completed:any;
@@ -25,10 +26,11 @@ site: site;
   selectedFile: any;
     selectedprofromtree: any;
   toMes;
-  staticTabs: any;
+  // staticTabs: any;
   StatusList: any;
   routerService: any;
   urlParams: any;
+  staticTabs: any;
   // postData: any;
   goto(id) {
     this.tabset.tabs[id].active = true;
@@ -48,6 +50,7 @@ constructor(private SiteService: SiteService,
   this.site = new site();
   
 }
+
 selectTab(tabId: number) {
   this.staticTabs.tabs[tabId].active = true;
 }

@@ -4,225 +4,192 @@
 
 
 <div *ngIf="add_new_site">
-<div class="m-3">
-  <div class="row">
-    <div class="col-md-12">
-      <form>
-        <div class="row">
-          <div class="col-md-6 row form-group">
-            <label for="site_Id" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Site
-              ID</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" [(ngModel)]="site.site_Id" #site_Id="ngModel" name="site_Id"
-                placeholder="Site ID " id="site_Id" readonly required />
+  <div class="m-3">
+    <div class="row">
+      <div class="col-md-12">
+        <form>
+          <div class="row">
+            <div class="col-md-6 row form-group">
+              <label for="site_Id" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Site
+                ID</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" [(ngModel)]="site.site_Id" #site_Id="ngModel" name="site_Id"
+                  placeholder="Site ID " id="site_Id" readonly required />
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 row form-group">
-            <label for="site_Name" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Site
-              Name</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" [(ngModel)]="site.site_Name" #site_Name="ngModel" name="site_Name"
-                placeholder=" Site Name" id="site_Name" required />
+          <div class="row">
+            <div class="col-md-6 row form-group">
+              <label for="site_Name" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Site
+                Name</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" [(ngModel)]="site.site_Name" #site_Name="ngModel"
+                  name="site_Name" placeholder=" Site Name" id="site_Name" required />
+              </div>
             </div>
-          </div>
 
-          <div class="col-md-6 row form-group">
-            <label for="date_Registered" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate>Registered Date</label>
-            <div class="col-sm-6">
-              <input type="datetime" class="form-control" [(ngModel)]="site.date_Registered" #Date_Registered="ngModel"
-                name="date_Registered" placeholder="Date Registered " id="date_Registered" readonly />
+            <div class="col-md-6 row form-group">
+              <label for="date_Registered" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+                translate>Registered Date</label>
+              <div class="col-sm-6">
+                <input type="datetime" class="form-control" [(ngModel)]="site.date_Registered"
+                  #Date_Registered="ngModel" name="date_Registered" placeholder="Date Registered " id="date_Registered"
+                  readonly />
+              </div>
             </div>
-          </div>
-          <div class="col-md-6 row form-group">
-            <label for="region" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate>Region</label>
-            <div class="col-sm-6">
-              <select
-              class="form-control"
-              [(ngModel)]="site.region"
-              #region="ngModel"
-              name="region"      
-               placeholder="region  "
-              id="region"
-              required
-              
-            >
-              <option disabled>select</option>
-              <option
-                *ngFor="let Region of name_En"
-                [value]="Region.region_Code"
-              >
-                {{ Region.description }}
-              </option>
-            </select>
+            <div class="col-md-6 row form-group">
+              <label for="region" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+                translate>Region</label>
+              <div class="col-sm-6">
+                <select class="form-control" [(ngModel)]="site.region" #region="ngModel" name="region"
+                  placeholder="region  " id="region" required>
+                  <option disabled>select</option>
+                  <option *ngFor="let Region of name_En" [value]="Region.region_Code">
+                    {{ Region.description }}
+                  </option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="col-md-6 row form-group">
-            <label for="Coordinate" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate>Coordinate</label>
-            <!-- <div class="col-sm-1 ml-0 pl-0">
+            <div class="col-md-6 row form-group">
+              <label for="Coordinate" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+                translate>Coordinate</label>
+              <!-- <div class="col-sm-1 ml-0 pl-0">
               <button type="button" class="btn btn-primary" [disabled]="disable" (click)="displayGIS=true"><span
                   class="fa fa-map"></span></button>
             </div> -->
-            <div class="col-sm-6 flex">
-              <input type="text" class="form-control form-control-sm" id="Coordinate" placeholder="Coordinate"
-                [(ngModel)]="serviceService.coordinate" name="Coordinate" (click)="SiteService.DisplayCoordinate=true"
-                 (click)="OnClickMap($event)" readonly >
-            </div>
-          </div>
-          <p-dialog  [(visible)]="SiteService.DisplayCoordinate" [modal]="true"  [responsive]="true"
-            [style]="{'minHeight':'10%','height':'200px','minWidth':'10%','width':'80%' }" [maximizable]="true"
-            [baseZIndex]="400" (click)="ismapVisiblees=true">
-            <p-header>
-              <h4 class="modal-title pull-left" translate>Site Coordinate</h4>
-            </p-header>
-            <div class="modal-body">
-              <div style="min-width: 600px">
-                <app-site-map></app-site-map>
+              <div class="col-sm-6 flex">
+                <input type="text" class="form-control form-control-sm" id="Coordinate" placeholder="Coordinate"
+                  [(ngModel)]="serviceService.coordinate" name="Coordinate" (click)="SiteService.DisplayCoordinate=true"
+                  (click)="OnClickMap($event)" readonly>
               </div>
             </div>
-            <!-- <p-footer> -->
-            <!-- <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" *ngIf="toogleSpin"></p-progressSpinner> -->
-            <!-- <button type="button" class="btn btn-primary" *ngIf="!toogleSpin" (click)="finishSelection()" translate>select
-            </button>
-        
-          </p-footer> -->
+            <p-dialog [(visible)]="SiteService.DisplayCoordinate" [closable]="true" [modal]="true" [responsive]="true"
+              [style]="{'minHeight':'10%','height':'200px','minWidth':'10%','width':'80%' }" [maximizable]="true"
+              [baseZIndex]="400" (click)="ismapVisiblees=true">
+              <p-header>
+                <h4 class="modal-title pull-left" translate>Site Coordinate</h4>
+              </p-header>
+              <div class="modal-body">
+                <div style="min-width: 600px">
+                  <app-site-map></app-site-map>
+                </div>
 
+              </div>
+              <p-footer>
+                <button  (click)="select()" color="primary" type="button" class="btn btn-primary">
+                  Select
+                </button>
+              </p-footer>
+            </p-dialog>
 
-          </p-dialog>
+            <div class="col-md-6 row form-group">
+              <label for="zone" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Zone</label>
+              <div class="col-sm-6">
+                <select class="form-control" [(ngModel)]="site.zone" #zone="ngModel" name="zone" placeholder="zone  "
+                  id="zone" (click)="passdata($event)"required>
+                  <option disabled>select</option>
+                  <option *ngFor="let Zone of name_Ens" [value]="Zone.zone_code">
+                    {{ Zone.description }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6 row form-group">
+              <label for="status" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Site
+                Status</label>
+              <div class="col-sm-6">
+                <select class="custom-select custom-select-sm" id="status" name="status" required
+                  [(ngModel)]="site.status">
+                  <ng-container *ngFor="let Status of StatusList">
+                    <option value="{{Status.lkdetail_code}}">
+                      {{Status.english_description}}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6 row form-group">
+              <label for="woreda" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+                translate>Woreda</label>
+              <div class="col-sm-6">
+                <select class="form-control" [(ngModel)]="site.woreda" #woreda="ngModel" name="woreda"
+                  placeholder="woreda  " id="woreda" required>
+                  <option disabled>select</option>
+                  <option *ngFor="let Woreda of woredas" [value]="Woreda.woreda_code">
+                    {{ Woreda.description }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6 row form-group">
+              <label for="Is_Active" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+                translate>Is_Active</label>
+              <div class="col-sm-6">
+                <input type="checkbox" class="form-control" [(ngModel)]="site.is_Active" #Is_Active="ngModel"
+                  name="Is_Active" placeholder=" Is_Active" id="Is_Active" />
+              </div>
+            </div>
+            <div class="col-md-6 row form-group">
+              <label for="kebele" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Kebele
+                Locality</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" [(ngModel)]="site.kebele_Locality" #kebele="ngModel"
+                  name="kebele" placeholder="Kebele" id="kebele" />
+              </div>
+            </div>
+            <div class="col-md-6 row form-group">
+              <label for="remarks" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+                translate>Remarks</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" [(ngModel)]="site.remarks" #remarks="ngModel" name="remarks"
+                  placeholder=" Remarks" id="remarks" />
+              </div>
+            </div>
 
-          <div class="col-md-6 row form-group">
-            <label for="zone" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Zone</label>
-            <div class="col-sm-6">
-              <select
-              class="form-control"
-              [(ngModel)]="site.zone"
-              #zone="ngModel"
-              name="zone"      
-               placeholder="zone  "
-              id="zone"
-              required
-              
-            >
-              <option disabled>select</option>
-              <option
-                *ngFor="let Zone of name_Ens"
-                [value]="Zone.zone_code"
-              >
-                {{ Zone.description }}
-              </option>
-            </select>
-            </div>
-          </div>
-          <div class="col-md-6 row form-group">
-            <label for="status" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Site
-              Status</label>
-            <div class="col-sm-6">
-              <select class="custom-select custom-select-sm" id="status" name="status" required [(ngModel)]="site.status">
-                <ng-container *ngFor="let Status of StatusList">
-                  <option value="{{Status.lkdetail_code}}">
-                    {{Status.english_description}}</option>
-                </ng-container>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-6 row form-group">
-            <label for="woreda" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate>Woreda</label>
-            <div class="col-sm-6">
-              <select
-              class="form-control"
-              [(ngModel)]="site.woreda"
-              #woreda="ngModel"
-              name="woreda"      
-               placeholder="woreda  "
-              id="woreda"
-              required
-              
-            >
-              <option disabled>select</option>
-              <option
-                *ngFor="let Woreda of name_E"
-                [value]="Woreda.woreda_code"
-              >
-                {{ Woreda.description }}
-              </option>
-            </select>
-            </div>
-          </div>  
-          <div class="col-md-6 row form-group">
-            <label for="Is_Active" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate>Is_Active</label>
-            <div class="col-sm-6">
-              <input type="checkbox" class="form-control" [(ngModel)]="site.is_Active" #Is_Active="ngModel"
-                name="Is_Active" placeholder=" Is_Active" id="Is_Active"  />
-            </div>
-          </div> 
-          <div class="col-md-6 row form-group">
-            <label for="kebele" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Kebele
-              Locality</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" [(ngModel)]="site.kebele_Locality" #kebele="ngModel" name="kebele"
-                placeholder="Kebele" id="kebele"  />
-            </div>
-          </div>
-          <div class="col-md-6 row form-group">
-            <label for="remarks" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
-              translate>Remarks</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" [(ngModel)]="site.remarks" #remarks="ngModel" name="remarks"
-                placeholder=" Remarks" id="remarks"  />
-            </div>
-          </div>
+            <div class="text-center col-12">
 
-          <div class="text-center col-12">
-            
-            <button type="button" (click)="saveData()" value="Save Item" class="btn btn-primary">
-              Save
-            </button>
-            <button style="margin-left: 10px;" mat-raised-button type="button" (click)="updatesite($event, site)" color="primary" class="btn btn-primary">    
-              Update
-          </button>
-              <button style="margin-left: 10px;" mat-raised-button type="button" (click)="addnewsite()" color="primary" class="btn btn-primary">    
+              <button type="button" (click)="saveData()" value="Save Item" class="btn btn-primary">
+                Save
+              </button>
+              <button style="margin-left: 10px;" mat-raised-button type="button" (click)="updatesite($event, site)"
+                color="primary" class="btn btn-primary">
+                Update
+              </button>
+              <button style="margin-left: 10px;" mat-raised-button type="button" (click)="addnewsite()" color="primary"
+                class="btn btn-primary">
                 Cancel
-            </button>  
-     
+              </button>
+
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>
-</div>
- 
+
 
 
 
 <div class="responsive-table">
-  <p-table [value]="sites" [resizableColumns]="true"   [paginator]="true" selectionMode="single"   [metaKeySelection]="true"
-  [rows]="2"  
-  
-  [globalFilterFields]="['site_Name']" responsiveLayout="scroll"
-currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-#Item_table >
-  <ng-template pTemplate="caption">
-    <div class="flex">
+  <p-table [value]="sites" [resizableColumns]="true" [paginator]="true" selectionMode="single" [metaKeySelection]="true"
+    [rows]="2" [globalFilterFields]="['site_Name']" responsiveLayout="scroll"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" #Item_table>
+    <ng-template pTemplate="caption">
+      <div class="flex">
         <span class="p-input-icon-left ml-auto">
-        <div style="width: 20%;">
-          <label style="font-weight: bold;">Search</label>
-          <input  class="form-control" (input)="Item_table.filterGlobal($event.target.value, 'contains')" placeholder="Search by site name" />
-  
-        </div>
+          <div style="width: 20%;">
+            <label style="font-weight: bold;">Search</label>
+            <input class="form-control" (input)="Item_table.filterGlobal($event.target.value, 'contains')"
+              placeholder="Search by site name" />
+
+          </div>
         </span>
-    </div>
-  </ng-template>
+      </div>
+    </ng-template>
     <ng-template pTemplate="header">
       <tr>
         <!-- <th scope="col" translate>Site_ID</th> -->
-        <th scope="col" translate>Site  Name</th>
+        <th scope="col" translate>Site Name</th>
         <!-- <th scope="col" translate>Region</th> -->
         <!-- <th scope="col" translate>Zone</th> -->
         <!-- <th scope="col" translate>Woreda</th> -->
@@ -230,19 +197,20 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         <th scope="col" translate>Date Registered </th>
         <th scope="col" translate>Is Active</th>
         <th class='set_sticky_position' *ngIf="!add_new_site" scope="col">
-          <button mat-raised-button (click)="addnewsite()" color="primary" type="button" class="btn btn-primary">Add New</button></th>
+          <button mat-raised-button (click)="addnewsite()" color="primary" type="button" class="btn btn-primary">Add / Update </button>
+        </th>
         <!-- <th class="table-header-button-cell" scope="col" *ngIf="addnewsite">
           <button mat-raised-button type="button" (click)="addnewsite()" color="primary" type="button" class="btn btn-primary">    
               Cancel
           </button>
       </th> -->
-        
+
         <!-- <th></th> -->
 
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-sites>
-      <tr [pSelectableRow]="sites" >
+      <tr [pSelectableRow]="sites">
         <!-- <td (click)="selectsites(sites)">{{ sites.site_Id }}</td> -->
         <td (click)="selectsites(sites)">{{ sites.site_Name }}</td>
         <!-- <td (click)="selectsites(sites)">{{ sites.region }}</td> -->
@@ -270,8 +238,8 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       </tr>
     </ng-template>
   </p-table>
- 
-</div> 
+
+</div>
 <!-- <br>
 <div class="text-center col-12">
   <button style="margin-left: 1000px;" mat-raised-button type="button" (click)="selectsites()" color="primary" class="btn btn-primary">    

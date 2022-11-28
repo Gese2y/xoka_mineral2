@@ -143,9 +143,9 @@
               <button type="button" class="btn btn-primary" (click)="saveData()" translate>
                 Save
               </button>
-              <button style="margin-left: 10px;" mat-raised-button type="button" (click)="Updateresource($event, resourcedeposits)" color="primary" class="btn btn-primary">    
-                Update
-            </button>
+              <!-- <button style="margin-left: 10px;" mat-raised-button type="button" (click)="Updateresource($event, resourcedeposits)" color="primary" class="btn btn-primary">    
+                Update 
+            </button> -->
               <button style="margin-left: 10px;" mat-raised-button type="button" (click)="addnewresource()" color="primary" class="btn btn-primary">    
                 Cancel
             </button>   
@@ -158,11 +158,10 @@
   </div>
 
   <div class="responsive-table">
-    <p-table [value]="resoucedeposit" [paginator]="true" [rows]="2" [resizableColumns]="true"
-    selectionMode="single"   [metaKeySelection]="true"
-  [rows]="3" 
+    <p-table [value]="resoucedeposit" [paginator]="true" [rows]="2" [resizableColumns]="true" 
+    selectionMode="single" [metaKeySelection]="true" [rows]="3" 
   [globalFilterFields]="[
-  'unit']" responsiveLayout="scroll"
+  'mineral_Id']" responsiveLayout="scroll"
 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
 #Item_table
   >
@@ -173,19 +172,19 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
           
           <label style="font-weight: bold;">Search</label>
          
-          <input  class="form-control" (input)="Item_table.filterGlobal($event.target.value, 'contains')" placeholder="Search by unit" />
+          <input  class="form-control" (input)="Item_table.filterGlobal($event.target.value, 'contains')" placeholder="Search by name" />
   
         </div>
         </span>
     </div>
-  </ng-template>>
+  </ng-template>
       <ng-template pTemplate="header">
 
         <tr>
           <!-- <th pResizableColumn scope="col" translate>Resource ID</th> -->
-          <!-- <th pResizableColumn scope="col" translate>Mineral ID</th> -->
+          <th pResizableColumn scope="col" translate>Mineral Name </th>
           <!-- <th pResizableColumn scope="col" translate>Site ID</th> -->
-          <!-- <th pResizableColumn scope="col" translate>Unit</th> -->
+          <th pResizableColumn scope="col" translate>Unit</th>
           <th pResizableColumn scope="col" translate>Quantity</th>
           <th pResizableColumn scope="col" translate>Explored Date</th>
           <th pResizableColumn scope="col" translate>Explored By</th>
@@ -194,35 +193,36 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
           <th pResizableColumn scope="col" translate>Is Active</th>
           <th pResizableColumn scope="col" translate>Remark</th>
           <th class='set_sticky_position' *ngIf="!add_new_resource" scope="col">
-            <button mat-raised-button (click)="addnewresource()" color="primary" type="button" class="btn btn-primary">Add New</button></th>
+            <button mat-raised-button (click)="addnewresource()" color="primary" type="button" class="btn btn-primary">Add / Update</button></th>
         </tr>
       </ng-template>
     <ng-template pTemplate="body" let-resoucedeposit>
       <tr [pSelectableRow]="resoucedeposit">
-
-        <!-- <td (click)="selectsites(resoucedeposit)">
-          {{ resoucedeposit.unit }}
-        </td> -->
-        <td (click)="selectsites(resoucedeposit)">
+        <td (click)="selectresourced(resoucedeposit)" >
+          {{ resoucedeposit.mineral_Id }}
+        </td>
+        <td (click)="selectresourced(resoucedeposit)">
+          {{ unit }}
+        </td>
+        <td (click)="selectresourced(resoucedeposit)">
           {{ resoucedeposit.quantity }}
         </td>
-        <td (click)="selectsites(resoucedeposit)">
+        <td (click)="selectresourced(resoucedeposit)">
           {{ resoucedeposit.explored_Date }}
         </td>
-
         <td (click)="selectsites(resoucedeposit)">
           {{ resoucedeposit.explored_By }}
         </td>
-        <td (click)="selectsites(resoucedeposit)">
+        <td (click)="selectresourced(resoucedeposit)">
           {{ resoucedeposit.lab_Approved_Date }}
         </td>
-        <td (click)="selectsites(resoucedeposit)">
+        <td (click)="selectresourced(resoucedeposit)">
           {{ resoucedeposit.lab_Approved_By }}
         </td>
-        <td (click)="selectsites(resoucedeposit)">
+        <td (click)="selectresourced(resoucedeposit)">
           {{ resoucedeposit.is_Active }}
         </td>
-        <td (click)="selectsites(resoucedeposit)">
+        <td (click)="selectresourced(resoucedeposit)">
           {{ resoucedeposit.remarks }}
         </td>
         <td>

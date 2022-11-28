@@ -4,6 +4,7 @@ import { MineralUseService } from './mineral-use.service';
 import { NotificationsService } from 'angular2-notifications';
 import { ServiceService } from '../service.service';
 import { ActivatedRoute } from '@angular/router';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-mineral-use',
@@ -11,6 +12,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./mineral-use.component.css']
 })
 export class MineralUseComponent implements OnInit {
+  editable: boolean;
+  add_new_mineraluse: any;
+  hide_data: boolean;
+  row_clicked: any;
+  @Output() addingNew = new EventEmitter;
+
 public IsAddFormVisible: any;
 public mineralUses: any;
 public mineralUse: mineralUse;
@@ -28,6 +35,10 @@ public name_Ens: any;
 @Input() licenceData;
 @Input() workingUser;
 @Output() saveDataCompleted = new EventEmitter();
+public coordinate = {
+  lon: null,
+  lat: null,
+};
   plot_ID: Object;
   plot_Id: Object;
   customer_Id: Object;
@@ -41,7 +52,11 @@ public name_Ens: any;
     taskId: null
   };
   @Input() taskId;
+  DisplayCoordinate: boolean;
   user: any;
+  ismapVisiblees: boolean;
+  gis_Plot_Id: any;
+  map: any;
   // gis_plot_Id: any;
   constructor(
     private MineralUseService: MineralUseService,
@@ -56,7 +71,7 @@ this.mineralUse = new mineralUse;
     this.getCustomer_ID();
     this.getmineralUse();
     this.getresourceId();
-    this.getplotID();
+    // this.getplotID();
     this.getgisplotID();
     // this.mineralUse.created_By="00000000-0000-0000-0000-000000000000"
     // this.mineralUse.updated_By="00000000-0000-0000-0000-000000000000"
@@ -118,6 +133,10 @@ this.mineralUse = new mineralUse;
       }
     );
   }
+  select() {
+    console.log('Select');
+    this.MineralUseService.DisplayCoordinate = false;
+  }
   getresourceId() {
     this.MineralUseService.getresourceId().subscribe(
       (response) => {
@@ -128,44 +147,31 @@ this.mineralUse = new mineralUse;
       }
     );
   } 
-  onAccountSelectionChanges(event) {
-     this.mineralUse.customer_Id = event.value;
+  addnewmineraluse() {
+    this.editable=false
+    //this.noRecord=false
+    this.add_new_mineraluse = !this.add_new_mineraluse;
+    this.hide_data = !this.hide_data;
+    this.row_clicked = false;
+    this.addingNew.emit();
+  }
+  onAccountSelectionChanges(id) {
+     this.mineralUse.customer_Id = id;
      console.log('aaaa',event)
       this.isAccountModalVisible = false;
     }
   getCustomer_ID(){
     this.MineralUseService.getCustomer_ID().subscribe(
-        (response) => {
-          this.customer_Id = response;
-          this.accountNoos = refactorDropdownArray(
-            this.customer_Id,
-            "is_Active",
-            "customer_Id",
-            // "name",
-          );
-          console.log("get-customer_Id", response);
-        },
-        (error) => {
-          console.log("error-customer_Id", error);
-        }
-      );
-    }
-    getplotID(){
-    this.MineralUseService.getplotID().subscribe(
-        (response) => {
-          this.plot_Id = response;
-          this.accountNoo = refactorDropdownArray(
-            this.plot_Id,
-            "is_Deleted",
-            "plot_Id" 
-          );
-          console.log("get-plot_Id", response);
-        },
-        (error) => {
-          console.log("error-plot_Id", error);
-        }
-      );
-    } 
+      (response:any) => {
+        this.accountNoos = response;
+        console.log('customer Id',this.accountNoos );       
+        console.log("get-getcustomer Id", response);
+      },
+      (error) => {
+        console.log("error-getcustomer Id", error);
+      }
+    );
+  }
     getgisplotID(){
     this.MineralUseService.getgisplotID().subscribe(
         (response) => {
@@ -183,8 +189,8 @@ this.mineralUse = new mineralUse;
       );
     }
     refactorChartOfAccountObject(object) {
-      if (object.plot_Id)
-      object.plot_Id = object.plot_Id.plot_Id || object.plot_Id;
+      // if (object.plot_Id)
+      // object.plot_Id = object.plot_Id.plot_Id || object.plot_Id;
   
       if (object.customer_Id)
       object.customer_Id = object.customer_Id.customer_Id || object.customer_Id;
@@ -195,20 +201,28 @@ this.mineralUse = new mineralUse;
 
     return object;
   }
-  onAccountSelectionChange(event) {
-    this.mineralUse.plot_Id = event.value;
-     this.isAccountModalVisible = false;
-     this.isAccountVisible = false;
+  // onAccountSelectionChange(event) {
+  //   this.mineralUse.plot_Id = event.value;
+  //    this.isAccountModalVisible = false;
+  //    this.isAccountVisible = false;
      
-   }
+  //  }
    onAccountSelectionChangee(event) {
     this.mineralUse.gis_Plot_Id = event.value;
     console.log('gis',event)
      this.isAccountModalVisible = false;
      this.isAccountVisiblees = false;
    } 
-
+   public OnClickMap(event) {   
+    this.mineralUse.gis_Plot_Id = event.value;
+    this.IsAddFormVisible = false
+    this.ismapVisiblees = false 
+  }
     registermineraluse() {   
+      console.log('gis plot')
+      let Longitude =this.serviceService.gis_Plot_Id.lng
+    let Latitude =this.serviceService.gis_Plot_Id.lat
+    this.mineralUse.gis_Plot_Id = "lat:"+Latitude+" " + "lng:"+Longitude
       console.log(this.mineralUse);
       
       this.MineralUseService.registermineralUse(this.mineralUse).subscribe(
@@ -226,6 +240,18 @@ this.mineralUse = new mineralUse;
           );
         }
       );
+    }
+    gotoCoordinate() {
+      console.log("lon : ", this.gis_Plot_Id.lon, "\nlat : ", this.gis_Plot_Id.lat);
+      if (this.gis_Plot_Id.lon !== null && this.gis_Plot_Id.lat !== null) {
+        this.map.panTo([this.gis_Plot_Id.lat, this.gis_Plot_Id.lon]);
+      }
+      let coords = {
+        lat: this.gis_Plot_Id.lat,
+        lng: this.gis_Plot_Id.lon,
+      };
+  
+      L.marker(coords).addTo(this.map);
     }
     saveData() {
       console.log(this.workingUser);
@@ -298,7 +324,7 @@ this.mineralUse = new mineralUse;
 }
 class mineralUse{
   public resource_Id:any;
-  public plot_Id:any;
+  //public plot_Id:any;
   public gis_Plot_Id:any;
   public customer_Id:any;
   public is_Active:any;

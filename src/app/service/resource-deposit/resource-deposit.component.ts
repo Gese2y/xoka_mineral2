@@ -53,6 +53,11 @@ export class ResourceDepositComponent implements OnInit {
   filteredunitList: any;
  unitlist: any;
   types: any;
+  resoucedeposittemp: any;
+  unit: any;
+  typess: any;
+  mineral_Ids: any;
+  name: any;
  constructor(
   public ResourceDepositService: ResourceDepositService,
   private notificationsService:NotificationsService,
@@ -64,20 +69,20 @@ export class ResourceDepositComponent implements OnInit {
  }
 
   ngOnInit() {
+    this.gettypess();
+    this.gettype();
     this.getmineralID();
-    this.getResourceD();
     this.getsiteId();
-
+    
     this.resourcedeposits.resource_Id= Guid.create();
     this.resourcedeposits.resource_Id = this.resourcedeposits.resource_Id.value;  
-
     this.resourcedeposits.explored_Date = new Date().toISOString().slice(0,10); 
     this.resourcedeposits.lab_Approved_Date = new Date().toISOString().slice(0,10);
-
     this.ResourceDepositService.getUnit().subscribe(data=>{
       this.UnitList=data;
       this.UnitList=this.UnitList;
     })
+    this.getResourceD();
 
     this.routerService.params.subscribe((params) => {
       this.urlParams = params;
@@ -161,34 +166,53 @@ export class ResourceDepositComponent implements OnInit {
         return object;
       }
 
+gettype(){
+  this.ResourceDepositService.getUnit().subscribe(
+    (response:any) => {
+      this.types = response;
+      console.log("response-lookup", this.types);
+    })
+}
+gettypess(){
+  this.ResourceDepositService.getmineralID().subscribe(
+    (response:any) => {
+      this.typess = response;
+      console.log("response-minral", this.typess);
+    })
+}
+
       getResourceD() {
         this.ResourceDepositService.getResourceD().subscribe(
-          (response) => {
+          (response:any) => {
             console.log("resource", response);
             this.resoucedeposit = response;
+                  console.log("aaaaa",this.resoucedeposit);
 
-            // this.filteredunitList =this.unitlist.filter(
-            //   filteredunitList => {
-            //     if(filteredunitList.unit == this.resoucedeposit.unit) {
-              
-            //       this.ResourceDepositService.getUnit().subscribe(
-            //         response => {
-            //           this.types = response;
-            //           console.log("response-lookup", response,filteredunitList.unit);
-                     
-            //       const Unit = this.types.find(element => element.lkdetail_code == filteredunitList.unit)
-            //       console.log("Uinit", Unit)
-            //       console.log("Uinit", Unit.english_description)
-            //       this.filteredunitList.unit=Unit.english_description
-            //         return Unit.english_description
-            //          })
-            //       return true;
-            //     }
-            //    else{
-            //     return false;
-            //   }
-            // }
-            //   );
+                    for(let i=0; i < this.resoucedeposit.length; i++){
+                              if(this.resoucedeposit[i] !=null || this.resoucedeposit[i] !=undefined){
+
+                                let Unit = this.types.filter(element => element.lkdetail_code === this.resoucedeposit[i].unit)
+                                console.log("Uinit", Unit)
+                                if(Unit.length >0){
+                                  let unitype= Unit[0].english_description
+                                  this.unit=unitype
+                                  console.log("aaaaaa",
+                                  this.resoucedeposit[i].unit);
+                              }
+                              let Mineral = this.typess.filter(element => element.mineral_Id === this.resoucedeposit[i].mineral_Id)
+                                console.log("Miinerallsss", Mineral)
+                                if(Mineral.length >0){
+                                  let Mineraltype= Mineral[0].name
+                                  
+                                  this.resoucedeposit[i].mineral_Id=Mineraltype
+                                  console.log("mineral name",
+                                  this.resoucedeposit[i].mineral_Id);
+                              }
+                      }
+                    } 
+                    
+                    
+                   
           },
           (error) => {
             const toast = this.notificationsService.error(
@@ -196,13 +220,11 @@ export class ResourceDepositComponent implements OnInit {
               "SomeThing Went Wrong"
             );
           }
-        );
-
-       
+        );    
       }
 
       addresourcedeposits() {
-        // this.serviceService.site_Id = this.serviceService.site_Id;
+        this.resourcedeposits.site_Id = this.serviceService.site_Id;
     this.ResourceDepositService.addresourcedeposits(this.resourcedeposits)
       .subscribe(
         (response) => {
@@ -215,7 +237,7 @@ export class ResourceDepositComponent implements OnInit {
             "Error",
             "SomeThing Went Wrong"
           );
-        }
+        }     
       );
   }
   
@@ -239,12 +261,15 @@ export class ResourceDepositComponent implements OnInit {
         c.unit.includes(event.query)
       );
     }
-    selectsites(resourcedeposits) {
-      if (resourcedeposits) {
-        console.log(resourcedeposits)
-          this.edit_form = true;
-          this.resourcedeposits = resourcedeposits;
-      }
+    selectresourced(resourcedeposits) {
+      console.log(resourcedeposits)
+      this.edit_form = true;
+      this.resourcedeposits = resourcedeposits;
+      this.serviceService.resource_Id = resourcedeposits.resource_Id
+      // this.serviceService.resource_Id = resourcedeposits.resource_Id
+      // console.log(this.serviceService.site_Id)
+      // this.serviceService.resource_deposit=false;
+      this.serviceService.mineral_Use=false;
     }
 
     saveData() {
@@ -405,11 +430,4 @@ public lab_Approved_Date:any;
 public lab_Approved_By:any;
 public is_Active:any;
 public remarks:any;
-// public created_By:any;
-// public updated_By:any;
-// public deleted_By:any;
-// public is_Deleted:any;
-// public created_Date:any;
-// public updated_Date:any;
-// public deleted_Date:any;
 }

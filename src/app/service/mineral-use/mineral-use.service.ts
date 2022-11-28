@@ -11,6 +11,8 @@ export class MineralUseService {
   public Customer_IDUrl = environment.rootApiPath + "Customer";
   public ResourceIDUrl = environment.rootApiPath + "ResourceDeposit";
   public plotIDUrl = environment.rootApiPath + "PlotRegistration";
+  DisplayCoordinate: boolean;
+  gis_Plot_Id:any;
  
   constructor(private http: HttpClient) { }
   getCustomer_ID() {
@@ -19,9 +21,9 @@ export class MineralUseService {
   getresourceId() {
     return this.http.get(this.ResourceIDUrl);
   }
-  getplotID() {
-    return this.http.get(this.plotIDUrl);
-  } 
+  // getplotID() {
+  //   return this.http.get(this.plotIDUrl);
+  // } 
   getgisplotID() {
     return this.http.get(this.plotIDUrl);
   }

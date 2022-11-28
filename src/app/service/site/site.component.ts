@@ -32,6 +32,7 @@ export class SiteComponent implements OnInit {
   // private mapViewEvents = new NativeEmitter();
   public clickCoordinate: any;
   public IsAddFormVisible: any;
+  isnew: boolean; 
   site: site={} as site;
   public sites: any;
   // public site: site;
@@ -70,6 +71,18 @@ export class SiteComponent implements OnInit {
   @Output() addingNew = new EventEmitter;
   addsite: any;
   add_new_site: any;
+  data: any;
+  dropdownzone_Name: any;
+  zones_zone_code: any;
+  woreda: any;
+  woredassss: any;
+  dropdowndescription: any;
+  zones: any;
+  ismapVisibleess: boolean;
+  public Zone: any;
+  title: any;
+  woredas: any;
+  isselected: boolean;
   constructor(
     public SiteService: SiteService,
     private notificationsService: NotificationsService,
@@ -86,11 +99,23 @@ export class SiteComponent implements OnInit {
     this.getRegion();
     this.getZone();
     this.getWoreda();
-    //  this.site.site_Id= Guid.create();
+    console.log(this.site.zone)
+
+    // this.SiteService.getWoreda().subscribe((response: any) => {
+    //   console.log('zone');
+    //   response.filter(
+    //       (val) => {val.zones_zone_code = this.zones.zones_zone_code
+    //       console.log('filter Wereda',val);
+    //   }
+    //       )
+    //     .zone((zone: any) => {
+    //       this.dropdownzone_Name.add(zone.description);
+    //     });
+    // }); 
+
     this.site.site_Id = Guid.create();
     this.site.site_Id = this.site.site_Id.value;
     console.log('Site');
-    // this.clearForm();
     this.site.date_Registered = new Date().toISOString().slice(0,10); 
 
     this.SiteService.getStatusList().subscribe(data => {
@@ -126,6 +151,44 @@ export class SiteComponent implements OnInit {
     console.log('taskId', this.taskId);
     console.log('post data :: ', this.postData);
   }
+
+  passdata(ee){
+    console.log('zone',ee.target.value) 
+    this.SiteService.getWoreda().subscribe(
+      (response) => {
+         this.woredas = response;
+      console.log('aaaaaa',this.woredas)
+         this.woredas = this.woredas.filter((value) => value.zones_zone_code == ee.target.value)
+         console.log("woreda", this.woredas);
+         // this.SiteService.zones_zone_code=this.Zone.zones_zone_code
+       },
+       (error) => {
+       }
+       );
+      //this.getisactives(this.SiteService.zones_zone_code)
+      }
+
+    getisactives(id:any) {
+      this.SiteService.getZone().subscribe(
+        { next: (response:any) => {
+          
+          console.log('abbb',response)
+          
+          this.zones = response
+          this.zones = this.zones;
+          this.zones = (Object.assign([],this.zones)); 
+          console.log("get-zone_code", id);
+          this.zones = this.zones.filter((value:any) => value['zone_code']==  id) 
+
+          console.log("zone_code list", this.zones[0].description)
+          this.title=this.zones[0].description
+      
+        },
+       error: (error) => {
+        }
+       } );
+    }
+    
   getsite() {
     this.SiteService.getsite().subscribe(
       (response) => {
@@ -262,7 +325,7 @@ export class SiteComponent implements OnInit {
     // this.site.site_Id = this.site.site_Id.value;
   }
   finishSelection() {
-
+this.ismapVisiblees=false
     this.message.registersite(
       { severity: 'success', summary: 'Map Selection', detail: 'Map is selected successfully!' }
     );
@@ -278,7 +341,10 @@ export class SiteComponent implements OnInit {
       );
     }
   }
-
+  select() {
+    console.log('Select');
+    this.SiteService.DisplayCoordinate = false;
+  }
   public OnClickMap(event) {   
     this.site.coordinate = event.value;
     this.IsAddFormVisible = false
@@ -303,6 +369,7 @@ export class SiteComponent implements OnInit {
     this.serviceService.site_Id = site.site_Id
     console.log(this.serviceService.site_Id)
     this.serviceService.resource_deposit=false;
+    // this.serviceService.resource_Id=false;
   }
   getRegion() {
     this.SiteService.getRegion().subscribe(
@@ -343,7 +410,7 @@ export class SiteComponent implements OnInit {
     this.addingNew.emit();
   }
 
-
+ 
 }
 class site{
   public site_Id: any;

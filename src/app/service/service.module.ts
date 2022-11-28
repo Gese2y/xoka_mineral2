@@ -33,7 +33,7 @@ import {
   ProgressSpinnerModule,
 } from "primeng/primeng";
 import { FormDisplayComponent } from "./form-display/form-display.component";
-import { SurveyComponent } from "./task-layout/layout.component";
+import { SurveyComponent } from "./task-layout/survey.component";
 import { DemoComponent } from "./demo/demo.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -96,7 +96,7 @@ NgxPaginationModule,
     
     UnitOfMeasureComponent,
     CurrencyComponent,
-
+    SurveyComponent,
     PeriodsComponent,
     MineralComponent,
     MineralUseComponent,

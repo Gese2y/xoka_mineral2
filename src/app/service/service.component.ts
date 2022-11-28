@@ -7,7 +7,7 @@ import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
 import { LayoutService } from "./task-layout/layout.service";
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from "src/environments/environment";
-
+import { EventEmitter } from "events";
 @Component({
   selector: "app-service",
   templateUrl: "./service.component.html",
@@ -40,6 +40,11 @@ export class ServiceComponent implements OnInit {
 
   saveForms;
 
+  serviceEvent = new EventEmitter();
+  eventTypes = {
+    JSONFOUND: 'ev001',
+    ALREADYAPPLIED: 'ev002'
+  }
 
   validated=false;
   preAppID;
@@ -95,7 +100,8 @@ export class ServiceComponent implements OnInit {
     private serviceService: ServiceService,
     private router: Router,
     private notificationsService: NotificationsService,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,
+    private service: LayoutService
   ) {}
 
   ngOnInit() {
@@ -176,15 +182,18 @@ export class ServiceComponent implements OnInit {
         this.ID = 34; 
       } else if (params["formcode"] == "6") {
         this.ID = 35; 
-      } else {
-        this.layoutService.getFormData(params["formcode"]).subscribe(
-          (data) => {
-            this.ID = 1;
-          },
-          (error) => {
-            this.ID = 0;
-          }
-        );
+      }  else {
+        this.ID = 0;
+        this.serviceEvent.on(
+          this.eventTypes.JSONFOUND,
+          () => {
+            console.log('rendering form...');
+            this.service.getFormData(params['formcode'], 2).subscribe(data => {
+              this.ID = 1;
+            }, error => {
+              this.ID = 404;
+            });
+          });
       }
       // this.ID = params['id'];
       this.AppNo = params["AppNo"];

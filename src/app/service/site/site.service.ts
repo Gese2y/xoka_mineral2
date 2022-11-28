@@ -16,6 +16,7 @@ export class SiteService {
 
   private siteUrl =environment.rootApiPath + 'Site';
   DisplayCoordinate: boolean;
+  zones_zone_code: any;
 
   constructor(private http: HttpClient) { }
   getSite_Status(){
@@ -52,6 +53,9 @@ export class SiteService {
   // }
   updatesite(site) {
     return this.http.put(this.siteUrl+"/"+ site.site_Id,site) ;
+  }
+  getisactive() {
+    return this.http.get(this.Zone);
   }
 
 }

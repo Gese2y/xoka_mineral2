@@ -57,12 +57,16 @@ export class ServiceService {
   AppCode;
   desplayuserid: boolean;
   coordinate: any;
-  site_Id:any;
+  gis_Plot_Id: any;
+  // site_Id:any;
   mineral_Id: any;
   plot_Id: any;
   sitid: any;
   resource_deposit:boolean=true;
+  mineral_Use:boolean=true;
   Addminerals: any;
+  site_Id: any;
+  resource_Id: any;
   constructor(private http: HttpClient) {
     
   }
