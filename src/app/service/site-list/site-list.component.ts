@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Guid } from 'guid-typescript';
-import { TabsetComponent } from 'ngx-bootstrap';
+// import { TabsetComponent } from 'ngx-bootstrap';
 import { SiteService } from '../site/site.service';
 import { ServiceService } from '../service.service';
 import { NotificationsService } from 'angular2-notifications'; 
+import { TabsetComponent } from 'ngx-bootstrap';
+;
 
 // import { StepModel } from 'step.model';
 
@@ -13,28 +15,30 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./site-list.component.css']
 })
 export class SiteListComponent implements OnInit {
-  // @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
 // public site: any;
 public sites: any;
 completed:any;
 site: site;
-@ViewChild("tabset") tabset: TabsetComponent;
+
+public selectedTab = 0;
+// @ViewChild("tabset") tabset: TabsetComponent;
 @Input() licenceData;  
 @Input() workingUser;
 @Output() saveDataCompleted = new EventEmitter();
 @Input() taskId;
   selectedFile: any;
+  // reviewInfoChange: ReviewInfoChange;
     selectedprofromtree: any;
   toMes;
   // staticTabs: any;
   StatusList: any;
   routerService: any;
   urlParams: any;
-  staticTabs: any;
+  // staticTabs: any;
   // postData: any;
-  goto(id) {
-    this.tabset.tabs[id].active = true;
-  } 
+  // goto(id) {
+  //   this.tabset.tabs[id].active = true;
+  // } 
   public edit_form = false;
   postData = {
     orgId: null,
@@ -43,21 +47,32 @@ site: site;
     userId: null,
     taskId: null
   };
+  // @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
+  alreadyLoaded: any;
+
 constructor(private SiteService: SiteService,
   public serviceService:ServiceService,
   private notificationsService:NotificationsService,
+  
   ) {
   this.site = new site();
+  this.serviceService.disableBrowserBackButton();
   
 }
 
-selectTab(tabId: number) {
-  this.staticTabs.tabs[tabId].active = true;
+// selectTab(tabId: number) {
+//   this.staticTabs.tabs[tabId].active = true;
+// }
+clicknext(){
+  this.serviceService.resource_depositss=false;
+  // this.serviceService.mineral_Uses=false;
 }
-
-
+clicknexts(){
+  // this.serviceService.resource_depositss=false;
+  this.serviceService.mineral_Uses=false;
+}
   ngOnInit() {
-    this.goto(0);
+    // this.goto(0);
     this.getsite();
     this.routerService.params.subscribe((params) => {
       this.urlParams = params;
@@ -88,7 +103,21 @@ selectTab(tabId: number) {
     console.log('post data :: ', this.postData);
   }
   
- 
+  changeTab(event) {
+    console.log('tab change :: ', event);
+    if (event.tab === 1 && !this.alreadyLoaded) {
+      // this.loadreviewInfo();
+    }
+    this.selectedTab = event.tab;
+    console.log('already ::', this.alreadyLoaded);
+  }
+  tabViewEvent(event) {
+    console.log('tab view ::', event);
+    if ((event.index === 1 || event.index === 2) && !this.alreadyLoaded) {
+      // this.loadreviewInfo();
+    }
+    console.log('already ::', this.alreadyLoaded);
+  }
   getsite() {
     this.SiteService.getsite().subscribe(
       (response) => {
@@ -109,7 +138,7 @@ selectTab(tabId: number) {
   addsite() {
     this.site = new site();
     this.edit_form = false;
-    this.goto(0);
+    // this.goto(0);
   }
   saveData() {
     console.log(this.workingUser);
@@ -168,7 +197,7 @@ selectTab(tabId: number) {
   //   this.getsite();
   // }
   closeup() {
-    this.goto(0);
+    // this.goto(0);
     this.site = new site();
     this.getsite();
   }

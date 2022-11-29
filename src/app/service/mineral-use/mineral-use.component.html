@@ -29,11 +29,11 @@
               [style]="{'minHeight':'10%','height':'200px','minWidth':'10%','width':'80%' }" [maximizable]="true"
               [baseZIndex]="400" (click)="ismapVisiblees=true">
               <p-header>
-                <h4 class="modal-title pull-left" translate>Site Coordinate</h4>
+                <h4 class="modal-title pull-left" translate>GIS Plot</h4>
               </p-header>
               <div class="modal-body">
                 <div style="min-width: 600px">
-                  <app-site-map></app-site-map>
+                  <app-site-mapss></app-site-mapss>
                 </div>
 
               </div>
@@ -45,7 +45,7 @@
             </p-dialog>
           
             <div class="col-md-6 row form-group">
-              <label for="site_Id" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Customer ID</label>
+              <label for="Customer_ID" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Customer ID</label>
               <div class="col-sm-9">
                 <input type="text" class="form-control form-control-sm" id="Customer_ID" placeholder="Customer_ID"
         (click)="isAccountModalVisible=true" [(ngModel)]="mineralUse.customer_Id" name="Customer_ID" readonly>
@@ -173,36 +173,32 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-mineralUses>
-      <tr>
-        <td>
+      <tr [pSelectableRow]="mineralUses">
+        <td (click)="selectresourced(mineralUses)">
           {{ mineralUses.resource_Id }}
         </td>
         <!-- <td>
           {{ mineralUses.plot_Id }}
         </td> -->
 
-        <td>
+        <td (click)="selectresourced(mineralUses)">
           {{ mineralUses.gis_Plot_Id }}
         </td>
-        <td>
+        <td (click)="selectresourced(mineralUses)">
           {{ mineralUses.customer_Id }}
         </td>
-        <td>
+        <td (click)="selectresourced(mineralUses)">
           {{ mineralUses.is_Active }}
         </td>
-
-        <td>
+        <td (click)="selectresourced(mineralUses)">
           {{ mineralUses.remarks }}
         </td>
-
-        <td>
         <td>
           <button type="button" class="btn btn-primary" (click)="deletemineralUse(mineralUses)">
             <i class="pi pi-trash"></i>
             Delete
           </button>
         </td>
-
       </tr>
     </ng-template>
     </p-table>

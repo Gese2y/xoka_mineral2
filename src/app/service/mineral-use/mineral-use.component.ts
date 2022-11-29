@@ -20,7 +20,8 @@ export class MineralUseComponent implements OnInit {
 
 public IsAddFormVisible: any;
 public mineralUses: any;
-public mineralUse: mineralUse;
+// public mineralUse: mineralUse;
+mineralUse: mineralUse={} as mineralUse;
 public isAccountModalVisible = false;
 public isAccountVisible = false;
 public isAccountVisiblees= false;
@@ -39,10 +40,11 @@ public coordinate = {
   lon: null,
   lat: null,
 };
+types: any;
   plot_ID: Object;
   plot_Id: Object;
   customer_Id: Object;
-  gis_plot_Id: Object;
+  gis_plot_Id: any;
   resoucedeposits: any;
   postData = {
     orgId: null,
@@ -57,6 +59,7 @@ public coordinate = {
   ismapVisiblees: boolean;
   gis_Plot_Id: any;
   map: any;
+  edit_form: boolean;
   // gis_plot_Id: any;
   constructor(
     private MineralUseService: MineralUseService,
@@ -68,6 +71,7 @@ public coordinate = {
 this.mineralUse = new mineralUse;
    }
   ngOnInit() {
+    this.gettype();
     this.getCustomer_ID();
     this.getmineralUse();
     this.getresourceId();
@@ -119,11 +123,34 @@ this.mineralUse = new mineralUse;
     console.log('post data :: ', this.postData);
 
   }
+  gettype(){
+    this.MineralUseService.getsite().subscribe(
+      (response:any) => {
+        this.types = response;
+        console.log("response-lookup", this.types);
+      })
+  }
   getmineralUse() {
     this.MineralUseService.getmineralUse().subscribe(
       (response) => {
         console.log("Minral use", response);
         this.mineralUses = response;
+        console.log("aaaaa",this.mineralUses);
+
+        for(let i=0; i < this.mineralUses.length; i++){
+                  if(this.mineralUses[i] !=null || this.mineralUses[i] !=undefined){
+
+                    let ResourceId = this.types.filter(element => element.site_Id === this.mineralUses[i].site_Id)
+                    console.log("Uinit", ResourceId)
+                    if(ResourceId.length >0){
+                      let sitetype= ResourceId[0].site_Name
+                      this.mineralUses.site_Id=sitetype
+                      console.log("site name",
+                      this.mineralUses[i].site_Id);
+                    }
+                  }
+                } 
+                      
       },
       (error) => {
         const toast = this.NotificationsService.error(
@@ -131,7 +158,7 @@ this.mineralUse = new mineralUse;
           "SomeThing Went Wrong"
         );
       }
-    );
+  );
   }
   select() {
     console.log('Select');
@@ -223,7 +250,7 @@ this.mineralUse = new mineralUse;
       let Longitude =this.serviceService.gis_Plot_Id.lng
     let Latitude =this.serviceService.gis_Plot_Id.lat
     this.mineralUse.gis_Plot_Id = "lat:"+Latitude+" " + "lng:"+Longitude
-      console.log(this.mineralUse);
+      console.log('gis',this.mineralUse);
       
       this.MineralUseService.registermineralUse(this.mineralUse).subscribe(
         (response) => {
@@ -318,8 +345,11 @@ this.mineralUse = new mineralUse;
     this.mineralUses = {};
     this.IsAddFormVisible = !this.IsAddFormVisible;
   }
- 
-
+  selectsites(mineralUse) {
+    console.log(mineralUse)
+    this.edit_form = true;
+    this.mineralUse = mineralUse;
+  }
 }
 class mineralUse{
   public resource_Id:any;

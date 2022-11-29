@@ -1,32 +1,49 @@
-<tabset #tabset>
-  <tab heading="Mineral Site">
-    <app-site (completed)="completed" [taskId]="taskId" 
+<p-tabView [(activeIndex)]="selectedTab" (onChange)="tabViewEvent($event)">      
+  <p-tabPanel [header]="'Mineral Site'  | translate" >
+    <app-site  
+    (completed)="completed" [taskId]="taskId" 
     [(licenceData)]="licenceData" [workingUser]="workingUser"
     (saveDataCompleted)="saveDataCompleted" ></app-site> <br><br>
-    <div class=" float-right">
-      <button type="button"  class="btn btn-primary btn-sm" [disabled]="serviceService.resource_deposit" (click)="selectTab(1)">Next</button></div>
-      <br><br>
-  </tab>
-  <tab heading="Resource Deposit" >
+    <!-- <div class=" float-right">
+      <button type="button"  class="btn btn-primary btn-sm" 
+      [disabled]="serviceService.resource_deposit" (click)="clicknext()">Next</button>
+    </div> -->
+    <div class="col-12"> 
+    <div class="d-flex justify-content-end mr-4 mb-2">
+      <button type="button" [disabled]="serviceService.resource_deposit" class="btn btn-info ml-2" (click)="selectedTab = 1" translate>
+        Next
+      </button>
+    </div>
+  </div>
+    </p-tabPanel>
+  
+  <p-tabPanel [header]="'Resource Deposit' | translate" [disabled]="serviceService.resource_depositss">
     <app-resource-deposit (completed)="completed" [taskId]="taskId"  
     [(licenceData)]="licenceData" [workingUser]="workingUser"
-    (saveDataCompleted)="saveDataCompleted" ></app-resource-deposit>
+    (saveDataCompleted)="saveDataCompleted"></app-resource-deposit>
     <br><br>
-    <div class=" float-right">
-      <button type="button"  class="btn btn-primary btn-sm" [disabled]="serviceService.mineral_Use" (click)="selectTab(2)">Next</button></div>
-  <div class=" float-left">
-      <button type="button"  class="btn btn-primary btn-sm" (click)="selectTab(0)">Previous</button></div>
+   
+      <div class="col-12">
+        <div class="d-flex justify-content-end mr-4 mb-2">
+          <button type="button" [disabled]="serviceService.mineral_Use" class="btn btn-info ml-2" (click)="selectedTab = 2" translate>
+            Next
+          </button>
+        </div>
+      </div>
+      <div class=" float-left">
+        <button type="button"  class="btn btn-info ml-2" (click)="selectedTab = 0" translate> Preview
+          </button></div>
       <br><br>
-    </tab>  
-<tab heading="Mineral Use" >
+    </p-tabPanel> 
+    <p-tabPanel [header]="'Mineral Use' | translate" [disabled]="serviceService.mineral_Uses">
     <app-mineral-use (completed)="completed" [taskId]="taskId"  
     [(licenceData)]="licenceData" [workingUser]="workingUser"
     (saveDataCompleted)="saveDataCompleted" ></app-mineral-use>
     <br><br>
     <div class=" float-left">
-
-      <button type="button"  class="btn btn-primary btn-sm" (click)="selectTab(1)">Previous</button>
-  </div>
+      <button type="button"  class="btn btn-info ml-2" (click)="selectedTab = 1" translate> Preview
+        </button>
+      </div>
   <br><br>
-</tab>  
-</tabset>
+</p-tabPanel>
+</p-tabView>

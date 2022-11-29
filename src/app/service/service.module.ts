@@ -49,6 +49,12 @@ import { ListMineralComponent } from './list-mineral/list-mineral.component';
 import { SiteListComponent } from './site-list/site-list.component';
 import {GMapModule} from 'primeng/gmap';
 import { SiteMapComponent } from './site-map/site-map.component';
+import { SiteMapssComponent } from "./site-mapss/site-mapss.component";
+import { GeojsondeskComponent } from "./geojsondesk/geojsondesk.component";
+import { GisComponent } from "./gis/gis.component";
+import { DrawmapComponent } from "./drawmap/drawmap.component";
+// import { GisComponent } from "./gis/gis.component";/
+// import { GisComponent } from "./gis/gis.component";
 // import { ArchwizardModule } from 'angular-archwizard';
 @NgModule({
   imports: [
@@ -81,7 +87,9 @@ NgxPaginationModule,
     AutoCompleteModule,
     DropdownModule,
     // LeafletModule
-    GMapModule 
+    GMapModule ,
+    // TabsModule
+        TabViewModule
     
   ],
   declarations: [
@@ -105,6 +113,10 @@ NgxPaginationModule,
     ListMineralComponent,
     SiteListComponent,
     SiteMapComponent,
+    SiteMapssComponent,
+    GisComponent,
+  GeojsondeskComponent,
+  DrawmapComponent
    
   ],
   providers: [

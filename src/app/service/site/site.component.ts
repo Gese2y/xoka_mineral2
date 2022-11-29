@@ -82,6 +82,7 @@ export class SiteComponent implements OnInit {
   public Zone: any;
   title: any;
   woredas: any;
+  public selectedTab = 0;
   isselected: boolean;
   constructor(
     public SiteService: SiteService,
@@ -211,6 +212,7 @@ export class SiteComponent implements OnInit {
         const toast = this.notificationsService.success("Success", "success");
         this.getsite();
         //this.completed.emit('{}');
+        this.selectedTab = 1;
         this.clearForm();
       }, 
       (error) => {
@@ -320,7 +322,7 @@ export class SiteComponent implements OnInit {
   clearForm() {
     this.sites = {};
     this.IsAddFormVisible = !this.IsAddFormVisible;
-   
+    this.selectedTab = 0;
     // this.site.site_Id= Guid.create();
     // this.site.site_Id = this.site.site_Id.value;
   }

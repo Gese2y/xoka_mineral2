@@ -11,6 +11,7 @@ export class MineralUseService {
   public Customer_IDUrl = environment.rootApiPath + "Customer";
   public ResourceIDUrl = environment.rootApiPath + "ResourceDeposit";
   public plotIDUrl = environment.rootApiPath + "PlotRegistration";
+  private siteUrl =environment.rootApiPath + 'Site';
   DisplayCoordinate: boolean;
   gis_Plot_Id:any;
  
@@ -38,5 +39,8 @@ export class MineralUseService {
       this.mineralUseUrl + "/" + mineralUse.resource_Id
 
     );
+  }
+  getsite() {
+    return this.http.get(this.siteUrl);
   }
 }

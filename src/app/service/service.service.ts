@@ -63,7 +63,10 @@ export class ServiceService {
   plot_Id: any;
   sitid: any;
   resource_deposit:boolean=true;
+  resource_depositss:boolean=true;
+
   mineral_Use:boolean=true;
+  mineral_Uses:boolean=true;
   Addminerals: any;
   site_Id: any;
   resource_Id: any;
@@ -110,6 +113,7 @@ export class ServiceService {
        docid + "&todoID=" +
        todoID, null);
    }
+   
 
   isvalidated(todoid, taskid, Plotid, ProperyID, DocID) {
     return this.http.get(

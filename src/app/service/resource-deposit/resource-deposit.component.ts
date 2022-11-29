@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { refactorDropdownArray } from '../helpers/helpers';
 import { ResourceDepositService } from './resource-deposit.service';
@@ -6,6 +6,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { ServiceService } from '../service.service';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { TabsetComponent } from 'ngx-bootstrap/tabs';
 @Component({
   selector: 'app-resource-deposit',
   templateUrl: './resource-deposit.component.html',
@@ -18,8 +19,9 @@ export class ResourceDepositComponent implements OnInit {
   todayDate : Date = new Date();
   todayString : string = new Date().toDateString();
   todayISOString : string = new Date().toISOString();
-
+  // @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
  public IsAddFormVisible = false;
+ 
  public resoucedeposit: any;
  public resourcedeposits: resourcedeposits;
  public isAccountVisible: any;
@@ -67,6 +69,9 @@ export class ResourceDepositComponent implements OnInit {
  ) { 
   this.resourcedeposits = new resourcedeposits;
  }
+//  selectTab(tabId: number) {
+//   this.staticTabs.tabs[tabId].active = true;
+// } 
 
   ngOnInit() {
     this.gettypess();

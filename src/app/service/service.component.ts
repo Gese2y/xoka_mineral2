@@ -181,7 +181,11 @@ export class ServiceComponent implements OnInit {
        } else if (params["formcode"] == "60ca1a18-ff1c-46da-babd-0159bd0124b0") {
         this.ID = 34; 
       } else if (params["formcode"] == "6") {
-        this.ID = 35; 
+        this.ID = 35;
+      } else if (params["formcode"] == "7") {
+        this.ID = 36; 
+       } else if (params["formcode"] == "8") {
+        this.ID = 37; 
       }  else {
         this.ID = 0;
         this.serviceEvent.on(

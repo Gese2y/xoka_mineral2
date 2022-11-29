@@ -20,4 +20,7 @@
   PaymentReportPath: window["PaymentReportPath"],
   ValidateReportPath: window["ValidateReportPath"],
   GISURL: window["GISURL"],
+  resourcePath: '',
+  overlayLayer: window['overlayLayer'],
+  layerConfig: window['layerConfig']
 };
