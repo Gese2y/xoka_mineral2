@@ -1,15 +1,16 @@
-import { ServiceService } from './../service.service';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {LayoutService} from '../task-layout/layout.service';
 import * as Survey from 'survey-angular';
+import {LayoutService} from './layout.service';
 import {ActivatedRoute, Params} from '@angular/router';
+import { NotificationsService } from 'angular2-notifications';
+
 
 @Component({
-  selector: 'app-form-display',
-  templateUrl: './form-display.component.html',
-  styleUrls: ['./form-display.component.css']
+  selector: 'app-servy',
+  templateUrl: `layout.component.html`,
+  styleUrls: ['styles.css']
 })
-export class FormDisplayComponent implements OnInit {
+export class SurveyComponent implements OnInit {
   @Output() completed = new EventEmitter();
   @Input() formData;
   @Input() formcode;
@@ -18,9 +19,9 @@ export class FormDisplayComponent implements OnInit {
   surveyModel: any;
   json;
   data: any;
-  ID = 'surveyElementDisplay';
+  ID = 'surveyElement'
 
-  constructor(private activatedRoute: ActivatedRoute, private service: LayoutService) {
+  constructor(private activatedRoute: ActivatedRoute, private service: LayoutService, private notificationsService:NotificationsService) {
   }
 
 
@@ -28,10 +29,14 @@ export class FormDisplayComponent implements OnInit {
 
     this.activatedRoute.params.subscribe((params: Params) => {
       // this.formcode = params['formcode'];
-      console.log(this.service.getFormData(this.formcode, this.taskLevel));
+      console.log(this.service.getFormData(this.formcode,this.taskLevel));
       this.service.getFormData(this.formcode, this.taskLevel).subscribe(data => {
         this.viewform(data);
-      }, error => console.log(error));
+      }, error => {
+        const toast = this.notificationsService.error('Error', 'Form Not Found');
+        console.log("Form ERR "+error)
+    }
+      );
       // console.log(this.data);
       // this.surveyModel = new Survey.Model(this.data);
       // Survey.SurveyNG.render('surveyElement', {model: this.surveyModel});
@@ -40,11 +45,11 @@ export class FormDisplayComponent implements OnInit {
 
 
   viewform(data: any): any {
-    console.log("form-data", data, JSON.parse(this.formData));
+    console.log(data);
     this.surveyModel = new Survey.Model(data);
-    this.surveyModel.data = JSON.parse(this.formData);
+    this.surveyModel.data = this.formData;
     if (this.Mode) {
-      this.surveyModel.mode = this.Mode; // 'display';
+      this.surveyModel.mode = this.Mode;//'display';
       Survey.SurveyNG.render(this.ID, {model: this.surveyModel});
     } else {
       Survey.SurveyNG.render(this.ID, {model: this.surveyModel});
