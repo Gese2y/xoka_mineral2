@@ -32,8 +32,7 @@ import {
   TabViewModule,
   ProgressSpinnerModule,
 } from "primeng/primeng";
-import { FormDisplayComponent } from "./form-display/form-display.component";
-import { SurveyComponent } from "./task-layout/survey.component";
+
 import { DemoComponent } from "./demo/demo.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -49,6 +48,8 @@ import { ListMineralComponent } from './list-mineral/list-mineral.component';
 import { SiteListComponent } from './site-list/site-list.component';
 import {GMapModule} from 'primeng/gmap';
 import { SiteMapComponent } from './site-map/site-map.component';
+import { SurveyComponent } from "./task-layout/layout.component";
+import { FormDisplayComponent } from "./form-display/form-display.component";
 // import { ArchwizardModule } from 'angular-archwizard';
 @NgModule({
   imports: [
@@ -88,15 +89,15 @@ NgxPaginationModule,
    
     ServiceComponent,
     LoadingComponent,
-    FormDisplayComponent,
     SurveyComponent,
+    FormDisplayComponent,
     
     DemoComponent,
     TaxTypeComponent,
     
     UnitOfMeasureComponent,
     CurrencyComponent,
-    SurveyComponent,
+    
     PeriodsComponent,
     MineralComponent,
     MineralUseComponent,
