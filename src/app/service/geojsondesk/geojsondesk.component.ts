@@ -5,12 +5,12 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
 } from "@angular/core";
-
 import * as L from "leaflet";
 import { interval } from "rxjs";
 import { PopupService } from "src/app/pro-service/popup.service";
 
 import { GisService } from "src/app/service/gis/gis.service";
+import { ServiceService } from "../service.service";
 
 const iconRetinaUrl = "assets/marker-icon-2x.png";
 const iconUrl = "assets/marker-icon.png";
@@ -35,16 +35,21 @@ L.Marker.prototype.options.icon = iconDefault;
 export class GeojsondeskComponent implements OnInit {
   private map: any;
   dyCheckbox: any;
+private clickCoordinate: any;
+
   layerCapability: any;
   i = 0;
 
   mpass = new Map();
+  ismapVisiblees: boolean;
 
   constructor(
     private gisservice: GisService,
     private cd: ChangeDetectorRef,
-    private popup: PopupService
+    private popup: PopupService,
+    public serviceService: ServiceService
   ) {}
+
 
   ngOnInit() {
     this.gisservice.getCapabilitiesGeodesk().subscribe((res: any) => {
@@ -67,6 +72,7 @@ export class GeojsondeskComponent implements OnInit {
     });
   }
 
+  
   ngAfterContentInit() {
     this.initmap();
   }
@@ -105,7 +111,7 @@ export class GeojsondeskComponent implements OnInit {
         .subscribe((res: any) => {
           console.log(res);
           this.mpass.set($event.target.name, res);
-          this.map.addLayer(L.geoJSON(res));
+          this.map.addLayer(L.geoJSON(res).bindPopup("Plot Id"));
         });
     } else {
       console.log("remove ", this.mpass.get($event.target.name));

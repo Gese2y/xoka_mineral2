@@ -65,18 +65,18 @@
             </div>
             <p-dialog [(visible)]="SiteService.DisplayCoordinate" [closable]="true" [modal]="true" [responsive]="true"
               [style]="{'minHeight':'10%','height':'200px','minWidth':'10%','width':'80%' }" [maximizable]="true"
-              [baseZIndex]="400" (click)="ismapVisiblees=true">
+              [baseZIndex]="800" (click)="ismapVisiblees=true">
               <p-header>
                 <h4 class="modal-title pull-left" translate>Site Coordinate</h4>
               </p-header>
               <div class="modal-body">
                 <div style="min-width: 600px">
-                  <app-site-map></app-site-map>
+                  <app-gis></app-gis>
                 </div>
 
               </div>
               <p-footer>
-                <button  (click)="select()" color="primary" type="button" class="btn btn-primary">
+                <button  (click)="selectPlotId()" color="primary" type="button" class="btn btn-primary">
                   Select
                 </button>
               </p-footer>

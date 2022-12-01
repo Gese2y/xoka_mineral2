@@ -48,17 +48,14 @@ import { ListMineralComponent } from './list-mineral/list-mineral.component';
 import { SiteListComponent } from './site-list/site-list.component';
 import {GMapModule} from 'primeng/gmap';
 import { SiteMapComponent } from './site-map/site-map.component';
-<<<<<<< HEAD
 import { SiteMapssComponent } from "./site-mapss/site-mapss.component";
 import { GeojsondeskComponent } from "./geojsondesk/geojsondesk.component";
 import { GisComponent } from "./gis/gis.component";
-import { DrawmapComponent } from "./drawmap/drawmap.component";
-// import { GisComponent } from "./gis/gis.component";/
-// import { GisComponent } from "./gis/gis.component";
-=======
+// import { DrawmapComponent } from "./drawmap/drawmap.component";
 import { SurveyComponent } from "./task-layout/layout.component";
 import { FormDisplayComponent } from "./form-display/form-display.component";
->>>>>>> 2f1a151662b279e27ab73611a957d0b4d6e919c3
+// import { GisComponent } from "./gis/gis.component";/
+// import { GisComponent } from "./gis/gis.component";
 // import { ArchwizardModule } from 'angular-archwizard';
 @NgModule({
   imports: [
@@ -113,14 +110,14 @@ NgxPaginationModule,
     MineralComponent,
     MineralUseComponent,
     ResourceDepositComponent,
-    SiteComponent,
+    SiteComponent,   
     ListMineralComponent,
     SiteListComponent,
     SiteMapComponent,
     SiteMapssComponent,
     GisComponent,
-  GeojsondeskComponent,
-  DrawmapComponent
+      GeojsondeskComponent,
+  // DrawmapComponent
    
   ],
   providers: [

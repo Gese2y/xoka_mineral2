@@ -2,7 +2,7 @@ import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { Injectable } from "@angular/core";
 import { DataService } from "./data.service";
 
-@Injectable({
+@Injectable({ 
   providedIn: "root",
 })
 export class PopupService {
