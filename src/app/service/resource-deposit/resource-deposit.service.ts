@@ -44,8 +44,8 @@ export class ResourceDepositService {
   // Updateresource(resourcedeposits) {
   //   return this.http.put(this.ResourceDUrl+"/"+ resourcedeposits.resource_Id,resourcedeposits) ;
   // }
-  Updateresource(resourcedeposits) {
-    return this.http.put(this.ResourceDUrl+"/"+ resourcedeposits.resource_Id, resourcedeposits) ;
+  Updateresource(resoucedeposits) {
+    return this.http.put(this.ResourceDUrl+"/"+ resoucedeposits.resource_Id, resoucedeposits) ;
   }
   
 }
