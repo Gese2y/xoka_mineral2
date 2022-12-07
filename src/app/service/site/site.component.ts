@@ -3,10 +3,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SiteService } from './site.service';
 import { NotificationsService } from 'angular2-notifications';
 import { ServiceService } from '../service.service';
+// import { GisService } from './gis.service';
 import * as L from 'leaflet';
 import { Guid } from 'guid-typescript';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 
 
@@ -24,21 +26,29 @@ export class SiteComponent implements OnInit {
   todayISOString : string = new Date().toISOString();
   DisplayCoordinate: boolean;
   map: any;
-  public coordinate = {
-    lon: null,
-    lat: null,
-  };
+  // public coordinate = {
+  //   lon: null,
+  //   lat: null,
+  // };
+  SelectedPlot;
+  plotForm;
+  toLease;
+  CanDone;
+  // isnew;
+  noinvalidplot;
+  OnParcle = -1;
+  plotId = null;
+  Saved = false;
   drawnItems = new L.FeatureGroup();
   // private mapViewEvents = new NativeEmitter();
-  public clickCoordinate: any;
+  // public clickCoordinate: any;
   public IsAddFormVisible: any;
   isnew: boolean; 
-  site: site={} as site;
+  site: site;
   public sites: any;
   // public site: site;
   toogleSpin = false;
   displayGIS = false;
-
   Coordinate: any;
   message: any;
   public StatusList: any;
@@ -52,7 +62,7 @@ export class SiteComponent implements OnInit {
   @Output() saveDataCompleted = new EventEmitter();
   @Input() taskId;
   BasicFormnew: any;
-  // public edit_form:any;
+ 
   postData = {
     orgId: null,
     appCode: null,
@@ -84,10 +94,17 @@ export class SiteComponent implements OnInit {
   woredas: any;
   public selectedTab = 0;
   isselected: boolean;
+  properties: any;
+  isplotidselected: boolean;
+  close: any;
+  isploatDisabled =false;
+  // plotForm: boolean;
   constructor(
     public SiteService: SiteService,
     private notificationsService: NotificationsService,
     public serviceService: ServiceService,
+    private ngxSmartModalService: NgxSmartModalService,
+    // private GisService: GisService,
     private routerService: ActivatedRoute,
     private _toast: MessageService,
   ) {
@@ -169,6 +186,45 @@ export class SiteComponent implements OnInit {
       //this.getisactives(this.SiteService.zones_zone_code)
       }
 
+      finishSelection() {
+        console.log("selection")
+        if (this.site.coordinate) {
+          this.message.add(
+            { severity: 'success', summary: 'Plot Selection', detail: 'Plot selected successfully!' }
+          );
+          this.toogleSpin = true;
+          setTimeout(() => {
+            this.displayGIS = false;
+            this.toogleSpin = false;
+          }, 1000);
+        }
+        else {
+          this.message.add(
+            { severity: 'warn', summary: 'Plot Selection', detail: 'Please select a plot first!' }
+          );
+        }
+      }
+      selectPlotID(plotData) {
+        console.log('selected plot :: ', plotData);
+        if (plotData.properties.OBJECTID || plotData.properties.ID_3 || plotData.properties.ID_0) {
+          console.log('plot id from gis :: ', plotData.properties.POP2000);
+          console.log('plot id before gis :: ', this.site.coordinate);
+          this.site.coordinate = plotData.properties.OBJECTID ? plotData.properties.OBJECTID : plotData.properties.ID_3 || plotData.properties.ID_0;
+          console.log('plot id from gis :: ', this.site.coordinate);
+        }
+      }
+    
+      plotSelector(event) {
+        console.log("event", event.mapPoint.spatialReference.latestWkid);
+        if (!this.isploatDisabled) {
+          this.site.coordinate = event.mapPoint.spatialReference.latestWkid;
+          this.ngxSmartModalService.getModal("GisViewer").close();
+        }
+      }
+      openModal(modal) {
+        this.ngxSmartModalService.getModal(modal).open();
+      }
+    
     getisactives(id:any) {
       this.SiteService.getZone().subscribe(
         { next: (response:any) => {
@@ -201,12 +257,11 @@ export class SiteComponent implements OnInit {
     );
   }
   registersite() {
-    let Longitude =this.serviceService.coordinate.lng
-    let Latitude =this.serviceService.coordinate.lat
-    this.site.coordinate = "lat:"+Latitude+" " + "lng:"+Longitude
     this.site.licence_Service_Id="00978db9-fcac-4a21-9399-001ba30aa8ec"
-    console.log("coordinate");
-    console.log(this.site);
+    this.site.coordinate= 
+    ""+this.site.coordinate+""
+    // console.log("coordinate");
+    // console.log(this.site);
     this.SiteService.addsite(this.site).subscribe(
       (response) => {
         const toast = this.notificationsService.success("Success", "success");
@@ -252,14 +307,16 @@ export class SiteComponent implements OnInit {
       );
   }
   onClickEvent() {
-    console.log(this.BasicFormnew.controls['Latitude'].value);
-
-    let x = this.BasicFormnew.controls['Latitude'].value;
-    let y = this.BasicFormnew.controls['Longitude'].value;
-    let coordinate = 'POINT (' + x + ' ,' + y + ')';
-    this.BasicFormnew.controls['coordinate'].setValue(coordinate)
+    // this.GisService.properties.ID_3
+    this.properties.ID_3;
+    this.serviceService.coordinate = this.properties.ID_3;
   }
 
+  selectPlotId(){
+    this.isplotidselected=true;
+    this.close();
+
+  }
   public getLicenceService(saveDataResponse) {
     this.serviceService.getAll(saveDataResponse[0]).subscribe(
       (response) => {
@@ -280,7 +337,6 @@ export class SiteComponent implements OnInit {
   }
 
   deletesites(site) {
-
     if (confirm("Are you sure !!!"))
       this.SiteService
         .deletesites(site)
@@ -326,43 +382,10 @@ export class SiteComponent implements OnInit {
     // this.site.site_Id= Guid.create();
     // this.site.site_Id = this.site.site_Id.value;
   }
-  finishSelection() {
-this.ismapVisiblees=false
-    this.message.registersite(
-      { severity: 'success', summary: 'Map Selection', detail: 'Map is selected successfully!' }
-    );
-    this.toogleSpin = true;
-    setTimeout(() => {
-      this.displayGIS = false;
-      this.toogleSpin = false;
-    }, 1000);
 
-    {
-      this.message.addsite(
-        { severity: 'warn', summary: 'Map Selection', detail: 'Please select a Map first!' }
-      );
-    }
-  }
   select() {
     console.log('Select');
     this.SiteService.DisplayCoordinate = false;
-  }
-  public OnClickMap(event) {   
-    this.site.coordinate = event.value;
-    this.IsAddFormVisible = false
-    this.ismapVisiblees = false 
-  }
-  gotoCoordinate() {
-    console.log("lon : ", this.coordinate.lon, "\nlat : ", this.coordinate.lat);
-    if (this.coordinate.lon !== null && this.coordinate.lat !== null) {
-      this.map.panTo([this.coordinate.lat, this.coordinate.lon]);
-    }
-    let coords = {
-      lat: this.coordinate.lat,
-      lng: this.coordinate.lon,
-    };
-
-    L.marker(coords).addTo(this.map);
   }
   selectsites(site) {
     console.log(site)
@@ -426,13 +449,6 @@ class site{
   public status: any;
   public is_Active: any;
   public remarks: any;
-  // public created_By: any;
-  // public updated_By: any;
-  // public deleted_By: any;
-  // public is_Deleted: any;
-  // public created_Date: any;
-  // public updated_Date: any;
-  // public deleted_Date: any;
   public licence_Service_Id: any;
-  public application_No: any;
+  // public application_No: any;
 }

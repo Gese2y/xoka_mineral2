@@ -5,6 +5,8 @@ import { NotificationsService } from 'angular2-notifications';
 import { ServiceService } from '../service.service';
 import { ActivatedRoute } from '@angular/router';
 import * as L from 'leaflet';
+import { NgxSmartModalService } from 'ngx-smart-modal';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-mineral-use',
@@ -54,19 +56,26 @@ types: any;
     taskId: null
   };
   @Input() taskId;
+  private clickCoordinate: any;
   DisplayCoordinate: boolean;
   user: any;
   ismapVisiblees: boolean;
   gis_Plot_Id: any;
   map: any;
   edit_form: boolean;
+  message: any;
+  isploatDisabled =false;
+  toogleSpin = false;
+  displayGIS = false;
   // gis_plot_Id: any;
   constructor(
     private MineralUseService: MineralUseService,
     private NotificationsService: NotificationsService,
     private notificationsService: NotificationsService,
     public serviceService:ServiceService,
+    private ngxSmartModalService: NgxSmartModalService,
     private routerService: ActivatedRoute,
+    private _toast: MessageService,
   ) {  
 this.mineralUse = new mineralUse;
    }
@@ -123,6 +132,73 @@ this.mineralUse = new mineralUse;
     console.log('post data :: ', this.postData);
 
   }
+
+  
+public getCoordOnClick(event) {
+  let convertedEvent = this.map.mouseEventToLatLng(event);
+  this.clickCoordinate = convertedEvent;
+  this.serviceService.coordinate =  this.clickCoordinate
+  console.log("converted event :: ", convertedEvent);
+  this.ismapVisiblees = false
+  // let markerOption = {
+  //   icon: L.Icon.Default,
+  //   title: `lat: ${convertedEvent.lat}, lng: ${convertedEvent.lng}`
+  // };
+  // marker
+  // let coordMarker = L.marker(convertedEvent).addTo(this.map);
+  // coordMarker.bindPopup().openPopup();
+
+  // popup
+  // let popupOptions = {
+  //   closeOnClick: false
+  // };
+  // L.popup(popupOptions)
+  //   .setLatLng(convertedEvent)
+  //   .setContent(
+  //     `<p>latitude : ${convertedEvent.lat}<br/>
+  //      longitude : ${convertedEvent.lng}</p>`
+  //   )
+  //   .openOn(this.map);
+}
+
+finishSelection() {
+  console.log("selection")
+  if (this.mineralUse.gis_Plot_Id) {
+    this.message.add(
+      { severity: 'success', summary: 'Plot Selection', detail: 'Plot selected successfully!' }
+    );
+    this.toogleSpin = true;
+    setTimeout(() => {
+      this.displayGIS = false;
+      this.toogleSpin = false;
+    }, 1000);
+  }
+  else {
+    this.message.add(
+      { severity: 'warn', summary: 'Plot Selection', detail: 'Please select a plot first!' }
+    );
+  }
+}
+selectPlotID(plotData) {
+  console.log('selected plot :: ', plotData);
+  if (plotData.properties.OBJECTID || plotData.properties.ID_3 || plotData.properties.ID_0) {
+    console.log('plot id from gis :: ', plotData.properties.POP2000);
+    console.log('plot id before gis :: ', this.mineralUse.gis_Plot_Id);
+    this.mineralUse.gis_Plot_Id = plotData.properties.OBJECTID ? plotData.properties.OBJECTID : plotData.properties.ID_3 || plotData.properties.ID_0;
+    console.log('plot id from gis :: ', this.mineralUse.gis_Plot_Id);
+  }
+}
+
+plotSelector(event) {
+  console.log("event", event.mapPoint.spatialReference.latestWkid);
+  if (!this.isploatDisabled) {
+    this.serviceService.coordinate = event.mapPoint.spatialReference.latestWkid;
+    this.ngxSmartModalService.getModal("GisViewer").close();
+  }
+}
+openModal(modal) {
+  this.ngxSmartModalService.getModal(modal).open();
+}
   gettype(){
     this.MineralUseService.getsite().subscribe(
       (response:any) => {
@@ -246,12 +322,7 @@ this.mineralUse = new mineralUse;
     this.ismapVisiblees = false 
   }
     registermineraluse() {   
-      console.log('gis plot')
-      let Longitude =this.serviceService.gis_Plot_Id.lng
-    let Latitude =this.serviceService.gis_Plot_Id.lat
-    this.mineralUse.gis_Plot_Id = "lat:"+Latitude+" " + "lng:"+Longitude
-      console.log('gis',this.mineralUse);
-      
+      this.mineralUse.resource_Id = this.serviceService.resource_Id;
       this.MineralUseService.registermineralUse(this.mineralUse).subscribe(
         (response) => {
           const toast = this.notificationsService.success("Success", "success");
@@ -267,6 +338,28 @@ this.mineralUse = new mineralUse;
         }
       );
     }
+    Updatemineraluse() {
+      this.MineralUseService.Updatemineraluse(this.mineralUse).subscribe(
+        data => { 
+          const toast = this.notificationsService.success("Success", "Update");
+        },
+        error => {
+          const toast = this.notificationsService.error('error', 'error', `unable update ! ${error['status'] == 0 ? error['message'] : JSON.stringify(error['error'])}`);
+          console.error('update site error', error);
+        }
+      );
+    }
+    showToast(type: string, title: string, message: string) {
+      let messageConfig = {
+        severity: type,
+        summary: title,
+        detail: message
+      }
+  
+      this._toast.add(messageConfig);
+    }
+
+
     gotoCoordinate() {
       console.log("lon : ", this.gis_Plot_Id.lon, "\nlat : ", this.gis_Plot_Id.lat);
       if (this.gis_Plot_Id.lon !== null && this.gis_Plot_Id.lat !== null) {
@@ -345,7 +438,7 @@ this.mineralUse = new mineralUse;
     this.mineralUses = {};
     this.IsAddFormVisible = !this.IsAddFormVisible;
   }
-  selectsites(mineralUse) {
+  selectmineraluse(mineralUse) {
     console.log(mineralUse)
     this.edit_form = true;
     this.mineralUse = mineralUse;

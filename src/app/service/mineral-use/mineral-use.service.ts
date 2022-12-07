@@ -43,4 +43,7 @@ export class MineralUseService {
   getsite() {
     return this.http.get(this.siteUrl);
   }
+  Updatemineraluse(mineralUse) {
+    return this.http.put(this.mineralUseUrl+'/id', mineralUse) ;
+  }
 }

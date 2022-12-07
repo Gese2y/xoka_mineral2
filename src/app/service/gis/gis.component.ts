@@ -33,6 +33,8 @@ export class GisComponent implements AfterViewInit {
   };
   private mapViewEvents = new NativeEmitter();
   private clickCoordinate: any;
+  serviceService: any;
+  ismapVisiblees: boolean;
 
   constructor(private gisService: GisService, private popup: PopupService) {}
 
@@ -54,10 +56,13 @@ export class GisComponent implements AfterViewInit {
     console.log("plot id selected :: ", event);
   }
 
+  
   public getCoordOnClick(event) {
     let convertedEvent = this.map.mouseEventToLatLng(event);
     this.clickCoordinate = convertedEvent;
+    // this.serviceService.coordinate =  this.clickCoordinate
     console.log("converted event :: ", convertedEvent);
+    this.ismapVisiblees = false
 
     // let markerOption = {
     //   icon: L.Icon.Default,
@@ -196,6 +201,8 @@ export class GisComponent implements AfterViewInit {
     let layerColor = this.randomColor().color;
     let layerControlDestail = {};
     let transmitFeature = (data) => {
+      console.log("dataaaa",data);
+      
       let popupOptions = {
         closeOnClick: false,
         keepInView: true,

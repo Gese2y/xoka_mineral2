@@ -321,7 +321,6 @@ gettypess(){
         }
       );
     }
-  
     Updateresource() {
       this.ResourceDepositService.Updateresource(this.resourcedeposits).subscribe(
         data => { 
@@ -387,41 +386,6 @@ gettypess(){
     this.row_clicked = false;
     this.addingNew.emit();
   }
-   postresourcedeposit(){
-    if(this.licenceData==undefined){
-      this.ResourceDepositService.postresourcedeposit(
-        this.postData.orgId= this.resourcedeposits.resource_Id,
-        this.postData.appCode="00000000-0000-0000-0000-000000000000",
-        this.postData.appNo= "00000000-0000-0000-0000-000000000000",
-        this.postData.userId=this.workingUser.userId,
-        this.postData.taskId).subscribe(
-          next => {
-            this.notificationsService.success('Success', 'Succefully posted!');
-            console.log('post  Journal  :: ', next);
-          },
-          _error => {
-            this.notificationsService.error('Error', 'Unable to post');
-            console.error("Unable to");
-          }
-        );}
-      else{
-        this.ResourceDepositService.postresourcedeposit(
-          this.postData.orgId= this.resourcedeposits.resource_Id,
-          this.postData.appCode=this.licenceData.Service_ID ,
-          this.postData.appNo=this.licenceData.Application_No,
-          this.postData.userId=this.workingUser.userId,
-          this.postData.taskId).subscribe(
-            next => {
-              this.notificationsService.success('Success', 'Succefully posted  !');
-              console.log('post  Journal  :: ', next);
-            },
-            _error => {
-              this.notificationsService.error('Error', 'Unable to post');
-              console.error("Unable to ");
-            }
-          );
-      }
-    }
 }
 class resourcedeposits{
 public resource_Id: any;

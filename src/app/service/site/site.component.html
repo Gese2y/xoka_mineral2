@@ -51,16 +51,16 @@
               </div>
             </div>
             <div class="col-md-6 row form-group">
-              <label for="Coordinate" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              <label for="coordinate" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
                 translate>Coordinate</label>
               <!-- <div class="col-sm-1 ml-0 pl-0">
               <button type="button" class="btn btn-primary" [disabled]="disable" (click)="displayGIS=true"><span
                   class="fa fa-map"></span></button>
             </div> -->
               <div class="col-sm-6 flex">
-                <input type="text" class="form-control form-control-sm" id="Coordinate" placeholder="Coordinate"
-                  [(ngModel)]="serviceService.coordinate" name="Coordinate" (click)="SiteService.DisplayCoordinate=true"
-                  (click)="OnClickMap($event)" readonly>
+                <input type="text" class="form-control form-control-sm" id="coordinate" placeholder="coordinate"
+                  [(ngModel)]="site.coordinate" name="coordinate" (click)="SiteService.DisplayCoordinate=true"
+                  readonly>
               </div>
             </div>
             <p-dialog [(visible)]="SiteService.DisplayCoordinate" [closable]="true" [modal]="true" [responsive]="true"
@@ -71,13 +71,13 @@
               </p-header>
               <div class="modal-body">
                 <div style="min-width: 600px">
-                  <app-gis></app-gis>
+                  <app-gis (onPlotSelect)="selectPlotID($event)"></app-gis>
                 </div>
 
               </div>
               <p-footer>
-                <button  (click)="selectPlotId()" color="primary" type="button" class="btn btn-primary">
-                  Select
+                <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" *ngIf="toogleSpin"></p-progressSpinner>
+                <button type="button" class="btn btn-primary" *ngIf="!toogleSpin" (click)="select()" translate>select
                 </button>
               </p-footer>
             </p-dialog>

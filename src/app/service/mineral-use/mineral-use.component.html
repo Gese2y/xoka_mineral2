@@ -21,7 +21,7 @@
                 translate>GIS Plot</label>
               <div class="col-sm-9 flex">
                 <input type="text" class="form-control form-control-sm" id="gis_Plot_Id" placeholder="gis_Plot_Id"
-                  [(ngModel)]="serviceService.gis_Plot_Id" name="gis_Plot_Id" (click)="MineralUseService.DisplayCoordinate=true"
+                  [(ngModel)]="mineralUse.gis_Plot_Id" name="gis_Plot_Id" (click)="MineralUseService.DisplayCoordinate=true"
                   (click)="OnClickMap($event)" readonly>
               </div>
             </div>
@@ -29,17 +29,17 @@
               [style]="{'minHeight':'10%','height':'200px','minWidth':'10%','width':'80%' }" [maximizable]="true"
               [baseZIndex]="400" (click)="ismapVisiblees=true">
               <p-header>
-                <h4 class="modal-title pull-left" translate>GIS Plot</h4>
+                <h4 class="modal-title pull-left" translate>GIS Plot ID</h4>
               </p-header>
               <div class="modal-body">
                 <div style="min-width: 600px">
-                  <app-site-mapss></app-site-mapss>
+                  <app-gis (onPlotSelect)="selectPlotID($event)"></app-gis>
                 </div>
 
               </div>
               <p-footer>
-                <button  (click)="select()" color="primary" type="button" class="btn btn-primary">
-                  Select
+                <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" *ngIf="toogleSpin"></p-progressSpinner>
+                <button type="button" class="btn btn-primary" *ngIf="!toogleSpin" (click)="select()" translate>select
                 </button>
               </p-footer>
             </p-dialog>
@@ -125,9 +125,9 @@
               <button type="button" class="btn btn-primary" (click)="saveData()" translate>
                 Save
               </button>
-              <!-- <button style="margin-left: 10px;" mat-raised-button type="button" (click)="Updateresource($event, resourcedeposits)" color="primary" class="btn btn-primary">    
-                Update 
-            </button> -->
+              <button style="margin-left: 10px;" mat-raised-button type="button" (click)="Updatemineraluse($event, mineralUse)" color="primary" class="btn btn-primary">    
+                Update
+            </button>
               <button style="margin-left: 10px;" mat-raised-button type="button" (click)="addnewmineraluse()"
                 color="primary" class="btn btn-primary">
                 Cancel
@@ -173,23 +173,23 @@
     </ng-template>
     <ng-template pTemplate="body" let-mineralUses>
       <tr [pSelectableRow]="mineralUses">
-        <td (click)="selectresourced(mineralUses)">
+        <td (click)="selectmineraluse(mineralUses)">
           {{ mineralUses.resource_Id }}
         </td>
         <!-- <td>
           {{ mineralUses.plot_Id }}
         </td> -->
 
-        <td (click)="selectresourced(mineralUses)">
+        <td (click)="selectmineraluse(mineralUses)">
           {{ mineralUses.gis_Plot_Id }}
         </td>
-        <td (click)="selectresourced(mineralUses)">
+        <td (click)="selectmineraluse(mineralUses)">
           {{ mineralUses.customer_Id }}
         </td>
-        <td (click)="selectresourced(mineralUses)">
+        <td (click)="selectmineraluse(mineralUses)">
           {{ mineralUses.is_Active }}
         </td>
-        <td (click)="selectresourced(mineralUses)">
+        <td (click)="selectmineraluse(mineralUses)">
           {{ mineralUses.remarks }}
         </td>
         <td>
