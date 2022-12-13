@@ -140,22 +140,12 @@
   </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
 <div>
   <div class="m-3">
 
 
-    <p-table [value]="mineralUses" [paginator]="true" [rows]="3" [resizableColumns]="true">
+    <p-table [value]="mineralUses" [paginator]="true" [rows]="3" [resizableColumns]="true"
+    selectionMode="single" [metaKeySelection]="true" >
       <ng-template pTemplate="header">
 
         <tr>

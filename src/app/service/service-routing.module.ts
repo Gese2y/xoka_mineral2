@@ -18,7 +18,7 @@ const routes: Routes = [
     component: ServiceComponent,
     pathMatch: "prefix",
   },
-  {
+  {  
     path: "services/:id/:AppNo/:tskTyp/:tskID/:docid/:todoID/:formcode",
     component: ServiceComponent,
     pathMatch: "prefix",

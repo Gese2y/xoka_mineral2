@@ -6,7 +6,7 @@
     <title>Mineral</title>
     <base href="/" /> 
     <script>  
-      (function () {
+      (function () { 
         window["_UserName"] = "@HttpContext.Current.User.Identity.Name";
         window["rootPath"] = "http://197.156.93.110/XOKA.eoffice.bpel_ormda/api/";
         window["rootPath2"] = "http://197.156.93.110/XOKA_API_Mineral/api/";
@@ -41,7 +41,7 @@
       //console.log("window['_UserName']", window['_UserName']);
       //console.log(window.location.pathname);
       if (window.location.pathname !== "/")
-        if (
+        if (   
           (window.location.pathname.split("/")[1] !== "task" ||
             window.location.pathname.split("/")[1] !== "service" ||
             window.location.pathname.split("/")[1] !== "services") &&

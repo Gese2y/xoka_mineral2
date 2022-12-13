@@ -341,6 +341,7 @@ gettypess(){
   
       this._toast.add(messageConfig);
     }
+    
     deleteresoucedeposit(resoucedeposit) {
   
       if (confirm("Are you sure !!!"))
