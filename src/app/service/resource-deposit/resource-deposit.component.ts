@@ -219,12 +219,12 @@ gettypess(){
                     
                    
           },
-          (error) => {
-            const toast = this.notificationsService.error(
-              "Error",
-              "SomeThing Went Wrong"
-            );
-          }
+          // (error) => {
+          //   const toast = this.notificationsService.error(
+          //     "Error",
+          //     "SomeThing Went Wrong"
+          //   );
+          // }
         );    
       }
 

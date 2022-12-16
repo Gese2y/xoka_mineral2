@@ -23,10 +23,10 @@ const routes: Routes = [
     component: ServiceComponent,
     pathMatch: "prefix",
   },
-  {
+   {
     path: ":id/:AppNo/:formcode",
     component: ServiceComponent,
-    pathMatch: "prefix",
+  pathMatch: "prefix",
   },
 ];
 

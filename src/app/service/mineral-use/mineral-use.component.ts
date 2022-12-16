@@ -228,12 +228,12 @@ openModal(modal) {
                 } 
                       
       },
-      (error) => {
-        const toast = this.NotificationsService.error(
-          "Error",
-          "SomeThing Went Wrong"
-        );
-      }
+      // (error) => {
+      //   const toast = this.NotificationsService.error(
+      //     "Error",
+      //     "SomeThing Went Wrong"
+      //   );
+      // }
   );
   }
   select() {

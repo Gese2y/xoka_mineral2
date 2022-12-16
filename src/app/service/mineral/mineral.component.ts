@@ -240,6 +240,10 @@ private _toast: MessageService,
     this.addingNew.emit();
   }
   Updatemineral() {
+    if(this.minerals.class == null || this.minerals.class == undefined){
+      const toast = this.notificationsService.warn("Can't insert null value in to class columen ");
+      return true
+    }
     this.MineralService.Updatemineral(this.minerals).subscribe(
       data => { 
         const toast = this.notificationsService.success("Success", "Update");
