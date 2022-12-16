@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   rootPath: window["rootPath" as any],
-  formPath: window["formPath" as any],
+  formPath: window["formPath"],
   rootPath2: window["rootPath2" as any],
   //formPathPrimary: window["formPathPrimary" as any],
   rootLookupApiPath: window["rootLookupApiPath" as any],

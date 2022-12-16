@@ -60,7 +60,7 @@
               <div class="col-sm-6 flex">
                 <input type="text" class="form-control form-control-sm" id="coordinate" placeholder="coordinate"
                   [(ngModel)]="site.coordinate" name="coordinate" (click)="SiteService.DisplayCoordinate=true"
-                  readonly>
+                  readonly required>
               </div>
             </div>
             <p-dialog [(visible)]="SiteService.DisplayCoordinate" [closable]="true" [modal]="true" [responsive]="true"
@@ -171,7 +171,7 @@
 
 
 <div class="responsive-table">
-  <p-table [value]="sites" [resizableColumns]="true" [paginator]="true" selectionMode="single" [metaKeySelection]="true"
+  <p-table [value]="sites" [resizableColumns]="true" [paginator]="true" selectionMode="single" [metaKeySelection]="true" dataKey="site_Id"
     [rows]="2" [globalFilterFields]="['site_Name']" responsiveLayout="scroll"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" #Item_table>
     <ng-template pTemplate="caption">

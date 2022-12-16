@@ -11,7 +11,7 @@
                 ID</label>
               <div class="col-sm-9">
                 <input type="text" [(ngModel)]="serviceService.resource_Id" class="form-control" name="resource_Id"
-                  placeholder="resource_Id" id="resource_Id" readonly />
+                  placeholder="resource_Id" id="resource_Id" readonly required/>
               </div>
             </div>
           </div>
@@ -22,7 +22,7 @@
               <div class="col-sm-9 flex">
                 <input type="text" class="form-control form-control-sm" id="gis_Plot_Id" placeholder="gis_Plot_Id"
                   [(ngModel)]="mineralUse.gis_Plot_Id" name="gis_Plot_Id" (click)="MineralUseService.DisplayCoordinate=true"
-                  (click)="OnClickMap($event)" readonly>
+                  (click)="OnClickMap($event)" required readonly>
               </div>
             </div>
             <p-dialog [(visible)]="MineralUseService.DisplayCoordinate" [closable]="true" [modal]="true" [responsive]="true"
@@ -48,7 +48,7 @@
               <label for="Customer_ID" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Customer ID</label>
               <div class="col-sm-9">
                 <input type="text" class="form-control form-control-sm" id="Customer_ID" placeholder="Customer_ID"
-        (click)="isAccountModalVisible=true" [(ngModel)]="mineralUse.customer_Id" name="Customer_ID" readonly>
+        (click)="isAccountModalVisible=true" [(ngModel)]="mineralUse.customer_Id" name="Customer_ID" required readonly>
       <p-dialog header="Customer ID" [(visible)]="isAccountModalVisible" [modal]="true" [responsive]="true"
         [width]="800" [minWidth]="800" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
         <p-table [value]="accountNoos" [paginator]="true" [rows]="10" [globalFilterFields]="[

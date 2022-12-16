@@ -10,7 +10,7 @@
                 ID</label>
               <div class="col-sm-9">
                 <input type="text" [(ngModel)]="resourcedeposits.resource_Id" class="form-control" name="resource_Id"
-                placeholder="resource_Id" id="resource_Id"  readonly />
+                placeholder="resource_Id" id="resource_Id"  readonly required />
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@
               <label for="site_Id" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Site ID</label>
               <div class="col-sm-9">
                 <input type="text" [(ngModel)]="serviceService.site_Id" class="form-control" name="site_Id"
-        placeholder="site_Id" id="site_Id" readonly  />
+        placeholder="site_Id" id="site_Id" readonly  required/>
               </div>
             </div>
             <div class="col-md-6 row form-group">
@@ -100,8 +100,8 @@
             <div class="col-md-6 row form-group">
               <label for="unit" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Unit </label>
               <div class="col-sm-9">
-                <select class="custom-select custom-select-sm" id="unit" name="unit" [(ngModel)]="resourcedeposits.unit">
-                  <ng-container *ngFor="let Unit of UnitList">
+                <select class="custom-select custom-select-sm" id="unit" name="unit" [(ngModel)]="resourcedeposits.unit" required>
+                  <ng-container *ngFor="let Unit of UnitList"> 
                     <option value="{{Unit.lkdetail_code}}">
                       {{Unit.english_description}}</option>
                   </ng-container>

@@ -10,6 +10,7 @@ import { TableModule } from 'primeng/table';
 import { TranslateModule } from '@ngx-translate/core';
 import { Angular2PromiseButtonModule } from 'angular2-promise-buttons';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
+// import { ArchiveComponent } from './archive/archive.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,9 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
     TranslateModule.forChild({}),
     Angular2PromiseButtonModule.forRoot()
   ],
-  declarations: [TaskComponent, MyTaskComponent, SupervisorTaskComponent],
+  declarations: [TaskComponent, MyTaskComponent, 
+    // ArchiveComponent,
+    SupervisorTaskComponent],
   providers: [MyTaskService]
 })
 export class MyTaskModule {

@@ -114,15 +114,20 @@
   </div>
 
   <div>
-    <div [ngSwitch]="ID">
+    <!-- <div [ngSwitch]="ID"> -->
       <!-- <div *ngIf="ID == 1"> -->
-      <div *ngSwitchCase="1">
+      <!-- <div *ngSwitchCase="1">
         <app-servy
           (completed)="saveForm($event)"
           [formcode]="formcode"
           [formData]="FormData"
-        ></app-servy>
-      </div>
+        ></app-servy> -->
+        <div [ngSwitch]="ID">
+          <div *ngSwitchCase="1">
+            <app-servy (completed)="saveForm($event)" 
+            [formcode]="formcode" [formData]="FormData"></app-servy>
+          </div>
+     
       <div *ngSwitchCase="32">
         <app-mineral (completed)="saveForm($event)" [taskId]="tskID" 
         [(licenceData)]="licenceData" [workingUser]="workingUser"

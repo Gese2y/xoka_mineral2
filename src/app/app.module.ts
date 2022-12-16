@@ -39,6 +39,7 @@ import {AppRoutingModule} from './app-routing.module';
     NgxSmartModalModule.forRoot(),
     MyTaskModule,
     AppRoutingModule,
+    
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: window["_app_base"] }],
 
