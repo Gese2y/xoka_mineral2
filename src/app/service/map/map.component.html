@@ -1,0 +1,34 @@
+<div style="margin-left: 10px;">
+    <label [ngStyle]="{color:'var(--blue-100)'}" for="ny">Layers</label>
+    <br>
+            <p-checkbox
+              type="checkbox"
+              class="p-field-checkbox"
+              translate 
+              (onChange)="region()">
+            </p-checkbox>
+            <label [ngStyle]="{color:'var(--blue-100)'}" for="ny">Region</label><br>
+            <p-checkbox
+              type="checkbox"
+              class="p-field-checkbox"
+              translate
+              (onChange)="Licensearea()">
+            </p-checkbox>
+            <label [ngStyle]="{color:'var(--blue-100)'}" for="ny">License area </label><br>
+            <p-checkbox
+              type="checkbox"
+              class="p-field-checkbox"
+              translate
+              (onChange)="ororoad()">
+            </p-checkbox>
+            <label [ngStyle]="{color:'var(--blue-100)'}" for="ny">Road</label><br>
+            <p-checkbox
+              type="checkbox"
+              class="p-field-checkbox"
+              translate
+              (onChange)="minerals1()">
+            </p-checkbox>
+            <label [ngStyle]="{color:'var(--blue-100)'}" for="ny">Oromia Minerals</label>
+        </div>
+<!-- <div class="map" #map id="map" style="width: 100%; height: 532.2px"></div> -->
+<div id="map" style="width: 100%; height: 532.2px" >  </div>

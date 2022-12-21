@@ -1,3 +1,4 @@
+<!-- <app-gis></app-gis> -->
 <br>
 <h2>Mineral Site </h2>
 <br>
@@ -65,15 +66,14 @@
             </div>
             <p-dialog [(visible)]="SiteService.DisplayCoordinate" [closable]="true" [modal]="true" [responsive]="true"
               [style]="{'minHeight':'10%','height':'200px','minWidth':'10%','width':'80%' }" [maximizable]="true"
-              [baseZIndex]="800" (click)="ismapVisiblees=true">
+              [baseZIndex]="1200" (click)="ismapVisiblees=true">
               <p-header>
                 <h4 class="modal-title pull-left" translate>Site Coordinate</h4>
               </p-header>
               <div class="modal-body">
                 <div style="min-width: 600px">
-                  <app-gis (onPlotSelect)="selectPlotID($event)"></app-gis>
+                  <app-gis (onPlotSelect)="selectfeatureID($event)"></app-gis>
                 </div>
-
               </div>
               <p-footer>
                 <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" *ngIf="toogleSpin"></p-progressSpinner>
@@ -190,7 +190,7 @@
       <tr>
         <!-- <th scope="col" translate>Site_ID</th> -->
         <th scope="col" translate>Site Name</th>
-        <!-- <th scope="col" translate>Region</th> -->
+        <th scope="col" translate>Region</th>
         <!-- <th scope="col" translate>Zone</th> -->
         <!-- <th scope="col" translate>Woreda</th> -->
         <th scope="col" translate>Kebele Locality</th>
@@ -213,7 +213,7 @@
       <tr [pSelectableRow]="sites">
         <!-- <td (click)="selectsites(sites)">{{ sites.site_Id }}</td> -->
         <td (click)="selectsites(sites)">{{ sites.site_Name }}</td>
-        <!-- <td (click)="selectsites(sites)">{{ sites.region }}</td> -->
+        <td (click)="selectsites(sites)">{{ sites.region }}</td>
         <!-- <td (click)="selectsites(sites)">{{ sites.zone }}</td> -->
         <!-- <td (click)="selectsites(sites)">{{ sites.woreda }}</td> -->
         <td (click)="selectsites(sites)">{{ sites.kebele_Locality }}</td>

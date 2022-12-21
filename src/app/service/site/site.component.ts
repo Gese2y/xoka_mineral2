@@ -98,6 +98,8 @@ export class SiteComponent implements OnInit {
   isplotidselected: boolean;
   close: any;
   isploatDisabled =false;
+  regions: any;
+  region: any;
   // plotForm: boolean;
   constructor(
     public SiteService: SiteService,
@@ -120,10 +122,10 @@ export class SiteComponent implements OnInit {
     console.log(this.site.zone)
 
     // this.SiteService.getWoreda().subscribe((response: any) => {
-    //   console.log('zone');
+      // console.log('zone');
     //   response.filter(
     //       (val) => {val.zones_zone_code = this.zones.zones_zone_code
-    //       console.log('filter Wereda',val);
+          // console.log('filter Wereda',val);
     //   }
     //       )
     //     .zone((zone: any) => {
@@ -203,14 +205,15 @@ export class SiteComponent implements OnInit {
             { severity: 'warn', summary: 'Plot Selection', detail: 'Please select a plot first!' }
           );
         }
+
       }
-      selectPlotID(plotData) {
-        console.log('selected plot :: ', plotData);
-        if (plotData.properties.OBJECTID || plotData.properties.ID_3 || plotData.properties.ID_0) {
-          console.log('plot id from gis :: ', plotData.properties.POP2000);
-          console.log('plot id before gis :: ', this.site.coordinate);
-          this.site.coordinate = plotData.properties.OBJECTID ? plotData.properties.OBJECTID : plotData.properties.ID_3 || plotData.properties.ID_0;
-          console.log('plot id from gis :: ', this.site.coordinate);
+      selectfeatureID(plotData) {
+        console.log('selected features :: ', plotData);
+        if (plotData.features[0].OBJECTID || plotData.features[0].id || plotData.features[0].id) {
+          // console.log('features id from gis :: ', plotData.features.POP2000);
+          console.log('features id before gis :: ', this.site.coordinate);
+          this.site.coordinate = plotData.features[0].OBJECTID ? plotData.features[0].OBJECTID : plotData.features[0].id || plotData.features[0].id;
+          console.log('features id from gis :: ', this.site.coordinate);
         }
       }
     
@@ -246,16 +249,49 @@ export class SiteComponent implements OnInit {
        } );
     }
     
+    getregion(){
+      this.SiteService.getRegion().subscribe(
+        (response:any) => {
+          this.regions = response;
+          console.log("response-regions", this.regions);
+        })
+    }
+
   getsite() {
     this.SiteService.getsite().subscribe(
       (response) => {
+        console.log("rg", response);
         this.sites = response;
-      },
-      (error) => {
-        console.log("error");
+        // this.sites = response;
+        console.log("aaaaa",this.sites);
+
+          for(let i=0; i < this.sites.length; i++){
+                    if(this.sites[i] !=null || this.sites[i] !=undefined){
+
+                      let reg = this.regions.filter(element => element.region_code === this.sites[i].region)
+                      console.log("reginsssss", reg)
+                      if(reg.length >0){
+                        let regionss= reg[0].description
+                        this.region=regionss
+                        console.log("aaaaaa",
+                        this.sites[i].region);
+                    }
+                    // let Mineral = this.typess.filter(element => element.mineral_Id === this.resoucedeposit[i].mineral_Id)
+                    //   console.log("Miinerallsss", Mineral)
+                    //   if(Mineral.length >0){
+                    //     let Mineraltype= Mineral[0].name
+                        
+                    //     this.resoucedeposit[i].mineral_Id=Mineraltype
+                    //     console.log("mineral name",
+                    //     this.resoucedeposit[i].mineral_Id);
+                    // }
+            }
+          } 
+          
       }
-    );
-  }
+      ); 
+      }
+        
   registersite() {
     this.site.licence_Service_Id="00978db9-fcac-4a21-9399-001ba30aa8ec"
     this.site.coordinate= 

@@ -54,6 +54,7 @@ import { GisComponent } from "./gis/gis.component";
 // import { DrawmapComponent } from "./drawmap/drawmap.component";
 import { SurveyComponent } from "./task-layout/layout.component";
 import { FormDisplayComponent } from "./form-display/form-display.component";
+import { MapComponent } from './map/map.component';
 // import { GisComponent } from "./gis/gis.component";/
 // import { GisComponent } from "./gis/gis.component";
 // import { ArchwizardModule } from 'angular-archwizard';
@@ -117,6 +118,7 @@ NgxPaginationModule,
     SiteMapssComponent,
     GisComponent,
       GeojsondeskComponent,
+      MapComponent,
   // DrawmapComponent
    
   ],
