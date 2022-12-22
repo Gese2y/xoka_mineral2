@@ -305,9 +305,20 @@ export class ServiceService {
     return this.http.get(this.getRequerdURL + "?TaskID=" + TaskID);
   }
 
+  // getTaskRule(tasksId) {
+  //   return this.http.post(
+  //     this.getTaskRuleURL + "?" + "taskid=" + tasksId,
+  //     null
+  //   );
+    // }
+
   getTaskRule(tasksId) {
     return this.http.post(
-      this.getTaskRuleURL + "?" + "taskid=" + tasksId,
+      this.getTaskRuleURL +
+      "?" +
+      "taskid=" +
+      tasksId +
+      "&langid=00000000-0000-0000-0000-000000000000",
       null
     );
   }

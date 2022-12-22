@@ -1,4 +1,5 @@
 <!-- <app-gis></app-gis> -->
+
 <br>
 <h2>Mineral Site </h2>
 <br>
@@ -35,7 +36,7 @@
               <div class="col-sm-6">
                 <input type="datetime" class="form-control" [(ngModel)]="site.date_Registered"
                   #Date_Registered="ngModel" name="date_Registered" placeholder="Date Registered " id="date_Registered"
-                  readonly />
+                   />
               </div>
             </div>
             <div class="col-md-6 row form-group">
@@ -70,11 +71,13 @@
               <p-header>
                 <h4 class="modal-title pull-left" translate>Site Coordinate</h4>
               </p-header>
-              <div class="modal-body">
+                <!-- <app-map></app-map> -->
                 <div style="min-width: 600px">
                   <app-gis (onPlotSelect)="selectfeatureID($event)"></app-gis>
                 </div>
-              </div>
+                <!-- <div style="width: 600px; height: 700px">
+                  <app-map></app-map>
+                </div> -->
               <p-footer>
                 <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" *ngIf="toogleSpin"></p-progressSpinner>
                 <button type="button" class="btn btn-primary" *ngIf="!toogleSpin" (click)="select()" translate>select
@@ -171,7 +174,8 @@
 
 
 <div class="responsive-table">
-  <p-table [value]="sites" [resizableColumns]="true" [paginator]="true" selectionMode="single" [metaKeySelection]="true" dataKey="site_Id"
+  <p-table [value]="sites" [resizableColumns]="true" [paginator]="true" selectionMode="single" [metaKeySelection]="true"
+   dataKey="site_Id"
     [rows]="2" [globalFilterFields]="['site_Name']" responsiveLayout="scroll"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" #Item_table>
     <ng-template pTemplate="caption">
@@ -190,9 +194,9 @@
       <tr>
         <!-- <th scope="col" translate>Site_ID</th> -->
         <th scope="col" translate>Site Name</th>
-        <th scope="col" translate>Region</th>
-        <!-- <th scope="col" translate>Zone</th> -->
-        <!-- <th scope="col" translate>Woreda</th> -->
+        <!-- <th scope="col" translate>Region</th>
+        <th scope="col" translate>Zone</th>
+        <th scope="col" translate>Woreda</th> -->
         <th scope="col" translate>Kebele Locality</th>
         <th scope="col" translate>Date Registered </th>
         <th scope="col" translate>Is Active</th>
@@ -213,9 +217,9 @@
       <tr [pSelectableRow]="sites">
         <!-- <td (click)="selectsites(sites)">{{ sites.site_Id }}</td> -->
         <td (click)="selectsites(sites)">{{ sites.site_Name }}</td>
-        <td (click)="selectsites(sites)">{{ sites.region }}</td>
-        <!-- <td (click)="selectsites(sites)">{{ sites.zone }}</td> -->
-        <!-- <td (click)="selectsites(sites)">{{ sites.woreda }}</td> -->
+        <!-- <td (click)="selectsites(sites)">{{ sites.region }}</td>
+        <td (click)="selectsites(sites)">{{ sites.zone }}</td>
+        <td (click)="selectsites(sites)">{{ sites.woreda }}</td> -->
         <td (click)="selectsites(sites)">{{ sites.kebele_Locality }}</td>
         <td (click)="selectsites(sites)">{{ sites.date_Registered }}</td>
         <!-- <td>{{ sites.coordinate }}</td>/ -->

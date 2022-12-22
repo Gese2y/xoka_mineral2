@@ -77,7 +77,7 @@ export class MapComponent implements OnInit {
     })
   }
   minerals1() {
-    this.mapservice.getOrominerals1().subscribe((res: any) => {
+    this.gisService.getOrominerals1().subscribe((res: any) => {
       console.log('rs from oro min ',res);
       L.geoJSON(res).addTo(this.map)
       

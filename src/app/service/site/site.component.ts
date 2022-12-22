@@ -19,6 +19,10 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 })
 export class SiteComponent implements OnInit {
   today: number = Date.now();
+
+  products: site[];
+
+  selectedsite: site;
   
   todayNumber: number = Date.now();
   todayDate : Date = new Date();
@@ -100,6 +104,9 @@ export class SiteComponent implements OnInit {
   isploatDisabled =false;
   regions: any;
   region: any;
+  typess: any;
+  then:any;
+  typesss: any;
   // plotForm: boolean;
   constructor(
     public SiteService: SiteService,
@@ -115,8 +122,12 @@ export class SiteComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.SiteService.getsite().then(data => this.products = data);
     this.getsite();
     this.getRegion();
+    this.getregionss();
+    this.gettypess();
+    this.gettypesss();
     this.getZone();
     this.getWoreda();
     console.log(this.site.zone)
@@ -209,10 +220,10 @@ export class SiteComponent implements OnInit {
       }
       selectfeatureID(plotData) {
         console.log('selected features :: ', plotData);
-        if (plotData.features[0].OBJECTID || plotData.features[0].id || plotData.features[0].id) {
-          // console.log('features id from gis :: ', plotData.features.POP2000);
+        if (plotData.features.OBJECTID || plotData.features.id || plotData.features.id) {
+          console.log('features id from gis :: ', plotData.features.POP2000);
           console.log('features id before gis :: ', this.site.coordinate);
-          this.site.coordinate = plotData.features[0].OBJECTID ? plotData.features[0].OBJECTID : plotData.features[0].id || plotData.features[0].id;
+          this.site.coordinate = plotData.features.OBJECTID ? plotData.features.OBJECTID : plotData.features.id || plotData.features.id;
           console.log('features id from gis :: ', this.site.coordinate);
         }
       }
@@ -249,11 +260,25 @@ export class SiteComponent implements OnInit {
        } );
     }
     
-    getregion(){
+    getregionss(){
       this.SiteService.getRegion().subscribe(
         (response:any) => {
           this.regions = response;
           console.log("response-regions", this.regions);
+        })
+    }
+    gettypess(){
+      this.SiteService.getZone().subscribe(
+        (response:any) => {
+          this.typess = response;
+          console.log("response-zone", this.typess);
+        })
+    }
+    gettypesss(){
+      this.SiteService.getWoreda().subscribe(
+        (response:any) => {
+          this.typesss = response;
+          console.log("response-woreda", this.typesss);
         })
     }
 
@@ -276,15 +301,24 @@ export class SiteComponent implements OnInit {
                         console.log("aaaaaa",
                         this.sites[i].region);
                     }
-                    // let Mineral = this.typess.filter(element => element.mineral_Id === this.resoucedeposit[i].mineral_Id)
-                    //   console.log("Miinerallsss", Mineral)
-                    //   if(Mineral.length >0){
-                    //     let Mineraltype= Mineral[0].name
+                    let Zone = this.typess.filter(element => element.description === this.sites[i].zone)
+                      console.log("zonesss", Zone)
+                      if(Zone.length >0){
+                        let Zon= Zone[0].description
                         
-                    //     this.resoucedeposit[i].mineral_Id=Mineraltype
-                    //     console.log("mineral name",
-                    //     this.resoucedeposit[i].mineral_Id);
-                    // }
+                        this.sites[i].zone=Zon
+                        console.log("zones name",
+                        this.sites[i].zone);
+                    } 
+                     let Woreda = this.typesss.filter(element => element.woreda_code === this.sites[i].woreda)
+                      console.log("woredassssssssss", Woreda)
+                      if(Woreda.length >0){
+                        let Wor= Woreda[0].description
+                        
+                        this.sites[i].woreda=Wor
+                        console.log("woredas name",
+                        this.sites[i].woreda);
+                    }
             }
           } 
           
@@ -292,6 +326,9 @@ export class SiteComponent implements OnInit {
       ); 
       }
         
+      onRowUnselect(event) {
+    }
+
   registersite() {
     this.site.licence_Service_Id="00978db9-fcac-4a21-9399-001ba30aa8ec"
     this.site.coordinate= 

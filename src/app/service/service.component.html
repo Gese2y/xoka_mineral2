@@ -156,6 +156,10 @@
       </div> 
       <div *ngSwitchCase="37">
         <app-gis></app-gis>
+      </div><div *ngSwitchCase="38">
+        <app-mineral-uses  (completed)="saveForm($event)" [taskId]="tskID" 
+        [(licenceData)]="licenceData" [workingUser]="workingUser"
+        (saveDataCompleted)="saveDataCompleted($event)"></app-mineral-uses>
       </div>
       <h3 class="not-fond-panel" *ngSwitchDefault>Form not found</h3>
     </div>

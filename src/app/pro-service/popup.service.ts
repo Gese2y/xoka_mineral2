@@ -12,6 +12,7 @@ export class PopupService {
     return (
       `` +
       `<div>Name: ${data.properties.Name}</div>` +
+      `<div>Name: ${data.features.Name}</div>` +
       `<div>Name: ${data.geometry.coordinates}</div>` +
       `<div>Name: ${data.geometry_name}</div>`
     );

@@ -17,6 +17,7 @@ export class SiteService {
   private siteUrl =environment.rootApiPath + 'Site';
   DisplayCoordinate: boolean;
   zones_zone_code: any;
+  add: any;
 
   constructor(private http: HttpClient) { }
   getSite_Status(){

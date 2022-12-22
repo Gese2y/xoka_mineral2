@@ -73,9 +73,26 @@ export class GisComponent implements AfterViewInit {
   Licensearea() {
     this.gisService.getLicensearea().subscribe((res: any) => {
       console.log('rs from oro min ',res);
-      L.geoJSON(res).addTo(this.map)
+      L.geoJSON(res, {
+        onEachFeature: function(features, layer) {
+          layer.bindPopup(`<div><div>${features.id}</div>`
+          + `<div>${features.properties.Area}</div>`
+          + `<div>${features.properties.Commodit}</div>`
+          + `<div>${features.properties.Map_Refe}</div></div>` 
+          +`<button class="trigger" (click)="onPlotSelectfun(id)">click</button>`
+          +`<button type='button' class='btn btn-primary' (click)="onPlotSelect(id)">Add to Coordinate</button>`
+         
+          );
+
+          
+          
+        }
+      }).addTo(this.map)
       
     })
+  }
+  onPlotSelectfun(id){
+    this.onPlotSelect.emit(id);
   }
   region() {
     this.gisService.getororegion().subscribe((res: any) => {
@@ -282,7 +299,7 @@ export class GisComponent implements AfterViewInit {
           } <br> is <i><b style="color:green">selected!</b></i></p> `
         )
         .openOn(this.map);
-      console.log("clicked coordiate :: ", this.clickCoordinate);
+      console.log("clicked coordinate :: ", this.clickCoordinate);
       console.log("transmiting :: ", data);
       this.onPlotSelect.emit(data);
     };

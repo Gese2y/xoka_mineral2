@@ -10,8 +10,14 @@
                 translate>Resource
                 ID</label>
               <div class="col-sm-9">
-                <input type="text" [(ngModel)]="serviceService.resource_Id" class="form-control" name="resource_Id"
-                  placeholder="resource_Id" id="resource_Id" readonly required/>
+             
+              <select class="form-control" [(ngModel)]="mineralUse.resource_Id" #resource_Id="ngModel" name="resource_Id"
+              placeholder="resource_Id  " id="resource_Id" required>
+              <option disabled>select</option>
+              <option *ngFor="let org of name_Ens" [value]="org.resource_Id">
+                {{ org.resource_Id }}
+              </option>
+            </select>
               </div>
             </div>
           </div>
@@ -149,9 +155,9 @@
       <ng-template pTemplate="header">
 
         <tr>
-          <!-- <th pResizableColumn scope="col" translate>Resouce ID</th> -->
+          <th pResizableColumn scope="col" translate>Resouce ID</th>
           <th pResizableColumn scope="col" translate>GIS Plot</th>
-          <!-- <th pResizableCoZlumn>Customer ID</th> -->
+          <th pResizableCoZlumn>Customer ID</th>
           <th pResizableColumn>Is Active</th>
           <th pResizableColumn>Remark</th>
           <th class='set_sticky_position' *ngIf="!add_new_mineraluse" scope="col">
@@ -163,9 +169,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-mineralUses>
       <tr [pSelectableRow]="mineralUses">
-        <!-- <td (click)="selectmineraluse(mineralUses)">
+        <td (click)="selectmineraluse(mineralUses)">
           {{ mineralUses.resource_Id }}
-        </td> -->
+        </td>
         <!-- <td>
           {{ mineralUses.plot_Id }}
         </td> -->
@@ -173,9 +179,9 @@
         <td (click)="selectmineraluse(mineralUses)">
           {{ mineralUses.gis_Plot_Id }}
         </td>
-        <!-- <td (click)="selectmineraluse(mineralUses)">
+        <td (click)="selectmineraluse(mineralUses)">
           {{ mineralUses.customer_Id }}
-        </td> -->
+        </td>
         <td (click)="selectmineraluse(mineralUses)">
           {{ mineralUses.is_Active }}
         </td>
