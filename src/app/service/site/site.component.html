@@ -61,8 +61,8 @@
             </div> -->
               <div class="col-sm-6 flex">
                 <input type="text" class="form-control form-control-sm" id="coordinate" placeholder="coordinate"
-                  [(ngModel)]="site.coordinate" name="coordinate" (click)="SiteService.DisplayCoordinate=true"
-                  readonly required>
+                  [(ngModel)]="SiteService.featureid" name="coordinate" (click)="SiteService.DisplayCoordinate=true"
+                  readonly required >
               </div>
             </div>
             <p-dialog [(visible)]="SiteService.DisplayCoordinate" [closable]="true" [modal]="true" [responsive]="true"
@@ -73,7 +73,7 @@
               </p-header>
                 <!-- <app-map></app-map> -->
                 <div style="min-width: 600px">
-                  <app-gis (onPlotSelect)="selectfeatureID($event)"></app-gis>
+                  <app-gis (gooo)="foo($event)"></app-gis>
                 </div>
                 <!-- <div style="width: 600px; height: 700px">
                   <app-map></app-map>

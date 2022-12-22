@@ -21,7 +21,7 @@
                 translate>GIS Plot</label>
               <div class="col-sm-9 flex">
                 <input type="text" class="form-control form-control-sm" id="gis_Plot_Id" placeholder="gis_Plot_Id"
-                  [(ngModel)]="mineralUse.gis_Plot_Id" name="gis_Plot_Id" (click)="MineralUseService.DisplayCoordinate=true"
+                  [(ngModel)]="SiteService.featureid" name="gis_Plot_Id" (click)="MineralUseService.DisplayCoordinate=true"
                   (click)="OnClickMap($event)" required readonly>
               </div>
             </div>
@@ -33,7 +33,7 @@
               </p-header>
               <div class="modal-body">
                 <div style="min-width: 600px">
-                  <app-gis (onPlotSelect)="selectPlotID($event)"></app-gis>
+                  <app-gis (gooo)="foo($event)" ></app-gis>
                 </div>
 
               </div>

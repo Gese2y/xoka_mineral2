@@ -4,13 +4,13 @@
 
 export const environment = {
   production: false,
-  rootPath: window["rootPath" as any],
+  rootPath: window["rootPath"],
   formPath: window["formPath"],
-  rootPath2: window["rootPath2" as any],
+  rootPath2: window["rootPath2"],
   //formPathPrimary: window["formPathPrimary" as any],
-  rootLookupApiPath: window["rootLookupApiPath" as any],
-  formPathPrimary: window["formPath_primary " as any],
-  rootApiPath: window["rootApiPath" as any],
+  rootLookupApiPath: window["rootLookupApiPath"],
+  formPathPrimary: window["formPathprimary"],
+  rootApiPath: window["rootApiPath"],
 
   // formPath: '',
   // username: 'BL_desk_mgr',

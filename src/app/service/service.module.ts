@@ -50,16 +50,14 @@ import {GMapModule} from 'primeng/gmap';
 import { SiteMapComponent } from './site-map/site-map.component';
 import { SiteMapssComponent } from "./site-mapss/site-mapss.component";
 import { GeojsondeskComponent } from "./geojsondesk/geojsondesk.component";
-// import { GisComponent } from "./gis/gis.component";
-// import { DrawmapComponent } from "./drawmap/drawmap.component";
+
 import { SurveyComponent } from "./task-layout/layout.component";
-import { FormDisplayComponent } from "./form-display/form-display.component";
+// import { FormDisplayComponent } from "./form-display/form-display.component";
 import { MapComponent } from './map/map.component';
 import { MineralUsesComponent } from "./mineral-uses/mineral-uses.component";
 import { GisComponent } from "./gis/gis.component";
-// import { GisComponent } from "./gis/gis.component";/
-// import { GisComponent } from "./gis/gis.component";
-// import { ArchwizardModule } from 'angular-archwizard';
+import { FormDisplayComponent } from "./form-display/form-display.component";
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -128,13 +126,14 @@ NgxPaginationModule,
   providers: [
     ServiceService,
     MessageService,
+   
     // MaintainCustomerService,
     // MaintainVendorService,
     // MaintainInventoryitemService,
   ],
   entryComponents : [
     // UserComponent,
-  
+    GisComponent
   ]
 })
 export class ServiceModule {}

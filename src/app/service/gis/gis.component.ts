@@ -1,18 +1,24 @@
-import { Component, AfterViewInit, Output, EventEmitter } from "@angular/core";
+import { Component, AfterViewInit, Output, EventEmitter, Input } from "@angular/core";
 import { EventEmitter as NativeEmitter } from "events";
 import * as L from "leaflet";
 import * as Uniqolor from "uniqolor";
 import * as FastXml from "fast-xml-parser";
 import { GisService } from "./gis.service";
 import { PopupService } from "src/app/pro-service/popup.service";
+import { ServiceService } from "../service.service";
+import { SiteService } from "../site/site.service";
+
+import { parseIsoWeekday } from "ngx-bootstrap/chronos/units/day-of-week";
 
 @Component({
   selector: "app-gis",
   templateUrl: "./gis.component.html",
   styleUrls: ["./gis.component.css"],
+ 
 })
 export class GisComponent implements AfterViewInit {
-  @Output() onPlotSelect = new EventEmitter();
+  @Output() gooo = new EventEmitter();
+  @Output() passId = new EventEmitter();
   private map;
   private centerCoordinate: L.LatLngExpression = [9.03, 38.74];
   private zoomLevel = 6;
@@ -31,12 +37,15 @@ export class GisComponent implements AfterViewInit {
     JSONP: "text/javascript",
     CSV: "csv",
   };
+  featureid:any
   private mapViewEvents = new NativeEmitter();
   private clickCoordinate: any;
   serviceService: any;
   ismapVisiblees: boolean;
 
-  constructor(private gisService: GisService, private popup: PopupService) {}
+  constructor(private gisService: GisService, private popup: PopupService ,
+    private ServiceService : ServiceService , public siteSer:SiteService,
+    ) {}
 
   ngOnInit() {
     this.initmap()
@@ -70,19 +79,33 @@ export class GisComponent implements AfterViewInit {
         baselayers["openstreetmap"].addTo(this.map);
   }
 
+  // `<div><div>${features.id}</div>`
+  //         + `<div>${features.properties.Area}</div>`
+  //         + `<div>${features.properties.Commodit}</div>`
+  //         + `<div>${features.properties.Map_Refe}</div></div>` 
+
+  
   Licensearea() {
+    let a = this
     this.gisService.getLicensearea().subscribe((res: any) => {
       console.log('rs from oro min ',res);
       L.geoJSON(res, {
         onEachFeature: function(features, layer) {
-          layer.bindPopup(`<div><div>${features.id}</div>`
-          + `<div>${features.properties.Area}</div>`
-          + `<div>${features.properties.Commodit}</div>`
-          + `<div>${features.properties.Map_Refe}</div></div>` 
-          +`<button class="trigger" (click)="onPlotSelectfun(id)">click</button>`
-          +`<button type='button' class='btn btn-primary' (click)="onPlotSelect(id)">Add to Coordinate</button>`
-         
-          );
+          layer.on("click",() => {
+            
+            this.featureid=features
+            a.ServiceService.featureid=this.featureid
+            const b:string = this.featureid.id
+            a.siteSer.featureid = b
+
+            // this.gisPlotId=features
+            // a.ServiceService.gisPlotId=this.gisPlotId
+            // const c:string = this.gisPlotId.id
+            // a.siteSer.gisPlotId = c
+            // this.passId.emit(gisPlotId)
+            console.log("features.id:", this.featureid);
+
+          });
 
           
           
@@ -91,8 +114,10 @@ export class GisComponent implements AfterViewInit {
       
     })
   }
+  @Input() public id:any
   onPlotSelectfun(id){
-    this.onPlotSelect.emit(id);
+
+   
   }
   region() {
     this.gisService.getororegion().subscribe((res: any) => {
@@ -301,7 +326,7 @@ export class GisComponent implements AfterViewInit {
         .openOn(this.map);
       console.log("clicked coordinate :: ", this.clickCoordinate);
       console.log("transmiting :: ", data);
-      this.onPlotSelect.emit(data);
+      this.gooo.emit(data);
     };
 
     let layer = L.geoJSON(selectedfeature as any, {

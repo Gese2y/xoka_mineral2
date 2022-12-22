@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { ServiceService } from '../service.service';
+import { SiteService } from '../site/site.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +16,16 @@ export class MineralUseService {
   private siteUrl =environment.rootApiPath + 'Site';
   DisplayCoordinate: boolean;
   gis_Plot_Id:any;
- 
-  constructor(private http: HttpClient) { }
+ pid:any;
+  constructor(private http: HttpClient , public siteService: ServiceService) { }
   getCustomer_ID() {
     return this.http.get(this.Customer_IDUrl);
   }
   getresourceId() {
     return this.http.get(this.ResourceIDUrl);
+  }
+  passId(id){
+    this.pid  =id;
   }
   // getplotID() {
   //   return this.http.get(this.plotIDUrl);

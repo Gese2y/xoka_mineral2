@@ -18,6 +18,8 @@ export class SiteService {
   DisplayCoordinate: boolean;
   zones_zone_code: any;
   add: any;
+  featureid: any;
+  gisPlotId: string;
 
   constructor(private http: HttpClient) { }
   getSite_Status(){

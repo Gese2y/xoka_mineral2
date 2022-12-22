@@ -12,6 +12,7 @@ import { map } from "rxjs/operators";
 export class GisService {
   localGeoJsonUrl = environment.localGisServer;
   geoPortalUrl = environment.wfsGeoServer;
+  featureid: any;
 
   constructor(private httpClient: HttpClient) {}
 

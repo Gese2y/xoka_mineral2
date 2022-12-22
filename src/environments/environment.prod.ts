@@ -1,11 +1,11 @@
  export const environment = {
   production: true,
-  rootPath: window["rootPath" as any],
-  formPath: window["formPath" as any],
-  formPathPrimary: window["formPathPrimary" as any],
-  rootApiPath: window["rootApiPath" as any],
-  rootPath2: window["rootPath2" as any],
-  rootLookupApiPath: window["rootLookupApiPath" as any],
+  rootPath: window["rootPath"],
+  formPath: window["formPath"],
+  formPathPrimary: window["formPathPrimary"],
+  rootApiPath: window["rootApiPath"],
+  rootPath2: window["rootPath2"],
+  rootLookupApiPath: window["rootLookupApiPath"],
   
   
 

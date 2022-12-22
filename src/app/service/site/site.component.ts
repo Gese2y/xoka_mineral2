@@ -113,12 +113,17 @@ export class SiteComponent implements OnInit {
     private notificationsService: NotificationsService,
     public serviceService: ServiceService,
     private ngxSmartModalService: NgxSmartModalService,
-    // private GisService: GisService,
+    // public GisService: GisService,
     private routerService: ActivatedRoute,
     private _toast: MessageService,
   ) {
     this.site = new site;
 
+  }
+
+  foo(event) {
+    console.log(event.target.value);
+    
   }
 
   ngOnInit() {
@@ -331,8 +336,7 @@ export class SiteComponent implements OnInit {
 
   registersite() {
     this.site.licence_Service_Id="00978db9-fcac-4a21-9399-001ba30aa8ec"
-    this.site.coordinate= 
-    ""+this.site.coordinate+""
+    this.site.coordinate= this.SiteService.featureid
     // console.log("coordinate");
     // console.log(this.site);
     this.SiteService.addsite(this.site).subscribe(

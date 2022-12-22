@@ -8,6 +8,7 @@ import { LayoutService } from "./task-layout/layout.service";
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from "src/environments/environment";
 import { EventEmitter } from "events";
+import { NgxSmartModalService } from "ngx-smart-modal";
 @Component({
   selector: "app-service",
   templateUrl: "./service.component.html",
@@ -92,6 +93,7 @@ export class ServiceComponent implements OnInit {
  
   emit;
   public urlParams: any;
+  selectedNote: any;
 
   constructor(
     private modalService: BsModalService,
@@ -99,6 +101,7 @@ export class ServiceComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private serviceService: ServiceService,
     private router: Router,
+    public ngxSmartModalService: NgxSmartModalService,
     private notificationsService: NotificationsService,
     private layoutService: LayoutService,
     private service: LayoutService
@@ -454,7 +457,11 @@ export class ServiceComponent implements OnInit {
     });
   }
 
- 
+  selectNotes(note) {
+    this.selectedNote = note;
+    this.preNoteObj = note;
+    this.ngxSmartModalService.getModal("Note").open();
+  }
 
   getTaskData(task) {
     this.preAppID = 0;

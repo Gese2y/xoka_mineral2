@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import * as L from 'leaflet';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { MessageService } from 'primeng/api';
-
+import { SiteService } from "../site/site.service";
 @Component({
   selector: 'app-mineral-use',
   templateUrl: './mineral-use.component.html',
@@ -73,6 +73,7 @@ types: any;
     private NotificationsService: NotificationsService,
     private notificationsService: NotificationsService,
     public serviceService:ServiceService,
+    public SiteService:SiteService,
     private ngxSmartModalService: NgxSmartModalService,
     private routerService: ActivatedRoute,
     private _toast: MessageService,
@@ -323,6 +324,7 @@ openModal(modal) {
   }
     registermineraluse() {   
       this.mineralUse.resource_Id = this.serviceService.resource_Id;
+      this.mineralUse.gis_Plot_Id= this.SiteService.featureid
       this.MineralUseService.registermineralUse(this.mineralUse).subscribe(
         (response) => {
           const toast = this.notificationsService.success("Success", "success");
