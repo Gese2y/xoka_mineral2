@@ -3,20 +3,20 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Mineral</title>
+    <title>Mineral</title> 
     <base href="/" /> 
     <script>  
       (function () { 
         window["_UserName"] = "@HttpContext.Current.User.Identity.Name";
         window["rootPath"] = "http://197.156.93.110/XOKA.eoffice.bpel_ormda/api/";
-        window['local_GIS_server'] = 'assets/geojson';
+       window['local_GIS_server'] = 'assets/geojson';
         window["rootPath2"] = "http://197.156.93.110/XOKA_API_Mineral/api/";
         window["rootApiPath"] = "http://197.156.93.110/XOKA_API_Mineral/api/";
         window["rootLookupApiPath"] ="http://197.156.93.110/xoka.eoffice.bpel_ormda/api/BPEL/";
         window['formPath'] = "http://omda.xokait.com.et/db/";
-               window['formPathprimary'] = "http://omda.xokait.com.et/db/";
+               window['formPathPrimary'] = "http://omda.xokait.com.et/db/";
         window['wfs_geoserver'] = 'http://192.168.0.133:8082/geoserver/Oromia_mine_Authority/ows';
-        window['resourcePath'] = "DesktopModules/MVC/XOKA_DNN_Mineral/Views/Item/assets/geojson";
+        window['resourcePath'] = "DesktopModules/MVC/XOKA_DNN_Mineral/Views/Item/assets/assets/geojson";
         window['overlayLayer'] = "Ethiopia - Admin Level 3.json";
       window['layerConfig'] = [
         {
@@ -25,13 +25,13 @@
         }
         
       ];
-      
+      // window['formPathprimary'] = "http://197.156.93.110/DB/";
         window["lang"] = window.location.pathname.split("/")[2];
       window["phisicalPath"] = 
         "/" +
         window.location.pathname.split("/")[1] +
-        "DesktopModules/MVC/XOKA_DNN_Mineral/Views/Item/assets/geojson/";
-        window['local_GIS_server'] = 'DesktopModules/MVC/XOKA_DNN_Mineral/Views/Item/assets/geojson/';
+        "DesktopModules/MVC/XOKA_DNN_Mineral/Views/Item/assets/assets/geojson/";
+       // window['local_GIS_server'] = 'DesktopModules/MVC/XOKA_DNN_Mineral/Views/Item/assets/assets/geojson/';
       window["formPath"] = "http://omda.xokait.com.et/db/";
       window["formPath2"] = "http://omda.xokait.com.et/db/";
       window["certReportPath"] =
@@ -40,7 +40,7 @@
       window["PaymentReportPath"] = "";
       //  window["ReportPath"] = "http://job.xokait.com.et/en-us/One_Stop/Resident-ID";
       window["ValidateReportPath"] = "";
-      window["GISURL"] = "http://192.168.0.133:8082/geoserver/";
+      window["GISURL"] = "https://js.arcgis.com/4.9/";
       //console.log("window['_UserName']", window['_UserName']);
       //console.log(window.location.pathname);
       if (window.location.pathname !== "/")

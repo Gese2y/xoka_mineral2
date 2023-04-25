@@ -196,7 +196,19 @@ export class GisComponent implements AfterViewInit {
     this.map = L.map("map", {
       renderer: L.svg(),
     }).setView(this.centerCoordinate, this.zoomLevel);
-    this.wfsCapabilities();
+
+
+
+
+
+    // this.wfsCapabilities();
+
+
+
+
+
+
+
     this.loadTileLayer();
   }
 
@@ -393,23 +405,36 @@ export class GisComponent implements AfterViewInit {
 
   dyCheckbox: any;
   i = 0;
-  wfsCapabilities() {
-    this.gisService.getCapabilities().subscribe((res: any) => {
-      console.log("capabilities :: ", res);
 
-      this.dyCheckbox = res.WMS_Capabilities.Capability.Layer.Layer.map(
-        (element: any) => {
-          this.i++;
-          return {
-            id: this.i,
-            select: false,
-            name: element.Name._text,
-            layermaker: element.Name._text,
-          };
-        }
-      );
-    });
-    this.loadFromGeoJson()
+
+
+
+
+  // wfsCapabilities() {
+  //   this.gisService.getCapabilities().subscribe((res: any) => {
+  //     console.log("capabilities :: ", res);
+
+  //     this.dyCheckbox = res.WMS_Capabilities.Capability.Layer.Layer.map(
+  //       (element: any) => {
+  //         this.i++;
+  //         return {
+  //           id: this.i,
+  //           select: false,
+  //           name: element.Name._text,
+  //           layermaker: element.Name._text,
+  //         };
+  //       }
+  //     );
+  //   });
+  //   this.loadFromGeoJson()
+
+
+
+
+
+
+
+
     // (this.gisService as any).getCapabilities().subscribe(
     //   (capabilities: any) => {
     //     console.log("capabilities :: ", capabilities);
@@ -467,7 +492,11 @@ export class GisComponent implements AfterViewInit {
     //     this.loadFromGeoJson();
     //   }
     // );
-  }
+
+
+  // }
+
+  
 
   loadFromGeoJson() {
     this.loadGeoJsonList();

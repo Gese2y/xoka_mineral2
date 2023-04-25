@@ -23,7 +23,7 @@
                 <input type="text" class="form-control form-control-sm" id="gis_Plot_Id" placeholder="gis_Plot_Id"
                   [(ngModel)]="SiteService.featureid" name="gis_Plot_Id" (click)="MineralUseService.DisplayCoordinate=true"
                   (click)="OnClickMap($event)" required readonly>
-              </div>
+              </div>  
             </div>
             <p-dialog [(visible)]="MineralUseService.DisplayCoordinate" [closable]="true" [modal]="true" [responsive]="true"
               [style]="{'minHeight':'10%','height':'200px','minWidth':'10%','width':'80%' }" [maximizable]="true"

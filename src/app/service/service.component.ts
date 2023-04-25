@@ -12,7 +12,7 @@ import { NgxSmartModalService } from "ngx-smart-modal";
 @Component({
   selector: "app-service",
   templateUrl: "./service.component.html",
-  styleUrls: ["./demo/demo.component.scss"],
+  styleUrls: ["./demo/demo.component.css"],
 })
 export class ServiceComponent implements OnInit {
   _opened = false;
