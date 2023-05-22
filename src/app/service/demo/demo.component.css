@@ -93,4 +93,6 @@
 	 background-color: #545555;
 	 color: #fff;
 }
- 
+#dia {
+  height: 80% !important;
+}

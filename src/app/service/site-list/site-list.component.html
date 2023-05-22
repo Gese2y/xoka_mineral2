@@ -1,28 +1,25 @@
-<p-tabView [(activeIndex)]="selectedTab" (onChange)="tabViewEvent($event)">      
+<!-- <p-tabView [(activeIndex)]="selectedTab" (onChange)="tabViewEvent($event)">
   <p-tabPanel [header]="'Mineral Site'  | translate" >
-    <app-site  
-    (completed)="completed" [taskId]="taskId" 
+    <app-site
+    (completed)="completed" [taskId]="taskId"
     [(licenceData)]="licenceData" [workingUser]="workingUser"
     (saveDataCompleted)="saveDataCompleted" ></app-site> <br><br>
-    <!-- <div class=" float-right">
-      <button type="button"  class="btn btn-primary btn-sm" 
-      [disabled]="serviceService.resource_deposit" (click)="clicknext()">Next</button>
-    </div> -->
-    <div class="col-12"> 
+
+    <div class="col-12">
     <div class="d-flex justify-content-end mr-4 mb-2">
       <button type="button" [disabled]="serviceService.resource_deposit" class="btn btn-info ml-2" (click)="selectedTab = 1" translate>
         Next
       </button>
     </div>
   </div>
-    </p-tabPanel>
-  
+  </p-tabPanel>
+
   <p-tabPanel [header]="'Resource Deposit' | translate" [disabled]="serviceService.resource_depositss">
-    <app-resource-deposit (completed)="completed" [taskId]="taskId"  
+    <app-resource-deposit (completed)="completed" [taskId]="taskId"
     [(licenceData)]="licenceData" [workingUser]="workingUser"
     (saveDataCompleted)="saveDataCompleted"></app-resource-deposit>
     <br><br>
-   
+
       <div class="col-12">
         <div class="d-flex justify-content-end mr-4 mb-2">
           <button type="button" [disabled]="serviceService.mineral_Use" class="btn btn-info ml-2" (click)="selectedTab = 2" translate>
@@ -34,16 +31,207 @@
         <button type="button"  class="btn btn-info ml-2" (click)="selectedTab = 0" translate> Preview
           </button></div>
       <br><br>
-    </p-tabPanel> 
-    <p-tabPanel [header]="'Mineral Use' | translate" [disabled]="serviceService.mineral_Uses">
-    <app-mineral-use (completed)="completed" [taskId]="taskId"  
+  </p-tabPanel>
+
+  <p-tabPanel [header]="'Mineral Use' | translate" [disabled]="serviceService.mineral_Uses">
+    <app-mineral-use (completed)="completed" [taskId]="taskId"
     [(licenceData)]="licenceData" [workingUser]="workingUser"
     (saveDataCompleted)="saveDataCompleted" ></app-mineral-use>
+    <br><br>
+    <div class="col-12">
+      <div class="d-flex justify-content-end mr-4 mb-2">
+        <button type="button" [disabled]="serviceService.mineral_Use" class="btn btn-info ml-2" (click)="selectedTab = 2" translate>
+          Next
+        </button>
+      </div>
+    </div>
+    <div class=" float-left">
+      <button type="button"  class="btn btn-info ml-2" (click)="selectedTab = 2" translate> Preview
+        </button>
+      </div>
+  <br><br>
+  </p-tabPanel>
+
+  <p-tabPanel [header]="'Customer' | translate" [disabled]="serviceService.resource_depositss">
+    <app-customer-new ></app-customer-new>
+    <br><br>
+
+      <div class="col-12">
+        <div class="d-flex justify-content-end mr-4 mb-2">
+          <button type="button" [disabled]="serviceService.mineral_Use" class="btn btn-info ml-2" (click)="selectedTab = 2" translate>
+            Next
+          </button>
+        </div>
+      </div>
+      <div class=" float-left">
+        <button type="button"  class="btn btn-info ml-2" (click)="selectedTab = 0" translate> Preview  </button>
+      </div>
+      <br><br>
+  </p-tabPanel>
+
+  <p-tabPanel [header]="'License' | translate" >
+    <app-resource-deposit ></app-resource-deposit>
+    <br><br>
+
+      <div class="col-12">
+        <div class="d-flex justify-content-end mr-4 mb-2">
+          <button type="button" (click)="selectedTab = 2" translate> Next </button>
+        </div>
+      </div>
+      <div class=" float-left">
+        <button type="button"  class="btn btn-info ml-2" (click)="selectedTab = 0" translate> Preview
+          </button></div>
+      <br><br>
+  </p-tabPanel>
+
+
+  <p-tabPanel [header]="'Renewal Information' | translate" >
+    <app-renewal-information  ></app-renewal-information>
     <br><br>
     <div class=" float-left">
       <button type="button"  class="btn btn-info ml-2" (click)="selectedTab = 1" translate> Preview
         </button>
+    </div>
+  <br><br>
+  </p-tabPanel>
+</p-tabView> -->
+<!--
+<p-tabView [(activeIndex)]="selectedTab" (onChange)="tabViewEvent($event)">
+  <p-tabPanel [header]="'Mineral Site'  | translate" >
+    <app-site
+    (completed)="completed" [taskId]="taskId"
+    [(licenceData)]="licenceData" [workingUser]="workingUser"
+    (saveDataCompleted)="saveDataCompleted" ></app-site> <br><br>
+
+    <div class="col-12">
+    <div class="d-flex justify-content-end mr-4 mb-2">
+      <button type="button"  class="btn btn-info ml-2" (click)="selectedTab = 1" translate>
+        Next
+      </button>
+    </div>
+  </div>
+  </p-tabPanel>
+
+  <p-tabPanel [header]="'Resource Deposit' | translate" >
+    <app-resource-deposit (completed)="completed" [taskId]="taskId"
+    [(licenceData)]="licenceData" [workingUser]="workingUser"
+    (saveDataCompleted)="saveDataCompleted"></app-resource-deposit>
+    <br><br>
+
+      <div class="col-12">
+        <div class="d-flex justify-content-end mr-4 mb-2">
+          <button type="button" class="btn btn-info ml-2" (click)="selectedTab = 2" translate>
+            Next
+          </button>
+        </div>
+      </div>
+      <div class=" float-left">
+        <button type="button"  class="btn btn-info ml-2" (click)="selectedTab = 0" translate> Preview
+          </button></div>
+      <br><br>
+  </p-tabPanel>
+
+  <p-tabPanel [header]="'Mineral Use' | translate" >
+    <app-mineral-use (completed)="completed" [taskId]="taskId"
+    [(licenceData)]="licenceData" [workingUser]="workingUser"
+    (saveDataCompleted)="saveDataCompleted" ></app-mineral-use>
+    <br><br>
+    <div class="col-12">
+      <div class="d-flex justify-content-end mr-4 mb-2">
+        <button type="button" class="btn btn-info ml-2" (click)="selectedTab = 2" translate>
+          Next
+        </button>
+      </div>
+    </div>
+    <div class=" float-left">
+      <button type="button"  class="btn btn-info ml-2" (click)="selectedTab = 2" translate> Preview
+        </button>
       </div>
   <br><br>
-</p-tabPanel>
-</p-tabView>
+  </p-tabPanel>
+
+  <p-tabPanel [header]="'Customer' | translate" >
+    <app-customer-new ></app-customer-new>
+    <br><br>
+
+      <div class="col-12">
+        <div class="d-flex justify-content-end mr-4 mb-2">
+          <button type="button" class="btn btn-info ml-2" (click)="selectedTab = 2" translate>
+            Next
+          </button>
+        </div>
+      </div>
+      <div class=" float-left">
+        <button type="button"  class="btn btn-info ml-2" (click)="selectedTab = 0" translate> Preview  </button>
+      </div>
+      <br><br>
+  </p-tabPanel>
+
+  <p-tabPanel [header]="'License' | translate" >
+    <app-license ></app-license>
+    <br><br>
+
+      <div class="col-12">
+        <div class="d-flex justify-content-end mr-4 mb-2">
+          <button type="button" (click)="selectedTab = 2" translate> Next </button>
+        </div>
+      </div>
+      <div class=" float-left">
+        <button type="button"  class="btn btn-info ml-2" (click)="selectedTab = 0" translate> Preview
+          </button></div>
+      <br><br>
+  </p-tabPanel>
+
+
+  <p-tabPanel [header]="'Renewal Information' | translate" >
+    <app-renewal-information  ></app-renewal-information>
+    <br><br>
+    <div class=" float-left">
+      <button type="button"  class="btn btn-info ml-2" (click)="selectedTab = 1" translate> Preview
+        </button>
+    </div>
+  <br><br>
+  </p-tabPanel>
+</p-tabView> -->
+
+
+<aw-wizard>
+  <aw-wizard-step stepTitle="Mineral Site" translate>
+    <app-site
+    (completed)="completed" [taskId]="taskId"
+    [(licenceData)]="licenceData" [workingUser]="workingUser"
+    (saveDataCompleted)="saveDataCompleted" ></app-site>
+    <button type="button" class="btn btn-info ml-2" awNextStep>Next Step</button>
+    <button type="button" class="btn btn-info ml-2" [awGoToStep]="{stepIndex: 2}">Go directly to third Step</button>
+  </aw-wizard-step>
+  <aw-wizard-step stepTitle="Resource Deposite" awOptionalStep>
+    <app-resource-deposit (completed)="completed" [taskId]="taskId"
+    [(licenceData)]="licenceData" [workingUser]="workingUser"
+    (saveDataCompleted)="saveDataCompleted"></app-resource-deposit>
+    <button type="button" class="btn btn-info ml-2" awPreviousStep>Go to previous step</button>
+    <button type="button" class="btn btn-info ml-2" awNextStep>Go to next step</button>
+  </aw-wizard-step>
+  <aw-wizard-step stepTitle="Mineral Use" translate awOptionalStep>
+    <app-mineral-use (completed)="completed" [taskId]="taskId"
+    [(licenceData)]="licenceData" [workingUser]="workingUser"
+    (saveDataCompleted)="saveDataCompleted" ></app-mineral-use>
+    <button type="button" class="btn btn-info ml-2" awPreviousStep>Go to previous step</button>
+    <button type="button" class="btn btn-info ml-2" awNextStep>Go to next step</button>
+  </aw-wizard-step>
+  <aw-wizard-step translate="" stepTitle="Customer" translate awOptionalStep>
+    <app-customer-new ></app-customer-new>
+    <button type="button" class="btn btn-info ml-2" awPreviousStep>Go to previous step</button>
+    <button type="button" class="btn btn-info ml-2" awNextStep>Go to next step</button>
+  </aw-wizard-step>
+  <aw-wizard-step translate="" stepTitle="License" awOptionalStep>
+    <app-license ></app-license>
+    <button type="button" class="btn btn-info ml-2" awPreviousStep>Go to previous step</button>
+    <button type="button" class="btn btn-info ml-2" awNextStep>Go to next step</button>
+  </aw-wizard-step>
+
+  <aw-wizard-step translate stepTitle="Renewal Information">
+    <app-renewal-information  ></app-renewal-information>
+    <button type="button" class="btn btn-info ml-2" awPreviousStep>Previous Step</button>
+    <button type="button" class="btn btn-info ml-2">Finish</button>
+  </aw-wizard-step>
+</aw-wizard>

@@ -10,7 +10,7 @@
                 translate>Resource
                 ID</label>
               <div class="col-sm-9">
-             
+
               <select class="form-control" [(ngModel)]="mineralUse.resource_Id" #resource_Id="ngModel" name="resource_Id"
               placeholder="resource_Id  " id="resource_Id" required>
               <option disabled>select</option>
@@ -21,14 +21,14 @@
               </div>
             </div>
           </div>
-          
+
               <div class="col-md-6 row form-group">
               <label for="gis_Plot_Id" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
                 translate>GIS Plot</label>
               <div class="col-sm-9 flex">
                 <input type="text" class="form-control form-control-sm" id="gis_Plot_Id" placeholder="gis_Plot_Id"
                   [(ngModel)]="mineralUse.gis_Plot_Id" name="gis_Plot_Id" (click)="MineralUseService.DisplayCoordinate=true"
-                  (click)="OnClickMap($event)" required readonly>
+                  (click)="OnClickMap($event)" readonly>
               </div>
             </div>
             <p-dialog [(visible)]="MineralUseService.DisplayCoordinate" [closable]="true" [modal]="true" [responsive]="true"
@@ -49,7 +49,7 @@
                 </button>
               </p-footer>
             </p-dialog>
-          
+
             <div class="col-md-6 row form-group">
               <label for="Customer_ID" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Customer ID</label>
               <div class="col-sm-9">
@@ -110,7 +110,7 @@
       </p-dialog>
             </div>
             </div>
-            
+
             <div class="col-md-6 row form-group">
               <label for="remark" class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
                 translate>Remark</label>
@@ -131,7 +131,7 @@
               <button type="button" class="btn btn-primary" (click)="saveData()" translate>
                 Save
               </button>
-              <button style="margin-left: 10px;" mat-raised-button type="button" (click)="Updatemineraluse($event, mineralUse)" color="primary" class="btn btn-primary">    
+              <button style="margin-left: 10px;" mat-raised-button type="button" (click)="Updatemineraluse($event, mineralUse)" color="primary" class="btn btn-primary">
                 Update
             </button>
               <button style="margin-left: 10px;" mat-raised-button type="button" (click)="addnewmineraluse()"
@@ -139,7 +139,7 @@
                 Cancel
               </button>
             </div>
-          
+
         </form>
       </div>
     </div>
@@ -163,8 +163,8 @@
           <th class='set_sticky_position' *ngIf="!add_new_mineraluse" scope="col">
             <button mat-raised-button (click)="addnewmineraluse()" color="primary" type="button" class="btn btn-primary">Add / Update
            </button>
-          </th>  
-       
+          </th>
+
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-mineralUses>

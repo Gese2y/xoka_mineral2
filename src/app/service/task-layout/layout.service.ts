@@ -20,7 +20,7 @@ export class LayoutService {
       }
     }
     else {
-      return this.http.get<any>('http://omda.xokait.com.et/db/'+ formCode + ".json");
+      return this.http.get<any>('http://omda.xokait.com.et/db/' + formCode + ".json");
     }
   }
 }
@@ -35,7 +35,7 @@ export class LayoutService {
 //     // }
 //     // else {
 //       return this.http.get<any>(environment.formPath + formcode + ".json");
-    
+
 //     // return this.http.get<any>("assets/xokaSWCMS/db/" + formcode + ".json");
 //   }
 // }

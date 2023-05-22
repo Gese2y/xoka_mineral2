@@ -3,11 +3,11 @@ import { RouterModule, Routes } from "@angular/router";
 import { ServiceComponent } from "./service.component";
 
 const routes: Routes = [
-  // {
-  //   path: "service/:id",
-  //   component: ServiceComponent,
-  //   pathMatch: "prefix",
-  // }, 
+  {
+    path: "service/:id",
+    component: ServiceComponent,
+    pathMatch: "prefix",
+  },
   {
     path: "service/:formcode",
     component: ServiceComponent,
@@ -18,7 +18,7 @@ const routes: Routes = [
     component: ServiceComponent,
     pathMatch: "prefix",
   },
-  {  
+  {
     path: "services/:id/:AppNo/:tskTyp/:tskID/:docid/:todoID/:formcode",
     component: ServiceComponent,
     pathMatch: "prefix",

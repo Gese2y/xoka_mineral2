@@ -1,0 +1,159 @@
+<div class="wrap">
+  <h2 class="p-4 text-center" translate="">Renewal Information Entry Form</h2>
+<form class="form form-horizontal" [formGroup]="form">
+  <div class="col-sm-6">
+    <!-- <div class="form-group" >
+      <label class="control-label col-sm-4" translate >Renewal Id</label>
+      <div class="col-sm-8">
+        <input type="text" formControlName="renewal_id" class="form-control">
+      </div>
+    </div> -->
+
+
+    <div class="form-group" >
+      <label class="control-label col-sm-4" translate >License Id</label>
+      <div class="col-sm-8">
+        <input type="text" readonly formControlName="license_id" class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="form-group" >
+      <label class="control-label col-sm-4" translate >Start Date</label>
+      <div class="col-sm-8">
+        <input type="date" formControlName="start_date" class="form-control">
+      </div>
+    </div>
+
+
+    <div class="form-group" >
+      <label class="control-label col-sm-4" translate >End Date</label>
+      <div class="col-sm-8">
+        <input type="date" formControlName="end_date" class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="form-group" >
+      <label class="control-label col-sm-4" translate >Document</label>
+      <div class="col-sm-8">
+        <input type="file" (change)="handleUpload($event)" class="form-control">
+      </div>
+    </div>
+
+
+    <div class="form-group" >
+      <label class="control-label col-sm-4" translate >Renewal Type Id</label>
+      <div class="col-sm-8">
+        <input type="text" readonly (click)="showDialog()" formControlName="renewal_type_id" class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center col-sm-12 btn-group ">
+    <button class="btn  btn-primary waves-effect waves-light" (click)="clear()" id="btn-submit">
+      New
+    </button>
+    <button *ngIf="!isnew"  class="btn  btn-success waves-effect waves-light" (click)="SaveData()" id="btn-submit">
+      Save
+    </button>
+   <button *ngIf="isnew"  class="btn  btn-info waves-effect waves-light" (click)="UpdateData()" id="btn-submit">
+      Update
+    </button>
+    <button *ngIf="isnew"  class="btn  btn-danger waves-effect waves-light" (click)="DeleteData()" id="btn-submit">
+      Delete
+    </button>
+  </div>
+</form>
+
+</div>
+
+<p-table #table [value]="renewal" [paginator]="true" [rows]="5" selectionMode="single"
+ [globalFilterFields]="['renewal_id']" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect()">
+<ng-template pTemplate="caption">
+  <div class="table-header">
+    <h1 translate>List of Renewal Information</h1>
+    <span class="p-input-icon-left">
+      <input pInputText type="text" (input)="table.filterGlobal($event.target.value, 'contains')" [placeholder]="'Global Search' | translate" />
+    </span>
+  </div>
+</ng-template>
+
+  <ng-template pTemplate="header">
+    <tr >
+      <tr>
+        <!-- <th translate >renewal_id</th> -->
+        <th translate>renewal_type_name</th>
+        <!-- <th translate >license_id</th> -->
+        <th translate >renewal code</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-prop >
+    <tr [pSelectableRow]="prop"  >
+      <!-- <td>{{ prop.renewal_id }}</td> -->
+      <td>{{ prop.renewal_type_name }}</td>
+      <!-- <td>{{ prop.license_id }}</td> -->
+      <td>{{ prop.renewal_code }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+
+<p-dialog translate header="Renewal Information Type" [(visible)]="visible" [style]="{width: '50vw'}">
+
+  <form class="form form-horizontal" [formGroup]="formtype">
+
+      <div class="form-group" >
+        <label class="control-label col-sm-4" translate >Name</label>
+        <div class="col-sm-8">
+          <input type="text" formControlName="name" class="form-control">
+        </div>
+      </div>
+
+      <div class="text-center col-sm-12 btn-group ">
+        <button class="btn  btn-primary waves-effect waves-light" (click)="cleartype()" id="btn-submit">
+          New
+        </button>
+        <button *ngIf="!isnewtype" class="btn btn-success waves-effect waves-light" (click)="SaveDataType()" id="btn-submit">
+          Save
+        </button>
+        <button *ngIf="isnewtype" class="btn btn-info waves-effect waves-light" (click)="UpdateDataType()" >
+          Update
+        </button>
+        <button *ngIf="isnewtype" class="btn btn-danger waves-effect waves-light" (click)="DeleteDataType()" >
+          Delete
+        </button>
+      </div>
+  </form>
+
+  <p-table #tabletype [value]="renewaltype" [paginator]="true" [rows]="5" selectionMode="single"
+ [globalFilterFields]="['renewal_type_id','name']" (onRowSelect)="onRowSelecttype($event)" (onRowUnselect)="onRowUnselecttype()">
+<ng-template pTemplate="caption">
+  <div class="table-header">
+    <h1 translate>List of Renewal Information</h1>
+    <span class="p-input-icon-left">
+      <input pInputText type="text" (input)="table.filterGlobal($event.target.value, 'contains')" [placeholder]="'Global Search' | translate" />
+    </span>
+  </div>
+</ng-template>
+
+  <ng-template pTemplate="header">
+    <tr >
+      <tr>
+        <th translate >renewal_type_id</th>
+        <th translate>name</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-prop >
+    <tr [pSelectableRow]="prop"  >
+      <td>{{ prop.name }}</td>
+      <td>{{ prop.renewal_type_id }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+</p-dialog>
+
+

@@ -6,6 +6,7 @@ import { ServiceService } from '../service.service';
 import { ActivatedRoute } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { MessageService } from 'primeng/api';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-mineral',
@@ -13,14 +14,14 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./mineral.component.css']
 })
 export class MineralComponent implements OnInit {
-  
-public mineral: any;
-public minerals:Minerals;
-// public edit_form:any;
-@Output() onclose = new EventEmitter();
-public IsAddFormVisible: any;
-public Mineral_Class: any;
-// public selectsites: any;
+
+  public mineral: any;
+  public minerals: Minerals;
+  // public edit_form:any;
+  @Output() onclose = new EventEmitter();
+  public IsAddFormVisible: any;
+  public Mineral_Class: any;
+  // public selectsites: any;
   public Mineral_Use: any;
   public Chemical_ClassificationList: any;
   public TenacityList: any;
@@ -30,9 +31,9 @@ public Mineral_Class: any;
   @Input() workingUser;
   // @Output() saveDataCompleted = new EventEmitter();
   @Output() saveDataCompleted = new EventEmitter();
-  public  Mineral_ClassList: any;
+  public Mineral_ClassList: any;
   public Mineral_UseList: any;
-   postData = {
+  postData = {
     orgId: null,
     appCode: null,
     appNo: null,
@@ -50,72 +51,130 @@ public Mineral_Class: any;
     this.tabset.tabs[id].active = true;
   }
   public edit_form: boolean;
+  form = new FormGroup({
+    mineral_Id: new FormControl(),
+    code: new FormControl(),
+    name: new FormControl(),
+    class: new FormControl(),
+    mineral_Use: new FormControl(),
+    chemical_Classification: new FormControl(),
+    crystal_Structure: new FormControl(),
+    hardness: new FormControl(),
+    lustre: new FormControl(),
+    diaphaneity: new FormControl(),
+    color: new FormControl(),
+    streak: new FormControl(),
+    fracture: new FormControl(),
+    parting: new FormControl(),
+    tenacity: new FormControl(),
+    specific_Gravity: new FormControl(),
+    other_Properties: new FormControl(),
+    is_Active: new FormControl(),
+    remarks: new FormControl(),
+  });
+  isEdit = false
   constructor(
-private MineralService: MineralService,
-private notificationsService: NotificationsService,
-public serviceService:ServiceService,
-private routerService: ActivatedRoute,
-private _toast: MessageService,
-  ) { 
+    private MineralService: MineralService,
+    private notificationsService: NotificationsService,
+    public serviceService: ServiceService,
+    private routerService: ActivatedRoute,
+    private _toast: MessageService,
+  ) {
     this.minerals = new Minerals();
   }
-
   ngOnInit() {
     this.getminerals();
-  
-    this.minerals.mineral_Id= Guid.create();
-    this.minerals.mineral_Id=this.minerals.mineral_Id.value
-    console.log('mineral');
-    
 
-    this.MineralService.getClass().subscribe(data=>{
-      this.Mineral_ClassList=data;
-      this.Mineral_ClassList=this.Mineral_ClassList;
+    this.minerals.mineral_Id = Guid.create();
+    this.minerals.mineral_Id = this.minerals.mineral_Id.value
+    console.log('mineral');
+
+
+    this.MineralService.getClass().subscribe(data => {
+      this.Mineral_ClassList = data;
+      this.Mineral_ClassList = this.Mineral_ClassList;
     })
-     this.MineralService.getMineral_Use().subscribe(data=>{
-      this.Mineral_UseList=data;
-      this.Mineral_UseList=this.Mineral_UseList;
-    }) 
-    this.MineralService.getChemical_Classification().subscribe(data=>{
-      this.Chemical_ClassificationList=data;
-      this.Chemical_ClassificationList=this.Chemical_ClassificationList;
+    this.MineralService.getMineral_Use().subscribe(data => {
+      this.Mineral_UseList = data;
+      this.Mineral_UseList = this.Mineral_UseList;
     })
-    this.MineralService.getTenacity().subscribe(data=>{
-      this.TenacityList=data;
-      this.TenacityList=this.TenacityList;
+    this.MineralService.getChemical_Classification().subscribe(data => {
+      this.Chemical_ClassificationList = data;
+      this.Chemical_ClassificationList = this.Chemical_ClassificationList;
+    })
+    this.MineralService.getTenacity().subscribe(data => {
+      this.TenacityList = data;
+      this.TenacityList = this.TenacityList;
     })
     this.routerService.params.subscribe((params) => {
       this.urlParams = params;
       console.log("urlParams", this.urlParams);
     });
-    if(this.workingUser){
-      if(this.workingUser['userId']){
+    if (this.workingUser) {
+      if (this.workingUser['userId']) {
         this.postData.userId = this.workingUser['userId'];
       }
-      if(this.workingUser['organization_code']){
+      if (this.workingUser['organization_code']) {
         this.postData.orgId = this.workingUser['organization_code'];
       }
     }
-    if(this.licenceData){
-      if(this.licenceData['Application_No']){
+    if (this.licenceData) {
+      if (this.licenceData['Application_No']) {
         this.postData.appNo = this.licenceData['Application_No'];
       }
-      if(this.licenceData['Licence_Service_ID']){
+      if (this.licenceData['Licence_Service_ID']) {
         this.postData.appCode = this.licenceData['Licence_Service_ID'];
       }
     }
-    if(this.taskId){
+    if (this.taskId) {
       this.postData.taskId = this.taskId;
     }
     console.log('licenceData', this.licenceData);
     console.log('workingUser', this.workingUser);
     console.log('taskId', this.taskId);
     console.log('post data :: ', this.postData);
-  
+
   }
-//   onRowUnselect(event) {
-//     this.MineralService.add({severity:'info', summary:'mineral Unselected',  detail: event.data.name});
-// }
+  clear() {
+    console.log('clear');
+
+    this.form.reset({
+      mineral_Id: this.form.get('mineral_Id').value
+    })
+    this.isEdit = false
+  }
+  onRowSelect(event) {
+    this.isEdit = true
+    this.edit_form = true;
+    this.add_new_mineral = true
+    console.log('event.data',event.data);
+    this.form.patchValue({
+      mineral_Id: event.datamineral_Id,
+      code: event.data.code,
+      name: event.data.name,
+      class: event.data.class,
+      mineral_Use: event.data.mineral_Use,
+      chemical_Classification: event.data.chemical_Classification,
+      crystal_Structure: event.data.crystal_Structure,
+      hardness: event.data.hardness,
+      lustre: event.data.lustre,
+      diaphaneity: event.data.diaphaneity,
+      color: event.data.color,
+      streak: event.data.streak,
+      fracture: event.data.fracture,
+      parting: event.data.parting,
+      tenacity: event.data.tenacity,
+      specific_Gravity: event.data.specific_Gravity,
+      other_Properties: event.data.other_Properties,
+      is_Active: event.data.is_Active,
+      remarks: event.data.remarks,
+    }
+    );
+  }
+  onRowUnselect() {
+    this.form.reset();
+    this.isEdit = false
+  }
   getminerals() {
     this.MineralService.getminerals().subscribe(
       (response) => {
@@ -127,8 +186,8 @@ private _toast: MessageService,
     );
   }
   addminerals() {
-    console.log(this.minerals);  
-    this.MineralService.addminerals(this.minerals).subscribe(
+    console.log(this.minerals);
+    this.MineralService.addminerals(this.form.value).subscribe(
       (response) => {
         this.getminerals();
         const toast = this.notificationsService.success("Success", "Saved");
@@ -145,7 +204,6 @@ private _toast: MessageService,
       }
     );
   }
-
   saveData() {
     console.log(this.workingUser);
     this.serviceService
@@ -172,7 +230,6 @@ private _toast: MessageService,
         }
       );
   }
-
   public getLicenceService(saveDataResponse) {
     this.serviceService.getAll(saveDataResponse[0]).subscribe(
       (response) => {
@@ -181,7 +238,7 @@ private _toast: MessageService,
         // if(this.minerals['document_No']==null){
         //   this.minerals['document_No']=licenceData.Application_No}
         this.saveDataCompleted.emit(saveDataResponse);
-     this.addminerals();
+        this.addminerals();
       },
       (error) => {
         console.log("all-error" + error);
@@ -189,14 +246,15 @@ private _toast: MessageService,
     );
   }
   deletemineral(mineral) {
-  
+
     if (confirm("Are you sure !!!"))
       this.MineralService
-        .deletemineral(mineral)
+        .deletemineral(this.form.get('mineral_Id').value)
         .subscribe(
           (response) => {
             this.getminerals();
             const toast = this.notificationsService.success("Success", "Saved");
+            this.getminerals();
           },
           (error) => {
             console.log("reroes", error);
@@ -207,32 +265,30 @@ private _toast: MessageService,
           }
         );
   }
-  selectmineral( mineral) {
+  selectmineral(mineral) {
     console.log(mineral)
     this.edit_form = true;
     this.minerals = mineral;
-    
-  } 
-  clearForm(){
+
+  }
+  clearForm() {
     this.mineral = {};
     this.IsAddFormVisible = !this.IsAddFormVisible;
   }
   closeup() {
     this.onclose.emit();
   }
-
   selectsites(minerals) {
+    this.add_new_mineral = true
     if (minerals) {
       // this.selectsites = minerals;
       console.log(minerals)
-        this.edit_form = true;
-        this.minerals = minerals;
+      this.edit_form = true;
+      this.minerals = minerals;
     }
   }
-
-
   addnewmineral() {
-    this.editable=false
+    this.editable = false
     //this.noRecord=false
     this.add_new_mineral = !this.add_new_mineral;
     this.hide_data = !this.hide_data;
@@ -240,13 +296,14 @@ private _toast: MessageService,
     this.addingNew.emit();
   }
   Updatemineral() {
-    if(this.minerals.class == null || this.minerals.class == undefined){
+    if (this.minerals.class == null || this.minerals.class == undefined) {
       const toast = this.notificationsService.warn("Can't insert null value in to class columen ");
       return true
     }
-    this.MineralService.Updatemineral(this.minerals).subscribe(
-      data => { 
+    this.MineralService.Updatemineral(this.form.value).subscribe(
+      data => {
         const toast = this.notificationsService.success("Success", "Update");
+        this.getminerals();
       },
       error => {
         const toast = this.notificationsService.error('error', 'error', `unable update ! ${error['status'] == 0 ? error['message'] : JSON.stringify(error['error'])}`);
@@ -276,7 +333,7 @@ class Minerals {
   public lustre: any
   public diaphaneity: any
   public color: any
-  public  streak: any
+  public streak: any
   public fracture: any
   public parting: any
   public tenacity: any

@@ -14,7 +14,7 @@ export class SiteService {
   private Woreda =environment.rootApiPath + 'Woredas';
   private StatusList =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Site_Status';
 
-  private siteUrl =environment.rootApiPath + 'Site';
+  private siteUrl =environment.rootApiPath + 'Site/';
   DisplayCoordinate: boolean;
   zones_zone_code: any;
   add: any;
@@ -24,13 +24,13 @@ export class SiteService {
   constructor(private http: HttpClient) { }
   getSite_Status(){
     return this.http.get<any>(this.Site_Status);
-  } 
+  }
   getRegion(){
     return this.http.get(this.Region);
   }
   getZone(){
     return this.http.get(this.Zone);
-  } 
+  }
   getWoreda(){
     return this.http.get(this.Woreda);
   }
@@ -55,7 +55,7 @@ export class SiteService {
   //   return this.http.put(this.siteUrl, site);
   // }
   updatesite(site) {
-    return this.http.put(this.siteUrl+"/"+ site.site_Id,site) ;
+    return this.http.put(this.siteUrl + site.site_Id,site) ;
   }
   getisactive() {
     return this.http.get(this.Zone);

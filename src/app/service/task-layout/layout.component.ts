@@ -22,17 +22,19 @@ export class SurveyComponent implements OnInit {
   ID = 'surveyElement';
   param;
   constructor(
-    private activatedRoute: ActivatedRoute, 
-    private service: LayoutService, 
+    private activatedRoute: ActivatedRoute,
+    private service: LayoutService,
     private serviceService: ServiceService) {
   }
 
 
   ngOnInit() {
 
+
     this.activatedRoute.params.subscribe((params: Params) => {
 
       this.formcode = params['formcode'];
+      console.log(this.formData);
       var docid = params['docid'];
       if (docid == undefined) docid = params['formcode'];
       this.param = params;
@@ -59,6 +61,9 @@ export class SurveyComponent implements OnInit {
       // this.surveyModel = new Survey.Model(this.data);
       // Survey.SurveyNG.render('surveyElement', {model: this.surveyModel});
     });
+    this.service.getFormData(this.formcode, 2).subscribe(data => {
+      this.viewform(data);
+    }, error => console.log(error));
   }
 
 

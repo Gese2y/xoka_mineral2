@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { Component, OnInit } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
-import { PeriodsService } from './Periods.service';
+import { PeriodsService } from './periods.service';
 @Component({
   selector: 'app-periods',
   templateUrl: './periods.component.html',
@@ -22,13 +22,13 @@ export class PeriodsComponent implements OnInit {
      }
 
      ngOnInit() {
-    
+
       this.getprocAdPeriods();
       // this.getorg_ID();
       this.getyear();
       // this.getisactive();
     }
-  
+
     getprocAdPeriods() {
       this.PeriodsService.getprocAdPeriods().subscribe(
         (response) => {

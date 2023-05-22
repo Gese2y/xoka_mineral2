@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mssqlOptions": {
+                "appName": "SQLTools",
+                "useUTC": true,
+                "encrypt": true
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "MSSQL",
+            "connectString": "data source=192.168.0.104\\xokasql2017;initial catalog=XOKA_OROMADA;user id=dev;password=dev",
+            "name": "OROMDA"
+        }
+    ],
+    "angular.enable-strict-mode-prompt": false
+}

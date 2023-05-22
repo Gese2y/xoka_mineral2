@@ -4,7 +4,7 @@ export class GisHelper {
     public static parseXml(capabilities) {
         let isValidXml = FastXml.validate(capabilities);
         if (isValidXml) {
-            let options: FastXml.X2jOptions = {
+            let options: any = {
                 attributeNamePrefix: "@_",
                 attrNodeName: "attr", //default is 'false'
                 textNodeName: "#text",

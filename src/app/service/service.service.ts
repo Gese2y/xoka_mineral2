@@ -36,7 +36,7 @@ export class ServiceService {
   private nextTaskCompleteURL = environment.rootPath + "BPEL/nextTaskComplete"; // URL to web api
   private nextTaskAcceptOrRejectURl =
     environment.rootPath + "BPEL/nextTaskAcceptOrReject"; // URL to web api
-  // private SaveDataURL = environment.rootPath + "BPEL/SaveData"; 
+  // private SaveDataURL = environment.rootPath + "BPEL/SaveData";
   private SaveDataURL = environment.rootPath + 'BPEL/SaveData';// URL to web api
   private GetDataURL = environment.rootPath + "BPEL/GetData"; // URL to web api
   private BaseTable = environment.rootPath + "BaseTable"; // URL to web api
@@ -45,13 +45,13 @@ export class ServiceService {
   private select=environment.rootApiPath +"finance/procJBankReconTransaction";
   private BackURL = environment.rootPath + 'BPEL/TaskBack';  // URL to web api
   private GetNoteURL = environment.rootPath + 'BPEL/Get_postit_notes';
-  private isvalidatedURL = environment.rootPath + "BPEL/isvalidated"; 
+  private isvalidatedURL = environment.rootPath + "BPEL/isvalidated";
   private AddNoteURL = environment.rootPath + 'BPEL/Set_postit_notes';  // URL to web api
   private SendNoteURL = environment.rootPath + 'BPEL/sendNot';  // URL to web api
   private DeleteNoteURL = environment.rootPath + 'BPEL/Delete_postit_notes';  // URL to web api
-  private SaveNoteURL = environment.rootPath + 'BPEL/Edit_postit_notes';  
+  private SaveNoteURL = environment.rootPath + 'BPEL/Edit_postit_notes';
   private getAllDocumentURL = environment.rootPath + 'BPEL/getAllDocument';  // URL to web api
- 
+
   userid: string;
   AppNO;
   featureid:any
@@ -71,10 +71,11 @@ export class ServiceService {
   site_Id: any;
   resource_Id: any;
   gisPlotId: any;
+  dedicate_license
   constructor(private http: HttpClient) {
-    
+
   }
-  
+
 
   saveFormData(formData) {
     const ApplicationCode = '00000000-0000-0000-0000-000000000000';
@@ -94,19 +95,19 @@ export class ServiceService {
       docid
     });
   }
-  
+
   Submit(AppCode, docID, todoID, ruleid) {
     return this.http.post(this.nextTaskCompleteURL + '?ApplicationNo=' + AppCode + '&docid=' + docID
       + '&todoid=' + todoID + '&userName=' + environment.username + '&status=C&Taskruleid=' + ruleid + '&ispending=false', null);
   }
-  
+
   SubmitAR(AppCode, docID, todoID, ruleid) {
     return this.http.post(this.nextTaskAcceptOrRejectURl + '?ApplicationNo=' + AppCode + '&docid=' + docID
       + '&eid=00000000-0000-0000-0000-000000000000&isPending=false&todoid=' + todoID +
       '&userName=' + environment.username + '&status=C&taskruleid=' + ruleid, null);
   }
-  
-  
+
+
   saveForm(ApplicationCode, serviceId, taskid, orgid, json, docid,todoID) {
     // orgid = "1e60f3a1-7017-47bf-95f4-f0e47c793c72";
      return this.http.post(this.SaveDataURL + '?ApplicationCode=' + ApplicationCode + '&serviceId=' +
@@ -114,7 +115,7 @@ export class ServiceService {
        docid + "&todoID=" +
        todoID, null);
    }
-   
+
 
   isvalidated(todoid, taskid, Plotid, ProperyID, DocID) {
     return this.http.get(
@@ -132,7 +133,7 @@ export class ServiceService {
       "&DocID=" +
       DocID
     );
-  }  
+  }
   getAllDocument(ApplicationCode, DocID) {
     return (this.http.get<any[]>(this.getAllDocumentURL + '?' + 'ApplicationCode=' + ApplicationCode + '&DocID=' + DocID));
   }
@@ -150,7 +151,7 @@ export class ServiceService {
   addNote(ApplicationNumber, Msg, docid) {
     return this.http.post(this.AddNoteURL + '?Application_number=' + ApplicationNumber + '&uid=' + environment.username + '&Msg=' +
       Msg + '&docid=' + docid, null);
-  } 
+  }
   DeleteNote(ApplicationNo, noteid) {
     return this.http.post(this.DeleteNoteURL + '?Application_number=' + ApplicationNo + '&postitid=' + noteid, null);
   }
@@ -471,7 +472,7 @@ export class ServiceService {
       serviceId + '&taskid=' + taskid + '&orgid=' + orgid + '&UserName=' + environment.username + '&json=' + json + '&docid=' +
       docid, null);
   }
- 
+
 
   GetForm(docid) {
     return this.http.get(this.GetDataURL + '?docid=' + docid);
@@ -479,5 +480,115 @@ export class ServiceService {
   getUserWorkInfo () {
     return this.http.get(this.UserWorkInfoURl + "/" + environment.username)
   }
-  
+
+
+  formdataget() {
+    return this.http.get('http://197.156.93.110/xoka.ERP.API/api/ProprtyData/procProportyDataCollectionTransaction')
+  }
+
+
+  /////////////////////
+
+  getCustomerNew() {
+    return this.http.get(environment.rootApiPath + 'CustomerNew');
+  }
+
+  getLicense() {
+    return this.http.get(environment.rootApiPath + 'License');
+  }
+
+  getRenewal() {
+    return this.http.get(environment.rootApiPath + 'RenewalInformation');
+  }
+
+  getCustomerType() {
+    return this.http.get(environment.rootApiPath + 'CustomerType');
+  }
+
+  getRenewalType() {
+    return this.http.get(environment.rootApiPath + 'RenewalType');
+  }
+
+  getCustomerNewById(id) {
+    return this.http.get(environment.rootApiPath + 'CustomerNew/' + id)
+  }
+
+  getLicenseById(id) {
+    return this.http.get(environment.rootApiPath + 'License/' + id)
+  }
+
+  getRenewalInformationById(id) {
+    return this.http.get(environment.rootApiPath + 'RenewalInformation/' + id)
+  }
+
+  getCustomerTypeById(id) {
+    return this.http.get(environment.rootApiPath + 'CustomerType/' + id)
+  }
+
+  getRenewalTypeById(id) {
+    return this.http.get(environment.rootApiPath + 'RenewalType/' + id)
+  }
+
+  saveCustomerNew(data) {
+    return this.http.post(environment.rootApiPath + "CustomerNew", data );
+  }
+
+  saveLicense(data) {
+    return this.http.post(environment.rootApiPath + "License", data );
+  }
+
+  saveRenewalInformation(data) {
+    return this.http.post(environment.rootApiPath + "RenewalInformation/", data );
+  }
+
+  saveCustomerType(data) {
+    return this.http.post(environment.rootApiPath + "CustomerType/", data );
+  }
+
+  saveRenewalType(data) {
+    return this.http.post(environment.rootApiPath + "RenewalType/", data );
+  }
+
+  updateCustomerNew(data) {
+    return this.http.put(environment.rootApiPath + "CustomerNew", data );
+  }
+
+  updateLicense(data) {
+    console.log('data',data);
+
+    return this.http.put(environment.rootApiPath + "License/" + data.license_id, data );
+  }
+
+  updateRenewalInformation(data) {
+    return this.http.put(environment.rootApiPath + "RenewalInformation/", data );
+  }
+
+  updateCustomerType(data) {
+    return this.http.put(environment.rootApiPath + "CustomerType/", data );
+  }
+
+  updateRewalType(data) {
+    return this.http.put(environment.rootApiPath + "RenewalType/", data );
+  }
+
+  deleteCustomerNew(data) {
+    return this.http.delete(environment.rootApiPath + "CustomerNew/" + data );
+  }
+
+  deleteLicense(data) {
+    return this.http.delete(environment.rootApiPath + "License/" + data );
+  }
+
+  deleteRenewalInformation(data) {
+    return this.http.delete(environment.rootApiPath + "RenewalInformation/" + data );
+  }
+
+  deleteCustomerType(data) {
+    return this.http.delete(environment.rootApiPath + "CustomerType/" + data );
+  }
+
+  deleteRenewalType(data) {
+    return this.http.delete(environment.rootApiPath + "RenewalType/" + data );
+  }
+
 }

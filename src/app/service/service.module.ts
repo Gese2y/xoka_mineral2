@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { ServiceRoutingModule } from "./service-routing.module";
 import { ServiceComponent } from "./service.component";
@@ -22,6 +22,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { SidebarModule } from "ng-sidebar";
 import { BrowserModule } from "@angular/platform-browser";
 import { DialogModule } from "primeng/dialog";
+import { InputTextModule } from 'primeng/inputtext';
 
 import {
   FileUploadModule,
@@ -57,10 +58,20 @@ import { MapComponent } from './map/map.component';
 import { MineralUsesComponent } from "./mineral-uses/mineral-uses.component";
 import { GisComponent } from "./gis/gis.component";
 import { FormDisplayComponent } from "./form-display/form-display.component";
+import { CustomerNewComponent } from './customer-new/customer-new.component';
+import { ButtonModule } from 'primeng/button';
+import { LicenseComponent } from './license/license.component';
+import { RenewalInformationComponent } from './renewal-information/renewal-information.component';
+import { CustomerTypeComponent } from './customer-type/customer-type.component';
+import { ArchwizardModule } from 'angular-archwizard';
+import { GisPlotComponent } from './gis-plot/gis-plot.component';
 
 @NgModule({
   imports: [
+    ButtonModule,
+    InputTextModule,
     BrowserModule,
+    ReactiveFormsModule,
     CommonModule,
     DialogModule,
     MatDialogModule,
@@ -68,7 +79,7 @@ import { FormDisplayComponent } from "./form-display/form-display.component";
     ServiceRoutingModule,
     AngularFontAwesomeModule,
     TreeModule,
-    // ArchwizardModule,
+    ArchwizardModule,
 ProgressSpinnerModule,
 NgxPaginationModule,
     TableModule,
@@ -92,27 +103,27 @@ NgxPaginationModule,
     GMapModule ,
     // TabsModule
         TabViewModule
-    
+
   ],
   declarations: [
-   
+
     ServiceComponent,
     LoadingComponent,
     SurveyComponent,
     FormDisplayComponent,
-    
+
     DemoComponent,
     TaxTypeComponent,
-    
+
     UnitOfMeasureComponent,
     CurrencyComponent,
-    
+
     PeriodsComponent,
     MineralComponent,
     MineralUseComponent,
     MineralUsesComponent,
     ResourceDepositComponent,
-    SiteComponent,   
+    SiteComponent,
     ListMineralComponent,
     SiteListComponent,
     SiteMapComponent,
@@ -120,13 +131,18 @@ NgxPaginationModule,
     GisComponent,
       GeojsondeskComponent,
       MapComponent,
+      CustomerNewComponent,
+      LicenseComponent,
+      RenewalInformationComponent,
+      CustomerTypeComponent,
+      GisPlotComponent
   // DrawmapComponent
-   
+
   ],
   providers: [
     ServiceService,
     MessageService,
-   
+
     // MaintainCustomerService,
     // MaintainVendorService,
     // MaintainInventoryitemService,

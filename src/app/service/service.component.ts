@@ -19,7 +19,7 @@ export class ServiceComponent implements OnInit {
   public ID = 0;
   loading = true;
   licenceService;
-  licenceData: any;
+  licenceData: any = '';
   AppNo;
   tskTyp;
   DropDownList;
@@ -46,7 +46,52 @@ export class ServiceComponent implements OnInit {
     JSONFOUND: 'ev001',
     ALREADYAPPLIED: 'ev002'
   }
-
+  mimeExtension = {
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': {
+      extension: 'xlsx',
+      previewable: false
+    },
+    'application/vnd.ms-excel': {
+      extension: 'xls',
+      previewable: false
+    },
+    'text/csv': {
+      extension: 'csv',
+      previewable: false
+    },
+    'application/pdf': {
+      extension: 'pdf',
+      previewable: true
+    },
+    'image/jpeg': {
+      extension: 'jpg',
+      previewable: true
+    },
+    'image/png': {
+      extension: 'png',
+      previewable: true
+    },
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': {
+      extension: 'docx',
+      previewable: false
+    },
+    'application/msword': {
+      extension: 'doc',
+      previewable: false
+    },
+    'image/gif': {
+      extension: 'gif',
+      previewable: true
+    },
+    'application/geojson': {
+      extension: 'geojson',
+      previewable: false
+    },
+    'application/x-zip-compressed': {
+      extension: 'zip',
+      previewable: false
+    },
+  }
   validated=false;
   preAppID;
   formcode;
@@ -76,7 +121,7 @@ export class ServiceComponent implements OnInit {
   public PlotLandUseLookUP;
   public TransferTypeLookUP;
   public Lease_Type_Lookup;
-  displayRivew;
+  displayRivew = false;
   notes;
   modalRef: BsModalRef;
   public workingUser: {
@@ -88,12 +133,13 @@ export class ServiceComponent implements OnInit {
 
 
 
-  
+
   subscribe;
- 
+
   emit;
   public urlParams: any;
   selectedNote: any;
+  loadingPreDoc: boolean = true;
 
   constructor(
     private modalService: BsModalService,
@@ -110,35 +156,38 @@ export class ServiceComponent implements OnInit {
   ngOnInit() {
     this.validated=true;
     this.activatedRoute.params.subscribe((params: Params) => {
-      console.log(params["id"]+"pARSAM SERVICE");
-      
+//      console.log(params["id"]+"pARSAM SERVICE");
+
       if(this.Service_ID==undefined){
         this.Service_ID=params["id"];
       }
       if (params["formcode"] == "a94d6841-66f4-4e2a-99ea-193bd55cbe64") {
         this.ID = 2;
       } else if (params["formcode"] == "84f996c2-bc57-44fc-900f-0a8e19f48852") {
-        this.ID = 32;     
+        this.ID = 32;
       } else if (params["formcode"] == "343a087e-8a4b-4904-8ef3-08f723b74d3d") {
-        this.ID = 33; 
+        this.ID = 33;
       // } else if (params["formcode"] == "3a1f0b93-8b7b-4dcc-a0bf-05615b695fe1") {
-      //   this.ID = 34; 
+      //   this.ID = 34;
        } else if (params["formcode"] == "60ca1a18-ff1c-46da-babd-0159bd0124b0") {
-        this.ID = 34; 
+        this.ID = 34;
       } else if (params["formcode"] == "6") {
         this.ID = 35;
       } else if (params["formcode"] == "7") {
-        this.ID = 36; 
+        this.ID = 36;
        } else if (params["formcode"] == "8") {
-        this.ID = 37; 
+        this.ID = 37;
       }   else if (params["formcode"] == "343a087e-8a4b-4904-8ef3-08f723b74d3d") {
-        this.ID = 38;  
-      }  else {
+        this.ID = 38;
+      } else if (params["formcode"] == "524a60fd-97c3-4c36-a18c-1b8467b8b19c") {
+        this.ID = 40;
+      }
+       else {
         this.ID = 1;
         this.serviceEvent.on(
           this.eventTypes.JSONFOUND,
           () => {
-            console.log('rendering form...');
+//            console.log('rendering form...');
             this.service.getFormData(params['formcode'], 2).subscribe(data => {
               this.ID = 1;
             }, error => {
@@ -146,6 +195,10 @@ export class ServiceComponent implements OnInit {
             });
           });
       }
+
+      //  0A54D533-A35A-42AA-9D4D-F5A1A6B1686E   Review Online Application
+      //   E3C17C78-0526-41DE-9B7E-0A0EC5B270CA  Online Application for Data Request
+
       // this.ID = params['id'];
       this.AppNo = params["AppNo"];
       this.getAll(this.AppNo);
@@ -163,26 +216,26 @@ export class ServiceComponent implements OnInit {
     this.getUserWorkInfo();
     this.getLookups();
     this.getRequiredDocs();
-    
-    console.log("selectedTask " + this.selectedTask);
+
+//    console.log("selectedTask " + this.selectedTask);
   }
 
 
   getUserWorkInfo() {
     this.serviceService.getUserWorkInfo().subscribe(
       (response) => {
-        if(Array.isArray(response)){          
-          if(response.length > 0){               
+        if(Array.isArray(response)){
+          if(response.length > 0){
             this.workingUser = response[0];
-            console.log("user-info-response", this.workingUser);   
+//            console.log("user-info-response", this.workingUser);
           }
         }
       },
       (error) => {
-        console.log("user-info-error", error);
+//        console.log("user-info-error", error);
       }
     );}
-  
+
   Back() {
     this.serviceService.Back(this.AppNo, this.todoID).subscribe(
       (message) => {
@@ -212,7 +265,7 @@ export class ServiceComponent implements OnInit {
       .subscribe(
         (Validated) => {
           // const toast = this.notificationsService.success("success", "successfull");
-          console.log("validateing.... => " + Validated);
+//          console.log("validateing.... => " + Validated);
           if (Validated == "Validated") {
             this.validated = true;
             this.disablefins = false;
@@ -226,10 +279,10 @@ export class ServiceComponent implements OnInit {
           // this.RequerdDocs = RequerdDocs;
 
           // this.getAllDocument();
-          // console.log('RequerdDocs', this.RequerdDocs);
+//          // console.log('RequerdDocs', this.RequerdDocs);
         },
         (error) => {
-          console.log("error");
+//          console.log("error");
         }
       );
   }
@@ -320,7 +373,7 @@ export class ServiceComponent implements OnInit {
     this.serviceService.GetNote(this.AppNo).subscribe(
       (Notes) => {
         if (Notes) {
-          console.log("NoteObj", Notes);
+//          console.log("NoteObj", Notes);
           this.NoteObj = Notes[0];
         } else {
           this.NoteObj = { remarks: "", postit_note_code: "" };
@@ -337,21 +390,23 @@ export class ServiceComponent implements OnInit {
   public getAll(AppNo) {
     this.serviceService.getAll(AppNo).subscribe(
       (licenceService) => {
-        console.log("get-all-response", licenceService);
+       console.log("get-all-response",AppNo, licenceService);
 
         this.licenceService = licenceService;
         this.licenceData = this.licenceService.list[0];
         if(this.licenceService.list.length > 0 ){
           this.licenceData = this.licenceService.list[0];
-          console.log('Licence data1', this.licenceData);
-  
-          this.SDP_ID = this.licenceData.SDP_ID;
-          this.Service_ID = this.licenceData.Service_ID;
-          this.Licence_Service_ID = this.licenceData.Licence_Service_ID;
-  
+//          console.log('Licence data1', this.licenceData);
+this.SDP_ID = this.licenceData.SDP_ID;
+this.Service_ID = this.licenceData.Service_ID;
+this.Licence_Service_ID = this.licenceData.Licence_Service_ID;
+this.serviceService.AppCode = this.licenceData.Licence_Service_ID;
+         this.serviceService.AppNO=this.licenceData.Application_No
+          // this.serviceService.Service_Name=this.licenceData.Service_Name
+          // this.serviceService.AppCode=this.Licence_Service_ID``
           //this.AppCode = this.licenceData.Licence_Service_ID;//
           this.AppNo = this.licenceData.Application_No;//
-  
+
           if (this.licenceData.Certificate_Code > 0) {
             this.getPriveysLicence(this.licenceData.Certificate_Code);
           }
@@ -361,34 +416,40 @@ export class ServiceComponent implements OnInit {
         }
         this.disablefins = false;
 
-        // console.log('Licence data2', this.licenceData);
+//        // console.log('Licence data2', this.licenceData);
         // this.taskType = this.licenceData.TaskType;
         this.loading = false;
       },
       (error) => {
-        console.log("get-all-error" + error);
+//        console.log("get-all-error" + error);
       }
     );
   }
 
   Submit(ruleid) {
-    console.log("next", this.licenceData);
+   console.log("next", this.licenceData,this.serviceService.dedicate_license);
 
     this.disablefins = true;
     this.serviceService
+      // .Submit(
+      //   this.serviceService.dedicate_license
+      //     ? this.serviceService.dedicate_license[0]
+      //     : "00000000-0000-0000-0000-000000000000",
+      //   this.DocID ? this.DocID : "00000000-0000-0000-0000-000000000000",
+      //   this.todoID ? this.todoID : "00000000-0000-0000-0000-000000000000",
+      //   ruleid
+      // )
       .Submit(
-        this.licenceData
-          ? this.licenceData.Application_No
-          : "00000000-0000-0000-0000-000000000000",
-        this.DocID ? this.DocID : "00000000-0000-0000-0000-000000000000",
-        this.todoID ? this.todoID : "00000000-0000-0000-0000-000000000000",
+        this.serviceService.dedicate_license? this.serviceService.dedicate_license[0]: "00000000-0000-0000-0000-000000000000",
+        this.serviceService.dedicate_license? this.serviceService.dedicate_license[1]: "00000000-0000-0000-0000-000000000000",
+        this.serviceService.dedicate_license? this.serviceService.dedicate_license[2]: "00000000-0000-0000-0000-000000000000",
         ruleid
       )
       .subscribe(
         (message) => {
-          console.log("next-response", message);
+//          console.log("next-response", message);
 
-          // console.log('message', message);
+//          // console.log('message', message);
           const toast = this.notificationsService.success("Sucess", "sucesss");
           this.Close();
         },
@@ -413,22 +474,22 @@ export class ServiceComponent implements OnInit {
   }
 
   closeModal() {
-    // console.log('closeing.....');
+//    // console.log('closeing.....');
     this.modalRef.hide();
   }
 
-  getRequiredDocs() {
-    this.serviceService.getRequerdDocs(this.tskID).subscribe(
-      (RequerdDocs) => {
-        this.RequerdDocs = RequerdDocs;
+//   getRequiredDocs() {
+//     this.serviceService.getRequerdDocs(this.tskID).subscribe(
+//       (RequerdDocs) => {
+//         this.RequerdDocs = RequerdDocs;
 
-        // console.log('RequerdDocs', this.RequerdDocs);
-      },
-      (error) => {
-        console.log("error : ", error);
-      }
-    );
-  }
+// //        // console.log('RequerdDocs', this.RequerdDocs);
+//       },
+//       (error) => {
+// //        console.log("error : ", error);
+//       }
+//     );
+//   }
 
   upload(event, RequiredDoc) {
     const File = event.files[0];
@@ -448,10 +509,10 @@ export class ServiceComponent implements OnInit {
         )
         .subscribe(
           (message) => {
-            // console.log('message', message);
+//            // console.log('message', message);
           },
           (error) => {
-            console.log("error");
+//            console.log("error");
           }
         );
     });
@@ -468,29 +529,34 @@ export class ServiceComponent implements OnInit {
     this.PreTaskData = [];
     for (let i = 0; i < this.PreAppData.length; i++) {
       if (this.PreAppData[i].tasks_task_code == task) {
-        // console.log('this.PreAppData[i]', this.PreAppData[i]);
+//        // console.log('this.PreAppData[i]', this.PreAppData[i]);
         this.PreTaskData.push(this.PreAppData[i]);
       }
     }
-    // console.log('PreTaskData', this.PreTaskData);
+//    // console.log('PreTaskData', this.PreTaskData);
   }
-  getRequiredDocspre(tskID) {
-    this.serviceService.getRequerdDocs(tskID).subscribe(RequerdDocs => {
-      this.RequerdDocspre = RequerdDocs;
-console.log("d ::",this.RequerdDocs);
-if (this.RequerdDocs != null){
-      for (let i = 0; i < this.RequerdDocs.length; i++) {
-        if (this.RequerdDocs[i].description_en == "Dummy") {
-          this.RequerdDocs.splice(i, 1);
-          break;
+  getRequiredDocs() {
+    this.serviceService.getRequerdDocs(this.tskID).subscribe(
+      (RequerdDocs) => {
+        this.RequerdDocs = RequerdDocs;
+
+        if (this.RequerdDocs) {
+          for (let i = 0; i < this.RequerdDocs.length; i++) {
+            if (this.RequerdDocs[i].description_en == "Dummy") {
+              this.RequerdDocs.splice(i, 1);
+              break;
+            }
+          }
+          this.getAllDocument();
         }
-      }}
-      this.getAllDocument();
-      // console.log('RequerdDocs', this.RequerdDocs);
-    }, error => {
-      console.log('error');
-    });
+        // console.log('RequerdDocs', this.RequerdDocs);
+      },
+      (error) => {
+        console.log("error");
+      }
+    );
   }
+
   getAllDocument() {
     this.serviceService.getAllDocument(this.licenceData.Licence_Service_ID, this.DocID).subscribe(SavedFiles => {
       this.SavedFiles = SavedFiles;
@@ -509,34 +575,99 @@ if (this.RequerdDocs != null){
       console.log('error');
     });
   }
+  getRequiredDocspre(tskID) {
+    this.serviceService.getRequerdDocs(tskID).subscribe(RequerdDocs => {
+      this.RequerdDocspre = RequerdDocs;
+      if (this.RequerdDocs != null)
+        for (let i = 0; i < this.RequerdDocs.length; i++) {
+          if (this.RequerdDocs[i].description_en == "Dummy") {
+            this.RequerdDocs.splice(i, 1);
+            break;
+          }
+        }
+      this.getAllDocument();
+       console.log('RequerdDocs', this.RequerdDocs);
+    }, error => {
+      console.log('error');
+    });
+  }
+
+  signatures = {
+    JVBERi0: "application/pdf",
+    R0lGODdh: "image/gif",
+    R0lGODlh: "image/gif",
+    iVBORw0KGgo: "image/png"
+  };
+
+  detectMimeType(b64) {
+    for (var s in this.signatures) {
+      if (b64.indexOf(s) === 0) {
+        return this.signatures[s];
+      }
+    }
+  }
+
+  getAllDocumentpre(Licence_Service_ID, DocID) {
+    this.loadingPreDoc = true;
+    this.serviceService.getAllDocument(Licence_Service_ID, DocID).subscribe(
+      (SavedFiles) => {
+        this.loadingPreDoc = false;
+        console.log("pdf file", SavedFiles)
+        this.SavedFilespre = SavedFiles;
+          for (let i = 0; i < this.RequerdDocspre.length; i++) {
+            for (let j = 0; j < SavedFiles.length; j++) {
+              if (
+                this.RequerdDocspre[i].requirement_code ==
+                SavedFiles[j].requirement_code
+              ) {
+
+                try {
+                  let fileData = JSON.parse(atob(
+                    SavedFiles[j].document
+                  ));
+
+                  let { type, data } = fileData;
+
+                  this.RequerdDocspre[i].mimeType = type;
+                  this.RequerdDocspre[i].File =
+                    "data:" + type + ";base64, " + data;
+                  this.RequerdDocspre[
+                    i
+                  ].File = this.sanitizer.bypassSecurityTrustResourceUrl(
+                    this.RequerdDocspre[i].File
+                  );
+
+                  this.RequerdDocspre[i].document_code =
+                    SavedFiles[j].document_code;
+                }
+                catch (e) {
+                  console.error(e);
+                }
+              }
+
+            }
+          }
+        console.log("SavedFiles", this.SavedFiles);
+        console.log("SavedFilesPre", this.RequerdDocspre);
+      },
+      (error) => {
+        this.loadingPreDoc = false;
+        console.log("error");
+      }
+    );
+  }
+
   selectNote(value){
 
     this.currentRemark = this.notes[value]['remarks'];
   }
-  getAllDocumentpre(Licence_Service_ID, DocID) {
-    this.serviceService.getAllDocument(Licence_Service_ID, DocID).subscribe(SavedFiles => {
-      this.SavedFilespre = SavedFiles;
-      if (this.RequerdDocs != null){
-      for (let i = 0; i < this.RequerdDocspre.length; i++) {
-        for (let j = 0; j < SavedFiles.length; j++) {
-          if (this.RequerdDocspre[i].requirement_code == SavedFiles[j].requirement_code) {
-            this.RequerdDocspre[i].File = 'data:image/jpg;base64, ' + SavedFiles[j].document;
-            this.RequerdDocspre[i].File = this.sanitizer.bypassSecurityTrustResourceUrl(this.RequerdDocspre[i].File);
-            this.RequerdDocspre[i].document_code = SavedFiles[j].document_code;
-          }
-        }
-      }
-      console.log('SavedFiles', this.SavedFiles);
-    }}, error => {
-      console.log('error');
-    });
-  }
-  
+
+
   GetNotePrevius(AppNo) {
 
     this.serviceService.GetNote(AppNo).subscribe(Notes => {
       if (Notes) {
-        console.log('NoteObj', Notes);
+//        console.log('NoteObj', Notes);
         this.preNoteObj = Notes[0];
       }
     }, error => {
@@ -549,16 +680,16 @@ if (this.RequerdDocs != null){
     this.serviceService.getTodandAppNo(appNO).subscribe(PreAppData => {
       this.PreAppData = PreAppData;
       // this.PreAppData = PreAppData;
-      console.log('PriveLicence', this.PriveLicence);
+//      console.log('PriveLicence', this.PriveLicence);
       for (let i = 0; i < this.PriveLicence.length; i++) {
         if (this.PriveLicence[i].Application_No == appNO) {
           this.SelectedpreApp = this.PriveLicence[i];
-          console.log('this.SelectedpreApp', this.SelectedpreApp);
+//          console.log('this.SelectedpreApp', this.SelectedpreApp);
         }
       }
       this.PreAppData = (Object.assign([], this.PreAppData.Table));
       // this.PreAppData = (Object.assign({}, this.PreAppData.Table));
-      // console.log('PreAppData', this.PreAppData);
+//      // console.log('PreAppData', this.PreAppData);
       this.ifTask = true;
       this.GetNotePrevius(appNO);
       if (this.TaskN) {
@@ -566,33 +697,33 @@ if (this.RequerdDocs != null){
 
       }
     }, error => {
-      console.log('error');
+//      console.log('error');
     });
   }
   SelectTask(task) {
-    console.log('task', task);
+ console.log('task', task);
     this.selectedpreTask = task;
     this.selectedTask = task;
     this.getRequiredDocspre(task.tasks_task_code);
     this.getAllDocumentpre(this.SelectedpreApp.Licence_Service_ID, task.docId);
     if (task.form_code == "a7a1e05e-32c2-4f44-ad58-306572c64593") {
       this.preAppID = 2;
-      // console.log('to', 2);
-    } else if (task.form_code == "da8c5bd4-ea3d-4f02-b1b2-38cf26d6d1ff") {
+//      // console.log('to', 2);
+    } else if (task.form_code == "343a087e-8a4b-4904-8ef3-08f723b74d3d") {
       this.preAppID = 3;
-      // console.log('to', 3);
+//      // console.log('to', 3);
     } else if (task.form_code == "9e0834e9-7ec2-460c-a5ed-7ade1204c7ee") {
       this.preAppID = 4;
-      // console.log('to', 4);
+//      // console.log('to', 4);
     } else {
       this.preAppID = 1;
-      // console.log('to', 1);
+//      // console.log('to', 1);
     }
     this.ifTaskDetail = true;
   }
-  
+
   saveForm(formData) {
-    // console.log('formData', formData);
+//    // console.log('formData', formData);
 
     this.serviceService
       .saveForm(
@@ -632,10 +763,10 @@ if (this.RequerdDocs != null){
 
         this.FormData = JSON.parse(this.FormData);
         // this.FormData = (Object.assign({}, this.FormData));
-        // console.log('FormData', FormData);
+//        // console.log('FormData', FormData);
       },
       (error) => {
-        console.log("error");
+//        console.log("error");
       }
     );
   }
@@ -645,10 +776,10 @@ if (this.RequerdDocs != null){
       (DropDownList) => {
         this.DropDownList = DropDownList;
         this.DropDownList = Object.assign([], this.DropDownList);
-        // console.log('DropDownList', DropDownList);
+//        // console.log('DropDownList', DropDownList);
       },
       (error) => {
-        console.log("error");
+//        console.log("error");
       }
     );
   }
@@ -704,7 +835,7 @@ if (this.RequerdDocs != null){
     this.serviceService.getPriveys(Certificate_Code).subscribe(PriveLicence => {
       this.PriveLicence = PriveLicence;
       this.PriveLicence = (Object.assign([], this.PriveLicence.list));
-      console.log('this.PriveLicence', this.PriveLicence);
+//      console.log('this.PriveLicence', this.PriveLicence);
       this.AppNoList = [];
       for (let i = 0; i < this.PriveLicence.length; i++) {
         this.AppNoList[i] = {};
@@ -714,15 +845,15 @@ if (this.RequerdDocs != null){
 
 
       this.PriveAppNoList = (Object.assign([], this.AppNo));
-      // console.log('this.AppNoList', this.AppNoList);
-      // console.log('PriveLicence', PriveLicence);
+//      // console.log('this.AppNoList', this.AppNoList);
+//      // console.log('PriveLicence', PriveLicence);
       this.ifAppNo = true;
 
       this.AppN = this.AppNo;
       this.getAppData(this.AppN);
       this.TaskN = this.tskID;
     }, error => {
-      console.log('error');
+//      console.log('error');
     });
   }
 
@@ -734,10 +865,10 @@ if (this.RequerdDocs != null){
           [],
           this.CustomerTypeLookUP.list
         );
-        //  console.log('CustomerTypeLookUP', CustomerTypeLookUP);
+//        //  console.log('CustomerTypeLookUP', CustomerTypeLookUP);
       },
       (error) => {
-        console.log("error");
+//        console.log("error");
       }
     );
   }
@@ -750,10 +881,10 @@ if (this.RequerdDocs != null){
           [],
           this.SuspendedReasonLookUP.list
         );
-        // console.log('SuspendedReasonLookUP', SuspendedReasonLookUP);
+//        // console.log('SuspendedReasonLookUP', SuspendedReasonLookUP);
       },
       (error) => {
-        console.log("error");
+//        console.log("error");
       }
     );
   }
@@ -766,10 +897,10 @@ if (this.RequerdDocs != null){
           [],
           this.PropertyTypeLookUP.list
         );
-        // console.log('PropertyTypeLookUP', PropertyTypeLookUP);
+//        // console.log('PropertyTypeLookUP', PropertyTypeLookUP);
       },
       (error) => {
-        console.log("error");
+//        console.log("error");
       }
     );
   }
@@ -782,10 +913,10 @@ if (this.RequerdDocs != null){
           [],
           this.PropertyStatusLookUP.list
         );
-        // console.log('PropertyStatusLookUP', PropertyStatusLookUP);
+//        // console.log('PropertyStatusLookUP', PropertyStatusLookUP);
       },
       (error) => {
-        console.log("error");
+//        console.log("error");
       }
     );
   }
@@ -798,10 +929,10 @@ if (this.RequerdDocs != null){
           [],
           this.ServiceDeliveryUnitLookUP
         );
-        console.log("ServiceDeliveryUnitLookUP", ServiceDeliveryUnitLookUP);
+//        console.log("ServiceDeliveryUnitLookUP", ServiceDeliveryUnitLookUP);
       },
       (error) => {
-        console.log("service delivery error : ", error);
+//        console.log("service delivery error : ", error);
       }
     );
   }
@@ -814,10 +945,10 @@ if (this.RequerdDocs != null){
           [],
           this.TransferTypeLookUP.list
         );
-        console.log("TransferTypeLookUP", TransferTypeLookUP);
+//        console.log("TransferTypeLookUP", TransferTypeLookUP);
       },
       (error) => {
-        console.log("error");
+//        console.log("error");
       }
     );
   }
@@ -827,10 +958,10 @@ if (this.RequerdDocs != null){
       (Lease_Type_Lookup) => {
         this.Lease_Type_Lookup = Lease_Type_Lookup;
         this.Lease_Type_Lookup = Object.assign([], this.Lease_Type_Lookup.list);
-        console.log("Lease_Type_Lookup", Lease_Type_Lookup);
+//        console.log("Lease_Type_Lookup", Lease_Type_Lookup);
       },
       (error) => {
-        console.log("error");
+//        console.log("error");
       }
     );
   }
@@ -840,10 +971,10 @@ if (this.RequerdDocs != null){
       (WoredaLookUP) => {
         this.WoredaLookUP = WoredaLookUP;
         this.WoredaLookUP = Object.assign([], this.WoredaLookUP.list);
-        // console.log('WoredaLookUP', WoredaLookUP);
+//        // console.log('WoredaLookUP', WoredaLookUP);
       },
       (error) => {
-        console.log("error");
+//        console.log("error");
       }
     );
   }
@@ -868,10 +999,10 @@ if (this.RequerdDocs != null){
             this.CustomerLookUP[i].Applicant_Last_Name_EN;
         }
         this.getCustomerBankLookUP();
-        console.log("CustomerLookUP", this.CustomerLookUP);
+//        console.log("CustomerLookUP", this.CustomerLookUP);
       },
       (error) => {
-        console.log("error");
+//        console.log("error");
       }
     );
   }
@@ -886,7 +1017,7 @@ if (this.RequerdDocs != null){
         this.CustomerBankLookUP.push(this.CustomerLookUP[i]);
       }
     }
-    console.log("CustomerBankLookUP", this.CustomerBankLookUP);
+//    console.log("CustomerBankLookUP", this.CustomerBankLookUP);
   }
 
   getPlotStutusLookUP() {
@@ -894,10 +1025,10 @@ if (this.RequerdDocs != null){
       (PlotStutusLookUP) => {
         this.PlotStutusLookUP = PlotStutusLookUP;
         this.PlotStutusLookUP = Object.assign([], this.PlotStutusLookUP.list);
-        // console.log('PlotStutusLookUP', PlotStutusLookUP);
+//        // console.log('PlotStutusLookUP', PlotStutusLookUP);
       },
       (error) => {
-        console.log("error");
+//        console.log("error");
       }
     );
   }
@@ -907,10 +1038,10 @@ if (this.RequerdDocs != null){
       (PlotLandUseLookUP) => {
         this.PlotLandUseLookUP = PlotLandUseLookUP;
         this.PlotLandUseLookUP = Object.assign([], this.PlotLandUseLookUP.list);
-        // console.log('PlotLandUseLookUP', PlotLandUseLookUP);
+//        // console.log('PlotLandUseLookUP', PlotLandUseLookUP);
       },
       (error) => {
-        console.log("error");
+//        console.log("error");
       }
     );
   }

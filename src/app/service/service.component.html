@@ -3,15 +3,15 @@
     <table class="table">
       <thead>
         <tr *ngIf="licenceData">
-          <th scope="col" translate >
-            Application NO: {{ licenceData.Application_No }}
+          <th scope="col" translate>
+            Application NO: {{ serviceService.AppNO }}
           </th>
           <th scope="col" translate>
-            Service Name: {{ licenceData.Service_Name }}
+            Service Name: {{ serviceService.Service_Name }}
           </th>
           <th scope="col" translate>Plot ID: {{ licenceData.Parcel_ID }}</th>
           <th scope="col" translate>
-            Property ID: {{ licenceData.Property_ID }}
+            Property ID: {{ serviceService.Property_ID }}
           </th>
           <th scope="col" translate>
             Certificate ID: {{ licenceData.Certificate_Code }}
@@ -62,33 +62,57 @@
           </div>
           <div class="col-md-12">
             <div *ngIf="!validated">
-              <label class="text-primary">Need to save first, to upload files and write post in
-                notes</label>
+              <label class="text-primary"
+                >Need to save first, to upload files and write post in
+                notes</label
+              >
             </div>
           </div>
 
           <div class="form-group row col-sm-10 m-0" *ngIf="validated">
             <label>post in note</label>
-            <textarea class="form-control mx-2 mb-2 border-primary" rows="4" style="background: rgb(202, 236, 255)" [(ngModel)]="NoteObj.remarks" placeholder="write post in note here ...">
-                            </textarea>
-            <button type="button" class="btn btn-primary mx-2" *ngIf="!this.NoteObj.postit_note_code"
-              (click)="addNote()">
+            <textarea
+              class="form-control mx-2 mb-2 border-primary"
+              rows="4"
+              style="background: rgb(202, 236, 255)"
+              [(ngModel)]="NoteObj.remarks"
+              placeholder="write post in note here ..."
+            >
+            </textarea>
+            <button
+              type="button"
+              class="btn btn-primary mx-2"
+              *ngIf="!this.NoteObj.postit_note_code"
+              (click)="addNote()"
+            >
               Save
             </button>
-            <button type="button" class="btn btn-primary mx-4" *ngIf="this.NoteObj.postit_note_code"
-              (click)="saveNote()">
+            <button
+              type="button"
+              class="btn btn-primary mx-4"
+              *ngIf="this.NoteObj.postit_note_code"
+              (click)="saveNote()"
+            >
               Save
             </button>
-            <button type="button" class="btn btn-danger mx-4" *ngIf="this.NoteObj.postit_note_code"
-              (click)="DeleteNote()">
+            <button
+              type="button"
+              class="btn btn-danger mx-4"
+              *ngIf="this.NoteObj.postit_note_code"
+              (click)="DeleteNote()"
+            >
               Delete
             </button>
-            <button type="button" class="btn btn-primary" *ngIf="this.NoteObj.postit_note_code"
-              (click)="sendNote()">
+            <button
+              type="button"
+              class="btn btn-primary"
+              *ngIf="this.NoteObj.postit_note_code"
+              (click)="sendNote()"
+            >
               <span class="fa fa-telegram"></span> Send
             </button>
           </div>
-     
+
           <button class="demo-control" (click)="_toggleOpened()">
             Close Upload
           </button>
@@ -115,51 +139,80 @@
 
   <div>
     <!-- <div [ngSwitch]="ID"> -->
-      <!-- <div *ngIf="ID == 1"> -->
-      <!-- <div *ngSwitchCase="1">
+    <!-- <div *ngIf="ID == 1"> -->
+    <!-- <div *ngSwitchCase="1">
         <app-servy
           (completed)="saveForm($event)"
           [formcode]="formcode"
           [formData]="FormData"
         ></app-servy> -->
-        <div [ngSwitch]="ID">
-          <div *ngSwitchCase="1">
-            <app-servy (completed)="saveForm($event)" 
-            [formcode]="formcode" [formData]="FormData"></app-servy>
-          </div>
-     
+    <div [ngSwitch]="ID">
+      <div *ngSwitchCase="1">
+        <app-servy
+          (completed)="saveForm($event)"
+          [formcode]="formcode"
+          [formData]="FormData"
+        ></app-servy>
+      </div>
+
       <div *ngSwitchCase="32">
-        <app-mineral (completed)="saveForm($event)" [taskId]="tskID" 
-        [(licenceData)]="licenceData" [workingUser]="workingUser"
-        (saveDataCompleted)="saveDataCompleted($event)" ></app-mineral>
+        <app-mineral
+          (completed)="saveForm($event)"
+          [taskId]="tskID"
+          [(licenceData)]="licenceData"
+          [workingUser]="workingUser"
+          (saveDataCompleted)="saveDataCompleted($event)"
+        ></app-mineral>
       </div>
       <div *ngSwitchCase="33">
-        <app-mineral-use (completed)="saveForm($event)" [taskId]="tskID" 
-        [(licenceData)]="licenceData" [workingUser]="workingUser"
-        (saveDataCompleted)="saveDataCompleted($event)"></app-mineral-use>
+        <app-mineral-use
+          (completed)="saveForm($event)"
+          [taskId]="tskID"
+          [(licenceData)]="licenceData"
+          [workingUser]="workingUser"
+          (saveDataCompleted)="saveDataCompleted($event)"
+        ></app-mineral-use>
       </div>
       <!-- <div *ngSwitchCase="34">
-        <app-resource-deposit (completed)="saveForm($event)" [taskId]="tskID" 
+        <app-resource-deposit (completed)="saveForm($event)" [taskId]="tskID"
         [(licenceData)]="licenceData" [workingUser]="workingUser"
         (saveDataCompleted)="saveDataCompleted($event)"></app-resource-deposit>
       </div> -->
       <div *ngSwitchCase="34">
-        <app-site-list (completed)="saveForm($event)" [taskId]="tskID" 
-        [(licenceData)]="licenceData" [workingUser]="workingUser"
-        (saveDataCompleted)="saveDataCompleted($event)"></app-site-list>
-      </div> 
+        <app-site-list
+          (completed)="saveForm($event)"
+          [taskId]="tskID"
+          [(licenceData)]="licenceData"
+          [workingUser]="workingUser"
+          (saveDataCompleted)="saveDataCompleted($event)"
+        ></app-site-list>
+      </div>
       <div *ngSwitchCase="35">
         <app-site-map></app-site-map>
       </div>
-        <div *ngSwitchCase="36">
+      <div *ngSwitchCase="36">
         <app-geojsondesk></app-geojsondesk>
-      </div> 
+      </div>
       <div *ngSwitchCase="37">
         <app-gis></app-gis>
-      </div><div *ngSwitchCase="38">
-        <app-mineral-uses  (completed)="saveForm($event)" [taskId]="tskID" 
-        [(licenceData)]="licenceData" [workingUser]="workingUser"
-        (saveDataCompleted)="saveDataCompleted($event)"></app-mineral-uses>
+      </div>
+      <div *ngSwitchCase="38">
+        <app-mineral-uses
+          (completed)="saveForm($event)"
+          [taskId]="tskID"
+          [(licenceData)]="licenceData"
+          [workingUser]="workingUser"
+          (saveDataCompleted)="saveDataCompleted($event)"
+        ></app-mineral-uses>
+      </div>
+      <div *ngSwitchCase="40">
+        <app-site-list
+          (completed)="saveForm($event)"
+          [taskId]="tskID"
+          [(licenceData)]="licenceData"
+          [workingUser]="workingUser"
+          (saveDataCompleted)="saveDataCompleted($event)"
+        ></app-site-list>
       </div>
       <h3 class="not-fond-panel" *ngSwitchDefault>Form not found</h3>
     </div>
@@ -167,13 +220,18 @@
   <div
     class="p-3 border-secondary border-5 bg-secondary text-white h-5 text-center m-10 mt-10"
   >
-  <button type="button" class="btn btn-primary mr-2" (click)="Back()" translate>
-    Back
-  </button>
     <button
       type="button"
       class="btn btn-primary mr-2"
-      (click)="displayRivew=true;"
+      (click)="Back()"
+      translate
+    >
+      Back
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary mr-2"
+      (click)="displayRivew = true"
     >
       Review
     </button>
@@ -222,152 +280,258 @@
 </div>
 
 <simple-notifications></simple-notifications>
-<p-dialog [(visible)]="displayRivew" [modal]="true" [responsive]="true" width="700" height="700"   [maximizable]="true" [baseZIndex]="10000">
-  
-  <p-header>
-    <h4 class="modal-title pull-left" translate>Review</h4>
-  </p-header>
- 
-    <div class="modal-body">
-      <div>
-        <div class="col-sm-12">
-          <div  *ngIf="ifAppNo" class="col-sm-12 row mb-3">
-            <div class="col-sm-5" translate>Application No</div>
+
+<p-dialog
+  id="dia"
+  [contentStyle]="{'max-height':'80%'}"
+  [(visible)]="displayRivew"
+  [modal]="true"
+  [responsive]="true"
+  [maximizable]="true"
+  [baseZIndex]="10000"
+>
+  <p-header translate> Revieww   </p-header>
+  <div class=" modal-body">
+    <div>
+      <div class="col-sm-12 ">
+        <div *ngIf="ifAppNo" class="col-sm-12 row mb-3">
+          <div class="col-sm-2" translate>Application No</div>
+          <div class="col-sm-10">
             <select
-            class="form-control"
-            [(ngModel)]="AppN"
-            (change)="getAppData(AppN)"
-            name="CustomerType"
-            id="ApplicationLIst"
-          >
-            <option disabled>select</option>
-            <option
-              *ngFor="let AppNo of AppNoList"
-              [value]="AppNo.Application_No"
+              class="form-control"
+              [(ngModel)]="AppN"
+              (change)="getAppData(AppN)"
+              name="CustomerType"
+              id="ApplicationLIst"
             >
-              {{ AppNo.Application_No }}
-            </option>
-          </select>
+              <option>Select an application</option>
+              <option
+                *ngFor="let AppNo of AppNoList"
+                [value]="AppNo.Application_No"
+              >
+                {{ AppNo.Application_No }}
+              </option>
+            </select>
           </div>
-          <div *ngIf="ifTask" class="col-sm-12 row mb-3">
-            <div class="col-sm-5" translate>Task Name</div>
+        </div>
+
+        <div *ngIf="ifTask" class="col-sm-12 row mb-3">
+          <div class="col-sm-2" translate>Task Name</div>
+          <div class="col-sm-10">
             <select
-            
-            class="form-control"
-            [(ngModel)]="TaskN"
-            (change)="getTaskData(TaskN)"
-            name="CustomerType"
-            id="TaskList"
-          >
-            <option disabled translate="">select</option>
-            <option
-              *ngFor="let Task of PreAppData"
-              [value]="Task.tasks_task_code"
+              class="form-control"
+              [(ngModel)]="TaskN"
+              (change)="getTaskData(TaskN)"
+              name="CustomerType"
+              id="TaskList"
             >
-              {{ Task.description_en }}
-            </option>
-          </select>
+              <option>Select a task</option>
+              <option
+                *ngFor="let Task of PreAppData"
+                [value]="Task.tasks_task_code"
+              >
+                {{ Task.description_en }}
+              </option>
+            </select>
           </div>
-          
-  
-          <p-table
-            *ngIf="TaskN"
-            [value]="PreTaskData"
-            [paginator]="true"
-            [rows]="5"
-          >
-            <ng-template pTemplate="header">
-              <tr>
-                <th scope="col" translate>Status</th>
-                <th scope="col" translate>End Date</th>
-                <th scope="col" translate>Level</th>
-                <th scope="col" translate></th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-task>
-              <tr>
-                <td>{{ task.status }}</td>
-                <td>{{ task.start_date }}</td>
-                <td>{{ task.end_date }}</td>
-                <td>{{ task.level }}</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    (click)="SelectTask(task)"
-                    translate
-                  >
-                    Select
-                  </button>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-  
-          <div *ngIf="ifTaskDetail" class="mt-3">
-            <tabset #staticTabs>
-              <tab [heading]="'Form' | translate">
-                <div class="mt-3"> 
-                  <div *ngIf="preAppID == 1">
-                    <app-form-display [formcode]="selectedTask.form_code" [formData]="selectedTask.JsonData" [Mode]="'display'"></app-form-display> 
-                 </div>
-                 <div *ngIf="preAppID == 2">
-                   <!-- <app-vehicle-information></app-vehicle-information> -->
-                 </div>
-                 <div *ngIf="preAppID == 3">
-                   <!-- <app-active-vehicle></app-active-vehicle> -->
-                 </div>
-                 <div *ngIf="preAppID == 4">
-                   <!-- <app-request-schedule></app-request-schedule> -->
-                 </div>
-  
+        </div>
+
+        <p-table
+          *ngIf="TaskN"
+          [value]="PreTaskData"
+          [paginator]="true"
+          [rows]="5"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th scope="col" translate>Status</th>
+              <th scope="col" translate>Start Date</th>
+              <th scope="col" translate>End Date</th>
+              <th scope="col" translate>Level</th>
+              <th scope="col" translate></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-task>
+            <tr [class.active]="task.selected">
+              <td>{{ task.status }}</td>
+              <td>{{ task.start_date }}</td>
+              <td>{{ task.end_date }}</td>
+              <td>{{ task.level }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="SelectTask(task)"
+                  translate
+                >
+                  Select
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <div *ngIf="true" class=" h-75 mt-3">
+          <tabset #staticTabs>
+            <tab [heading]="'Form' | translate">
+              <div class=" h-75 mt-3">
+                <div [ngSwitch]="preAppID" class=" h-75 mt-3">
+                  <div *ngSwitchCase="1" class=" h-75 mt-3">
+                    <app-form-display class=" h-75 mt-3"
+                      [formcode]="selectedTask.form_code"
+                      [formData]="selectedTask.JsonData"
+                      [Mode]="'display'"
+                    >
+                    </app-form-display>
+                  </div>
+                  <div *ngSwitchCase="3">
+                    <app-mineral-uses
+                      (completed)="saveForm($event)"
+                      [taskId]="tskID"
+                      [(licenceData)]="licenceData"
+                      [workingUser]="workingUser"
+                      (saveDataCompleted)="saveDataCompleted($event)"
+                    ></app-mineral-uses>
+                  </div>
+                  <!-- <div *ngSwitchDefault>
+                    <app-form-not></app-form-not>
+                  </div> -->
                 </div>
-              </tab>
-              <tab [heading]="'Document' | translate">
-                <div class="mt-3">
-                  <div *ngIf="RequerdDocspre">
-                    <div class="form-group row col-sm-10 m-0" *ngFor="let RequerdDocpre of RequerdDocspre; let i = index">
-                      <label class="col-sm-4 col-form-label m-0">{{
-                        RequerdDocpre.description_en
-                        }}</label>
-                      <div class="col-sm-10 m-0">
-                        <div *ngIf="!RequerdDocpre.File"></div>
-                        <div *ngIf="RequerdDocpre.File">
-                          <img width="100%" [src]="RequerdDocpre.File" alt="FileUPloaded" />
+              </div>
+            </tab>
+            <tab [heading]="'Document' | translate">
+              <div class="mt-3">
+                <div
+                  class="alert alert-warning"
+                  role="alert"
+                  *ngIf="!RequerdDocspre"
+                >
+                  Document not uploaded!
+                </div>
+
+                <div *ngIf="RequerdDocspre">
+                  <div
+                    class="form-group row col-sm-12 m-0"
+                    *ngFor="let RequerdDocpre of RequerdDocspre; let i = index"
+                  >
+                    <label class="col-sm-12 col-form-label m-0">{{
+                      RequerdDocpre.description_en
+                    }}</label>
+                    <div class="col-sm-12 m-0 text-center">
+                      <div *ngIf="loadingPreDoc">
+                        <p-progressSpinner
+                          [style]="{ width: '50px', height: '50px' }"
+                          strokeWidth="4"
+                        >
+                        </p-progressSpinner>
+                      </div>
+
+                      <div
+                        class="alert alert-warning"
+                        role="alert"
+                        *ngIf="!RequerdDocpre && !loadingPreDoc"
+                      >
+                        Document not uploaded!
+                      </div>
+                      <div *ngIf="RequerdDocpre.File">
+                        <div *ngIf="!RequerdDocpre.File">
+                          <p-progressSpinner
+                            [style]="{ width: '50px', height: '50px' }"
+                            strokeWidth="4"
+                          >
+                          </p-progressSpinner>
+                        </div>
+
+                        <div
+                          *ngIf="
+                            mimeExtension[RequerdDocpre.mimeType].extension ==
+                              'pdf' ||
+                            mimeExtension[RequerdDocpre.mimeType].extension ==
+                              'docx'
+                          "
+                        >
+                          <iframe
+                            width="100%"
+                            [src]="RequerdDocpre.File"
+                            alt="FileUPloaded"
+                            class="pdf-ifram"
+                          ></iframe>
+                        </div>
+                        <div
+                          *ngIf="
+                            mimeExtension[RequerdDocpre.mimeType].extension ==
+                              'jpg' ||
+                            mimeExtension[RequerdDocpre.mimeType].extension ==
+                              'png' ||
+                            mimeExtension[RequerdDocpre.mimeType].extension ==
+                              'gif'
+                          "
+                        >
+                          <img
+                            width="100%"
+                            [src]="RequerdDocpre.File"
+                            alt="FileUPloaded"
+                          />
+                        </div>
+                        <div
+                          *ngIf="
+                            !mimeExtension[RequerdDocpre.mimeType].previewable
+                          "
+                        >
+                          <div class="alert alert-info">
+                            <a
+                              [href]="RequerdDocpre.File"
+                              [download]="
+                                RequerdDocpre.description_en +
+                                '.' +
+                                mimeExtension[RequerdDocpre.mimeType].extension
+                              "
+                            >
+                              Attached - Please download!
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </tab>
-              <tab [heading]="'Note' | translate">
-                <div class="mt-3">
-                  <select *ngIf="ifTask" class="form-control" #notedrop (change)="selectNote(notedrop.value)"
-                  name="CustomerType" id="TaskList">
-                    <option disabled>Select Notes</option>
-                    <option *ngFor="let note of notes; let i = index;" [value]="i"> Note {{i+1}}</option>
-                  </select>
-                  <b style="font-size: larger;">Post It Note: </b>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <textarea class="note" [disabled]="true" style="background-color:   rgb(247, 251, 203); width: 400px; height: 100px;" >{{ currentRemark }}</textarea>
-                </div>
-              </tab>
-            </tabset>
-           
-          </div>
+              </div>
+            </tab>
+            <tab [heading]="'Note' | translate">
+              <div class="mt-3">
+                <p-table [value]="allNotesObj" [paginator]="true" [rows]="5">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th scope="col" translate>User</th>
+                      <th scope="col" translate>Remarks</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-noteObj>
+                    <tr
+                      [class.active]="noteObj == selectedNote"
+                      (click)="selectNote(noteObj)"
+                    >
+                      <td>{{ noteObj.UserId }}</td>
+                      <td>{{ noteObj.remarks }}</td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </tab>
+          </tabset>
         </div>
       </div>
     </div>
- 
-  
-  <p-footer class="modal-footer">
+  </div>
+
+  <p-footer>
     <button
       type="button"
       class="btn btn-primary"
-      (click)="displayRivew=false"
+      (click)="displayRivew = false"
       translate
     >
       Done
     </button>
   </p-footer>
-
 </p-dialog>

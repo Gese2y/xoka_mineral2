@@ -1,0 +1,48 @@
+<form [formGroup]="formType">
+  <div class="row mb-3">
+    <div class="survey-container contentcontainer codecontainer">
+      <div id="surveyDisplay"></div>
+    </div>
+  </div>
+
+  <div class="text-center col-sm-12 btn-group ">
+    <button class="btn  btn-primary waves-effect waves-light" (click)="clear()" id="btn-submit">
+      New
+    </button>
+    <button *ngIf="!isnew"  class="btn  btn-success waves-effect waves-light"  (click)="SaveData()" id="btn-submit">
+      Save
+    </button>
+   <button *ngIf="isnew"  class="btn  btn-info waves-effect waves-light"  (click)="UpdateData()" id="btn-submit">
+      Update
+    </button>
+    <button *ngIf="isnew"  class="btn  btn-danger waves-effect waves-light" (click)="DeleteData()" id="btn-submit">
+      Delete
+    </button>
+  </div>
+</form>
+
+<!-- <p-table #table [value]="customerType" [paginator]="true" [rows]="5" selectionMode="single"
+ [globalFilterFields]="['customer_id','customer_field']" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect()">
+<ng-template pTemplate="caption">
+  <div class="table-header">
+    <h1 translate>List of Customer</h1>
+    <span class="p-input-icon-left">
+      <input pInputText type="text" (input)="table.filterGlobal($event.target.value, 'contains')" [placeholder]="'Global Search' | translate" />
+    </span>
+  </div>
+</ng-template>
+
+  <ng-template pTemplate="header">
+    <tr >
+      <tr>
+        <th translate >customer_type_id</th>
+        <th translate>json</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-prop >
+    <tr [pSelectableRow]="prop"  >
+      <td>{{ prop.customer_type_id }}</td>
+      <td>{{ prop.json }}</td>
+    </tr>
+  </ng-template>
+</p-table> -->

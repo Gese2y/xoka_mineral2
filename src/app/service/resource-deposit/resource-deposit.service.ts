@@ -8,14 +8,20 @@ import { environment } from 'src/environments/environment';
 export class ResourceDepositService {
   private Unit =environment.rootPath + 'BPEL/GetLookUp?DropGownName=Unit';
   // private addresourcedepositsUrl =environment.rootApiPath + 'ResourceDeposit';
-  public ResourceDUrl = environment.rootApiPath + "ResourceDeposit";
+  public ResourceDUrl = environment.rootApiPath + "ResourceDeposit/";
   public mineralIDUrl = environment.rootApiPath + "Mineral";
   public siteIDUrl = environment.rootApiPath + "Site";
   resourcedeposits:any;
   // postresourcedeposit: any;
   constructor(private http: HttpClient) { }
   getResourceD() {
-    return this.http.get(this.ResourceDUrl);
+    let t = this.http.get(this.ResourceDUrl);
+    t.subscribe(res => {
+      console.log(res);
+
+    });
+
+    return t
   }
 
   postresourcedeposit(orgId, appCode, appNo, userId, taskId) {
@@ -29,7 +35,7 @@ export class ResourceDepositService {
   }
   getUnit(){
     return this.http.get<any>(this.Unit);
-  } 
+  }
   addresourcedeposits(resourcedeposits) {
     return this.http.post(this.ResourceDUrl, resourcedeposits);
   }
@@ -38,14 +44,14 @@ export class ResourceDepositService {
   // }
   deleteresoucedeposit(resoucedeposits) {
     return this.http.delete(
-      this.ResourceDUrl + "/" + resoucedeposits.resource_Id
+      this.ResourceDUrl + resoucedeposits
     );
   }
   // Updateresource(resourcedeposits) {
   //   return this.http.put(this.ResourceDUrl+"/"+ resourcedeposits.resource_Id,resourcedeposits) ;
   // }
   Updateresource(resourcedeposits) {
-    return this.http.put(this.ResourceDUrl+"/id?id="+ resourcedeposits.resource_Id, resourcedeposits) ;
+    return this.http.put(this.ResourceDUrl + "id?id=" + resourcedeposits.resource_Id, resourcedeposits) ;
   }
-  
+
 }

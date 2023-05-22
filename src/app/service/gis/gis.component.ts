@@ -14,7 +14,7 @@ import { parseIsoWeekday } from "ngx-bootstrap/chronos/units/day-of-week";
   selector: "app-gis",
   templateUrl: "./gis.component.html",
   styleUrls: ["./gis.component.css"],
- 
+
 })
 export class GisComponent implements AfterViewInit {
   @Output() gooo = new EventEmitter();
@@ -52,9 +52,9 @@ export class GisComponent implements AfterViewInit {
     // this.gis.getGeological_structure().subscribe((res: any) => {
     //   console.log('rs from oro min ',res);
     //   L.geoJSON(res).addTo(this.map)
-      
-    // }) 
-  
+
+    // })
+
 
   }
   initmap() {
@@ -69,7 +69,7 @@ export class GisComponent implements AfterViewInit {
         openstreetmap: L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         ),
-       
+
         VMap: L.tileLayer("https://maps.vnpost.vn/api/tm/{z}/{x}/{y}@2x.png?apikey=8fb3246c12d442525034be04bcd038f22e34571be4adbd4c")
     };
     var overlays = {};
@@ -82,9 +82,9 @@ export class GisComponent implements AfterViewInit {
   // `<div><div>${features.id}</div>`
   //         + `<div>${features.properties.Area}</div>`
   //         + `<div>${features.properties.Commodit}</div>`
-  //         + `<div>${features.properties.Map_Refe}</div></div>` 
+  //         + `<div>${features.properties.Map_Refe}</div></div>`
 
-  
+
   Licensearea() {
     let a = this
     this.gisService.getLicensearea().subscribe((res: any) => {
@@ -92,7 +92,7 @@ export class GisComponent implements AfterViewInit {
       L.geoJSON(res, {
         onEachFeature: function(features, layer) {
           layer.on("click",() => {
-            
+
             this.featureid=features
             a.ServiceService.featureid=this.featureid
             const b:string = this.featureid.id
@@ -107,37 +107,37 @@ export class GisComponent implements AfterViewInit {
 
           });
 
-          
-          
+
+
         }
       }).addTo(this.map)
-      
+
     })
   }
   @Input() public id:any
   onPlotSelectfun(id){
 
-   
+
   }
   region() {
     this.gisService.getororegion().subscribe((res: any) => {
       console.log('rs from oro min ',res);
       L.geoJSON(res).addTo(this.map)
-      
+
     })
   }
   ororoad() {
     this.gisService.getororoad().subscribe((res: any) => {
       console.log('rs from oro min ',res);
       L.geoJSON(res).addTo(this.map)
-      
+
     })
   }
   minerals1() {
     this.gisService.getOrominerals1().subscribe((res: any) => {
       console.log('rs from oro min ',res);
       L.geoJSON(res).addTo(this.map)
-      
+
     })
   }
 
@@ -163,7 +163,7 @@ export class GisComponent implements AfterViewInit {
     console.log("plot id selected :: ", event);
   }
 
-  
+
   public getCoordOnClick(event) {
     let convertedEvent = this.map.mouseEventToLatLng(event);
     this.clickCoordinate = convertedEvent;
@@ -321,7 +321,7 @@ export class GisComponent implements AfterViewInit {
     let layerControlDestail = {};
     let transmitFeature = (data) => {
       console.log("dataaaa",data);
-      
+
       let popupOptions = {
         closeOnClick: false,
         keepInView: true,
@@ -496,7 +496,7 @@ export class GisComponent implements AfterViewInit {
 
   // }
 
-  
+
 
   loadFromGeoJson() {
     this.loadGeoJsonList();

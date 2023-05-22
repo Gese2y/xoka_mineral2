@@ -9,7 +9,7 @@ import { SiteService } from '../site/site.service';
 })
 export class MineralUseService {
   //public mineralUseUrl = environment.rootPath2 + "MineralUse";
-  public mineralUseUrl = environment.rootApiPath + "MineralUse"; 
+  public mineralUseUrl = environment.rootApiPath + "MineralUse";
   public Customer_IDUrl = environment.rootApiPath + "Customer";
   public ResourceIDUrl = environment.rootApiPath + "ResourceDeposit";
   public plotIDUrl = environment.rootApiPath + "PlotRegistration";
@@ -29,7 +29,7 @@ export class MineralUseService {
   }
   // getplotID() {
   //   return this.http.get(this.plotIDUrl);
-  // } 
+  // }
   getgisplotID() {
     return this.http.get(this.plotIDUrl);
   }
@@ -40,8 +40,10 @@ export class MineralUseService {
     return this.http.post(this.mineralUseUrl, mineralUse);
   }
   deletemineralUse(mineralUse) {
+    console.log('service',mineralUse);
+
     return this.http.delete(
-      this.mineralUseUrl + "/" + mineralUse.resource_Id
+      this.mineralUseUrl  + mineralUse.resource_Id + "?gisPlot=" + mineralUse.gis_Plot_Id
 
     );
   }
