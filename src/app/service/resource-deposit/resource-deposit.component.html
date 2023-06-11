@@ -304,7 +304,7 @@
         <!-- <th pResizableColumn scope="col" translate>Site ID</th> -->
         <th pResizableColumn scope="col" translate>Unit</th>
         <th pResizableColumn scope="col" translate>Quantity</th>
-        <th pResizableColumn scope="col" translate>Resource_code</th>
+        <!-- <th pResizableColumn scope="col" translate>Resource_code</th> -->
         <th pResizableColumn scope="col" translate>Explored Date</th>
         <th pResizableColumn scope="col" translate>Explored By</th>
         <!-- <th pResizableColumn scope="col" translate>Lab Approved Date</th> -->
@@ -329,7 +329,7 @@
         <!-- <td           {{ resoucedeposit.mineral_Id }} </td> -->
         <td>{{ unit }}</td>
         <td>{{ resoucedeposit.quantity }}</td>
-        <td>{{ resoucedeposit.resource_code }}</td>
+        <!-- <td>{{ resoucedeposit.resource_deposit_Code }}</td> -->
         <td>{{ resoucedeposit.explored_Date }}</td>
         <td>{{ resoucedeposit.explored_By }}</td>
         <!-- <td >          {{ resoucedeposit.lab_Approved_Date }}     </td> -->
@@ -339,7 +339,7 @@
         <td>
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-danger"
             (click)="deleteresoucedeposit(resoucedeposit.resource_Id)"
           >
             <i class="pi pi-trash"></i>

@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import * as L from 'leaflet';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { MessageService } from 'primeng/api';
+import { ServiceComponent } from '../service.component';
 
 @Component({
   selector: 'app-mineral-uses',
@@ -71,6 +72,7 @@ types: any;
   constructor(
     private MineralUsesService: MineralUsesService,
     private NotificationsService: NotificationsService,
+    public serviceComponent: ServiceComponent,
     private notificationsService: NotificationsService,
     public serviceService:ServiceService,
     private ngxSmartModalService: NgxSmartModalService,
@@ -326,6 +328,7 @@ openModal(modal) {
       this.MineralUsesService.registermineralUse(this.mineralUse).subscribe(
         (response) => {
           const toast = this.notificationsService.success("Success", "success");
+          this.serviceComponent.disablefins=false
           this.getmineralUse();
           this.clearForm();
         },
@@ -342,6 +345,8 @@ openModal(modal) {
       this.MineralUsesService.Updatemineraluse(this.mineralUse).subscribe(
         data => { 
           const toast = this.notificationsService.success("Success", "Update");
+          this.serviceComponent.disablefins=false
+          this.getmineralUse();
         },
         error => {
           const toast = this.notificationsService.error('error', 'error', `unable update ! ${error['status'] == 0 ? error['message'] : JSON.stringify(error['error'])}`);

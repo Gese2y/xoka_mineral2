@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 import{CurrencyService} from '../currency/currency.service';
+import { ServiceComponent } from '../service.component';
 @Component({
   selector: 'app-currency',
   templateUrl: './currency.component.html',
@@ -15,7 +16,8 @@ export class CurrencyComponent implements OnInit {
 
   constructor(
     private CurrencyService: CurrencyService,
-    private notificationsService: NotificationsService
+    private notificationsService: NotificationsService,
+    public serviceComponent: ServiceComponent
   ) {
     this.currency = new Currency();
   }
@@ -45,6 +47,7 @@ export class CurrencyComponent implements OnInit {
         (response) => {
           this.getcurrencyss();
           const toast = this.notificationsService.success("Success", "Saved");
+          this.serviceComponent.disablefins=false
           this.clearForm();
         },
         (error) => {
@@ -62,6 +65,7 @@ export class CurrencyComponent implements OnInit {
       .subscribe(
         (response) => {
           const toast = this.notificationsService.success("Success", "Updated");
+          this.serviceComponent.disablefins=false
         },
         (error) => {
           console.log("reroes", error);

@@ -5,6 +5,7 @@ import { SiteService } from '../site/site.service';
 import { ServiceService } from '../service.service';
 import { NotificationsService } from 'angular2-notifications'; 
 import { TabsetComponent } from 'ngx-bootstrap';
+import { ServiceComponent } from '../service.component';
 ;
 
 // import { StepModel } from 'step.model';
@@ -17,13 +18,14 @@ import { TabsetComponent } from 'ngx-bootstrap';
 export class SiteListComponent implements OnInit {
 // public site: any;
 public sites: any;
-completed:any;
+//completed:any;
 site: site;
 
 public selectedTab = 0;
 // @ViewChild("tabset") tabset: TabsetComponent;
 @Input() licenceData;  
 @Input() workingUser;
+@Output() completed = new EventEmitter();
 @Output() saveDataCompleted = new EventEmitter();
 @Input() taskId;
   selectedFile: any;
@@ -49,9 +51,11 @@ public selectedTab = 0;
   };
   // @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
   alreadyLoaded: any;
+  Saved=false;
 
 constructor(private SiteService: SiteService,
   public serviceService:ServiceService,
+
   private notificationsService:NotificationsService,
   
   ) {
@@ -201,8 +205,10 @@ clicknexts(){
     this.site = new site();
     this.getsite();
   }
-
-}
+  EnableFins() {
+   
+      this.completed.emit();
+  }}
 export class site{
   public site_Id:any;
   public site_Name:any;

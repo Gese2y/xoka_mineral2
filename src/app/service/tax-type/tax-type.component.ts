@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 import { ServiceService } from '../service.service';
 import { TaxTypeService } from './tax-type.service';
+import { ServiceComponent } from '../service.component';
 
 @Component({
   selector: 'app-tax-type',
@@ -17,6 +18,7 @@ export class TaxTypeComponent implements OnInit {
 
   constructor(
     private TaxTypeService: TaxTypeService,
+    public serviceComponent: ServiceComponent,
     private notificationsService: NotificationsService
   ) {
     this.taxtype = new taxtype();
@@ -49,6 +51,7 @@ export class TaxTypeComponent implements OnInit {
         (response) => {
           this.gettaxtype();
           const toast = this.notificationsService.success("Success", "Saved");
+          this.serviceComponent.disablefins=false
           this.clearForm();
         },
         (error) => {
@@ -75,6 +78,8 @@ export class TaxTypeComponent implements OnInit {
       .subscribe(
         (response) => {
           const toast = this.notificationsService.success("Success", "Updated");
+          this.serviceComponent.disablefins=false
+          this.gettaxtype();
         },
         (error) => {
           console.log("reroes", error);

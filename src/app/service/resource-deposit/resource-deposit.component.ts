@@ -10,6 +10,7 @@ import { MessageService } from 'primeng/api';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { formatDate } from '@angular/common';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ServiceComponent } from '../service.component';
 @Component({
   selector: 'app-resource-deposit',
   templateUrl: './resource-deposit.component.html',
@@ -65,11 +66,13 @@ export class ResourceDepositComponent implements OnInit {
   name: any;
   isEdit = false;
   fakeresoucedeposit: any;
+  resource_Idd: any;
   constructor(
     public ResourceDepositService: ResourceDepositService,
     private notificationsService: NotificationsService,
     public serviceService: ServiceService,
     private routerService: ActivatedRoute,
+    public serviceComponent: ServiceComponent,
     private _toast: MessageService,
     private SharedService: SharedService
   ) {
@@ -87,7 +90,7 @@ export class ResourceDepositComponent implements OnInit {
     lab_Approved_By: new FormControl(),
     is_Active: new FormControl(),
     remarks: new FormControl(),
-    resource_code: new FormControl(),
+    resource_deposit_Code: new FormControl(),
 
 });
   ngOnInit() {
@@ -102,6 +105,8 @@ export class ResourceDepositComponent implements OnInit {
 
     this.resourcedeposits.resource_Id = Guid.create();
     this.resourcedeposits.resource_Id = this.resourcedeposits.resource_Id.value;
+    this.form.patchValue({
+      resource_Id:  this.resourcedeposits.resource_Id})
     this.resourcedeposits.explored_Date = new Date().toISOString().slice(0, 10);
     this.resourcedeposits.lab_Approved_Date = new Date().toISOString().slice(0, 10);
     this.ResourceDepositService.getUnit().subscribe(data => {
@@ -157,7 +162,7 @@ export class ResourceDepositComponent implements OnInit {
         lab_Approved_By: event.data.lab_Approved_By,
         is_Active: event.data.is_Active,
         remarks: event.data.remarks,
-        resource_code: event.data.resource_code
+        resource_deposit_Code: event.data.resource_deposit_Code
       })
     }
     console.log(this.form.value);
@@ -172,6 +177,10 @@ export class ResourceDepositComponent implements OnInit {
   onRowUnselect(event) {
     console.log('form reset');
 
+    this.resourcedeposits.resource_Id = Guid.create();
+    this.resourcedeposits.resource_Id = this.resourcedeposits.resource_Id.value;
+    this.form.patchValue({
+      resource_Id:  this.resourcedeposits.resource_Id})
     this.form.reset({
       site_Id: this.form.get('site_Id').value
     });
@@ -299,6 +308,7 @@ export class ResourceDepositComponent implements OnInit {
         (response) => {
           this.getResourceD();
           const toast = this.notificationsService.success("Success", "Saved");
+           // this.serviceComponent.disablefins=false
           this.clearForm();
         },
         (error) => {
@@ -346,6 +356,10 @@ export class ResourceDepositComponent implements OnInit {
     this.form.reset({
       site_Id: this.form.get('site_Id').value
     });
+    this.resourcedeposits.resource_Id = Guid.create();
+    this.resourcedeposits.resource_Id = this.resourcedeposits.resource_Id.value;
+    this.form.patchValue({
+      resource_Id:  this.resourcedeposits.resource_Id})
     // console.log(this.resourcedeposits.resource_Id)
     // this.resourcedeposits.mineral_Id = ''
     // this.resourcedeposits.site_Id = ''
@@ -375,10 +389,11 @@ export class ResourceDepositComponent implements OnInit {
     return 'RES_DEPO-' + output
   }
   saveData() {
-
+    this.resource_Idd= Guid.create(),
     this.form.patchValue({
-      resource_Id: Guid.create().toString(),
-      resource_code: this.code()
+     
+      resource_Id:this.resource_Idd.value,
+      resource_deposit_Code: this.code()
     })
     this.SharedService.setresource_id(this.form.get('resource_Id').value );
     this.addresourcedeposits();
@@ -431,6 +446,7 @@ export class ResourceDepositComponent implements OnInit {
       data => {
         const toast = this.notificationsService.success("Success", "Update");
         this.getResourceD();
+          // this.serviceComponent.disablefins=false
       },
       error => {
         const toast = this.notificationsService.error('error', 'error', `unable update ! ${error['status'] == 0 ? error['message'] : JSON.stringify(error['error'])}`);
@@ -452,12 +468,7 @@ export class ResourceDepositComponent implements OnInit {
     this.SharedService.setresource_id(id);
       this.ResourceDepositService.deleteresoucedeposit(id).subscribe((res) => {
         console.log(res);
-        const toast = this.notificationsService.success("Sucess", '', {
-          timeOut: 3000,
-          showProgressBar: true,
-          pauseOnHover: true,
-          clickToClose: true
-        });
+        const toast = this.notificationsService.success("Sucess", 'Deleted')
         this.getResourceD();
       }, (error) => {
         const toast = this.notificationsService.error("error", error.error, {
@@ -470,11 +481,14 @@ export class ResourceDepositComponent implements OnInit {
       );
   }
   clearForm() {
+    
     this.resoucedeposit = {};
     this.IsAddFormVisible = !this.IsAddFormVisible;
     // this.resoucedeposits.unit= Guid.create();
     this.resourcedeposits.resource_Id = Guid.create();
     this.resourcedeposits.resource_Id = this.resourcedeposits.resource_Id.value;
+    this.form.patchValue({
+      resource_Id:  this.resourcedeposits.resource_Id})
 
     // this.resoucedeposits.updateBy=this.user
   }
@@ -489,12 +503,18 @@ export class ResourceDepositComponent implements OnInit {
 
   }
   addnewresource() {
+    
+   
     this.editable = false
     //this.noRecord=false
     this.add_new_resource = !this.add_new_resource;
     this.hide_data = !this.hide_data;
     this.row_clicked = false;
     this.addingNew.emit();
+    this.resourcedeposits.resource_Id = Guid.create();
+    this.resourcedeposits.resource_Id = this.resourcedeposits.resource_Id.value;
+    this.form.patchValue({
+      resource_Id:  this.resourcedeposits.resource_Id})
   }
 }
 class resourcedeposits {
@@ -509,5 +529,5 @@ class resourcedeposits {
   public lab_Approved_By: any;
   public is_Active: any;
   public remarks: any;
-  public resource_code: any;
+  public resource_deposit_Code: any;
 }

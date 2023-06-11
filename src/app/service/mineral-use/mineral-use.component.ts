@@ -11,6 +11,7 @@ import { SiteService } from "../site/site.service";
 import { SharedService } from '../shared.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Guid } from 'guid-typescript';
+import { ServiceComponent } from '../service.component';
 @Component({
   selector: 'app-mineral-use',
   templateUrl: './mineral-use.component.html',
@@ -88,6 +89,7 @@ export class MineralUseComponent implements OnInit {
     public SiteService: SiteService,
     private ngxSmartModalService: NgxSmartModalService,
     private routerService: ActivatedRoute,
+    public serviceComponent: ServiceComponent,
     private _toast: MessageService,
     private sharedService: SharedService
   ) {
@@ -387,6 +389,8 @@ export class MineralUseComponent implements OnInit {
     this.MineralUseService.registermineralUse(this.form.value).subscribe(
       (response) => {
         const toast = this.notificationsService.success("Success", "success");
+        if(this.serviceService.use==true){
+          this.serviceComponent.disablefins=false}
         this.getmineralUse();
         this.clearForm();
         this.getresourceId();
@@ -406,6 +410,8 @@ export class MineralUseComponent implements OnInit {
     this.MineralUseService.Updatemineraluse(this.form.value).subscribe(
       data => {
         const toast = this.notificationsService.success("Success", "Update");
+        if(this.serviceService.use==true){
+       this.serviceComponent.disablefins=false}
         this.getmineralUse();
       },
       error => {
@@ -495,8 +501,8 @@ export class MineralUseComponent implements OnInit {
       this.MineralUseService.deletemineralUse(data)
         .subscribe(
           (response) => {
-            this.getmineralUse();
-            const toast = this.notificationsService.success("Success", "Saved");
+            // this.getmineralUse();
+            const toast = this.notificationsService.success("Success", "Deleted");
             this.getmineralUse();
           },
           (error) => {

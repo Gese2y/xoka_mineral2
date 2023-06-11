@@ -4,18 +4,18 @@
       <thead>
         <tr *ngIf="licenceData">
           <th scope="col" translate>
-            Application NO: {{ serviceService.AppNO }}
+            Application NO: {{licenceData.Application_No }}
           </th>
           <th scope="col" translate>
-            Service Name: {{ serviceService.Service_Name }}
+            Service Name: {{licenceData.Service_Name }}
           </th>
-          <th scope="col" translate>Plot ID: {{ licenceData.Parcel_ID }}</th>
-          <th scope="col" translate>
-            Property ID: {{ serviceService.Property_ID }}
+          <!-- <th scope="col" translate>Plot ID: {{ licenceData.Parcel_ID }}</th> -->
+          <!-- <th scope="col" translate>
+            Property ID: {{ licenceData.Property_ID }}
           </th>
           <th scope="col" translate>
             Certificate ID: {{ licenceData.Certificate_Code }}
-          </th>
+          </th> -->
         </tr>
       </thead>
     </table>
@@ -157,7 +157,7 @@
 
       <div *ngSwitchCase="32">
         <app-mineral
-          (completed)="saveForm($event)"
+        (completed)="saveForm($event)"
           [taskId]="tskID"
           [(licenceData)]="licenceData"
           [workingUser]="workingUser"
@@ -180,7 +180,7 @@
       </div> -->
       <div *ngSwitchCase="34">
         <app-site-list
-          (completed)="saveForm($event)"
+        (completed)="saveData('{}')"
           [taskId]="tskID"
           [(licenceData)]="licenceData"
           [workingUser]="workingUser"
@@ -282,15 +282,11 @@
 <simple-notifications></simple-notifications>
 
 <p-dialog
-  id="dia"
-  [contentStyle]="{'max-height':'80%'}"
   [(visible)]="displayRivew"
-  [modal]="true"
-  [responsive]="true"
-  [maximizable]="true"
-  [baseZIndex]="10000"
->
-  <p-header translate> Revieww   </p-header>
+[responsive]="true" [width]="900" [minY]="70" [maximizable]="true"
+[positionTop]="1" [baseZIndex]="10000" [contentStyle]="{'overflow-y': 'auto', 'overflow-x': 'hidden', 
+                         'max-height': '80vh','min-height':'250px'}" header="Review">
+                          <div class="modal-body">      
   <div class=" modal-body">
     <div>
       <div class="col-sm-12 ">
@@ -523,8 +519,8 @@
       </div>
     </div>
   </div>
-
-  <p-footer>
+</div>
+<div class=" float-right">
     <button
       type="button"
       class="btn btn-primary"
@@ -533,5 +529,5 @@
     >
       Done
     </button>
-  </p-footer>
+  </div>
 </p-dialog>

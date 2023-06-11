@@ -354,7 +354,7 @@
     dataKey="site_Id"
     [paginator]="true"
     [rows]="2"
-    [globalFilterFields]="['Site_Name']"
+    [globalFilterFields]="['site_Name']"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   >
     <ng-template pTemplate="caption">
@@ -364,7 +364,7 @@
             <label style="font-weight: bold">Search</label>
             <input
               class="form-control"
-              (input)="Item_table.filterGlobal($event.target.value, 'contains')"
+              (input)="sit.filterGlobal($event.target.value, 'contains')"
               placeholder="Search by site name"
             />
           </div>
@@ -423,7 +423,7 @@
         <td>
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-danger"
             (click)="deletesites(sites)"
           >
             <i class="pi pi-trash"></i>

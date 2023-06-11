@@ -5,6 +5,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { Table } from 'primeng/table';
 import { Guid } from 'guid-typescript';
 import * as Survey from 'survey-angular';
+import { ServiceComponent } from '../service.component';
 
 @Component({
   selector: 'app-customer-type',
@@ -52,6 +53,7 @@ export class CustomerTypeComponent implements OnInit {
 
   constructor(
     private service: ServiceService,
+    public serviceComponent: ServiceComponent,
     private notificationsService: NotificationsService
     ) { }
 
@@ -106,6 +108,7 @@ export class CustomerTypeComponent implements OnInit {
         pauseOnHover: true,
         clickToClose: true
       });
+      this.serviceComponent.disablefins=false
       this.isnew=true
     }, (error) => {
       const toast = this.notificationsService.error("error", error.error, {
@@ -127,6 +130,7 @@ export class CustomerTypeComponent implements OnInit {
         pauseOnHover: true,
         clickToClose: true
       });
+      this.serviceComponent.disablefins=false
     }, (error) => {
       const toast = this.notificationsService.error("error", error.error, {
         timeOut: 3000,

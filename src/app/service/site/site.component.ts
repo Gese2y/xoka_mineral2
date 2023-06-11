@@ -12,6 +12,7 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { SharedService } from '../shared.service';
+import { ServiceComponent } from '../service.component';
 
 
 
@@ -67,6 +68,7 @@ export class SiteComponent implements OnInit {
   @Input() licenceData;
   @Input() workingUser;
   @Output() saveDataCompleted = new EventEmitter();
+  @Output() completed = new EventEmitter();
   @Input() taskId;
   BasicFormnew: any;
 
@@ -129,6 +131,7 @@ export class SiteComponent implements OnInit {
     private notificationsService: NotificationsService,
     public serviceService: ServiceService,
     private ngxSmartModalService: NgxSmartModalService,
+    public serviceComponent: ServiceComponent,
     // public GisService: GisService,
     private routerService: ActivatedRoute,
     private _toast: MessageService,
@@ -316,8 +319,10 @@ export class SiteComponent implements OnInit {
 
 
   onRowSelect(event) {
-    this.isEdit = true
-    console.log('event.data', event.data.site_Id);
+    this.passsdata(event.data.zone)
+  
+    console.log('event.data', event.data);
+    
     if (event.data) {
       this.form.patchValue({
         site_Id: event.data.site_Id,
@@ -330,9 +335,11 @@ export class SiteComponent implements OnInit {
         coordinate: event.data.coordinate,
         status: event.data.status,
         is_Active: event.data.is_Active,
-        remarks: event.data.remarks
+        remarks: event.data.remarks,
+        licence_Service_Id:event.data.licence_Service_Id
       })
     }
+    this.isEdit = true
     this.sharedService.setsite_id(this.form.get('site_Id').value);
     console.log(this.form.value);
     this.isEdit = true
@@ -343,7 +350,7 @@ export class SiteComponent implements OnInit {
   }
   onRowUnselect(event) {
     console.log('form reset');
-
+    // this.passdata(event.data.zone)
     this.form.reset();
     this.isEdit = false
   }
@@ -354,6 +361,22 @@ export class SiteComponent implements OnInit {
         this.woredas = response;
         //console.log('aaaaaa',this.woredas)
         this.woredas = this.woredas.filter((value) => value.zones_zone_code == ee.target.value)
+        console.log("woreda", this.woredas);
+        // this.SiteService.zones_zone_code=this.Zone.zones_zone_code
+      },
+      (error) => {
+      }
+    );
+    //this.getisactives(this.SiteService.zones_zone_code)
+  }
+  passsdata(ee) {
+    //console.log('zone',ee.target.value)
+    this.SiteService.getWoreda().subscribe(
+      (response) => {
+        this.woredas = response;
+        //console.log('aaaaaa',this.woredas)
+        this.woredas = this.woredas.filter((value) => value.zones_zone_code == ee)
+        // this.woredas = this.woredas.filter((values) => value.zones_zone_code == ee.target.value)
         //console.log("woreda", this.woredas);
         // this.SiteService.zones_zone_code=this.Zone.zones_zone_code
       },
@@ -362,6 +385,7 @@ export class SiteComponent implements OnInit {
     );
     //this.getisactives(this.SiteService.zones_zone_code)
   }
+ 
   finishSelection() {
     //console.log("selection")
     if (this.site.coordinate) {
@@ -498,8 +522,9 @@ export class SiteComponent implements OnInit {
     this.SiteService.addsite(this.form.value).subscribe(
       (response) => {
         const toast = this.notificationsService.success("Success", "success");
+         // this.serviceComponent.disablefins=false
         this.getsite();
-        //this.completed.emit('{}');
+        this.completed.emit('{}');
         this.selectedTab = 1;
         this.clearForm();
       },
@@ -552,7 +577,8 @@ export class SiteComponent implements OnInit {
     this.serviceService.getAll(saveDataResponse[0]).subscribe(
       (response) => {
         //console.log("all-response", response);
-        let licenceData = response["list"][0];
+        console.log("all-ressponse", response);
+        this.serviceService.licenceData= response["list"][0];
         // if(this.site['document_No']==null){
         //   this.site['document_No']=licenceData.Application_No}
         this.saveDataCompleted.emit(saveDataResponse);
@@ -574,7 +600,7 @@ export class SiteComponent implements OnInit {
         .subscribe(
           (response) => {
             this.getsite();
-            const toast = this.notificationsService.success("Success", "Saved");
+            const toast = this.notificationsService.success("Success", "Deleted");
           },
           (error) => {
             //console.log("reroes", error);
@@ -589,7 +615,12 @@ export class SiteComponent implements OnInit {
     this.sharedService.setsite_id(this.form.get('site_Id').value);
     this.SiteService.updatesite(this.form.value).subscribe(
       data => {
+       
+   
         const toast = this.notificationsService.success("Success", "Update");
+       
+         // this.serviceComponent.disablefins=false
+        this.getsite();
       },
       error => {
         const toast = this.notificationsService.error('error', 'error', `unable update ! ${error['status'] == 0 ? error['message'] : JSON.stringify(error['error'])}`);

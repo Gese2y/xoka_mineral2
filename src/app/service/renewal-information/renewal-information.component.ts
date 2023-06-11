@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Guid } from 'guid-typescript';
 import { ServiceService } from '../service.service';
@@ -6,6 +6,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { SharedService } from '../shared.service';
 import { Table } from 'primeng/table';
 import { formatDate } from '@angular/common';
+import { ServiceComponent } from '../service.component';
 
 @Component({
   selector: 'app-renewal-information',
@@ -15,6 +16,7 @@ import { formatDate } from '@angular/common';
 export class RenewalInformationComponent implements OnInit {
 
   @ViewChild('table') table: Table;
+  @Output() completed = new EventEmitter();
   @ViewChild('tabletype') tabletype: Table;
   form: FormGroup = new FormGroup({
     renewal_id: new FormControl(),
@@ -33,9 +35,11 @@ export class RenewalInformationComponent implements OnInit {
   isnewtype:boolean=false
   renewal;
   renewaltype;
+  Saved: any;
 
   constructor(private service: ServiceService,
     private notificationsService: NotificationsService,
+    public serviceComponent: ServiceComponent,
     private sharedService: SharedService) { }
 
   ngOnInit() {
@@ -82,6 +86,7 @@ export class RenewalInformationComponent implements OnInit {
       renewal_id: this.form.get('renewal_id').value,
       license_id: this.form.get('license_id').value
     });
+    this.code()
   }
 
   code() {
@@ -167,6 +172,11 @@ export class RenewalInformationComponent implements OnInit {
         clickToClose: true
       });
       this.isnew=true
+      this.serviceComponent.disablefins=false
+      if (!this.Saved) {
+        this.completed.emit();
+        this.Saved = true;
+      }
       this.getAllRenewalInformation()
     }, (error) => {
       const toast = this.notificationsService.error("error", error.error, {
@@ -188,6 +198,11 @@ export class RenewalInformationComponent implements OnInit {
         pauseOnHover: true,
         clickToClose: true
       });
+      if (!this.Saved) {
+        this.completed.emit();
+        this.Saved = true;
+      }
+      this.serviceComponent.disablefins=false
       this.getAllRenewalInformation()
     }, (error) => {
       const toast = this.notificationsService.error("error", error.error, {

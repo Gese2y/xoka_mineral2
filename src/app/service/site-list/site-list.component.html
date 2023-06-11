@@ -198,11 +198,11 @@
 <aw-wizard>
   <aw-wizard-step stepTitle="Mineral Site" translate>
     <app-site
-    (completed)="completed" [taskId]="taskId"
+    (completed)="EnableFins()" [taskId]="taskId"
     [(licenceData)]="licenceData" [workingUser]="workingUser"
     (saveDataCompleted)="saveDataCompleted" ></app-site>
     <button type="button" class="btn btn-info ml-2" awNextStep>Next Step</button>
-    <button type="button" class="btn btn-info ml-2" [awGoToStep]="{stepIndex: 2}">Go directly to third Step</button>
+    <!-- <button type="button" class="btn btn-info ml-2" [awGoToStep]="{stepIndex: 2}">Go directly to third Step</button> -->
   </aw-wizard-step>
   <aw-wizard-step stepTitle="Resource Deposite" awOptionalStep>
     <app-resource-deposit (completed)="completed" [taskId]="taskId"
@@ -230,7 +230,7 @@
   </aw-wizard-step>
 
   <aw-wizard-step translate stepTitle="Renewal Information">
-    <app-renewal-information  ></app-renewal-information>
+    <app-renewal-information   (completed)="EnableFins()"></app-renewal-information>
     <button type="button" class="btn btn-info ml-2" awPreviousStep>Previous Step</button>
     <button type="button" class="btn btn-info ml-2">Finish</button>
   </aw-wizard-step>

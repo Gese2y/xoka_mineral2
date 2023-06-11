@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { MessageService } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ServiceComponent } from '../service.component';
 
 @Component({
   selector: 'app-mineral',
@@ -31,6 +32,7 @@ export class MineralComponent implements OnInit {
   @Input() workingUser;
   // @Output() saveDataCompleted = new EventEmitter();
   @Output() saveDataCompleted = new EventEmitter();
+   @Output() completed = new EventEmitter();
   public Mineral_ClassList: any;
   public Mineral_UseList: any;
   postData = {
@@ -46,6 +48,7 @@ export class MineralComponent implements OnInit {
   hide_data: boolean;
   row_clicked: any;
   @Output() addingNew = new EventEmitter;
+  Saved: any;
   // Minerals: typeof Minerals;
   goto(id) {
     this.tabset.tabs[id].active = true;
@@ -77,6 +80,7 @@ export class MineralComponent implements OnInit {
     private MineralService: MineralService,
     private notificationsService: NotificationsService,
     public serviceService: ServiceService,
+    public serviceComponent: ServiceComponent,
     private routerService: ActivatedRoute,
     private _toast: MessageService,
   ) {
@@ -86,7 +90,9 @@ export class MineralComponent implements OnInit {
     this.getminerals();
 
     this.minerals.mineral_Id = Guid.create();
-    this.minerals.mineral_Id = this.minerals.mineral_Id.value
+    this.form.patchValue({
+      mineral_Id: this.minerals.mineral_Id.value})
+    // this.minerals.mineral_Id = this.minerals.mineral_Id.value
     console.log('mineral');
 
 
@@ -137,7 +143,9 @@ export class MineralComponent implements OnInit {
   }
   clear() {
     console.log('clear');
-
+    this.minerals.mineral_Id = Guid.create();
+    this.form.patchValue({
+      mineral_Id: this.minerals.mineral_Id.value})
     this.form.reset({
       mineral_Id: this.form.get('mineral_Id').value
     })
@@ -149,7 +157,7 @@ export class MineralComponent implements OnInit {
     this.add_new_mineral = true
     console.log('event.data',event.data);
     this.form.patchValue({
-      mineral_Id: event.datamineral_Id,
+      mineral_Id: event.data.mineral_Id,
       code: event.data.code,
       name: event.data.name,
       class: event.data.class,
@@ -191,6 +199,11 @@ export class MineralComponent implements OnInit {
       (response) => {
         this.getminerals();
         const toast = this.notificationsService.success("Success", "Saved");
+        if (!this.Saved) {
+          this.completed.emit();
+          this.Saved = true;
+        }
+        this.serviceComponent.disablefins=false
         // this.closeup();
         this.clearForm();
       },
@@ -249,7 +262,7 @@ export class MineralComponent implements OnInit {
 
     if (confirm("Are you sure !!!"))
       this.MineralService
-        .deletemineral(this.form.get('mineral_Id').value)
+        .deletemineral(mineral)
         .subscribe(
           (response) => {
             this.getminerals();
@@ -296,14 +309,20 @@ export class MineralComponent implements OnInit {
     this.addingNew.emit();
   }
   Updatemineral() {
-    if (this.minerals.class == null || this.minerals.class == undefined) {
-      const toast = this.notificationsService.warn("Can't insert null value in to class columen ");
-      return true
-    }
+    // if (this.minerals.class == null || this.minerals.class == undefined) {
+    //   const toast = this.notificationsService.warn("Can't insert null value in to class columen ");
+    //   return true
+    // }
     this.MineralService.Updatemineral(this.form.value).subscribe(
       data => {
         const toast = this.notificationsService.success("Success", "Update");
         this.getminerals();
+        if (!this.Saved) {
+          this.completed.emit();
+          this.Saved = true;
+        }
+        this.serviceComponent.disablefins=false
+      
       },
       error => {
         const toast = this.notificationsService.error('error', 'error', `unable update ! ${error['status'] == 0 ? error['message'] : JSON.stringify(error['error'])}`);

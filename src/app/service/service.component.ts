@@ -167,6 +167,7 @@ export class ServiceComponent implements OnInit {
         this.ID = 32;
       } else if (params["formcode"] == "343a087e-8a4b-4904-8ef3-08f723b74d3d") {
         this.ID = 33;
+        this.serviceService.use=true
       // } else if (params["formcode"] == "3a1f0b93-8b7b-4dcc-a0bf-05615b695fe1") {
       //   this.ID = 34;
        } else if (params["formcode"] == "60ca1a18-ff1c-46da-babd-0159bd0124b0") {
@@ -303,6 +304,7 @@ export class ServiceComponent implements OnInit {
       );
   }
   saveDataCompleted(response) {
+    //this.saveForm('{}');
     this.disablefins = false;
     this.AppNo = response[0];
     this.DocID = response[1];
@@ -414,7 +416,7 @@ this.serviceService.AppCode = this.licenceData.Licence_Service_ID;
             this.getPriveysLicence(this.licenceData.Application_No);
           }
         }
-        this.disablefins = false;
+        // this.disablefins = true;
 
 //        // console.log('Licence data2', this.licenceData);
         // this.taskType = this.licenceData.TaskType;
@@ -431,20 +433,17 @@ this.serviceService.AppCode = this.licenceData.Licence_Service_ID;
 
     this.disablefins = true;
     this.serviceService
-      // .Submit(
-      //   this.serviceService.dedicate_license
-      //     ? this.serviceService.dedicate_license[0]
-      //     : "00000000-0000-0000-0000-000000000000",
-      //   this.DocID ? this.DocID : "00000000-0000-0000-0000-000000000000",
-      //   this.todoID ? this.todoID : "00000000-0000-0000-0000-000000000000",
-      //   ruleid
-      // )
-      .Submit(
-        this.serviceService.dedicate_license? this.serviceService.dedicate_license[0]: "00000000-0000-0000-0000-000000000000",
-        this.serviceService.dedicate_license? this.serviceService.dedicate_license[1]: "00000000-0000-0000-0000-000000000000",
-        this.serviceService.dedicate_license? this.serviceService.dedicate_license[2]: "00000000-0000-0000-0000-000000000000",
+      .Submit(this.licenceData.Application_No,
+        this.DocID ? this.DocID : "00000000-0000-0000-0000-000000000000",
+        this.todoID ? this.todoID : "00000000-0000-0000-0000-000000000000",
         ruleid
       )
+      // .Submit(
+      //   this.serviceService.dedicate_license? this.serviceService.dedicate_license[0]: "00000000-0000-0000-0000-000000000000",
+      //   this.serviceService.dedicate_license? this.serviceService.dedicate_license[1]: "00000000-0000-0000-0000-000000000000",
+      //   this.serviceService.dedicate_license? this.serviceService.dedicate_license[2]: "00000000-0000-0000-0000-000000000000",
+      //   ruleid
+      // )
       .subscribe(
         (message) => {
 //          console.log("next-response", message);
@@ -724,14 +723,23 @@ this.serviceService.AppCode = this.licenceData.Licence_Service_ID;
 
   saveForm(formData) {
 //    // console.log('formData', formData);
-
+if( this.Service_ID=='c96544f2-d365-4ee3-825b-78e945c19fbf'){
+  this.tskID="f1c93d72-07ca-4397-9108-08a9b69a811d"
+}
+else if( this.Service_ID=='6e32262b-61e6-4e8d-81df-4dae2193abe1'){
+  this.tskID="bf23c7b0-576c-44ca-8475-34642e3df21a"
+}
+else if( this.Service_ID=='60c04f1e-646e-471c-9f96-55294f2cb7df'){
+  this.tskID="eb2783ce-1283-434e-b076-72f1c40c7bfe"
+}
     this.serviceService
       .saveForm(
         this.licenceData
         ? this.licenceData.Licence_Service_ID
         : "00000000-0000-0000-0000-000000000000",
       this.Service_ID,
-      this.tskID ||"bf23c7b0-576c-44ca-8475-34642e3df21a",
+      
+      this.tskID ,
       this.workingUser.organization_code,
       JSON.stringify(formData),
       this.DocID || "00000000-0000-0000-0000-000000000000",
@@ -743,7 +751,7 @@ this.serviceService.AppCode = this.licenceData.Licence_Service_ID;
           this.AppCode = message[0];
           this.DocID = message[1];
           this.todoID = message[2];
-          this.getAll(this.AppNo);
+          this.getAll(this.AppCode);
           const toast = this.notificationsService.success("Sucess", "Saved");
         },
         (error) => {
@@ -755,7 +763,46 @@ this.serviceService.AppCode = this.licenceData.Licence_Service_ID;
       );
   }
 
-
+  saveData(formData) {
+    //    // console.log('formData', formData);
+    if( this.Service_ID=='c96544f2-d365-4ee3-825b-78e945c19fbf'){
+      this.tskID="f1c93d72-07ca-4397-9108-08a9b69a811d"
+    }
+    else if( this.Service_ID=='6e32262b-61e6-4e8d-81df-4dae2193abe1'){
+      this.tskID="bf23c7b0-576c-44ca-8475-34642e3df21a"
+    }
+    else if( this.Service_ID=='60c04f1e-646e-471c-9f96-55294f2cb7df'){
+      this.tskID="eb2783ce-1283-434e-b076-72f1c40c7bfe"
+    }
+        this.serviceService
+          .saveForm(
+            this.licenceData
+            ? this.licenceData.Licence_Service_ID
+            : "00000000-0000-0000-0000-000000000000",
+          this.Service_ID,
+          this.tskID ||"bf23c7b0-576c-44ca-8475-34642e3df21a",
+          this.workingUser.organization_code,
+          JSON.stringify(formData),
+          this.DocID || "00000000-0000-0000-0000-000000000000",
+          this.todoID || "00000000-0000-0000-0000-000000000000"
+          )
+          .subscribe(
+            (message) => {
+              // this.disablefins = false;
+              this.AppCode = message[0];
+              this.DocID = message[1];
+              this.todoID = message[2];
+              this.getAll(this.AppCode);
+              const toast = this.notificationsService.success("Sucess", "Saved");
+            },
+            (error) => {
+              const toast = this.notificationsService.error(
+                "Error",
+                "SomeThing Went Wrong"
+              );
+            }
+          );
+      }
   getFormData(DocID) {
     this.serviceService.GetForm(DocID).subscribe(
       (FormData) => {

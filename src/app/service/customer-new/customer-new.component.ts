@@ -7,6 +7,7 @@ import { Guid } from 'guid-typescript';
 import * as Survey from 'survey-angular';
 import { SharedService } from '../shared.service';
 import { Table } from 'primeng/table';
+import { ServiceComponent } from '../service.component';
 
 
 @Component({
@@ -107,6 +108,7 @@ export class CustomerNewComponent implements OnInit {
 
   constructor(private service: ServiceService,
     private notificationsService: NotificationsService,
+    public serviceComponent: ServiceComponent,
     private sharedService: SharedService) { }
     isnew=false
 
@@ -186,6 +188,7 @@ export class CustomerNewComponent implements OnInit {
         pauseOnHover: true,
         clickToClose: true
       });
+       // this.serviceComponent.disablefins=false
       this.isnew=true
     }, (error) => {
       const toast = this.notificationsService.error("error", error.error, {
@@ -210,6 +213,7 @@ export class CustomerNewComponent implements OnInit {
         pauseOnHover: true,
         clickToClose: true
       });
+       // this.serviceComponent.disablefins=false
     }, (error) => {
       const toast = this.notificationsService.error("error", error.error, {
         timeOut: 3000,

@@ -63,6 +63,7 @@ export class ServiceService {
   mineral_Id: any;
   plot_Id: any;
   sitid: any;
+  licenceData:any;
   resource_deposit:boolean=true;
   resource_depositss:boolean=true;
   mineral_Use:boolean=true;
@@ -72,6 +73,7 @@ export class ServiceService {
   resource_Id: any;
   gisPlotId: any;
   dedicate_license
+  use: boolean;
   constructor(private http: HttpClient) {
 
   }
@@ -560,7 +562,7 @@ export class ServiceService {
   }
 
   updateRenewalInformation(data) {
-    return this.http.put(environment.rootApiPath + "RenewalInformation/", data );
+    return this.http.put(environment.rootApiPath + "RenewalInformation/" + data.renewal_id, data );
   }
 
   updateCustomerType(data) {

@@ -43,14 +43,14 @@ export class MineralUseService {
     console.log('service',mineralUse);
 
     return this.http.delete(
-      this.mineralUseUrl  + mineralUse.resource_Id + "?gisPlot=" + mineralUse.gis_Plot_Id
+      this.mineralUseUrl + '/'+ mineralUse.resource_Id + "?gisPlot=" + mineralUse.gis_Plot_Id
 
     );
   }
   getsite() {
     return this.http.get(this.siteUrl);
   }
-  Updatemineraluse(mineralUse) {
-    return this.http.put(this.mineralUseUrl+'/id', mineralUse) ;
+  Updatemineraluse(data) {
+    return this.http.put(this.mineralUseUrl+'/id?id='+data.resource_Id, data) ;
   }
 }

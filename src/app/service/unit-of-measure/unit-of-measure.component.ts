@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 import { UnitOfMeasureService } from './unit-of-measure.service';
+import { ServiceComponent } from '../service.component';
 
 @Component({
   selector: 'app-unit-of-measure',
@@ -15,6 +16,7 @@ public IsAddFormVisible = false;
 
   constructor(
     private UnitofMeasuresService: UnitOfMeasureService,
+    public serviceComponent: ServiceComponent,
     private notificationsService: NotificationsService
   ) {
     this.UnitofMeasures = new UnitofMeasures();
@@ -46,6 +48,7 @@ public IsAddFormVisible = false;
         (response) => {
           this.getUnitofMeasures();
           const toast = this.notificationsService.success("Success", "Saved");
+          this.serviceComponent.disablefins=false
           this.clearForm();
         },
         (error) => {
@@ -81,6 +84,8 @@ public IsAddFormVisible = false;
       .subscribe(
         (response) => {
           const toast = this.notificationsService.success("Success", "Updated");
+          this.serviceComponent.disablefins=false
+          this.getUnitofMeasures();
         },
         (error) => {
           console.log("reroes", error);

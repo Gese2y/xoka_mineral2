@@ -48,7 +48,7 @@ export class SiteService {
   }
   deletesites(site) {
     return this.http.delete(
-      this.siteUrl + "/" + site.site_Id
+      this.siteUrl + site.site_Id
     );
   }
   // updatemsite(site) {

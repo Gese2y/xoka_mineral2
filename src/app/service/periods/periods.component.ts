@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // import { Component, OnInit } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 import { PeriodsService } from './periods.service';
+import { ServiceComponent } from '../service.component';
 @Component({
   selector: 'app-periods',
   templateUrl: './periods.component.html',
@@ -16,6 +17,7 @@ export class PeriodsComponent implements OnInit {
 
   constructor(
     private PeriodsService: PeriodsService,
+    public serviceComponent: ServiceComponent,
     private notificationsService: NotificationsService
     ) {
       this.procAdPeriods = new procAdPeriods();
@@ -68,6 +70,7 @@ export class PeriodsComponent implements OnInit {
           (response) => {
             this.getprocAdPeriods();
             const toast = this.notificationsService.success("Success", "Saved");
+            this.serviceComponent.disablefins=false
             this.clearForm();
           },
           (error) => {
@@ -83,6 +86,7 @@ export class PeriodsComponent implements OnInit {
         .subscribe(
           (response) => {
             const toast = this.notificationsService.success("Success", "Updated");
+            this.serviceComponent.disablefins=false
           },
           (error) => {
             console.log("reroes", error);

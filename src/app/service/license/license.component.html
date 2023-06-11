@@ -26,7 +26,7 @@
     <div class="form-group" >
       <label class="control-label col-sm-4" translate >Created By</label>
       <div class="col-sm-8">
-        <input type="text" formControlName="created_by" class="form-control">
+        <input type="text" disabled formControlName="created_by" class="form-control">
       </div>
     </div>
 
@@ -34,7 +34,7 @@
     <div class="form-group" >
       <label class="control-label col-sm-4" translate >Created Date</label>
       <div class="col-sm-8">
-        <input type="date" formControlName="created_date" class="form-control">
+        <input type="date" disabled formControlName="created_date" class="form-control">
       </div>
     </div>
 
@@ -57,7 +57,7 @@
 </div>
 
 <p-table #table [value]="license" [paginator]="true" [rows]="5" selectionMode="single"
- [globalFilterFields]="['license_id','mineral_use_id']" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect()">
+ [globalFilterFields]="['license_id','mineral_use_id','created_by']" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect()">
 <ng-template pTemplate="caption">
   <div class="table-header">
     <h1 translate>List of License</h1>

@@ -6,6 +6,7 @@ import { ServiceService } from '../service.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Table } from 'primeng/table';
 import { formatDate } from '@angular/common';
+import { ServiceComponent } from '../service.component';
 
 @Component({
   selector: 'app-license',
@@ -18,6 +19,7 @@ export class LicenseComponent implements OnInit {
 
   constructor(private service: ServiceService,
     private notificationsService: NotificationsService,
+    public serviceComponent: ServiceComponent,
     private sharedService: SharedService) { }
 
   @ViewChild('table') table: Table;
@@ -56,6 +58,7 @@ export class LicenseComponent implements OnInit {
       mineral_use_id: this.formLice.get('mineral_use_id').value,
       customer_id: this.formLice.get('customer_id').value
     });
+    this.code()
   }
 
   onRowSelect(event) {
@@ -109,6 +112,7 @@ export class LicenseComponent implements OnInit {
         pauseOnHover: true,
         clickToClose: true
       });
+       // this.serviceComponent.disablefins=false
       this.isnew = true
       this.getAllLicense();
     }, (error) => {
@@ -133,6 +137,7 @@ export class LicenseComponent implements OnInit {
         pauseOnHover: true,
         clickToClose: true
       });
+       // this.serviceComponent.disablefins=false
       this.getAllLicense();
     }, (error) => {
       const toast = this.notificationsService.error("error", error.error, {
