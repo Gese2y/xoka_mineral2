@@ -1,0 +1,127 @@
+<div *ngIf="havedata" class="d-flex justify-content-center" style="position: absolute;
+                top: 75%;
+                left: 40%;
+                margin-top: -50px;
+                margin-left: -60px;
+                width: 300px;
+                height: 100px;
+                z-index: 10000;">
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+
+</div>
+<div class="card">
+  <h4 style="text-align: center;">Duty Free Vehicles And Machinery Data</h4>
+  <form [formGroup]="licenseForm">
+    <div class="form-row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="name">Name of Licensee</label>
+          <input type="text" class="form-control" formControlName="name_of_Licensee" id="name">
+        </div>
+        <div class="form-group">
+          <label for="licenseNo">License No</label>
+          <input type="text" class="form-control" formControlName="license_No" id="licenseNo">
+        </div>
+        <div class="form-group">
+          <label for="dateRequested">Date Requested</label>
+          <input type="date" class="form-control" formControlName="date_Requested" id="dateRequested">
+        </div>
+        <div class="form-group">
+          <label for="dateIssued">Date Issued</label>
+          <input type="date" class="form-control" formControlName="date_issued" id="dateIssued">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="typeRequested">Type of Good Requested</label>
+          <input type="text" class="form-control" formControlName="type_of_good_requested" id="typeRequested">
+        </div>
+        <div class="form-group">
+          <label for="modelNo">Model No</label>
+          <input type="number" class="form-control" formControlName="model_No" id="modelNo" min="0">
+        </div>
+        <div class="form-group">
+          <label for="chassisNo">Chassis No</label>
+          <input type="text" class="form-control" formControlName="chasis_No" id="chassisNo">
+        </div>
+        <div class="form-group">
+          <label for="supportingLetterRef">Ref No of Supporting Letter</label>
+          <input type="text" class="form-control" formControlName="ref_No_of_supporting_letter" id="supportingLetterRef">
+        </div>
+      </div>
+    </div>
+    <div class="float-right">
+  
+      <button  type="button" class="btn btn-secondary mb-2" (click)="new()">new</button> &nbsp;
+      <button *ngIf="!isEdited" type="button" class="btn btn-primary mb-2" (click)="save()">save</button> &nbsp;
+        <button *ngIf="isEdited" type="button" class="btn btn-success mb-2" (click)="update()">update</button> &nbsp;
+          <button *ngIf="isEdited" type="button" class="btn btn-danger mb-2" (click)="delete()">delete</button> &nbsp;
+    </div>
+  </form>
+</div>
+<p-table #table [value]="license" [paginator]="true" [rows]="5" selectionMode="single"
+  [globalFilterFields]="['model_No','chasis_No','license_No']" (onRowSelect)="onRowSelect($event)"
+  >
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+      <h1 translate>List of Duty Free Vehicles And Machinery Data</h1>
+      <span class="p-input-icon-left">
+        <input pInputText type="text" (input)="table.filterGlobal($event.target.value, 'contains')"
+          [placeholder]="'Global Search' | translate" />
+      </span>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+    <tr>
+    <!-- <th>ID</th> -->
+    <th>Name of Licensee</th>
+    <th>License No</th>
+    <th>Date Requested</th>
+    <th>Date Issued</th>
+    <th>Type of Good Requested</th>
+    <th>Model No</th>
+    <th>Chassis No</th>
+    <th>Ref No of Supporting Letter</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-prop>
+    <tr  [pSelectableRow]="prop">
+      <!-- <td>{{ prop.iD }}</td> -->
+      <td>{{ prop.name_of_Licensee }}</td>
+      <td>{{ prop.license_No }}</td>
+      <td>{{ prop.date_Requested |date }}</td>
+      <td>{{ prop.date_issued | date }}</td>
+      <td>{{ prop.type_of_good_requested }}</td>
+      <td>{{ prop.model_No }}</td>
+      <td>{{ prop.chasis_No }}</td>
+      <td>{{ prop.ref_No_of_supporting_letter }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+<div *ngIf="Isnodata">
+
+  <h2 style="color: blue;">there No data!!</h2>
+</div>
+

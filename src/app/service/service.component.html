@@ -214,6 +214,21 @@
           (saveDataCompleted)="saveDataCompleted($event)"
         ></app-site-list>
       </div>
+      <div *ngSwitchCase="41">
+       <app-duty-free-vehicles-and-machinery-data></app-duty-free-vehicles-and-machinery-data>
+      </div>
+        <div *ngSwitchCase="42">
+          <app-environmental-consideration></app-environmental-consideration>
+        </div>
+          <div *ngSwitchCase="43">
+            <app-licensee-mineral-production-inspection></app-licensee-mineral-production-inspection>
+          </div>
+            <div *ngSwitchCase="44">
+              <app-mineral-production></app-mineral-production>
+            </div>
+              <div *ngSwitchCase="45">
+                <app-mining-revenue-collected-from-licensee></app-mining-revenue-collected-from-licensee>
+              </div>
       <h3 class="not-fond-panel" *ngSwitchDefault>Form not found</h3>
     </div>
   </div>

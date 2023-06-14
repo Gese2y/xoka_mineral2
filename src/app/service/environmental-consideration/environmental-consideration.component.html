@@ -1,0 +1,180 @@
+<div *ngIf="havedata" class="d-flex justify-content-center" style="position: absolute;
+                top: 75%;
+                left: 40%;
+                margin-top: -50px;
+                margin-left: -60px;
+                width: 300px;
+                height: 100px;
+                z-index: 10000;">
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+
+</div>
+<div class="card">
+  <h4 style="text-align: center;">Environmental Consideration</h4>
+<form [formGroup]="environmentalForm" >
+  <div class="form-row">
+    <div class="col-md-6">
+      <!-- <div class="form-group"> 
+        <label for="ID">ID</label>
+        <input type="text" class="form-control" formControlName="ID" id="ID">
+      </div> -->
+      <div class="form-group">
+        <label for="nameOfLicensee">Name of Licensee</label>
+        <input type="text" class="form-control" formControlName="name_of_Licensee" id="nameOfLicensee">
+      </div>
+      <div class="form-group">
+        <label for="licenseNo">License No</label>
+        <input type="text" class="form-control" formControlName="license_No" id="licenseNo">
+      </div>
+      <div class="form-group">
+        <label for="yearOfProduction">Year of Production Start-up</label>
+        <input type="date" class="form-control" formControlName="year_of_production_start_up" id="yearOfProduction">
+      </div>
+      <div class="form-group">
+        <label for="land">Land</label>
+        <input type="text" class="form-control" formControlName="land" id="land">
+      </div>
+      <div class="form-group">
+        <label for="air">Air</label>
+        <input type="text" class="form-control" formControlName="air" id="air">
+      </div>
+      <div class="form-group">
+        <label for="water">Water</label>
+        <input type="text" class="form-control" formControlName="water" id="water">
+      </div>
+      <div class="form-group">
+        <label for="biotic">Biotic</label>
+        <input type="text" class="form-control" formControlName="biotic" id="biotic">
+      </div>
+      <div class="form-group">
+        <label for="communityDevelopmentFund">Community Development Fund</label>
+        <input type="text" class="form-control" formControlName="community_Development_Fund" id="communityDevelopmentFund">
+      </div>
+    </div>
+    <div class="col-md-6">
+     
+      <div class="form-group">
+        <label for="reclamationFund">Reclamation Fund</label>
+        <input type="text" class="form-control" formControlName="reclamation_fund" id="reclamationFund">
+      </div>
+      <div class="form-group">
+        <label for="year">Year</label>
+        <input type="date" class="form-control" formControlName="year" id="year">
+      </div>
+      <div class="form-group">
+        <label for="jobOpportunity">Job Opportunity</label>
+        <input type="text" class="form-control" formControlName="job_opportunity" id="jobOpportunity">
+      </div>
+      <div class="form-group">
+        <label for="kindOfContribution">Kind of Contribution</label>
+        <input type="text" class="form-control" formControlName="kind_of_contribution" id="kindOfContribution">
+      </div>
+      <div class="form-group">
+        <label for="supportingCitizen">Supporting Citizen</label>
+        <input type="text" class="form-control" formControlName="supporting_citizen" id="supportingCitizen">
+      </div>
+      <div class="form-group">
+        <label for="cashContribution">Cash Contribution for Local Development</label>
+        <input type="text" class="form-control" formControlName="cash_contribution_for_local_development" id="cashContribution">
+      </div>
+      <div class="form-group">
+        <label for="infrastructures">Share Its Own Infrastructures</label>
+        <input type="text" class="form-control" formControlName="share_its_own_infrastructures" id="infrastructures">
+      </div>
+      <div class="form-group">
+        <label for="reclaimedArea">Reclaimed Area</label>
+        <input type="number" class="form-control" formControlName="reclaimed_area" id="reclaimedArea" min="1">
+      </div>
+    </div>
+  </div>
+
+    <div class="float-right">
+    
+      <button type="button" class="btn btn-secondary mb-2" (click)="new()">new</button> &nbsp;
+      <button *ngIf="!isEdited" type="button" class="btn btn-primary mb-2" (click)="save()">save</button> &nbsp;
+      <button *ngIf="isEdited" type="button" class="btn btn-success mb-2" (click)="update()">update</button> &nbsp;
+      <button *ngIf="isEdited" type="button" class="btn btn-danger mb-2" (click)="delete()">delete</button> &nbsp;
+    </div>
+    </form>
+    </div>
+    <p-table #table [value]="license" [paginator]="true" [rows]="5" selectionMode="single"
+      [globalFilterFields]="['name_of_Licensee', 'license_No']" (onRowSelect)="onRowSelect($event)"
+      >
+      <ng-template pTemplate="caption">
+        <div class="table-header">
+          <h1 translate>List of environmental consideration</h1>
+          <span class="p-input-icon-left">
+            <input pInputText type="text" (input)="table.filterGlobal($event.target.value, 'contains')"
+              [placeholder]="'Global Search' | translate" />
+          </span>
+        </div>
+      </ng-template>
+    
+      <ng-template pTemplate="header">
+        <tr>
+          <!-- <th>ID</th> -->
+          <th>Name of Licensee</th>
+          <th>License No</th>
+          <th>Year of Production Start-up</th>
+          <th>Land</th>
+          <th>Air</th>
+          <th>Water</th>
+          <th>Biotic</th>
+          <th>Community Development Fund</th>
+          <th>Reclamation Fund</th>
+          <th>Year</th>
+          <th>Job Opportunity</th>
+          <th>Kind of Contribution</th>
+          <th>Supporting Citizen</th>
+          <th>Cash Contribution for Local Development</th>
+          <th>Share Its Own Infrastructures</th>
+          <th>Reclaimed Area</th>
+        </tr>
+      </ng-template>
+    
+      <ng-template pTemplate="body" let-license>
+        <tr [pSelectableRow]="license">
+          <!-- <td>{{ license.iD }}</td> -->
+          <td>{{ license.name_of_Licensee }}</td>
+          <td>{{ license.license_No }}</td>
+          <td>{{ license.year_of_production_start_up | date }}</td>
+          <td>{{ license.land }}</td>
+          <td>{{ license.air }}</td>
+          <td>{{ license.water }}</td>
+          <td>{{ license.biotic }}</td>
+          <td>{{ license.community_Development_Fund }}</td>
+          <td>{{ license.reclamation_fund }}</td>
+          <td>{{ license.year |date }}</td>
+          <td>{{ license.job_opportunity }}</td>
+          <td>{{ license.kind_of_contribution }}</td>
+          <td>{{ license.supporting_citizen }}</td>
+          <td>{{ license.cash_contribution_for_local_development }}</td>
+          <td>{{ license.share_its_own_infrastructures }}</td>
+          <td>{{ license.reclaimed_area }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div *ngIf="Isnodata">
+    
+      <h2 style="color: blue;">there No data!!</h2>
+    </div>

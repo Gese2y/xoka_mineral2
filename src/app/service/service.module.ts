@@ -65,9 +65,15 @@ import { RenewalInformationComponent } from './renewal-information/renewal-infor
 import { CustomerTypeComponent } from './customer-type/customer-type.component';
 import { ArchwizardModule } from 'angular-archwizard';
 import { GisPlotComponent } from './gis-plot/gis-plot.component';
+import { DutyFreeVehiclesAndMachineryDataComponent } from './duty-free-vehicles-and-machinery-data/duty-free-vehicles-and-machinery-data.component';
+import { EnvironmentalConsiderationComponent } from './environmental-consideration/environmental-consideration.component';
+import { LicenseeMineralProductionInspectionComponent } from './licensee-mineral-production-inspection/licensee-mineral-production-inspection.component';
+import { MiningRevenueCollectedFromLicenseeComponent } from './mining-revenue-collected-from-licensee/mining-revenue-collected-from-licensee.component';
+import { MineralProductionComponent } from './mineral-production/mineral-production.component';
 
 @NgModule({
   imports: [
+    ReactiveFormsModule,
     ButtonModule,
     InputTextModule,
     BrowserModule,
@@ -135,7 +141,12 @@ NgxPaginationModule,
       LicenseComponent,
       RenewalInformationComponent,
       CustomerTypeComponent,
-      GisPlotComponent
+      GisPlotComponent,
+      DutyFreeVehiclesAndMachineryDataComponent,
+      EnvironmentalConsiderationComponent,
+      LicenseeMineralProductionInspectionComponent,
+      MiningRevenueCollectedFromLicenseeComponent,
+      MineralProductionComponent
   // DrawmapComponent
 
   ],

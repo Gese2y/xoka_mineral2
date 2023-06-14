@@ -1,0 +1,143 @@
+<div *ngIf="havedata" class="d-flex justify-content-center" style="position: absolute;
+                top: 75%;
+                left: 40%;
+                margin-top: -50px;
+                margin-left: -60px;
+                width: 300px;
+                height: 100px;
+                z-index: 10000;">
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+
+</div>
+<div class="card">
+  <h4 style="text-align: center;">Licensee Mineral production inspection</h4>
+<form [formGroup]="licenseForm" >
+  <div class="form-row">
+    <div class="col-md-6">
+      <!-- <div class="form-group">
+        <label for="ID">ID</label>
+        <input type="text" class="form-control" formControlName="ID" id="ID">
+      </div> -->
+      <div class="form-group">
+        <label for="licenseNo">License No</label>
+        <input type="text" class="form-control" formControlName="license_No" id="licenseNo">
+      </div>
+      <div class="form-group">
+        <label for="dateRequested">Date Requested</label>
+        <input type="date" class="form-control" formControlName="date_requested" id="dateRequested">
+      </div>
+      <div class="form-group">
+        <label for="dateIssued">Date Issued</label>
+        <input type="date" class="form-control" formControlName="date_issued" id="dateIssued">
+      </div>
+      <div class="form-group">
+        <label for="receiptFrom">No of Receipt From</label>
+        <input type="number" class="form-control" formControlName="no_of_receipt_From" id="receiptFrom" min="0">
+      </div>
+      <div class="form-group">
+        <label for="receiptTo">No of Receipt To</label>
+        <input type="number" class="form-control" formControlName="no_of_receipt_to" id="receiptTo" min="0">
+      </div>
+    </div>
+    <div class="col-md-6">
+      
+      <div class="form-group">
+        <label for="pad">No of Pad</label>
+        <input type="number" class="form-control" formControlName="no_of_pad" id="pad" min="0">
+      </div>
+      <div class="form-group">
+        <label for="representative">Name of Representative</label>
+        <input type="text" class="form-control" formControlName="name_of_representative" id="representative">
+      </div>
+      <div class="form-group">
+        <label for="requestingLetter">Ref No of Requesting Letter</label>
+        <input type="text" class="form-control" formControlName="ref_No_of_requesting_letter" id="requestingLetter">
+      </div>
+      <div class="form-group">
+        <label for="auditedReturnedFrom">No of Receipt Audited and Returned From</label>
+        <input type="number" class="form-control" formControlName="no_of_receipt_Audited_and_returned_From" id="auditedReturnedFrom" min="0">
+      </div>
+      <div class="form-group">
+        <label for="auditedReturnedTo">No of Receipt Audited and Returned To</label>
+        <input type="number" class="form-control" formControlName="no_of_receipt_Audited_and_returned_to" id="auditedReturnedTo" min="0">
+      </div>
+    </div>
+  </div>
+      <div class="float-right">
+      
+        <button type="button" class="btn btn-secondary mb-2" (click)="new()">new</button> &nbsp;
+        <button *ngIf="!isEdited" type="button" class="btn btn-primary mb-2" (click)="save()">save</button> &nbsp;
+        <button *ngIf="isEdited" type="button" class="btn btn-success mb-2" (click)="update()">update</button> &nbsp;
+        <button *ngIf="isEdited" type="button" class="btn btn-danger mb-2" (click)="delete()">delete</button> &nbsp;
+      </div>
+      </form>
+      </div>
+      <p-table #table [value]="license" [paginator]="true" [rows]="5" selectionMode="single"
+        [globalFilterFields]="['No_of_receipt_From','No_of_receipt_to','license_No']" (onRowSelect)="onRowSelect($event)"
+        >
+        <ng-template pTemplate="caption">
+          <div class="table-header">
+            <h1 translate>list of Licensee Mineral production inspection</h1>
+            <span class="p-input-icon-left">
+              <input pInputText type="text" (input)="table.filterGlobal($event.target.value, 'contains')"
+                [placeholder]="'Global Search' | translate" />
+            </span>
+          </div>
+        </ng-template>
+      
+        <ng-template pTemplate="header">
+          <tr>
+          <tr>
+            <!-- <th>ID</th> -->
+            <th>License No</th>
+            <th>Date Requested</th>
+            <th>Date Issued</th>
+            <th>No of Receipt From</th>
+            <th>No of Receipt To</th>
+            <th>No of Pad</th>
+            <th>Name of Representative</th>
+            <th>Ref No of Requesting Letter</th>
+            <th>No of Receipt Audited and Returned From</th>
+            <th>No of Receipt Audited and Returned To</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-license>
+          <tr [pSelectableRow]="license">
+          <!-- <td>{{ license.ID }}</td> -->
+          <td>{{ license.license_No }}</td>
+          <td>{{ license.date_requested |date }}</td>
+          <td>{{ license.date_issued |date }}</td>
+          <td>{{ license.no_of_receipt_From }}</td>
+          <td>{{ license.no_of_receipt_to }}</td>
+          <td>{{ license.no_of_pad }}</td>
+          <td>{{ license.name_of_representative }}</td>
+          <td>{{ license.ref_No_of_requesting_letter }}</td>
+          <td>{{ license.no_of_receipt_Audited_and_returned_From }}</td>
+          <td>{{ license.no_of_receipt_Audited_and_returned_to }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <div *ngIf="Isnodata">
+      
+        <h2 style="color: blue;">there No data!!</h2>
+      </div>

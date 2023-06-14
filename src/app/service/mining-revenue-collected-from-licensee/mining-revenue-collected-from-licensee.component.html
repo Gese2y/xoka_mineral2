@@ -1,0 +1,204 @@
+<div *ngIf="havedata" class="d-flex justify-content-center" style="position: absolute;
+                top: 75%;
+                left: 40%;
+                margin-top: -50px;
+                margin-left: -60px;
+                width: 300px;
+                height: 100px;
+                z-index: 10000;">
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+
+</div>
+<div class="card">
+  <h4 style="text-align: center;">Mining revenue collected from licensee </h4>
+<form [formGroup]="licenseForm" >
+  <div class="form-row">
+    <div class="col-md-6">
+      <!-- <div class="form-group">
+        <label for="ID">ID</label>
+        <input type="text" class="form-control" formControlName="id" id="ID">
+      </div> -->
+      <div class="form-group">
+        <label for="nameOfLicensee">Name of Licensee</label>
+        <input type="text" class="form-control" formControlName="name_of_Licensee" id="nameOfLicensee">
+      </div>
+      <div class="form-group">
+        <label for="licenseNo">License No</label>
+        <input type="text" class="form-control" formControlName="license_No" id="licenseNo">
+      </div>
+      <div class="form-group">
+        <label for="freeEquityBirr">Free Equity Birr</label>
+        <input type="number" class="form-control" formControlName="free_equity_birr" id="freeEquityBirr" min="0">
+      </div>
+      <div class="form-group">
+        <label for="licenseIssueFrom">License Issue From</label>
+        <input type="text" class="form-control" formControlName="license_issue_From" id="licenseIssueFrom">
+      </div>
+      <div class="form-group">
+        <label for="licenseIssueTo">License Issue To</label>
+        <input type="text" class="form-control" formControlName="license_issue_to" id="licenseIssueTo">
+      </div>
+      <div class="form-group">
+        <label for="licenseIssueQarshii">License Issue Qarshii</label>
+        <input type="text" class="form-control" formControlName="license_issue_Qarshii" id="licenseIssueQarshii">
+      </div>
+      <div class="form-group">
+        <label for="royalitiVolume">Royalty Volume</label>
+        <input type="number" class="form-control" formControlName="royaliti_Volume" id="royalitiVolume" min="0">
+      </div>
+      <div class="form-group">
+        <label for="royalitiTotSale">Royalty Total Sale</label>
+        <input type="number" class="form-control" formControlName="royaliti_Tot_sale" id="royalitiTotSale" min="0">
+      </div>
+      <div class="form-group">
+        <label for="royalitii">Royalty</label>
+        <input type="text" class="form-control" formControlName="royalitii" id="royalitii">
+      </div>
+        <div class="form-group">
+          <label for="landRentFrom">Land Rent From</label>
+          <input type="text" class="form-control" formControlName="land_rent_From" id="landRentFrom">
+        </div>
+    </div>
+    <div class="col-md-6">
+    
+      <div class="form-group">
+        <label for="landRentTo">Land Rent To</label>
+        <input type="text" class="form-control" formControlName="land_rent_to" id="landRentTo">
+      </div>
+      <div class="form-group">
+        <label for="landRentQarshi">Land Rent Qarshii</label>
+        <input type="number" class="form-control" formControlName="land_rent_qarshi" id="landRentQarshi">
+      </div>
+      <div class="form-group">
+        <label for="licenseRenewFrom">License Renew From</label>
+        <input type="text" class="form-control" formControlName="license_renew_From" id="licenseRenewFrom">
+      </div>
+      <div class="form-group">
+        <label for="licenseRenewTo">License Renew To</label>
+        <input type="text" class="form-control" formControlName="license_renew_to" id="licenseRenewTo">
+      </div>
+      <div class="form-group">
+        <label for="licenseRenewQarshii">License Renew Qarshii</label>
+        <input type="number" class="form-control" formControlName="license_renew_qarshii" id="licenseRenewQarshii" min="0">
+      </div>
+      <div class="form-group">
+        <label for="cadastrePayment">Cadastre Payment</label>
+        <input type="number" class="form-control" formControlName="cadastre_payment" id="cadastrePayment" min="">
+      </div>
+      <div class="form-group">
+        <label for="receiptSale">Receipt Sale</label>
+        <input type="text" class="form-control" formControlName="receipt_sale" id="receiptSale">
+      </div>
+      <div class="form-group">
+        <label for="total">Total</label>
+        <input type="number" class="form-control" formControlName="total" id="total" min="0">
+      </div>
+      <div class="form-group">
+        <label for="revenueReceiptNo">Revenue Receipt No</label>
+        <input type="number" class="form-control" formControlName="revenue_Receipt_No" id="revenueReceiptNo" min="0">
+      </div>
+      <div class="form-group">
+        <label for="dateReceived">Date Received</label>
+        <input type="date" class="form-control" formControlName="date_received" id="dateReceived">
+      </div>
+    </div>
+  </div> 
+  <div class="float-right">
+    <button type="button" class="btn btn-secondary mb-2" (click)="new()">new</button> &nbsp;
+    <button *ngIf="!isEdited" type="button" class="btn btn-primary mb-2" (click)="save()">save</button> &nbsp;
+    <button *ngIf="isEdited" type="button" class="btn btn-success mb-2" (click)="update()">update</button> &nbsp;
+    <button *ngIf="isEdited" type="button" class="btn btn-danger mb-2" (click)="delete()">delete</button> &nbsp;
+  </div>
+</form>
+
+
+</div>
+<p-table #table [value]="license" [paginator]="true" [rows]="5" selectionMode="single"
+  [globalFilterFields]="['license_No']"
+  (onRowSelect)="onRowSelect($event)" >
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+      <h1 translate>list of mining revenue collected from licensee</h1>
+      <span class="p-input-icon-left">
+        <input pInputText type="text" (input)="table.filterGlobal($event.target.value, 'contains')"
+          [placeholder]="'Global Search' | translate" />
+      </span>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+    <tr>
+    <!-- <th>ID</th> -->
+    <th>Name of Licensee</th>
+    <th>License No</th>
+    <th>Free Equity Birr</th>
+    <th>License Issue From</th>
+    <th>License Issue To</th>
+    <th>License Issue Qarshii</th>
+    <th>Royaliti Volume</th>
+    <th>Royaliti Total Sale</th>
+    <th>Royalitii</th>
+    <th>Land Rent From</th>
+    <th>Land Rent To</th>
+    <th>Land Rent Qarshi</th>
+    <th>License Renew From</th>
+    <th>License Renew To</th>
+    <th>License Renew Qarshii</th>
+    <th>Cadastre Payment</th>
+    <th>Receipt Sale</th>
+    <th>Total</th>
+    <th>Revenue Receipt No</th>
+    <th>Date Received</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-license>
+    <tr [pSelectableRow]="license">
+      <!-- <td>{{ license.ID }}</td> -->
+      <td>{{ license.name_of_Licensee }}</td>
+      <td>{{ license.license_No }}</td>
+      <td>{{ license.free_equity_birr }}</td>
+      <td>{{ license.license_issue_From }}</td>
+      <td>{{ license.license_issue_to }}</td>
+      <td>{{ license.license_issue_Qarshii }}</td>
+      <td>{{ license.royaliti_Volume }}</td>
+      <td>{{ license.royaliti_Tot_sale }}</td>
+      <td>{{ license.royalitii }}</td>
+      <td>{{ license.land_rent_From }}</td>
+      <td>{{ license.land_rent_to }}</td>
+      <td>{{ license.land_rent_qarshi }}</td>
+      <td>{{ license.license_renew_From }}</td>
+      <td>{{ license.license_renew_to }}</td>
+      <td>{{ license.license_renew_qarshii }}</td>
+      <td>{{ license.cadastre_payment }}</td>
+      <td>{{ license.receipt_sale }}</td>
+      <td>{{ license.total }}</td>
+      <td>{{ license.revenue_Receipt_No }}</td>
+      <td>{{ license.date_received | date }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+<div *ngIf="Isnodata">
+
+  <h2 style="color: blue;">there No data!!</h2>
+</div>

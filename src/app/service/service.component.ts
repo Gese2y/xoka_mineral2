@@ -183,6 +183,17 @@ export class ServiceComponent implements OnInit {
       } else if (params["formcode"] == "524a60fd-97c3-4c36-a18c-1b8467b8b19c") {
         this.ID = 40;
       }
+      else if (params["formcode"] == "b576e8fa-c322-4c15-bd78-28a4ce175fd8") {
+        this.ID = 41;
+      }else if (params["formcode"] == "ee461baf-5698-4145-85e7-815b63e592f2") {
+        this.ID = 42;
+      }else if (params["formcode"] == "11c0dc44-95f6-46ef-bb8c-9148258722f8") {
+        this.ID = 43;
+      }else if (params["formcode"] == "7b7cacaa-57e6-4d48-b556-683e4e116554") {
+        this.ID = 44;
+      }else if (params["formcode"] == "fc958904-ac3c-43bf-afe3-db003cdc5096") {
+        this.ID = 45;
+      }
        else {
         this.ID = 1;
         this.serviceEvent.on(

@@ -488,13 +488,88 @@ export class ServiceService {
     return this.http.get('http://197.156.93.110/xoka.ERP.API/api/ProprtyData/procProportyDataCollectionTransaction')
   }
 
+//Duty_Free_vehicles_and_machinery_data
 
-  /////////////////////
-
-  getCustomerNew() {
-    return this.http.get(environment.rootApiPath + 'CustomerNew');
+ postDuty_Free_vehicles_and_machinery_data(data) {
+    return this.http.post(environment.rootApiPath + 'Duty_Free_vehicles_and_machinery_data/', data);
   }
+putDuty_Free_vehicles_and_machinery_data(data) {
+    return this.http.put(environment.rootApiPath + 'Duty_Free_vehicles_and_machinery_data/', data);
+  }
+    getDuty_Free_vehicles_and_machinery_data() {
+    return this.http.get(environment.rootApiPath + 'Duty_Free_vehicles_and_machinery_data');
+  }
+  getDuty_Free_vehicles_and_machinery_dataId(id) {
+    return this.http.get(environment.rootApiPath + 'Duty_Free_vehicles_and_machinery_data/'+ id);
+  }
+  deleteDuty_Free_vehicles_and_machinery_data(id) {
+    return this.http.delete(environment.rootApiPath + "Duty_Free_vehicles_and_machinery_data/" + id );
+  }
+//Environmental_Consideration
 
+   postEnvironmental_Consideration(data) {
+    return this.http.post(environment.rootApiPath + 'Environmental_Consideration/', data);
+  }
+   putEnvironmental_Consideration(data) {
+    return this.http.put(environment.rootApiPath + 'Environmental_Consideration/', data);
+  }
+    getEnvironmental_Consideration() {
+    return this.http.get(environment.rootApiPath + 'Environmental_Consideration');
+  }
+  getEnvironmental_ConsiderationId(id) {
+    return this.http.get(environment.rootApiPath + 'Environmental_Consideration/'+ id);
+  }
+  deleteEnvironmental_Consideration(id) {
+    return this.http.delete(environment.rootApiPath + "Environmental_Consideration/" + id );  }
+
+    //Licensee_Mineral_production_inspection
+   postLicensee_Mineral_production_inspection(data) {
+    return this.http.post(environment.rootApiPath + 'Licensee_Mineral_production_inspection/', data);
+  }
+   putLicensee_Mineral_production_inspection(data) {
+    return this.http.put(environment.rootApiPath + 'Licensee_Mineral_production_inspection/', data);
+  }
+    getLicensee_Mineral_production_inspection() {
+    return this.http.get(environment.rootApiPath + 'Licensee_Mineral_production_inspection');
+  }
+  getLicensee_Mineral_production_inspectionId(id) {
+    return this.http.get(environment.rootApiPath + 'Licensee_Mineral_production_inspection/'+ id);
+  }
+  deleteLicensee_Mineral_production_inspection(id) {
+    return this.http.delete(environment.rootApiPath + "Licensee_Mineral_production_inspection/" + id );
+  }
+//Mineral_production
+    postMineral_production(data) {
+    return this.http.post(environment.rootApiPath + 'Mineral_production/', data);
+  }
+   putMineral_production(data) {
+    return this.http.put(environment.rootApiPath + 'Mineral_production/', data);
+  }
+    getMineral_production() {
+    return this.http.get(environment.rootApiPath + 'Mineral_production');
+  }
+  getMineral_productionId(id) {
+    return this.http.get(environment.rootApiPath + 'Mineral_production/'+ id);
+  }
+  deleteMineral_production(id) {
+    return this.http.delete(environment.rootApiPath + "Mineral_production/" + id );
+  }
+  //Mining_Revenue_collected_from_licensee
+      postMining_Revenue_collected_from_licensee(data) {
+    return this.http.post(environment.rootApiPath + 'Mining_Revenue_collected_from_licensee/', data);
+  }
+   putMining_Revenue_collected_from_licensee(data) {
+    return this.http.put(environment.rootApiPath + 'Mining_Revenue_collected_from_licensee/', data);
+  }
+    getMining_Revenue_collected_from_licensee() {
+    return this.http.get(environment.rootApiPath + 'Mining_Revenue_collected_from_licensee');
+  }
+  getMining_Revenue_collected_from_licenseeId(id) {
+    return this.http.get(environment.rootApiPath + 'Mining_Revenue_collected_from_licensee/'+ id);
+  }
+  deleteMining_Revenue_collected_from_licensee(id) {
+    return this.http.delete(environment.rootApiPath + "Mining_Revenue_collected_from_licensee/" + id );
+  }
   getLicense() {
     return this.http.get(environment.rootApiPath + 'License');
   }
@@ -510,14 +585,17 @@ export class ServiceService {
   getRenewalType() {
     return this.http.get(environment.rootApiPath + 'RenewalType');
   }
+   getCustomerNew() {
+    return this.http.get(environment.rootApiPath + 'CustomerNew')
+  }
 
   getCustomerNewById(id) {
     return this.http.get(environment.rootApiPath + 'CustomerNew/' + id)
   }
-
+ 
   getLicenseById(id) {
     return this.http.get(environment.rootApiPath + 'License/' + id)
-  }
+  } 
 
   getRenewalInformationById(id) {
     return this.http.get(environment.rootApiPath + 'RenewalInformation/' + id)
