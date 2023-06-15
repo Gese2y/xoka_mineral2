@@ -31,66 +31,85 @@
 </div>
 <div class="card">
   <h4 style="text-align: center;">Licensee Mineral production inspection</h4>
-<form [formGroup]="licenseForm" >
+  &nbsp;
+<form [formGroup]="licenseForm">
   <div class="form-row">
     <div class="col-md-6">
-      <!-- <div class="form-group">
-        <label for="ID">ID</label>
-        <input type="text" class="form-control" formControlName="ID" id="ID">
-      </div> -->
-      <div class="form-group">
-        <label for="licenseNo">License No</label>
-        <input type="text" class="form-control" formControlName="license_No" id="licenseNo">
+      <div class="form-group row">
+        <label for="licenseNo" class="col-sm-4 col-form-label">License No</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="license_No" id="licenseNo">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="dateRequested">Date Requested</label>
-        <input type="date" class="form-control" formControlName="date_requested" id="dateRequested">
+      <div class="form-group row">
+        <label for="dateRequested" class="col-sm-4 col-form-label">Date Requested</label>
+        <div class="col-sm-8">
+          <input type="date" class="form-control" formControlName="date_requested" id="dateRequested">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="dateIssued">Date Issued</label>
-        <input type="date" class="form-control" formControlName="date_issued" id="dateIssued">
+      <div class="form-group row">
+        <label for="dateIssued" class="col-sm-4 col-form-label">Date Issued</label>
+        <div class="col-sm-8">
+          <input type="date" class="form-control" formControlName="date_issued" id="dateIssued">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="receiptFrom">No of Receipt From</label>
-        <input type="number" class="form-control" formControlName="no_of_receipt_From" id="receiptFrom" min="0">
+      <div class="form-group row">
+        <label for="receiptFrom" class="col-sm-4 col-form-label">No of Receipt From</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="no_of_receipt_From" id="receiptFrom" min="0">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="receiptTo">No of Receipt To</label>
-        <input type="number" class="form-control" formControlName="no_of_receipt_to" id="receiptTo" min="0">
+      <div class="form-group row">
+        <label for="receiptTo" class="col-sm-4 col-form-label">No of Receipt To</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="no_of_receipt_to" id="receiptTo" min="0">
+        </div>
       </div>
     </div>
     <div class="col-md-6">
-      
-      <div class="form-group">
-        <label for="pad">No of Pad</label>
-        <input type="number" class="form-control" formControlName="no_of_pad" id="pad" min="0">
+      <div class="form-group row">
+        <label for="pad" class="col-sm-4 col-form-label">No of Pad</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="no_of_pad" id="pad" min="0">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="representative">Name of Representative</label>
-        <input type="text" class="form-control" formControlName="name_of_representative" id="representative">
+      <div class="form-group row">
+        <label for="representative" class="col-sm-4 col-form-label">Name of Representative</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="name_of_representative" id="representative">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="requestingLetter">Ref No of Requesting Letter</label>
-        <input type="text" class="form-control" formControlName="ref_No_of_requesting_letter" id="requestingLetter">
+      <div class="form-group row">
+        <label for="requestingLetter" class="col-sm-4 col-form-label">Ref No of Requesting Letter</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="ref_No_of_requesting_letter" id="requestingLetter">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="auditedReturnedFrom">No of Receipt Audited and Returned From</label>
-        <input type="number" class="form-control" formControlName="no_of_receipt_Audited_and_returned_From" id="auditedReturnedFrom" min="0">
+      <div class="form-group row">
+        <label for="auditedReturnedFrom" class="col-sm-4 col-form-label">No of Receipt Audited and Returned From</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="no_of_receipt_Audited_and_returned_From"
+            id="auditedReturnedFrom" min="0">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="auditedReturnedTo">No of Receipt Audited and Returned To</label>
-        <input type="number" class="form-control" formControlName="no_of_receipt_Audited_and_returned_to" id="auditedReturnedTo" min="0">
+      <div class="form-group row">
+        <label for="auditedReturnedTo" class="col-sm-4 col-form-label">No of Receipt Audited and Returned To</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="no_of_receipt_Audited_and_returned_to"
+            id="auditedReturnedTo" min="0">
+        </div>
       </div>
     </div>
   </div>
-      <div class="float-right">
-      
-        <button type="button" class="btn btn-secondary mb-2" (click)="new()">new</button> &nbsp;
-        <button *ngIf="!isEdited" type="button" class="btn btn-primary mb-2" (click)="save()">save</button> &nbsp;
-        <button *ngIf="isEdited" type="button" class="btn btn-success mb-2" (click)="update()">update</button> &nbsp;
-        <button *ngIf="isEdited" type="button" class="btn btn-danger mb-2" (click)="delete()">delete</button> &nbsp;
-      </div>
-      </form>
+
+  <div class="float-right">
+    <button type="button" class="btn btn-secondary mb-2" (click)="new()">new</button> &nbsp;
+    <button *ngIf="!isEdited" type="button" class="btn btn-primary mb-2" (click)="save()">save</button> &nbsp;
+    <button *ngIf="isEdited" type="button" class="btn btn-success mb-2" (click)="update()">update</button> &nbsp;
+    <button *ngIf="isEdited" type="button" class="btn btn-danger mb-2" (click)="delete()">delete</button> &nbsp;
+  </div>
+</form>
+
       </div>
       <p-table #table [value]="license" [paginator]="true" [rows]="5" selectionMode="single"
         [globalFilterFields]="['No_of_receipt_From','No_of_receipt_to','license_No']" (onRowSelect)="onRowSelect($event)"

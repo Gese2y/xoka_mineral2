@@ -31,98 +31,138 @@
 </div>
 <div class="card">
   <h4 style="text-align: center;">Mining revenue collected from licensee </h4>
-<form [formGroup]="licenseForm" >
+  &nbsp;
+    <div class="m-3">
+      <div class="row">
+        <div class="col-md-12">
+<form [formGroup]="licenseForm">
   <div class="form-row">
     <div class="col-md-6">
-      <!-- <div class="form-group">
-        <label for="ID">ID</label>
-        <input type="text" class="form-control" formControlName="id" id="ID">
-      </div> -->
-      <div class="form-group">
-        <label for="nameOfLicensee">Name of Licensee</label>
-        <input type="text" class="form-control" formControlName="name_of_Licensee" id="nameOfLicensee">
+      <div class="form-group row">
+        <label for="nameOfLicensee" class="col-sm-4 col-form-label">Name of Licensee</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="name_of_Licensee" id="nameOfLicensee">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="licenseNo">License No</label>
-        <input type="text" class="form-control" formControlName="license_No" id="licenseNo">
+      <div class="form-group row">
+        <label for="licenseNo" class="col-sm-4 col-form-label">License No</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="license_No" id="licenseNo">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="freeEquityBirr">Free Equity Birr</label>
-        <input type="number" class="form-control" formControlName="free_equity_birr" id="freeEquityBirr" min="0">
+      <div class="form-group row">
+        <label for="freeEquityBirr" class="col-sm-4 col-form-label">Free Equity Birr</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="free_equity_birr" id="freeEquityBirr" min="0">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="licenseIssueFrom">License Issue From</label>
-        <input type="text" class="form-control" formControlName="license_issue_From" id="licenseIssueFrom">
+      <div class="form-group row">
+        <label for="licenseIssueFrom" class="col-sm-4 col-form-label">License Issue From</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="license_issue_From" id="licenseIssueFrom">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="licenseIssueTo">License Issue To</label>
-        <input type="text" class="form-control" formControlName="license_issue_to" id="licenseIssueTo">
+      <div class="form-group row">
+        <label for="licenseIssueTo" class="col-sm-4 col-form-label">License Issue To</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="license_issue_to" id="licenseIssueTo">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="licenseIssueQarshii">License Issue Qarshii</label>
-        <input type="text" class="form-control" formControlName="license_issue_Qarshii" id="licenseIssueQarshii">
+      <div class="form-group row">
+        <label for="licenseIssueQarshii" class="col-sm-4 col-form-label">License Issue Qarshii</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="license_issue_Qarshii" id="licenseIssueQarshii">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="royalitiVolume">Royalty Volume</label>
-        <input type="number" class="form-control" formControlName="royaliti_Volume" id="royalitiVolume" min="0">
+      <div class="form-group row">
+        <label for="royalitiVolume" class="col-sm-4 col-form-label">Royalty Volume</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="royaliti_Volume" id="royalitiVolume" min="0">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="royalitiTotSale">Royalty Total Sale</label>
-        <input type="number" class="form-control" formControlName="royaliti_Tot_sale" id="royalitiTotSale" min="0">
+      <div class="form-group row">
+        <label for="royalitiTotSale" class="col-sm-4 col-form-label">Royalty Total Sale</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="royaliti_Tot_sale" id="royalitiTotSale" min="0">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="royalitii">Royalty</label>
-        <input type="text" class="form-control" formControlName="royalitii" id="royalitii">
+      <div class="form-group row">
+        <label for="royalitii" class="col-sm-4 col-form-label">Royalty</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="royalitii" id="royalitii">
+        </div>
       </div>
-        <div class="form-group">
-          <label for="landRentFrom">Land Rent From</label>
+      <div class="form-group row">
+        <label for="landRentFrom" class="col-sm-4 col-form-label">Land Rent From</label>
+        <div class="col-sm-8">
           <input type="text" class="form-control" formControlName="land_rent_From" id="landRentFrom">
         </div>
+      </div>
     </div>
     <div class="col-md-6">
-    
-      <div class="form-group">
-        <label for="landRentTo">Land Rent To</label>
-        <input type="text" class="form-control" formControlName="land_rent_to" id="landRentTo">
+      <div class="form-group row">
+        <label for="landRentTo" class="col-sm-4 col-form-label">Land Rent To</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="land_rent_to" id="landRentTo">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="landRentQarshi">Land Rent Qarshii</label>
-        <input type="number" class="form-control" formControlName="land_rent_qarshi" id="landRentQarshi">
+      <div class="form-group row">
+        <label for="landRentQarshi" class="col-sm-4 col-form-label">Land Rent Qarshii</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="land_rent_qarshi" id="landRentQarshi">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="licenseRenewFrom">License Renew From</label>
-        <input type="text" class="form-control" formControlName="license_renew_From" id="licenseRenewFrom">
+      <div class="form-group row">
+        <label for="licenseRenewFrom" class="col-sm-4 col-form-label">License Renew From</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="license_renew_From" id="licenseRenewFrom">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="licenseRenewTo">License Renew To</label>
-        <input type="text" class="form-control" formControlName="license_renew_to" id="licenseRenewTo">
+      <div class="form-group row">
+        <label for="licenseRenewTo" class="col-sm-4 col-form-label">License Renew To</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="license_renew_to" id="licenseRenewTo">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="licenseRenewQarshii">License Renew Qarshii</label>
-        <input type="number" class="form-control" formControlName="license_renew_qarshii" id="licenseRenewQarshii" min="0">
+      <div class="form-group row">
+        <label for="licenseRenewQarshii" class="col-sm-4 col-form-label">License Renew Qarshii</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="license_renew_qarshii" id="licenseRenewQarshii"
+            min="0">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="cadastrePayment">Cadastre Payment</label>
-        <input type="number" class="form-control" formControlName="cadastre_payment" id="cadastrePayment" min="">
+      <div class="form-group row">
+        <label for="cadastrePayment" class="col-sm-4 col-form-label">Cadastre Payment</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="cadastre_payment" id="cadastrePayment" min="0">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="receiptSale">Receipt Sale</label>
-        <input type="text" class="form-control" formControlName="receipt_sale" id="receiptSale">
+      <div class="form-group row">
+        <label for="receiptSale" class="col-sm-4 col-form-label">Receipt Sale</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="receipt_sale" id="receiptSale">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="total">Total</label>
-        <input type="number" class="form-control" formControlName="total" id="total" min="0">
+      <div class="form-group row">
+        <label for="total" class="col-sm-4 col-form-label">Total</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="total" id="total" min="0">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="revenueReceiptNo">Revenue Receipt No</label>
-        <input type="number" class="form-control" formControlName="revenue_Receipt_No" id="revenueReceiptNo" min="0">
+      <div class="form-group row">
+        <label for="revenueReceiptNo" class="col-sm-4 col-form-label">Revenue Receipt No</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="revenue_Receipt_No" id="revenueReceiptNo" min="0">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="dateReceived">Date Received</label>
-        <input type="date" class="form-control" formControlName="date_received" id="dateReceived">
+      <div class="form-group row">
+        <label for="dateReceived" class="col-sm-4 col-form-label">Date Received</label>
+        <div class="col-sm-8">
+          <input type="date" class="form-control" formControlName="date_received" id="dateReceived">
+        </div>
       </div>
     </div>
-  </div> 
+  </div>
   <div class="float-right">
     <button type="button" class="btn btn-secondary mb-2" (click)="new()">new</button> &nbsp;
     <button *ngIf="!isEdited" type="button" class="btn btn-primary mb-2" (click)="save()">save</button> &nbsp;
@@ -130,6 +170,7 @@
     <button *ngIf="isEdited" type="button" class="btn btn-danger mb-2" (click)="delete()">delete</button> &nbsp;
   </div>
 </form>
+</div></div></div>
 
 
 </div>

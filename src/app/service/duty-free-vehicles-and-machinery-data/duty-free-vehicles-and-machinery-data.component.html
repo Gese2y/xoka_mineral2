@@ -31,53 +31,71 @@
 </div>
 <div class="card">
   <h4 style="text-align: center;">Duty Free Vehicles And Machinery Data</h4>
+  &nbsp;
   <form [formGroup]="licenseForm">
     <div class="form-row">
       <div class="col-md-6">
-        <div class="form-group">
-          <label for="name">Name of Licensee</label>
-          <input type="text" class="form-control" formControlName="name_of_Licensee" id="name">
+        <div class="form-group row">
+          <label for="name" class="col-sm-3 col-form-label">Name of Licensee</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="name_of_Licensee" id="name">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="licenseNo">License No</label>
-          <input type="text" class="form-control" formControlName="license_No" id="licenseNo">
+        <div class="form-group row">
+          <label for="licenseNo" class="col-sm-3 col-form-label">License No</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="license_No" id="licenseNo">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="dateRequested">Date Requested</label>
-          <input type="date" class="form-control" formControlName="date_Requested" id="dateRequested">
+        <div class="form-group row">
+          <label for="dateRequested" class="col-sm-3 col-form-label">Date Requested</label>
+          <div class="col-sm-8">
+            <input type="date" class="form-control" formControlName="date_Requested" id="dateRequested">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="dateIssued">Date Issued</label>
-          <input type="date" class="form-control" formControlName="date_issued" id="dateIssued">
+        <div class="form-group row">
+          <label for="dateIssued" class="col-sm-3 col-form-label">Date Issued</label>
+          <div class="col-sm-8">
+            <input type="date" class="form-control" formControlName="date_issued" id="dateIssued">
+          </div>
         </div>
       </div>
       <div class="col-md-6">
-        <div class="form-group">
-          <label for="typeRequested">Type of Good Requested</label>
-          <input type="text" class="form-control" formControlName="type_of_good_requested" id="typeRequested">
+        <div class="form-group row">
+          <label for="typeRequested" class="col-sm-3 col-form-label">Type of Good Requested</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="type_of_good_requested" id="typeRequested">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="modelNo">Model No</label>
-          <input type="number" class="form-control" formControlName="model_No" id="modelNo" min="0">
+        <div class="form-group row">
+          <label for="modelNo" class="col-sm-3 col-form-label">Model No</label>
+          <div class="col-sm-8">
+            <input type="number" class="form-control" formControlName="model_No" id="modelNo" min="0">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="chassisNo">Chassis No</label>
-          <input type="text" class="form-control" formControlName="chasis_No" id="chassisNo">
+        <div class="form-group row">
+          <label for="chassisNo" class="col-sm-3 col-form-label">Chassis No</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="chasis_No" id="chassisNo">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="supportingLetterRef">Ref No of Supporting Letter</label>
-          <input type="text" class="form-control" formControlName="ref_No_of_supporting_letter" id="supportingLetterRef">
+        <div class="form-group row">
+          <label for="supportingLetterRef" class="col-sm-3 col-form-label">Ref No of Supporting Letter</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="ref_No_of_supporting_letter"
+              id="supportingLetterRef">
+          </div>
         </div>
       </div>
     </div>
     <div class="float-right">
-  
-      <button  type="button" class="btn btn-secondary mb-2" (click)="new()">new</button> &nbsp;
+      <button type="button" class="btn btn-secondary mb-2" (click)="new()">new</button> &nbsp;
       <button *ngIf="!isEdited" type="button" class="btn btn-primary mb-2" (click)="save()">save</button> &nbsp;
-        <button *ngIf="isEdited" type="button" class="btn btn-success mb-2" (click)="update()">update</button> &nbsp;
-          <button *ngIf="isEdited" type="button" class="btn btn-danger mb-2" (click)="delete()">delete</button> &nbsp;
+      <button *ngIf="isEdited" type="button" class="btn btn-success mb-2" (click)="update()">update</button> &nbsp;
+      <button *ngIf="isEdited" type="button" class="btn btn-danger mb-2" (click)="delete()">delete</button> &nbsp;
     </div>
   </form>
+
 </div>
 <p-table #table [value]="license" [paginator]="true" [rows]="5" selectionMode="single"
   [globalFilterFields]="['model_No','chasis_No','license_No']" (onRowSelect)="onRowSelect($event)"

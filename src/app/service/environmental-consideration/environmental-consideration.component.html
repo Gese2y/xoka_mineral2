@@ -31,91 +31,121 @@
 </div>
 <div class="card">
   <h4 style="text-align: center;">Environmental Consideration</h4>
-<form [formGroup]="environmentalForm" >
+  &nbsp;
+<form [formGroup]="environmentalForm">
   <div class="form-row">
     <div class="col-md-6">
-      <!-- <div class="form-group"> 
-        <label for="ID">ID</label>
-        <input type="text" class="form-control" formControlName="ID" id="ID">
-      </div> -->
-      <div class="form-group">
-        <label for="nameOfLicensee">Name of Licensee</label>
-        <input type="text" class="form-control" formControlName="name_of_Licensee" id="nameOfLicensee">
+      <div class="form-group row">
+        <label for="nameOfLicensee" class="col-sm-4 col-form-label">Name of Licensee</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="name_of_Licensee" id="nameOfLicensee">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="licenseNo">License No</label>
-        <input type="text" class="form-control" formControlName="license_No" id="licenseNo">
+      <div class="form-group row">
+        <label for="licenseNo" class="col-sm-4 col-form-label">License No</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="license_No" id="licenseNo">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="yearOfProduction">Year of Production Start-up</label>
-        <input type="date" class="form-control" formControlName="year_of_production_start_up" id="yearOfProduction">
+      <div class="form-group row">
+        <label for="yearOfProduction" class="col-sm-4 col-form-label">Year of Production Start-up</label>
+        <div class="col-sm-8">
+          <input type="date" class="form-control" formControlName="year_of_production_start_up" id="yearOfProduction">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="land">Land</label>
-        <input type="text" class="form-control" formControlName="land" id="land">
+      <div class="form-group row">
+        <label for="land" class="col-sm-4 col-form-label">Land</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="land" id="land">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="air">Air</label>
-        <input type="text" class="form-control" formControlName="air" id="air">
+      <div class="form-group row">
+        <label for="air" class="col-sm-4 col-form-label">Air</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="air" id="air">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="water">Water</label>
-        <input type="text" class="form-control" formControlName="water" id="water">
+      <div class="form-group row">
+        <label for="water" class="col-sm-4 col-form-label">Water</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="water" id="water">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="biotic">Biotic</label>
-        <input type="text" class="form-control" formControlName="biotic" id="biotic">
+      <div class="form-group row">
+        <label for="biotic" class="col-sm-4 col-form-label">Biotic</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="biotic" id="biotic">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="communityDevelopmentFund">Community Development Fund</label>
-        <input type="text" class="form-control" formControlName="community_Development_Fund" id="communityDevelopmentFund">
+      <div class="form-group row">
+        <label for="communityDevelopmentFund" class="col-sm-4 col-form-label">Community Development Fund</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="community_Development_Fund"
+            id="communityDevelopmentFund">
+        </div>
       </div>
     </div>
     <div class="col-md-6">
-     
-      <div class="form-group">
-        <label for="reclamationFund">Reclamation Fund</label>
-        <input type="text" class="form-control" formControlName="reclamation_fund" id="reclamationFund">
+      <div class="form-group row">
+        <label for="reclamationFund" class="col-sm-4 col-form-label">Reclamation Fund</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="reclamation_fund" id="reclamationFund">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="year">Year</label>
-        <input type="date" class="form-control" formControlName="year" id="year">
+      <div class="form-group row">
+        <label for="year" class="col-sm-4 col-form-label">Year</label>
+        <div class="col-sm-8">
+          <input type="date" class="form-control" formControlName="year" id="year">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="jobOpportunity">Job Opportunity</label>
-        <input type="text" class="form-control" formControlName="job_opportunity" id="jobOpportunity">
+      <div class="form-group row">
+        <label for="jobOpportunity" class="col-sm-4 col-form-label">Job Opportunity</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="job_opportunity" id="jobOpportunity">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="kindOfContribution">Kind of Contribution</label>
-        <input type="text" class="form-control" formControlName="kind_of_contribution" id="kindOfContribution">
+      <div class="form-group row">
+        <label for="kindOfContribution" class="col-sm-4 col-form-label">Kind of Contribution</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="kind_of_contribution" id="kindOfContribution">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="supportingCitizen">Supporting Citizen</label>
-        <input type="text" class="form-control" formControlName="supporting_citizen" id="supportingCitizen">
+      <div class="form-group row">
+        <label for="supportingCitizen" class="col-sm-4 col-form-label">Supporting Citizen</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="supporting_citizen" id="supportingCitizen">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="cashContribution">Cash Contribution for Local Development</label>
-        <input type="text" class="form-control" formControlName="cash_contribution_for_local_development" id="cashContribution">
+      <div class="form-group row">
+        <label for="cashContribution" class="col-sm-4 col-form-label">Cash Contribution for Local Development</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="cash_contribution_for_local_development"
+            id="cashContribution">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="infrastructures">Share Its Own Infrastructures</label>
-        <input type="text" class="form-control" formControlName="share_its_own_infrastructures" id="infrastructures">
+      <div class="form-group row">
+        <label for="infrastructures" class="col-sm-4 col-form-label">Share Its Own Infrastructures</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="share_its_own_infrastructures" id="infrastructures">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="reclaimedArea">Reclaimed Area</label>
-        <input type="number" class="form-control" formControlName="reclaimed_area" id="reclaimedArea" min="1">
+      <div class="form-group row">
+        <label for="reclaimedArea" class="col-sm-4 col-form-label">Reclaimed Area</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="reclaimed_area" id="reclaimedArea" min="1">
+        </div>
       </div>
     </div>
   </div>
 
-    <div class="float-right">
-    
-      <button type="button" class="btn btn-secondary mb-2" (click)="new()">new</button> &nbsp;
-      <button *ngIf="!isEdited" type="button" class="btn btn-primary mb-2" (click)="save()">save</button> &nbsp;
-      <button *ngIf="isEdited" type="button" class="btn btn-success mb-2" (click)="update()">update</button> &nbsp;
-      <button *ngIf="isEdited" type="button" class="btn btn-danger mb-2" (click)="delete()">delete</button> &nbsp;
-    </div>
-    </form>
+  <div class="float-right">
+    <button type="button" class="btn btn-secondary mb-2" (click)="new()">new</button> &nbsp;
+    <button *ngIf="!isEdited" type="button" class="btn btn-primary mb-2" (click)="save()">save</button> &nbsp;
+    <button *ngIf="isEdited" type="button" class="btn btn-success mb-2" (click)="update()">update</button> &nbsp;
+    <button *ngIf="isEdited" type="button" class="btn btn-danger mb-2" (click)="delete()">delete</button> &nbsp;
+  </div>
+</form>
+
     </div>
     <p-table #table [value]="license" [paginator]="true" [rows]="5" selectionMode="single"
       [globalFilterFields]="['name_of_Licensee', 'license_No']" (onRowSelect)="onRowSelect($event)"
