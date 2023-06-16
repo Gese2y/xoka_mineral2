@@ -15,6 +15,7 @@ import { ServiceComponent } from '../service.component';
 })
 export class LicenseComponent implements OnInit {
   license: any;
+  licence_typeLookUP: any;
 
 
   constructor(private service: ServiceService,
@@ -31,7 +32,9 @@ export class LicenseComponent implements OnInit {
     registered_date: new FormControl(new Date().toISOString().substr(0, 10)),
     created_by: new FormControl(),
     created_date: new FormControl(new Date().toISOString().substr(0, 10)),
-    license_code: new FormControl()
+    license_code: new FormControl(),
+     file_no: new FormControl(),
+    licence_type: new FormControl()
   })
   ngOnInit() {
     this.sharedService.customer_id$.subscribe(state => {
@@ -44,8 +47,23 @@ export class LicenseComponent implements OnInit {
 
     this.getAllLicense()
     this.code()
+    this.getlicence_typeLookUP();
   }
-
+  getlicence_typeLookUP() {
+    this.service.getCustomerTypeLookUP().subscribe(
+      (licence_typeLookUP) => {
+        this.licence_typeLookUP = licence_typeLookUP;
+        this.licence_typeLookUP = Object.assign(
+          [],
+          this.licence_typeLookUP.list
+        );
+  console.log('licence_typeLookUP', licence_typeLookUP);
+      },
+      (error) => {
+//        console.log("error");
+      }
+    );
+  }
   getAllLicense() {
     this.service.getLicense().subscribe(res => {
       this.license = res
@@ -65,6 +83,8 @@ export class LicenseComponent implements OnInit {
     this.isnew=true
     console.log('event.data', event.data);
     this.formLice.patchValue({
+      file_no:event.data.file_no,
+      licence_type:event.data.licence_type,
       license_id: event.data.license_id,
       mineral_use_id: event.data.mineral_use_id,
       customer_id: event.data.customer_id,

@@ -322,7 +322,11 @@ export class ServiceComponent implements OnInit {
     this.todoID = response[2];
     this.getAll(this.AppNo);
   }
-
+  saveDataCompletedAA(response) {
+    //this.saveForm('{}');
+    this.disablefins = false;
+  
+  }
   saveNote() {
     this.serviceService
       .saveNote(this.NoteObj.remarks, this.NoteObj.postit_note_code, this.DocID)

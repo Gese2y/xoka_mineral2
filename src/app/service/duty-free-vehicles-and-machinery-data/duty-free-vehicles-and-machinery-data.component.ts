@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ServiceService } from '../service.service';
 import { NotificationsService } from 'angular2-notifications';
@@ -12,7 +12,7 @@ import { formatDate } from '@angular/common';
 })
 export class DutyFreeVehiclesAndMachineryDataComponent implements OnInit {
 licenseForm: FormGroup;
-
+ @Output() saveDataCompletedAA = new EventEmitter();
   isEdited:boolean=false
   license:any
   Isnodata:boolean=true
@@ -51,6 +51,7 @@ licenseForm: FormGroup;
         clickToClose: true
       });
         this.havedata=false
+     this.saveDataCompletedAA.emit();
        // this.serviceComponent.disablefins=false
       this.isEdited = true
       this.getAll();

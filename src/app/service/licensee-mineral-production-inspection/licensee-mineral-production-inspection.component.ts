@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ServiceService } from '../service.service';
 import { NotificationsService } from 'angular2-notifications';
@@ -16,6 +16,7 @@ export class LicenseeMineralProductionInspectionComponent implements OnInit {
  isEdited:boolean=false
   Isnodata: boolean=true;
 havedata:boolean=false
+@Output() saveDataCompletedAA = new EventEmitter();
   constructor(private formBuilder: FormBuilder,
     private service: ServiceService,
     private notificationsService: NotificationsService,) { }
@@ -51,6 +52,7 @@ havedata:boolean=false
         pauseOnHover: true,
         clickToClose: true
       });
+       this.saveDataCompletedAA.emit();
         this.havedata=false
        // this.serviceComponent.disablefins=false
       this.isEdited = true

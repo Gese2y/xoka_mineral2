@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ServiceService } from '../service.service';
 import { NotificationsService } from 'angular2-notifications';
@@ -16,6 +16,7 @@ isEdited:boolean=false
   license: Object;
   Isnodata: boolean=true;
   havedata:boolean=false
+  @Output() saveDataCompletedAA = new EventEmitter();
   constructor(private formBuilder: FormBuilder,
     private service: ServiceService,
     private notificationsService: NotificationsService,) { }
@@ -62,6 +63,7 @@ isEdited:boolean=false
         clickToClose: true
       });
         this.havedata=false
+         this.saveDataCompletedAA.emit();
        // this.serviceComponent.disablefins=false
       this.isEdited = true
       this.getAll();

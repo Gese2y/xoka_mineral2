@@ -50,7 +50,8 @@ export class ServiceService {
   private SendNoteURL = environment.rootPath + 'BPEL/sendNot';  // URL to web api
   private DeleteNoteURL = environment.rootPath + 'BPEL/Delete_postit_notes';  // URL to web api
   private SaveNoteURL = environment.rootPath + 'BPEL/Edit_postit_notes';
-  private getAllDocumentURL = environment.rootPath + 'BPEL/getAllDocument';  // URL to web api
+  private getAllDocumentURL = environment.rootPath + 'BPEL/getAllDocument'; 
+   private licence_typeLookUP = environment.rootPath + "licence_type"; // URL to web api // URL to web api
 
   userid: string;
   AppNO;
@@ -378,6 +379,13 @@ export class ServiceService {
   getCustomerTypeLookUP() {
     return this.http.get(
       this.CustomerTypeLookUP +
+        "?" +
+        "sortOrder=test&currentFilter&searchString&pageIndex&pageSize"
+    );
+  }
+   getlicence_typeLookUP() {
+    return this.http.get(
+      this.licence_typeLookUP +
         "?" +
         "sortOrder=test&currentFilter&searchString&pageIndex&pageSize"
     );

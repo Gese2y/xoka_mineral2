@@ -325,7 +325,7 @@ export class ResourceDepositComponent implements OnInit {
     this.ResourceDepositService.getmineralID().subscribe(
       (response: any) => {
         this.accountNoos = response;
-        // console.log('crystal structure',this.accountNoos );
+         console.log('crystal structure',this.accountNoos );
         // console.log("get-getmineralID", response);
       },
       (error) => {

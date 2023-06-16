@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ServiceService } from '../service.service';
@@ -16,6 +16,7 @@ isEdited:boolean=false
   license: Object;
   Isnodata: boolean=true;
   havedata:boolean=false
+  @Output() saveDataCompletedAA = new EventEmitter();
   constructor(private formBuilder: FormBuilder, private service: ServiceService,
     private notificationsService: NotificationsService,) { }
 
@@ -56,6 +57,7 @@ isEdited:boolean=false
         pauseOnHover: true,
         clickToClose: true
       });
+       this.saveDataCompletedAA.emit();
         this.havedata=false
        // this.serviceComponent.disablefins=false
       this.isEdited = true
